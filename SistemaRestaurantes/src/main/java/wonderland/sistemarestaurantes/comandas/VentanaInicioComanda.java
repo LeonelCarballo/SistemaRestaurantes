@@ -4,17 +4,36 @@
  */
 package wonderland.sistemarestaurantes.comandas;
 
+import wonderland.sistemarestaurantes.control.ControlPresentacion;
+
 /**
  *
  * @author Dana Chavez
  */
 public class VentanaInicioComanda extends javax.swing.JFrame {
 
+    private ControlPresentacion control;
+    
     /**
      * Creates new form ResumenComanda
      */
     public VentanaInicioComanda() {
         initComponents();
+    }
+
+    public VentanaInicioComanda(ControlPresentacion control) {
+        this.control = control;
+        initComponents();
+        setLocationRelativeTo(null);
+    }
+    
+    public void mostrar(){
+        setVisible(true);
+    }
+    
+    public void cerrar(){
+        setVisible(false);
+        dispose();
     }
 
     /**
@@ -37,6 +56,11 @@ public class VentanaInicioComanda extends javax.swing.JFrame {
 
         jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
         jButtonAnterior.setContentAreaFilled(false);
+        jButtonAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnteriorActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 100, 100));
 
         jButtonNuevaComanda.setFont(new java.awt.Font("Leelawadee UI", 0, 24)); // NOI18N
@@ -73,8 +97,14 @@ public class VentanaInicioComanda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonComandasAbiertasActionPerformed
 
     private void jButtonNuevaComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevaComandaActionPerformed
-        // TODO add your handling code here:
+        cerrar();
+        control.mostrarSeleccionarMesaComanda();
     }//GEN-LAST:event_jButtonNuevaComandaActionPerformed
+
+    private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
+        cerrar();
+        control.mostrarVentanaPrincial();
+    }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
     /**
      * @param args the command line arguments

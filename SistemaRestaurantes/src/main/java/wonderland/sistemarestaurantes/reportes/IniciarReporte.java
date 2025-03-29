@@ -4,17 +4,34 @@
  */
 package wonderland.sistemarestaurantes.reportes;
 
+import wonderland.sistemarestaurantes.control.ControlPresentacion;
+
 /**
  *
  * @author Dana Chavez
  */
 public class IniciarReporte extends javax.swing.JFrame {
 
+    private ControlPresentacion control;
+    
     /**
      * Creates new form IniciarReporte
      */
     public IniciarReporte() {
         initComponents();
+    }
+
+    public IniciarReporte(ControlPresentacion control) {
+        this.control = control;
+    }
+    
+    public void mostrar(){
+        setVisible(true);
+    }
+    
+    public void cerrar(){
+        setVisible(false);
+        dispose();
     }
 
     /**
