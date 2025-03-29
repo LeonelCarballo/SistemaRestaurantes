@@ -54,6 +54,11 @@ public class SeleccionarMesaComanda extends javax.swing.JFrame {
 
         jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
         jButtonAnterior.setContentAreaFilled(false);
+        jButtonAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnteriorActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 100, 100));
 
         jPanelMesaSeleccionada.setBackground(new java.awt.Color(29, 39, 56));
@@ -64,6 +69,11 @@ public class SeleccionarMesaComanda extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
+        cerrar();
+        control.mostrarVentanaInicioComanda();
+    }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
     /**
      * @param args the command line arguments

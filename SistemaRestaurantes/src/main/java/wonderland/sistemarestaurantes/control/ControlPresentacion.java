@@ -18,6 +18,7 @@ import wonderland.sistemarestaurantes.ingredientes.NuevoIngrediente;
 import wonderland.sistemarestaurantes.productos.EditarProducto;
 import wonderland.sistemarestaurantes.productos.ListaProductos;
 import wonderland.sistemarestaurantes.productos.NuevoProducto;
+import wonderland.sistemarestaurantes.reportes.IniciarReporte;
 
 /**
  *
@@ -25,74 +26,79 @@ import wonderland.sistemarestaurantes.productos.NuevoProducto;
  */
 public class ControlPresentacion {
     
-    public void mostrarPantallaPrincial(){
-        VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
+    public void mostrarVentanaPrincial(){
+        VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(this);
         ventanaPrincipal.mostrar();
     }
     
     public void mostrarMesas(){
-        Mesas mesas = new Mesas();
+        Mesas mesas = new Mesas(this);
         mesas.mostrar();
     }
     
     public void mostrarListaClientes(){
-        ListaClientes listaClientes = new ListaClientes();
+        ListaClientes listaClientes = new ListaClientes(this);
         listaClientes.mostrar();
     }
     
     public void mostrarPerfilCliente(){
-        PerfilCliente perfilCliente = new PerfilCliente();
+        PerfilCliente perfilCliente = new PerfilCliente(this);
         perfilCliente.mostrar();
     }
     
     public void mostrarRegistrarCliente(){
-        RegistrarCliente registrarCliente = new RegistrarCliente();
+        RegistrarCliente registrarCliente = new RegistrarCliente(this);
         registrarCliente.mostrar();
     }
     
     public void mostrarResumenComanda(){
-        ResumenComanda resumenComanda = new ResumenComanda();
+        ResumenComanda resumenComanda = new ResumenComanda(this);
         resumenComanda.mostrar();
     }
     
     public void mostrarSeleccionarMesaComanda(){
-        SeleccionarMesaComanda seleccionarMesa = new SeleccionarMesaComanda();
+        SeleccionarMesaComanda seleccionarMesa = new SeleccionarMesaComanda(this);
         seleccionarMesa.mostrar();
     }
     
     public void mostrarSeleccionarProductosComanda(){
-        SeleccionarProductosComanda seleccionarProducto = new SeleccionarProductosComanda();
+        SeleccionarProductosComanda seleccionarProducto = new SeleccionarProductosComanda(this);
         seleccionarProducto.mostrar();
     }
     
     public void mostrarVentanaInicioComanda(){
-        VentanaInicioComanda ventanaInicioComanda = new VentanaInicioComanda();
+        VentanaInicioComanda ventanaInicioComanda = new VentanaInicioComanda(this);
         ventanaInicioComanda.mostrar();
     }
     
     public void mostrarListaIngredientes(){
-        ListaIngredientes listaIngredientes = new ListaIngredientes();
+        ListaIngredientes listaIngredientes = new ListaIngredientes(this);
         listaIngredientes.mostrar();
     }
     
     public void mostrarNuevoIngrediente(){
-        NuevoIngrediente nuevoIngrediente = new NuevoIngrediente();
+        NuevoIngrediente nuevoIngrediente = new NuevoIngrediente(this);
         nuevoIngrediente.mostrar();
     }
     
     public void mostrarEditarProducto(){
-        EditarProducto editarProducto = new EditarProducto();
+        EditarProducto editarProducto = new EditarProducto(this);
         editarProducto.mostrar();
     }
     
     public void mostrarListaProductos(){
-        ListaProductos listaProductos = new ListaProductos();
+        ListaProductos listaProductos = new ListaProductos(this);
         listaProductos.mostrar();
     }
     
     public void mostrarNuevoProducto(){
-        NuevoProducto nuevoProducto = new NuevoProducto();
+        NuevoProducto nuevoProducto = new NuevoProducto(this);
         nuevoProducto.mostrar();
+    }
+    
+    public void mostrarIniciarReporte(){
+        IniciarReporte iniciarReporte = new IniciarReporte(this);
+        iniciarReporte.mostrar();
     }
     
 }

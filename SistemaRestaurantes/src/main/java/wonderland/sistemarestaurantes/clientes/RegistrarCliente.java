@@ -63,6 +63,11 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
         jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
         jButtonAnterior.setContentAreaFilled(false);
+        jButtonAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnteriorActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, -1, -1));
 
         jPanelColor.setBackground(new java.awt.Color(29, 39, 56));
@@ -171,6 +176,11 @@ public class RegistrarCliente extends javax.swing.JFrame {
     private void jTextFieldTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldTelefonoActionPerformed
+
+    private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
+        cerrar();
+        control.mostrarListaClientes();
+    }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
     /**
      * @param args the command line arguments

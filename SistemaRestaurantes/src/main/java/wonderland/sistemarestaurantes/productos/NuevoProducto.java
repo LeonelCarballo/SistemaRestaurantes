@@ -56,6 +56,11 @@ public class NuevoProducto extends javax.swing.JFrame {
 
         jButtonRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonregresar.png"))); // NOI18N
         jButtonRegresar.setContentAreaFilled(false);
+        jButtonRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRegresarActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(291, 500, 280, 50));
 
         jTextFieldNombrePrecio.setBackground(new java.awt.Color(29, 39, 56));
@@ -102,6 +107,11 @@ public class NuevoProducto extends javax.swing.JFrame {
     private void jTextFieldNombrePrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombrePrecioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNombrePrecioActionPerformed
+
+    private void jButtonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegresarActionPerformed
+        cerrar();
+        control.mostrarListaProductos();
+    }//GEN-LAST:event_jButtonRegresarActionPerformed
 
     /**
      * @param args the command line arguments

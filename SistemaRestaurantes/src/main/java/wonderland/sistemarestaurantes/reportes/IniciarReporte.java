@@ -4,17 +4,34 @@
  */
 package wonderland.sistemarestaurantes.reportes;
 
+import wonderland.sistemarestaurantes.control.ControlPresentacion;
+
 /**
  *
  * @author Dana Chavez
  */
 public class IniciarReporte extends javax.swing.JFrame {
 
+    private ControlPresentacion control;
+    
     /**
      * Creates new form IniciarReporte
      */
     public IniciarReporte() {
         initComponents();
+    }
+
+    public IniciarReporte(ControlPresentacion control) {
+        this.control = control;
+    }
+    
+    public void mostrar(){
+        setVisible(true);
+    }
+    
+    public void cerrar(){
+        setVisible(false);
+        dispose();
     }
 
     /**
@@ -32,11 +49,11 @@ public class IniciarReporte extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 443, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 372, Short.MAX_VALUE)
         );
 
         pack();

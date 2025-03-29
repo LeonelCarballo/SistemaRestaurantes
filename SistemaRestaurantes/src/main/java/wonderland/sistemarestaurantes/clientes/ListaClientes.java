@@ -57,10 +57,20 @@ public class ListaClientes extends javax.swing.JFrame {
 
         jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
         jButtonAnterior.setContentAreaFilled(false);
+        jButtonAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnteriorActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, -1, -1));
 
         jButtonRegistrarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonRegistrarCliente.png"))); // NOI18N
         jButtonRegistrarCliente.setContentAreaFilled(false);
+        jButtonRegistrarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRegistrarClienteActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonRegistrarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, -1, 50));
 
         buscador.setBackground(new java.awt.Color(255, 255, 255));
@@ -94,6 +104,16 @@ public class ListaClientes extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
+        cerrar();
+        control.mostrarVentanaPrincial();
+    }//GEN-LAST:event_jButtonAnteriorActionPerformed
+
+    private void jButtonRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarClienteActionPerformed
+        cerrar();
+        control.mostrarRegistrarCliente();
+    }//GEN-LAST:event_jButtonRegistrarClienteActionPerformed
 
     /**
      * @param args the command line arguments
