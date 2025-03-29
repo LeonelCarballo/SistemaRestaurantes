@@ -4,17 +4,36 @@
  */
 package wonderland.sistemarestaurantes.ingredientes;
 
+import wonderland.sistemarestaurantes.control.ControlPresentacion;
+
 /**
  *
  * @author Dana Chavez
  */
 public class ListaIngredientes extends javax.swing.JFrame {
 
+    private ControlPresentacion control;
+    
     /**
      * Creates new form ListaIngredientes
      */
     public ListaIngredientes() {
         initComponents();
+    }
+
+    public ListaIngredientes(ControlPresentacion control) {
+        this.control = control;
+        initComponents();
+        setLocationRelativeTo(null);
+    }
+    
+    public void mostrar(){
+        setVisible(true);
+    }
+    
+    public void cerrar(){
+        setVisible(false);
+        dispose();
     }
 
     /**

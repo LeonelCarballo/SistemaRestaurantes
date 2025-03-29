@@ -4,17 +4,36 @@
  */
 package wonderland.sistemarestaurantes.comandas;
 
+import wonderland.sistemarestaurantes.control.ControlPresentacion;
+
 /**
  *
  * @author Dana Chavez
  */
 public class SeleccionarMesaComanda extends javax.swing.JFrame {
 
+    private ControlPresentacion control;
+    
     /**
      * Creates new form SeleccionarProductosComanda
      */
     public SeleccionarMesaComanda() {
         initComponents();
+    }
+
+    public SeleccionarMesaComanda(ControlPresentacion control) {
+        this.control = control;
+        initComponents();
+        setLocationRelativeTo(null);
+    }
+    
+    public void mostrar(){
+        setVisible(true);
+    }
+    
+    public void cerrar(){
+        setVisible(false);
+        dispose();
     }
 
     /**

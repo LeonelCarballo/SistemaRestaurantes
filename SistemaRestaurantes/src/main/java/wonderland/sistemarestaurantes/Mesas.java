@@ -4,17 +4,36 @@
  */
 package wonderland.sistemarestaurantes;
 
+import wonderland.sistemarestaurantes.control.ControlPresentacion;
+
 /**
  *
  * @author Dana Chavez
  */
 public class Mesas extends javax.swing.JFrame {
 
+    private ControlPresentacion control;
+    
     /**
      * Creates new form Mesas
      */
     public Mesas() {
         initComponents();
+    }
+
+    public Mesas(ControlPresentacion control) {
+        this.control = control;
+        initComponents();
+        setLocationRelativeTo(null);
+    }
+    
+    public void mostrar(){
+        setVisible(true);
+    }
+    
+    public void cerrar(){
+        setVisible(false);
+        dispose();
     }
 
     /**

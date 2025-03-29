@@ -4,17 +4,36 @@
  */
 package wonderland.sistemarestaurantes.clientes;
 
+import wonderland.sistemarestaurantes.control.ControlPresentacion;
+
 /**
  *
  * @author Dana Chavez
  */
 public class PerfilCliente extends javax.swing.JFrame {
 
+    private ControlPresentacion control;
+    
     /**
      * Creates new form ListaClientes
      */
     public PerfilCliente() {
         initComponents();
+    }
+
+    public PerfilCliente(ControlPresentacion control) {
+        this.control = control;
+        initComponents();
+        setLocationRelativeTo(null);
+    }
+    
+    public void mostrar(){
+        setVisible(true);
+    }
+    
+    public void cerrar(){
+        setVisible(false);
+        dispose();
     }
 
     /**

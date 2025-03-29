@@ -4,17 +4,36 @@
  */
 package wonderland.sistemarestaurantes.productos;
 
+import wonderland.sistemarestaurantes.control.ControlPresentacion;
+
 /**
  *
  * @author Dana Chavez
  */
 public class ListaProductos extends javax.swing.JFrame {
 
+    private ControlPresentacion control;
+    
     /**
      * Creates new form Productos
      */
     public ListaProductos() {
         initComponents();
+    }
+
+    public ListaProductos(ControlPresentacion control) {
+        this.control = control;
+        initComponents();
+        setLocationRelativeTo(null);
+    }
+    
+    public void mostrar(){
+        setVisible(true);
+    }
+    
+    public void cerrar(){
+        setVisible(false);
+        dispose();
     }
 
     /**
