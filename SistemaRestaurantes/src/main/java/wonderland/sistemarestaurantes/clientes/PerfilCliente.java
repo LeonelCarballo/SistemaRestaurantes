@@ -26,55 +26,199 @@ public class PerfilCliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabelTituloCorreoElectronico2 = new javax.swing.JLabel();
+        jLabelTituloFechaRegistro = new javax.swing.JLabel();
+        jLabelTituloCorreoElectronico = new javax.swing.JLabel();
+        jLabelTituloTelefono = new javax.swing.JLabel();
+        jLabelTituloNombre = new javax.swing.JLabel();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jPanelNumVisitas = new javax.swing.JPanel();
+        jLabelTituloTotal = new javax.swing.JLabel();
+        jTextFieldPuntos = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jTextFieldFechaRegistro = new javax.swing.JTextField();
+        jTextFieldCorreo = new javax.swing.JTextField();
+        jTextFieldTelefono = new javax.swing.JTextField();
+        jTextFieldNombreCliente = new javax.swing.JTextField();
+        jPanelNombreCliente = new javax.swing.JPanel();
         jButtonAnterior = new javax.swing.JButton();
-        jButtonRegistrarCliente = new javax.swing.JButton();
-        buscador = new javax.swing.JTextField();
-        jPanelColor = new javax.swing.JPanel();
-        jScrollListaClientes = new javax.swing.JScrollPane();
         jLabelClientesFondo = new javax.swing.JLabel();
+        jPanelTotalAcum1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabelTituloCorreoElectronico2.setFont(new java.awt.Font("Book Antiqua", 0, 24)); // NOI18N
+        jLabelTituloCorreoElectronico2.setText("Visitas");
+        getContentPane().add(jLabelTituloCorreoElectronico2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 310, -1, -1));
+
+        jLabelTituloFechaRegistro.setFont(new java.awt.Font("Book Antiqua", 0, 24)); // NOI18N
+        jLabelTituloFechaRegistro.setText("Fecha Registro");
+        getContentPane().add(jLabelTituloFechaRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 420, -1, -1));
+
+        jLabelTituloCorreoElectronico.setFont(new java.awt.Font("Book Antiqua", 0, 24)); // NOI18N
+        jLabelTituloCorreoElectronico.setText("Correo Electronico");
+        getContentPane().add(jLabelTituloCorreoElectronico, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, -1, -1));
+
+        jLabelTituloTelefono.setFont(new java.awt.Font("Book Antiqua", 0, 24)); // NOI18N
+        jLabelTituloTelefono.setText("Telefono");
+        getContentPane().add(jLabelTituloTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, -1, -1));
+
+        jLabelTituloNombre.setFont(new java.awt.Font("Book Antiqua", 0, 24)); // NOI18N
+        jLabelTituloNombre.setText("Nombre Completo");
+        getContentPane().add(jLabelTituloNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, -1, -1));
+
+        jToggleButton1.setBackground(new java.awt.Color(119, 151, 189));
+        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonEditar.png"))); // NOI18N
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 160, 40, 40));
+
+        jPanelNumVisitas.setBackground(new java.awt.Color(10, 15, 31));
+
+        javax.swing.GroupLayout jPanelNumVisitasLayout = new javax.swing.GroupLayout(jPanelNumVisitas);
+        jPanelNumVisitas.setLayout(jPanelNumVisitasLayout);
+        jPanelNumVisitasLayout.setHorizontalGroup(
+            jPanelNumVisitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanelNumVisitasLayout.setVerticalGroup(
+            jPanelNumVisitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jPanelNumVisitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 340, 80, 80));
+
+        jLabelTituloTotal.setFont(new java.awt.Font("Baskerville Old Face", 0, 24)); // NOI18N
+        jLabelTituloTotal.setText("Total acumulado:");
+        getContentPane().add(jLabelTituloTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 510, -1, -1));
+
+        jTextFieldPuntos.setBackground(new java.awt.Color(25, 33, 50));
+        jTextFieldPuntos.setBorder(null);
+        jTextFieldPuntos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldPuntosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextFieldPuntos, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 210, 140, 50));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 490, 500, 10));
+
+        jTextFieldFechaRegistro.setBackground(new java.awt.Color(25, 30, 52));
+        jTextFieldFechaRegistro.setBorder(null);
+        jTextFieldFechaRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldFechaRegistroActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextFieldFechaRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 450, 270, 30));
+
+        jTextFieldCorreo.setBackground(new java.awt.Color(25, 30, 52));
+        jTextFieldCorreo.setBorder(null);
+        jTextFieldCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldCorreoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextFieldCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 380, 270, 30));
+
+        jTextFieldTelefono.setBackground(new java.awt.Color(25, 30, 52));
+        jTextFieldTelefono.setBorder(null);
+        jTextFieldTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldTelefonoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextFieldTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, 270, 30));
+
+        jTextFieldNombreCliente.setBackground(new java.awt.Color(25, 30, 52));
+        jTextFieldNombreCliente.setBorder(null);
+        jTextFieldNombreCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldNombreClienteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextFieldNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, 270, 30));
+
+        jPanelNombreCliente.setBackground(new java.awt.Color(10, 15, 31));
+
+        javax.swing.GroupLayout jPanelNombreClienteLayout = new javax.swing.GroupLayout(jPanelNombreCliente);
+        jPanelNombreCliente.setLayout(jPanelNombreClienteLayout);
+        jPanelNombreClienteLayout.setHorizontalGroup(
+            jPanelNombreClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanelNombreClienteLayout.setVerticalGroup(
+            jPanelNombreClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jPanelNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 460, 110));
 
         jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
         jButtonAnterior.setContentAreaFilled(false);
         getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, -1, -1));
 
-        jButtonRegistrarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonRegistrarCliente.png"))); // NOI18N
-        jButtonRegistrarCliente.setContentAreaFilled(false);
-        getContentPane().add(jButtonRegistrarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, -1, 50));
-
-        buscador.setBackground(new java.awt.Color(255, 255, 255));
-        buscador.setForeground(new java.awt.Color(0, 0, 0));
-        buscador.setText("Cliente");
-        getContentPane().add(buscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, 250, 30));
-
-        jPanelColor.setBackground(new java.awt.Color(19, 28, 54));
-
-        javax.swing.GroupLayout jPanelColorLayout = new javax.swing.GroupLayout(jPanelColor);
-        jPanelColor.setLayout(jPanelColorLayout);
-        jPanelColorLayout.setHorizontalGroup(
-            jPanelColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelColorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollListaClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanelColorLayout.setVerticalGroup(
-            jPanelColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelColorLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollListaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        getContentPane().add(jPanelColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 540, 300));
-
         jLabelClientesFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoClientes.png"))); // NOI18N
         getContentPane().add(jLabelClientesFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        jPanelTotalAcum1.setBackground(new java.awt.Color(10, 15, 31));
+
+        javax.swing.GroupLayout jPanelTotalAcum1Layout = new javax.swing.GroupLayout(jPanelTotalAcum1);
+        jPanelTotalAcum1.setLayout(jPanelTotalAcum1Layout);
+        jPanelTotalAcum1Layout.setHorizontalGroup(
+            jPanelTotalAcum1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanelTotalAcum1Layout.setVerticalGroup(
+            jPanelTotalAcum1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jPanelTotalAcum1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 500, 130, 40));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextFieldNombreClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNombreClienteActionPerformed
+
+    private void jTextFieldTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldTelefonoActionPerformed
+
+    private void jTextFieldCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCorreoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldCorreoActionPerformed
+
+    private void jTextFieldFechaRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldFechaRegistroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldFechaRegistroActionPerformed
+
+    private void jTextFieldPuntosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPuntosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldPuntosActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -113,11 +257,23 @@ public class PerfilCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField buscador;
     private javax.swing.JButton jButtonAnterior;
-    private javax.swing.JButton jButtonRegistrarCliente;
     private javax.swing.JLabel jLabelClientesFondo;
-    private javax.swing.JPanel jPanelColor;
-    private javax.swing.JScrollPane jScrollListaClientes;
+    private javax.swing.JLabel jLabelTituloCorreoElectronico;
+    private javax.swing.JLabel jLabelTituloCorreoElectronico2;
+    private javax.swing.JLabel jLabelTituloFechaRegistro;
+    private javax.swing.JLabel jLabelTituloNombre;
+    private javax.swing.JLabel jLabelTituloTelefono;
+    private javax.swing.JLabel jLabelTituloTotal;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelNombreCliente;
+    private javax.swing.JPanel jPanelNumVisitas;
+    private javax.swing.JPanel jPanelTotalAcum1;
+    private javax.swing.JTextField jTextFieldCorreo;
+    private javax.swing.JTextField jTextFieldFechaRegistro;
+    private javax.swing.JTextField jTextFieldNombreCliente;
+    private javax.swing.JTextField jTextFieldPuntos;
+    private javax.swing.JTextField jTextFieldTelefono;
+    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }
