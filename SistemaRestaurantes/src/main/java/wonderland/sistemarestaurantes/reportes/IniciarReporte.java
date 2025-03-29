@@ -49,25 +49,35 @@ public class IniciarReporte extends javax.swing.JFrame {
         jLabelFondoInicioReportes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButtonReporteComandas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonReporteComanda.png"))); // NOI18N
         jButtonReporteComandas.setContentAreaFilled(false);
-        getContentPane().add(jButtonReporteComandas, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, -1, -1));
+        jButtonReporteComandas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReporteComandasActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonReporteComandas, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, 280, 90));
 
         jButtonReporteClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonReporteCliente.png"))); // NOI18N
         jButtonReporteClientes.setContentAreaFilled(false);
-        getContentPane().add(jButtonReporteClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 360, -1, -1));
+        getContentPane().add(jButtonReporteClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, 280, 90));
 
         jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
         jButtonAnterior.setContentAreaFilled(false);
-        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 100, 100));
+        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 80, 80));
 
         jLabelFondoInicioReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoInicioReportes.png"))); // NOI18N
-        getContentPane().add(jLabelFondoInicioReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jLabelFondoInicioReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1230, 560));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonReporteComandasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReporteComandasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonReporteComandasActionPerformed
 
     /**
      * @param args the command line arguments
