@@ -13,6 +13,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,6 +44,10 @@ public class Comanda implements Serializable {
     @Temporal (TemporalType.TIMESTAMP)
     @Column (name = "fechaHora_creacion" , nullable = false)
     private Calendar fechaHora_creacion;
+    
+    @ManyToOne()
+    @JoinColumn(name = "id_cliente")
+    private Cliente cliente;
     
     public Comanda() {
     }
