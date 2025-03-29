@@ -1,2 +1,5 @@
 /SistemaRestaurantes/target/
 /SistemaRestaurantesDominio/target/
+/SistemaRestaurantesNegocio/target/
+/SistemaRestaurantesPersistencia/target/
+/SistemaRestaurantesPersistencia/nbproject/

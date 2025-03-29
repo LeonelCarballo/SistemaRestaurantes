@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.mycompany.sistemarestaurantespersistencia;
+package wonderland.sistemarestaurantesdominio;
 
 /**
  *
  * @author leoca
  */
-public class SistemaRestaurantesPersistencia {
+public class SistemaRestaurantesDominio {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
