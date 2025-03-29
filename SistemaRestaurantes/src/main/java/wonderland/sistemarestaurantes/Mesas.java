@@ -4,17 +4,36 @@
  */
 package wonderland.sistemarestaurantes;
 
+import wonderland.sistemarestaurantes.control.ControlPresentacion;
+
 /**
  *
  * @author Dana Chavez
  */
 public class Mesas extends javax.swing.JFrame {
 
+    private ControlPresentacion control;
+    
     /**
      * Creates new form Mesas
      */
     public Mesas() {
         initComponents();
+    }
+
+    public Mesas(ControlPresentacion control) {
+        this.control = control;
+        initComponents();
+        setLocationRelativeTo(null);
+    }
+    
+    public void mostrar(){
+        setVisible(true);
+    }
+    
+    public void cerrar(){
+        setVisible(false);
+        dispose();
     }
 
     /**
@@ -38,6 +57,11 @@ public class Mesas extends javax.swing.JFrame {
 
         jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
         jButtonAnterior.setContentAreaFilled(false);
+        jButtonAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnteriorActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, -1, -1));
 
         jLabelFondoMesas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/MesasFondo.png"))); // NOI18N
@@ -45,6 +69,11 @@ public class Mesas extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
+        cerrar();
+        control.mostrarVentanaPrincial();
+    }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
     /**
      * @param args the command line arguments
