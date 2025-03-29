@@ -26,13 +26,22 @@ public class SeleccionarMesaComanda extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabelFondoSeleccionarProductosComanda = new javax.swing.JLabel();
+        jButtonAnterior = new javax.swing.JButton();
+        jPanelMesaSeleccionada = new javax.swing.JPanel();
+        jLabelFondoSeleccionarMesaComanda = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabelFondoSeleccionarProductosComanda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoComandaSeleccionarProducto.png"))); // NOI18N
-        getContentPane().add(jLabelFondoSeleccionarProductosComanda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
+        jButtonAnterior.setContentAreaFilled(false);
+        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 100, 100));
+
+        jPanelMesaSeleccionada.setBackground(new java.awt.Color(29, 39, 56));
+        getContentPane().add(jPanelMesaSeleccionada, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 460, 40, 40));
+
+        jLabelFondoSeleccionarMesaComanda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoComandaSeleccionarMesa.png"))); // NOI18N
+        getContentPane().add(jLabelFondoSeleccionarMesaComanda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -74,6 +83,8 @@ public class SeleccionarMesaComanda extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabelFondoSeleccionarProductosComanda;
+    private javax.swing.JButton jButtonAnterior;
+    private javax.swing.JLabel jLabelFondoSeleccionarMesaComanda;
+    private javax.swing.JPanel jPanelMesaSeleccionada;
     // End of variables declaration//GEN-END:variables
 }

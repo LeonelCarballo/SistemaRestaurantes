@@ -26,11 +26,16 @@ public class ResumenComanda extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButtonAnterior = new javax.swing.JButton();
         jButtonConfirmar = new javax.swing.JButton();
         FondoResumen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
+        jButtonAnterior.setContentAreaFilled(false);
+        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 100, 100));
 
         jButtonConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonConfirmar.png"))); // NOI18N
         jButtonConfirmar.setContentAreaFilled(false);
@@ -79,6 +84,7 @@ public class ResumenComanda extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FondoResumen;
+    private javax.swing.JButton jButtonAnterior;
     private javax.swing.JButton jButtonConfirmar;
     // End of variables declaration//GEN-END:variables
 }

@@ -26,6 +26,7 @@ public class EditarProducto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButtonRegresar = new javax.swing.JButton();
         jTextFieldNombrePrecio = new javax.swing.JTextField();
         jTextFieldNombreProducto = new javax.swing.JTextField();
         jComboBoxCategoria = new javax.swing.JComboBox<>();
@@ -33,6 +34,10 @@ public class EditarProducto extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButtonRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonregresar.png"))); // NOI18N
+        jButtonRegresar.setContentAreaFilled(false);
+        getContentPane().add(jButtonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(291, 500, 280, 50));
 
         jTextFieldNombrePrecio.setBackground(new java.awt.Color(29, 39, 56));
         jTextFieldNombrePrecio.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
@@ -116,6 +121,7 @@ public class EditarProducto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonRegresar;
     private javax.swing.JComboBox<String> jComboBoxCategoria;
     private javax.swing.JLabel jLabelFondoEditarProducto;
     private javax.swing.JTextField jTextFieldNombrePrecio;
