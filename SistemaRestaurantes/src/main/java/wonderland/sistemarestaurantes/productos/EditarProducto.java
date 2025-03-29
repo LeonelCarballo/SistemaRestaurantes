@@ -4,36 +4,17 @@
  */
 package wonderland.sistemarestaurantes.productos;
 
-import wonderland.sistemarestaurantes.control.ControlPresentacion;
-
 /**
  *
  * @author Dana Chavez
  */
 public class EditarProducto extends javax.swing.JFrame {
 
-    private ControlPresentacion control;
-    
     /**
      * Creates new form NuevoProducto
      */
     public EditarProducto() {
         initComponents();
-    }
-
-    public EditarProducto(ControlPresentacion control) {
-        this.control = control;
-        initComponents();
-        setLocationRelativeTo(null);
-    }
-    
-    public void mostrar(){
-        setVisible(true);
-    }
-    
-    public void cerrar(){
-        setVisible(false);
-        dispose();
     }
 
     /**

@@ -4,36 +4,17 @@
  */
 package wonderland.sistemarestaurantes.productos;
 
-import wonderland.sistemarestaurantes.control.ControlPresentacion;
-
 /**
  *
  * @author Dana Chavez
  */
 public class ListaProductos extends javax.swing.JFrame {
 
-    private ControlPresentacion control;
-    
     /**
      * Creates new form Productos
      */
     public ListaProductos() {
         initComponents();
-    }
-
-    public ListaProductos(ControlPresentacion control) {
-        this.control = control;
-        initComponents();
-        setLocationRelativeTo(null);
-    }
-    
-    public void mostrar(){
-        setVisible(true);
-    }
-    
-    public void cerrar(){
-        setVisible(false);
-        dispose();
     }
 
     /**
@@ -58,11 +39,6 @@ public class ListaProductos extends javax.swing.JFrame {
 
         jButtonAnadirProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnadirProducto.png"))); // NOI18N
         jButtonAnadirProducto.setContentAreaFilled(false);
-        jButtonAnadirProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAnadirProductoActionPerformed(evt);
-            }
-        });
         getContentPane().add(jButtonAnadirProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
 
         buscadorProductos.setBackground(new java.awt.Color(255, 255, 255));
@@ -81,11 +57,6 @@ public class ListaProductos extends javax.swing.JFrame {
 
         jButtonRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonregresar.png"))); // NOI18N
         jButtonRegresar.setContentAreaFilled(false);
-        jButtonRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRegresarActionPerformed(evt);
-            }
-        });
         getContentPane().add(jButtonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(291, 500, 280, 50));
 
         jLabelFondoMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/MenuFondo.png"))); // NOI18N
@@ -97,16 +68,6 @@ public class ListaProductos extends javax.swing.JFrame {
     private void buscadorProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscadorProductosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buscadorProductosActionPerformed
-
-    private void jButtonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegresarActionPerformed
-        cerrar();
-        control.mostrarVentanaPrincial();
-    }//GEN-LAST:event_jButtonRegresarActionPerformed
-
-    private void jButtonAnadirProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnadirProductoActionPerformed
-        cerrar();
-        control.mostrarNuevoProducto();
-    }//GEN-LAST:event_jButtonAnadirProductoActionPerformed
 
     /**
      * @param args the command line arguments
