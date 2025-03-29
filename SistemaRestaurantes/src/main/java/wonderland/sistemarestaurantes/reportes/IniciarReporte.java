@@ -26,18 +26,28 @@ public class IniciarReporte extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jButtonReporteComandas = new javax.swing.JButton();
+        jButtonReporteClientes = new javax.swing.JButton();
+        jButtonAnterior = new javax.swing.JButton();
+        jLabelFondoInicioReportes = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButtonReporteComandas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonReporteComanda.png"))); // NOI18N
+        jButtonReporteComandas.setContentAreaFilled(false);
+        getContentPane().add(jButtonReporteComandas, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, -1, -1));
+
+        jButtonReporteClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonReporteCliente.png"))); // NOI18N
+        jButtonReporteClientes.setContentAreaFilled(false);
+        getContentPane().add(jButtonReporteClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 360, -1, -1));
+
+        jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
+        jButtonAnterior.setContentAreaFilled(false);
+        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 100, 100));
+
+        jLabelFondoInicioReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoInicioReportes.png"))); // NOI18N
+        getContentPane().add(jLabelFondoInicioReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -78,5 +88,9 @@ public class IniciarReporte extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAnterior;
+    private javax.swing.JButton jButtonReporteClientes;
+    private javax.swing.JButton jButtonReporteComandas;
+    private javax.swing.JLabel jLabelFondoInicioReportes;
     // End of variables declaration//GEN-END:variables
 }

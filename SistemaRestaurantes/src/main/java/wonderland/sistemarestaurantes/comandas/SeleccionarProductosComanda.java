@@ -26,10 +26,15 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButtonAnterior = new javax.swing.JButton();
         jLabelFondoSeleccionarProductosComanda = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
+        jButtonAnterior.setContentAreaFilled(false);
+        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 100, 100));
 
         jLabelFondoSeleccionarProductosComanda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoComandaSeleccionarProducto.png"))); // NOI18N
         getContentPane().add(jLabelFondoSeleccionarProductosComanda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -73,6 +78,7 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAnterior;
     private javax.swing.JLabel jLabelFondoSeleccionarProductosComanda;
     // End of variables declaration//GEN-END:variables
 }

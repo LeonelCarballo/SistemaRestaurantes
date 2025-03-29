@@ -40,7 +40,7 @@ public class VentanaInicioComanda extends javax.swing.JFrame {
         getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 100, 100));
 
         jButtonNuevaComanda.setFont(new java.awt.Font("Leelawadee UI", 0, 24)); // NOI18N
-        jButtonNuevaComanda.setText("N U E V A  C O M A N D A");
+        jButtonNuevaComanda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonNuevaComanda.png"))); // NOI18N
         jButtonNuevaComanda.setBorder(null);
         jButtonNuevaComanda.setContentAreaFilled(false);
         jButtonNuevaComanda.addActionListener(new java.awt.event.ActionListener() {
@@ -48,10 +48,10 @@ public class VentanaInicioComanda extends javax.swing.JFrame {
                 jButtonNuevaComandaActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonNuevaComanda, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, 410, 100));
+        getContentPane().add(jButtonNuevaComanda, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, 350, 100));
 
         jButtonComandasAbiertas.setFont(new java.awt.Font("Leelawadee UI", 0, 24)); // NOI18N
-        jButtonComandasAbiertas.setText("C O M A N D A S  A B I E R T A S");
+        jButtonComandasAbiertas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bontonComandasActivas.png"))); // NOI18N
         jButtonComandasAbiertas.setBorder(null);
         jButtonComandasAbiertas.setContentAreaFilled(false);
         jButtonComandasAbiertas.addActionListener(new java.awt.event.ActionListener() {
@@ -59,7 +59,7 @@ public class VentanaInicioComanda extends javax.swing.JFrame {
                 jButtonComandasAbiertasActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonComandasAbiertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, 410, 100));
+        getContentPane().add(jButtonComandasAbiertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 350, 100));
 
         FondoInicioComandas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoInicioComandas.png"))); // NOI18N
         getContentPane().add(FondoInicioComandas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
