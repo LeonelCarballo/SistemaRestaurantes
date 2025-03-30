@@ -108,7 +108,7 @@ public class ClientesDAO implements IClientesDAO {
     @Override
     public List<Cliente> obtenerClientes() {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        String jpqlQuery = "SELECT v FROM Cliente v";
+        String jpqlQuery = "SELECT v FROM Cliente v ORDER BY v.nombre ASC";
 
         TypedQuery<Cliente> query = entityManager.createQuery(jpqlQuery, Cliente.class);
         List<Cliente> clientes = query.getResultList();
