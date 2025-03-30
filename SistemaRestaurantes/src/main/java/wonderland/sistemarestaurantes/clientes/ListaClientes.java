@@ -4,8 +4,16 @@
  */
 package wonderland.sistemarestaurantes.clientes;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JPanel;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantesdominio.Cliente;
 import wonderland.sistemarestaurantesnegocio.IClientesBO;
+import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
 /**
  *
@@ -15,24 +23,35 @@ public class ListaClientes extends javax.swing.JFrame {
     
     private IClientesBO clientesBO;
     private ControlPresentacion control;
+    private static final Logger LOG = Logger.getLogger(ListaClientes.class.getName());
+    
     
     /**
      * Creates new form ListaClientes
      */
-    public ListaClientes() {
-        initComponents();
-        this.clientesBO = clientesBO;
-    }
 
-    public ListaClientes(ControlPresentacion control) {
+    public ListaClientes(ControlPresentacion control, IClientesBO clientesBO) {
         this.control = control;
         initComponents();
+        this.clientesBO = clientesBO;
         setLocationRelativeTo(null);
+        mostrarInformacionClientes();
     }
     
-    public void mostrarInformacionClientes(){
-        
+    public void mostrarInformacionClientes() {
+        panelListaClientes.removeAll(); // Limpiar panel antes de agregar nuevos clientes
+        try {
+            for (Cliente cliente : clientesBO.obtenerClientes()) { // Método que retorna la lista de clientes
+                panelListaClientes.add(new ClientePanel(cliente));
+            }
+        } catch (NegocioException ex) {
+             LOG.severe("No se pudo llenar la lista de clientes: " + ex.getMessage());
+        }
+
+        panelListaClientes.revalidate();
+        panelListaClientes.repaint();
     }
+
     
     public void mostrar(){
         setVisible(true);
@@ -58,12 +77,21 @@ public class ListaClientes extends javax.swing.JFrame {
         buscador = new javax.swing.JTextField();
         jPanelColor = new javax.swing.JPanel();
         jScrollListaClientes = new javax.swing.JScrollPane();
+        panelListaClientes = new javax.swing.JPanel();
         jLabelClientesFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButtonBuscar.setText("jButton1");
+        jButtonBuscar.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonBuscar.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jButtonBuscar.setForeground(new java.awt.Color(0, 0, 0));
+        jButtonBuscar.setText("Filtrar");
+        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 170, -1, -1));
 
         jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
@@ -90,6 +118,10 @@ public class ListaClientes extends javax.swing.JFrame {
         getContentPane().add(buscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 170, 250, 30));
 
         jPanelColor.setBackground(new java.awt.Color(19, 28, 54));
+
+        panelListaClientes.setBackground(new java.awt.Color(19, 28, 54));
+        panelListaClientes.setLayout(new javax.swing.BoxLayout(panelListaClientes, javax.swing.BoxLayout.Y_AXIS));
+        jScrollListaClientes.setViewportView(panelListaClientes);
 
         javax.swing.GroupLayout jPanelColorLayout = new javax.swing.GroupLayout(jPanelColor);
         jPanelColor.setLayout(jPanelColorLayout);
@@ -126,40 +158,34 @@ public class ListaClientes extends javax.swing.JFrame {
         control.mostrarRegistrarCliente();
     }//GEN-LAST:event_jButtonRegistrarClienteActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
+        String filtroBusqueda = buscador.getText().toLowerCase();
+        panelListaClientes.removeAll();
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ListaClientes().setVisible(true);
-            }
-        });
-    }
+        try {
+            List<Cliente> clientesPorNombre = this.clientesBO.consultarClientesPorNombre(filtroBusqueda);
+            List<Cliente> clientesPorTelefono = this.clientesBO.consultarClientesPorTelefono(filtroBusqueda);
+            List<Cliente> clientesPorCorreo = this.clientesBO.consultarClientesPorCorreoElectronico(filtroBusqueda);
+
+            Set<Cliente> clientesUnicos = new HashSet<>();
+            clientesUnicos.addAll(clientesPorNombre);
+            clientesUnicos.addAll(clientesPorTelefono);
+            clientesUnicos.addAll(clientesPorCorreo);
+
+            System.out.println("Clientes encontrados: " + clientesUnicos.size());
+
+            for (Cliente cliente : clientesUnicos) {
+                System.out.println("Procesando cliente: " + cliente.getNombre());
+                panelListaClientes.add(new ClientePanel(cliente));
+            } 
+
+            panelListaClientes.revalidate();
+            panelListaClientes.repaint();
+        } catch (NegocioException ex) {
+            LOG.severe("No se pudo llenar la lista de clientes: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_jButtonBuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField buscador;
@@ -169,5 +195,6 @@ public class ListaClientes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelClientesFondo;
     private javax.swing.JPanel jPanelColor;
     private javax.swing.JScrollPane jScrollListaClientes;
+    private javax.swing.JPanel panelListaClientes;
     // End of variables declaration//GEN-END:variables
 }

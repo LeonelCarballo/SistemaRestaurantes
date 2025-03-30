@@ -5,13 +5,15 @@
 package wonderland.sistemarestaurantes.clientes;
 
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantesnegocio.IClientesBO;
 
 /**
  *
  * @author Dana Chavez
  */
 public class PerfilCliente extends javax.swing.JFrame {
-
+    
+    private IClientesBO clientesBO;
     private ControlPresentacion control;
     
     /**
@@ -21,9 +23,10 @@ public class PerfilCliente extends javax.swing.JFrame {
         initComponents();
     }
 
-    public PerfilCliente(ControlPresentacion control) {
+    public PerfilCliente(ControlPresentacion control, IClientesBO clientesBO) {
         this.control = control;
         initComponents();
+        this.clientesBO = clientesBO;
         setLocationRelativeTo(null);
     }
     

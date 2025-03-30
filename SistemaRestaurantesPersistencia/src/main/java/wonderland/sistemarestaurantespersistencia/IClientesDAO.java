@@ -14,6 +14,7 @@ import wonderland.sistemarestaurantespersistencia.persistenciaexception.Persiste
  * @author Dana Chavez
  */
 public interface IClientesDAO {
+    
     public abstract Cliente registrarCliente(NuevoClienteDTO nuevoCliente);
     
     public abstract List<Cliente> consultarClientesPorNombre(String filtroBusqueda);
@@ -21,6 +22,8 @@ public interface IClientesDAO {
     public abstract List<Cliente> consultarClientesPorTelefono(String filtroBusqueda);
     
     public abstract List<Cliente> consultarClientesPorCorreoElectronico(String filtroBusqueda);
+    
+    public abstract List<Cliente> obtenerClientes();
     
     
 }

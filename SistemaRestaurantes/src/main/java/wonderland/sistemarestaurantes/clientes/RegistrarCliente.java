@@ -21,7 +21,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
     private IClientesBO clientesBO;
     private ControlPresentacion control;
     private static final Logger LOG = Logger.getLogger(RegistrarCliente.class.getName());
-    
+ 
     /**
      * Creates new form ListaClientes
      */
@@ -35,7 +35,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
     
     public void registrar(){        
         String nombre = this.jTextFieldNombres.getText();
-        String apellidoPaterno = this.jTextFieldApellidoMaterno.getText();
+        String apellidoPaterno = this.jTextFieldApellidoPaterno.getText();
         String apellidoMaterno = this.jTextFieldApellidoMaterno.getText();
         String correoElectronico = this.jTextFieldCorreoElectronico.getText();
         String telefono = this.jTextFieldTelefono.getText();

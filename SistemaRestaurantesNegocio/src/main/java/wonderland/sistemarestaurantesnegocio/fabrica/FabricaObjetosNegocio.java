@@ -15,7 +15,7 @@ import wonderland.sistemarestaurantespersistencia.daos.ClientesDAO;
  */
 public class FabricaObjetosNegocio {
     
-     public static IClientesBO crearVideojuegosBO(){
+     public static IClientesBO crearClientesBO(){
         IClientesDAO clientesDAO = new ClientesDAO();
         IClientesBO clientesBO = new ClientesBO(clientesDAO);
         return clientesBO;

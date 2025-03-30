@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import wonderland.sistemarestaurantesdominio.Cliente;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteDTO;
@@ -79,7 +80,7 @@ public class ClientesDAO implements IClientesDAO {
         CriteriaQuery<Cliente> criteria = builder.createQuery(Cliente.class);
         Root<Cliente> entidadCliente = criteria.from(Cliente.class);
         
-        String filtro = "%" + filtroBusqueda.toLowerCase() + "%";
+        String filtro = filtroBusqueda;
         
         criteria = criteria.select(entidadCliente).where(builder.like(entidadCliente.get("telefono"), filtro));
         
@@ -95,11 +96,21 @@ public class ClientesDAO implements IClientesDAO {
         CriteriaQuery<Cliente> criteria = builder.createQuery(Cliente.class);
         Root<Cliente> entidadCliente = criteria.from(Cliente.class);
         
-        String filtro = "%" + filtroBusqueda.toLowerCase() + "%";
+        String filtro = filtroBusqueda.toLowerCase();
         
         criteria = criteria.select(entidadCliente).where(builder.like(entidadCliente.get("correoElectronico"), filtro));
         
         TypedQuery<Cliente> query = entityManager.createQuery(criteria);
+        List<Cliente> clientes = query.getResultList();
+        return clientes;
+    }
+
+    @Override
+    public List<Cliente> obtenerClientes() {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        String jpqlQuery = "SELECT v FROM Cliente v";
+
+        TypedQuery<Cliente> query = entityManager.createQuery(jpqlQuery, Cliente.class);
         List<Cliente> clientes = query.getResultList();
         return clientes;
     }
