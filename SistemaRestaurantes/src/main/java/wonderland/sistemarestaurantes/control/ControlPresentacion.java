@@ -19,13 +19,14 @@ import wonderland.sistemarestaurantes.productos.EditarProducto;
 import wonderland.sistemarestaurantes.productos.ListaProductos;
 import wonderland.sistemarestaurantes.productos.NuevoProducto;
 import wonderland.sistemarestaurantes.reportes.IniciarReporte;
+import wonderland.sistemarestaurantesnegocio.IClientesBO;
 
 /**
  *
  * @author leoca
  */
 public class ControlPresentacion {
-    
+      
     public void mostrarVentanaPrincial(){
         VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(this);
         ventanaPrincipal.mostrar();

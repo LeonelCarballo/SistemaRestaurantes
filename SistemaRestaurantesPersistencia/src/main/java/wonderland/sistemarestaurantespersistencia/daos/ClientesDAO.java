@@ -5,7 +5,12 @@
 package wonderland.sistemarestaurantespersistencia.daos;
 
 import java.util.Calendar;
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import wonderland.sistemarestaurantesdominio.Cliente;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteDTO;
 import wonderland.sistemarestaurantespersistencia.IClientesDAO;
@@ -38,6 +43,66 @@ public class ClientesDAO implements IClientesDAO {
         return cliente;
     }
 
+    @Override
+    public List<Cliente> consultarClientesPorNombre(String filtroBusqueda) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Cliente> criteria = builder.createQuery(Cliente.class);
+        Root<Cliente> entidadCliente = criteria.from(Cliente.class);
+        
+        String filtro = "%" + filtroBusqueda.toLowerCase() + "%";
+        
+        criteria = criteria.select(entidadCliente).where(
+                                                        builder.like(
+                                                            builder.lower(
+                                                                builder.concat(
+                                                                    builder.concat(
+                                                                        builder.concat(entidadCliente.get("nombre"), " "),
+                                                                        builder.concat(entidadCliente.get("apellidoPaterno"), " ")
+                                                                    ),
+                                                                    entidadCliente.get("apellidoMaterno")
+                                                                )
+                                                            ),
+                                                            filtro
+                                                        )
+                                                    );
+        
+        TypedQuery<Cliente> query = entityManager.createQuery(criteria);
+        List<Cliente> clientes = query.getResultList();
+        return clientes;
+    }
+
+    @Override
+    public List<Cliente> consultarClientesPorTelefono(String filtroBusqueda) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Cliente> criteria = builder.createQuery(Cliente.class);
+        Root<Cliente> entidadCliente = criteria.from(Cliente.class);
+        
+        String filtro = "%" + filtroBusqueda.toLowerCase() + "%";
+        
+        criteria = criteria.select(entidadCliente).where(builder.like(entidadCliente.get("telefono"), filtro));
+        
+        TypedQuery<Cliente> query = entityManager.createQuery(criteria);
+        List<Cliente> clientes = query.getResultList();
+        return clientes;
+    }
+
+    @Override
+    public List<Cliente> consultarClientesPorCorreoElectronico(String filtroBusqueda) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Cliente> criteria = builder.createQuery(Cliente.class);
+        Root<Cliente> entidadCliente = criteria.from(Cliente.class);
+        
+        String filtro = "%" + filtroBusqueda.toLowerCase() + "%";
+        
+        criteria = criteria.select(entidadCliente).where(builder.like(entidadCliente.get("correoElectronico"), filtro));
+        
+        TypedQuery<Cliente> query = entityManager.createQuery(criteria);
+        List<Cliente> clientes = query.getResultList();
+        return clientes;
+    }
 
 
     

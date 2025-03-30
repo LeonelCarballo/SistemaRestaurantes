@@ -5,13 +5,15 @@
 package wonderland.sistemarestaurantes.clientes;
 
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantesnegocio.IClientesBO;
 
 /**
  *
  * @author Dana Chavez
  */
 public class ListaClientes extends javax.swing.JFrame {
-
+    
+    private IClientesBO clientesBO;
     private ControlPresentacion control;
     
     /**
@@ -19,12 +21,17 @@ public class ListaClientes extends javax.swing.JFrame {
      */
     public ListaClientes() {
         initComponents();
+        this.clientesBO = clientesBO;
     }
 
     public ListaClientes(ControlPresentacion control) {
         this.control = control;
         initComponents();
         setLocationRelativeTo(null);
+    }
+    
+    public void mostrarInformacionClientes(){
+        
     }
     
     public void mostrar(){
@@ -45,6 +52,7 @@ public class ListaClientes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButtonBuscar = new javax.swing.JButton();
         jButtonAnterior = new javax.swing.JButton();
         jButtonRegistrarCliente = new javax.swing.JButton();
         buscador = new javax.swing.JTextField();
@@ -54,6 +62,9 @@ public class ListaClientes extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButtonBuscar.setText("jButton1");
+        getContentPane().add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 170, -1, -1));
 
         jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
         jButtonAnterior.setContentAreaFilled(false);
@@ -76,7 +87,7 @@ public class ListaClientes extends javax.swing.JFrame {
         buscador.setBackground(new java.awt.Color(255, 255, 255));
         buscador.setForeground(new java.awt.Color(0, 0, 0));
         buscador.setText("Cliente");
-        getContentPane().add(buscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, 250, 30));
+        getContentPane().add(buscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 170, 250, 30));
 
         jPanelColor.setBackground(new java.awt.Color(19, 28, 54));
 
@@ -153,6 +164,7 @@ public class ListaClientes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField buscador;
     private javax.swing.JButton jButtonAnterior;
+    private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonRegistrarCliente;
     private javax.swing.JLabel jLabelClientesFondo;
     private javax.swing.JPanel jPanelColor;

@@ -4,27 +4,61 @@
  */
 package wonderland.sistemarestaurantes.clientes;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteDTO;
+import wonderland.sistemarestaurantesnegocio.IClientesBO;
+import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
 /**
  *
  * @author Dana Chavez
  */
 public class RegistrarCliente extends javax.swing.JFrame {
-
+    
+    private IClientesBO clientesBO;
     private ControlPresentacion control;
+    private static final Logger LOG = Logger.getLogger(RegistrarCliente.class.getName());
     
     /**
      * Creates new form ListaClientes
      */
-    public RegistrarCliente() {
-        initComponents();
-    }
 
-    public RegistrarCliente(ControlPresentacion control) {
+    public RegistrarCliente(ControlPresentacion control, IClientesBO clientesBO) {
         this.control = control;
         initComponents();
+        this.clientesBO = clientesBO;
         setLocationRelativeTo(null);
+    }
+    
+    public void registrar(){        
+        String nombre = this.jTextFieldNombres.getText();
+        String apellidoPaterno = this.jTextFieldApellidoMaterno.getText();
+        String apellidoMaterno = this.jTextFieldApellidoMaterno.getText();
+        String correoElectronico = this.jTextFieldCorreoElectronico.getText();
+        String telefono = this.jTextFieldTelefono.getText();
+        
+        NuevoClienteDTO nuevoCliente = new NuevoClienteDTO(nombre, apellidoPaterno, apellidoMaterno, correoElectronico, telefono);
+        
+        try {
+            this.clientesBO.registrarCliente(nuevoCliente);
+            JOptionPane.showMessageDialog(this, "Se registro el cliente con exito","Informacion", JOptionPane.ERROR_MESSAGE);
+            this.limpiarFormulario();
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(),"Informacion", JOptionPane.ERROR_MESSAGE);
+            LOG.severe("No fue posible registrar el cliente" + ex.getMessage());
+        }     
+    }
+    
+    public void limpiarFormulario(){
+        this.jTextFieldNombres.setText("    Nombre");
+        this.jTextFieldApellidoPaterno.setText("    Apellido Paterno");
+        this.jTextFieldApellidoMaterno.setText("    Apellido Materno");
+        this.jTextFieldCorreoElectronico.setText("    Correo Electronico");
+        this.jTextFieldTelefono.setText("    Telefono");
+        
     }
     
     public void mostrar(){
@@ -96,6 +130,11 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
         jButtonRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonRegistrar.png"))); // NOI18N
         jButtonRegistrar.setContentAreaFilled(false);
+        jButtonRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRegistrarActionPerformed(evt);
+            }
+        });
         jPanelColor.add(jButtonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 210, 40));
 
         jTextFieldApellidoMaterno.setBackground(new java.awt.Color(29, 39, 56));
@@ -182,41 +221,15 @@ public class RegistrarCliente extends javax.swing.JFrame {
         control.mostrarListaClientes();
     }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
+    private void jButtonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarActionPerformed
+        registrar();
+    }//GEN-LAST:event_jButtonRegistrarActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegistrarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegistrarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegistrarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegistrarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RegistrarCliente().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnterior;
