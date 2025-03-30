@@ -22,6 +22,8 @@ public class Mesas extends javax.swing.JFrame {
     private ControlPresentacion control;
     private IMesasBO mesasBO;
     private List<Mesa> mesas;
+    private static final Logger LOG = Logger.getLogger(Mesas.class.getName());
+    
     
     /**
      * Creates new form Mesas
@@ -35,6 +37,21 @@ public class Mesas extends javax.swing.JFrame {
         initComponents();
         this.mesasBO = mesasBO;
         setLocationRelativeTo(null);
+        mostrarMesas();
+    }
+    
+    public void mostrarMesas(){
+        try {
+            for (Mesa mesa : mesasBO.mostrarMesas()) { 
+                panelMesas.add(new PanelMesas(mesa.getNumeroMesa()));
+            }
+        } catch (NegocioException ex) {
+            LOG.severe("No se pudo llenar la tabla de mesas: " + ex.getMessage());
+        }
+
+        panelMesas.revalidate();
+        panelMesas.repaint();
+        
     }
     
     public void mostrar(){
@@ -112,7 +129,7 @@ public class Mesas extends javax.swing.JFrame {
         try {
             nuevasMesas = mesasBO.agregarMesas(new NuevaMesaDTO(1)); 
         } catch (NegocioException ex) {
-            Logger.getLogger(Mesas.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.severe("No se pudo llenar la tabla de mesas: " + ex.getMessage());
         }
 
         mesas = nuevasMesas;

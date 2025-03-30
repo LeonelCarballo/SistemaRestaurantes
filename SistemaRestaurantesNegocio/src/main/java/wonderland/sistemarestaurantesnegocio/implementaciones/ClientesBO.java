@@ -110,7 +110,6 @@ public class ClientesBO implements IClientesBO {
 
     @Override
     public List<Cliente> obtenerClientes() throws NegocioException {
-        
         return this.clientesDAO.obtenerClientes();
     }
     

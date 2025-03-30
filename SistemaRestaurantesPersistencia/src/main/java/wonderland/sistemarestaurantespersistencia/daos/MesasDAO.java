@@ -5,9 +5,9 @@
 package wonderland.sistemarestaurantespersistencia.daos;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import wonderland.sistemarestaurantesdominio.Mesa;
 import wonderland.sistemarestaurantesdominio.dtos.NuevaMesaDTO;
 import wonderland.sistemarestaurantespersistencia.IMesasDAO;
@@ -40,6 +40,18 @@ public class MesasDAO implements IMesasDAO {
         }
 
         entityManager.getTransaction().commit();
+        
+        return mesas;
+    }
+
+    @Override
+    public List<Mesa> mostrarMesas() {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        
+        String jpqlQuery = "SELECT v FROM Mesa v ORDER BY v.numeroMesa ASC";
+
+        TypedQuery<Mesa> query = entityManager.createQuery(jpqlQuery, Mesa.class);
+        List<Mesa> mesas = query.getResultList();
         
         return mesas;
     }

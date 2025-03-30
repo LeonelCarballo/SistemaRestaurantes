@@ -29,6 +29,12 @@ public class MesasBO implements IMesasBO {
     public List<Mesa> agregarMesas(NuevaMesaDTO nuevaMesa) throws NegocioException {
         return mesasDAO.agregarMesas(nuevaMesa);
     }
+
+    @Override
+    public List<Mesa> mostrarMesas() throws NegocioException {
+        
+        return this.mesasDAO.mostrarMesas();
+    }
     
     
     

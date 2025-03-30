@@ -16,6 +16,6 @@ public interface IMesasDAO {
     
     public abstract List<Mesa> agregarMesas(NuevaMesaDTO nuevaMesa);
     
-    // public abstract List<Mesa> mostrarMesas();
+    public abstract List<Mesa> mostrarMesas();
     
 }

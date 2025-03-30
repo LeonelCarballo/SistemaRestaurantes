@@ -16,4 +16,6 @@ import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 public interface IMesasBO {
     
     public abstract List<Mesa> agregarMesas(NuevaMesaDTO nuevaMesa) throws NegocioException;
+    
+    public abstract List<Mesa> mostrarMesas() throws NegocioException;
 }
