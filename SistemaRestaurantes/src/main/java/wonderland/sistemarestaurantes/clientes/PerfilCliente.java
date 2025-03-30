@@ -61,6 +61,8 @@ public class PerfilCliente extends javax.swing.JFrame {
         jTextFieldFechaRegistro = new javax.swing.JTextField();
         jTextFieldCorreo = new javax.swing.JTextField();
         jTextFieldTelefono = new javax.swing.JTextField();
+        jTextFieldApellidoMaterno = new javax.swing.JTextField();
+        jTextFieldApellidoPaterno = new javax.swing.JTextField();
         jTextFieldNombreCliente = new javax.swing.JTextField();
         jPanelNombreCliente = new javax.swing.JPanel();
         jButtonAnterior = new javax.swing.JButton();
@@ -88,7 +90,7 @@ public class PerfilCliente extends javax.swing.JFrame {
 
         jLabelTituloNombre.setFont(new java.awt.Font("Book Antiqua", 0, 24)); // NOI18N
         jLabelTituloNombre.setText("Nombre Completo");
-        getContentPane().add(jLabelTituloNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, -1, -1));
+        getContentPane().add(jLabelTituloNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, -1, -1));
 
         jToggleButton1.setBackground(new java.awt.Color(119, 151, 189));
         jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonEditar.png"))); // NOI18N
@@ -169,6 +171,24 @@ public class PerfilCliente extends javax.swing.JFrame {
         });
         getContentPane().add(jTextFieldTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, 270, 30));
 
+        jTextFieldApellidoMaterno.setBackground(new java.awt.Color(25, 30, 52));
+        jTextFieldApellidoMaterno.setBorder(null);
+        jTextFieldApellidoMaterno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldApellidoMaternoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextFieldApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 240, 130, 30));
+
+        jTextFieldApellidoPaterno.setBackground(new java.awt.Color(25, 30, 52));
+        jTextFieldApellidoPaterno.setBorder(null);
+        jTextFieldApellidoPaterno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldApellidoPaternoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextFieldApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, 130, 30));
+
         jTextFieldNombreCliente.setBackground(new java.awt.Color(25, 30, 52));
         jTextFieldNombreCliente.setBorder(null);
         jTextFieldNombreCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -176,7 +196,7 @@ public class PerfilCliente extends javax.swing.JFrame {
                 jTextFieldNombreClienteActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextFieldNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, 270, 30));
+        getContentPane().add(jTextFieldNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, 270, 30));
 
         jPanelNombreCliente.setBackground(new java.awt.Color(10, 15, 31));
 
@@ -198,7 +218,7 @@ public class PerfilCliente extends javax.swing.JFrame {
         getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, -1, -1));
 
         jLabelClientesFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoClientes.png"))); // NOI18N
-        getContentPane().add(jLabelClientesFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jLabelClientesFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, -1, -1));
 
         jPanelTotalAcum1.setBackground(new java.awt.Color(10, 15, 31));
 
@@ -241,6 +261,14 @@ public class PerfilCliente extends javax.swing.JFrame {
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jTextFieldApellidoPaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldApellidoPaternoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldApellidoPaternoActionPerformed
+
+    private void jTextFieldApellidoMaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldApellidoMaternoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldApellidoMaternoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -291,6 +319,8 @@ public class PerfilCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelNombreCliente;
     private javax.swing.JPanel jPanelNumVisitas;
     private javax.swing.JPanel jPanelTotalAcum1;
+    private javax.swing.JTextField jTextFieldApellidoMaterno;
+    private javax.swing.JTextField jTextFieldApellidoPaterno;
     private javax.swing.JTextField jTextFieldCorreo;
     private javax.swing.JTextField jTextFieldFechaRegistro;
     private javax.swing.JTextField jTextFieldNombreCliente;

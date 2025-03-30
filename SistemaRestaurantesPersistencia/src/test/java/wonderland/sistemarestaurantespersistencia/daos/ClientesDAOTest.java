@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import wonderland.sistemarestaurantesdominio.Cliente;
+import wonderland.sistemarestaurantesdominio.dtos.ClienteDTO;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteDTO;
 
 /**
@@ -101,4 +102,11 @@ public class ClientesDAOTest {
 //        assertEquals(NUMERO_CLIENTES_ESPERADOS, clientesConsultados.size());
 //    }
     
+//    @Test
+//    public void testEditarClienteOk(){
+//        ClientesDAO clientesDAO = new ClientesDAO();
+//        Long idCliente = 1L;
+//
+//    }
+//    
 }

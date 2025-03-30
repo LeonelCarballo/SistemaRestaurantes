@@ -4,6 +4,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>wonderland.sistemarestaurantesdominio.Cliente</class>
     <class>wonderland.sistemarestaurantesdominio.Comanda</class>
+    <class>wonderland.sistemarestaurantesdominio.Mesa</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sistema_restaurantes_test?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

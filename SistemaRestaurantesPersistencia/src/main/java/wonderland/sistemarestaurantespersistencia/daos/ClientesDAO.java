@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import wonderland.sistemarestaurantesdominio.Cliente;
+import wonderland.sistemarestaurantesdominio.dtos.ClienteDTO;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteDTO;
 import wonderland.sistemarestaurantespersistencia.IClientesDAO;
 import wonderland.sistemarestaurantespersistencia.conexiones.ManejadorConexiones;
@@ -113,6 +114,12 @@ public class ClientesDAO implements IClientesDAO {
         TypedQuery<Cliente> query = entityManager.createQuery(jpqlQuery, Cliente.class);
         List<Cliente> clientes = query.getResultList();
         return clientes;
+    }
+
+    @Override
+    public Cliente editarCliente(ClienteDTO clienteDTO) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        return null;
     }
 
 

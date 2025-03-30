@@ -25,7 +25,7 @@ public class ClientePanel extends JPanel {
         setBackground(new Color(19, 28, 54));
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 10, 5, 10); // Márgenes internos más definidos
+        gbc.insets = new Insets(5, 10, 5, 10);
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 

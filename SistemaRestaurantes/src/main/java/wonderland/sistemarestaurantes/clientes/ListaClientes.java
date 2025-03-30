@@ -119,6 +119,8 @@ public class ListaClientes extends javax.swing.JFrame {
 
         jPanelColor.setBackground(new java.awt.Color(19, 28, 54));
 
+        jScrollListaClientes.setBorder(null);
+
         panelListaClientes.setBackground(new java.awt.Color(19, 28, 54));
         panelListaClientes.setLayout(new javax.swing.BoxLayout(panelListaClientes, javax.swing.BoxLayout.Y_AXIS));
         jScrollListaClientes.setViewportView(panelListaClientes);

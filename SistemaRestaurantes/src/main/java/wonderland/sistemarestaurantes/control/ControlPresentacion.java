@@ -20,7 +20,9 @@ import wonderland.sistemarestaurantes.productos.ListaProductos;
 import wonderland.sistemarestaurantes.productos.NuevoProducto;
 import wonderland.sistemarestaurantes.reportes.IniciarReporte;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ClientesBO;
+import wonderland.sistemarestaurantesnegocio.implementaciones.MesasBO;
 import wonderland.sistemarestaurantespersistencia.daos.ClientesDAO;
+import wonderland.sistemarestaurantespersistencia.daos.MesasDAO;
 
 /**
  *
@@ -30,6 +32,8 @@ public class ControlPresentacion {
   
     ClientesDAO clientesDAO = new ClientesDAO();
     ClientesBO clientesBO = new ClientesBO(clientesDAO);
+    MesasDAO mesasDAO = new MesasDAO();
+    MesasBO mesasBO = new MesasBO(mesasDAO);
     
     public void mostrarVentanaPrincial(){
         VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(this);
@@ -37,7 +41,7 @@ public class ControlPresentacion {
     }
     
     public void mostrarMesas(){
-        Mesas mesas = new Mesas(this);
+        Mesas mesas = new Mesas(this, mesasBO);
         mesas.mostrar();
     }
     
