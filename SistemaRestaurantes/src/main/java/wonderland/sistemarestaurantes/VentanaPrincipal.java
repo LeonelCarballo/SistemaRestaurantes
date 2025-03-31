@@ -70,7 +70,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 jButtonClientesActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 480, -1, -1));
+        getContentPane().add(jButtonClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 480, -1, -1));
 
         jButtonMesas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonMesas.png"))); // NOI18N
         jButtonMesas.setContentAreaFilled(false);
@@ -79,7 +79,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 jButtonMesasActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonMesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, -1, -1));
+        getContentPane().add(jButtonMesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 240, -1, -1));
 
         jButtonMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonMenu.png"))); // NOI18N
         jButtonMenu.setContentAreaFilled(false);
@@ -88,7 +88,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 jButtonMenuActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 360, -1, -1));
+        getContentPane().add(jButtonMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 360, -1, -1));
 
         jButtonReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonReportes.png"))); // NOI18N
         jButtonReportes.setContentAreaFilled(false);
@@ -106,7 +106,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 jButtonInventarioActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonInventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 420, -1, -1));
+        getContentPane().add(jButtonInventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 420, -1, -1));
 
         jButtonComandas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonComandas.png"))); // NOI18N
         jButtonComandas.setContentAreaFilled(false);
@@ -115,7 +115,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 jButtonComandasActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonComandas, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 300, -1, -1));
+        getContentPane().add(jButtonComandas, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, -1, -1));
 
         jLabelFondoVentanaPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/VentanaPrincipalFondo.png"))); // NOI18N
         getContentPane().add(jLabelFondoVentanaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));

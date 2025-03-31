@@ -19,10 +19,14 @@ import wonderland.sistemarestaurantes.productos.EditarProducto;
 import wonderland.sistemarestaurantes.productos.ListaProductos;
 import wonderland.sistemarestaurantes.productos.NuevoProducto;
 import wonderland.sistemarestaurantes.reportes.IniciarReporte;
-import wonderland.sistemarestaurantesnegocio.implementaciones.ClientesBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.IngredientesBO;
-import wonderland.sistemarestaurantespersistencia.daos.ClientesDAO;
 import wonderland.sistemarestaurantespersistencia.daos.IngredientesDAO;
+import wonderland.sistemarestaurantesdominio.Cliente;
+import wonderland.sistemarestaurantesdominio.dtos.ClienteDTO;
+import wonderland.sistemarestaurantesnegocio.implementaciones.ClientesBO;
+import wonderland.sistemarestaurantesnegocio.implementaciones.MesasBO;
+import wonderland.sistemarestaurantespersistencia.daos.ClientesDAO;
+import wonderland.sistemarestaurantespersistencia.daos.MesasDAO;
 
 /**
  *
@@ -35,6 +39,10 @@ public class ControlPresentacion {
     
     IngredientesDAO ingredientesDAO = new IngredientesDAO();
     IngredientesBO ingredientesBO = new IngredientesBO(ingredientesDAO);
+  
+    MesasDAO mesasDAO = new MesasDAO();
+    MesasBO mesasBO = new MesasBO(mesasDAO);
+
     
     public void mostrarVentanaPrincial(){
         VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(this);
@@ -42,17 +50,33 @@ public class ControlPresentacion {
     }
     
     public void mostrarMesas(){
-        Mesas mesas = new Mesas(this);
+        Mesas mesas = new Mesas(this, mesasBO);
         mesas.mostrar();
     }
     
     public void mostrarListaClientes(){
-        ListaClientes listaClientes = new ListaClientes(this);
+        ListaClientes listaClientes = new ListaClientes(this, clientesBO);
         listaClientes.mostrar();
     }
     
-    public void mostrarPerfilCliente(){
-        PerfilCliente perfilCliente = new PerfilCliente(this);
+    public void mostrarPerfilCliente(Cliente cliente) {
+        if (cliente == null) {
+            System.out.println("Error: Cliente es null en mostrarPerfilCliente");
+            return;
+        }
+
+        System.out.println("Mostrando perfil de: " + cliente.getNombre());
+        
+        Long clienteId = cliente.getId();
+        String nombreCliente = cliente.getNombre();
+        String apellidoPaternoCliente = cliente.getApellidoPaterno();
+        String apellidoMaternoCliente = cliente.getApellidoMaterno();
+        String correoElectronicoCliente = cliente.getCorreoElectronico();
+        String telefonoCliente = cliente.getTelefono();
+
+
+        ClienteDTO clienteDTO = new ClienteDTO(clienteId,nombreCliente,apellidoPaternoCliente,apellidoMaternoCliente,correoElectronicoCliente,telefonoCliente);
+        PerfilCliente perfilCliente = new PerfilCliente(this, clientesBO, clienteDTO);
         perfilCliente.mostrar();
     }
     

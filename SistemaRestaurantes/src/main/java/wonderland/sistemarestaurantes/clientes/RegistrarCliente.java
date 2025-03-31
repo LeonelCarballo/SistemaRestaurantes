@@ -22,7 +22,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
     private IClientesBO clientesBO;
     private ControlPresentacion control;
     private static final Logger LOG = Logger.getLogger(RegistrarCliente.class.getName());
-    
+ 
     /**
      * Creates new form ListaClientes
      */
@@ -36,7 +36,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
     
     public void registrar(){        
         String nombre = this.jTextFieldNombres.getText();
-        String apellidoPaterno = this.jTextFieldApellidoMaterno.getText();
+        String apellidoPaterno = this.jTextFieldApellidoPaterno.getText();
         String apellidoMaterno = this.jTextFieldApellidoMaterno.getText();
         String correoElectronico = this.jTextFieldCorreoElectronico.getText();
         String telefono = this.jTextFieldTelefono.getText();
@@ -45,7 +45,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
         
         try {
             this.clientesBO.registrarCliente(nuevoCliente);
-            JOptionPane.showMessageDialog(this, "Se registro el cliente con exito","Informacion", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Se registro el cliente con exito","Informacion", JOptionPane.INFORMATION_MESSAGE);
             this.limpiarFormulario();
         } catch (NegocioException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(),"Informacion", JOptionPane.ERROR_MESSAGE);
@@ -155,6 +155,11 @@ public class RegistrarCliente extends javax.swing.JFrame {
         jTextFieldNombres.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldNombres.setText("    Nombre");
         jTextFieldNombres.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jTextFieldNombres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldNombresActionPerformed(evt);
+            }
+        });
         jPanelColor.add(jTextFieldNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 210, 40));
 
         jTextFieldCorreoElectronico.setBackground(new java.awt.Color(29, 39, 56));
@@ -225,6 +230,10 @@ public class RegistrarCliente extends javax.swing.JFrame {
     private void jButtonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarActionPerformed
         registrar();
     }//GEN-LAST:event_jButtonRegistrarActionPerformed
+
+    private void jTextFieldNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNombresActionPerformed
 
     /**
      * @param args the command line arguments

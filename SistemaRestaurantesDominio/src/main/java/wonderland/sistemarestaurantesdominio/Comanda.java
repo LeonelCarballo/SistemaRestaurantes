@@ -49,6 +49,10 @@ public class Comanda implements Serializable {
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
     
+    @ManyToOne()
+    @JoinColumn(name = "id_mesa", nullable = false)
+    private Mesa mesa;
+    
     public Comanda() {
     }
 
@@ -57,6 +61,15 @@ public class Comanda implements Serializable {
         this.folio = folio;
         this.estadoComanda = estadoComanda;
         this.fechaHora_creacion = fechaHora_creacion;
+    }
+
+    public Comanda(Long id, String folio, EstadoComanda estadoComanda, Calendar fechaHora_creacion, Cliente cliente, Mesa mesa) {
+        this.id = id;
+        this.folio = folio;
+        this.estadoComanda = estadoComanda;
+        this.fechaHora_creacion = fechaHora_creacion;
+        this.cliente = cliente;
+        this.mesa = mesa;
     }
 
     public Long getId() {
@@ -89,6 +102,22 @@ public class Comanda implements Serializable {
 
     public void setFechaHora_creacion(Calendar fechaHora_creacion) {
         this.fechaHora_creacion = fechaHora_creacion;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Mesa getMesa() {
+        return mesa;
+    }
+
+    public void setMesa(Mesa mesa) {
+        this.mesa = mesa;
     }
     
     

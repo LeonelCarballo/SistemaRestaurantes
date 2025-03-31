@@ -10,8 +10,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import wonderland.sistemarestaurantesdominio.Cliente;
+import wonderland.sistemarestaurantesdominio.dtos.ClienteDTO;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteDTO;
 import wonderland.sistemarestaurantespersistencia.IClientesDAO;
 import wonderland.sistemarestaurantespersistencia.conexiones.ManejadorConexiones;
@@ -46,6 +48,7 @@ public class ClientesDAO implements IClientesDAO {
     @Override
     public List<Cliente> consultarClientesPorNombre(String filtroBusqueda) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Cliente> criteria = builder.createQuery(Cliente.class);
         Root<Cliente> entidadCliente = criteria.from(Cliente.class);
@@ -75,11 +78,12 @@ public class ClientesDAO implements IClientesDAO {
     @Override
     public List<Cliente> consultarClientesPorTelefono(String filtroBusqueda) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Cliente> criteria = builder.createQuery(Cliente.class);
         Root<Cliente> entidadCliente = criteria.from(Cliente.class);
         
-        String filtro = "%" + filtroBusqueda.toLowerCase() + "%";
+        String filtro = filtroBusqueda;
         
         criteria = criteria.select(entidadCliente).where(builder.like(entidadCliente.get("telefono"), filtro));
         
@@ -91,11 +95,12 @@ public class ClientesDAO implements IClientesDAO {
     @Override
     public List<Cliente> consultarClientesPorCorreoElectronico(String filtroBusqueda) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Cliente> criteria = builder.createQuery(Cliente.class);
         Root<Cliente> entidadCliente = criteria.from(Cliente.class);
         
-        String filtro = "%" + filtroBusqueda.toLowerCase() + "%";
+        String filtro = filtroBusqueda.toLowerCase();
         
         criteria = criteria.select(entidadCliente).where(builder.like(entidadCliente.get("correoElectronico"), filtro));
         
@@ -104,6 +109,40 @@ public class ClientesDAO implements IClientesDAO {
         return clientes;
     }
 
+    @Override
+    public List<Cliente> obtenerClientes() {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        String jpqlQuery = "SELECT v FROM Cliente v ORDER BY v.nombre ASC";
 
-    
+        TypedQuery<Cliente> query = entityManager.createQuery(jpqlQuery, Cliente.class);
+        List<Cliente> clientes = query.getResultList();
+        return clientes;
+    }
+
+    @Override
+    public Cliente editarCliente(ClienteDTO clienteDTO) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        
+        entityManager.getTransaction().begin();
+        
+        Cliente clienteEncontrado = buscarClientePorId(clienteDTO.getId());
+        clienteEncontrado.setNombre(clienteDTO.getNombre());
+        clienteEncontrado.setApellidoPaterno(clienteDTO.getApellidoPaterno());
+        clienteEncontrado.setApellidoMaterno(clienteDTO.getApellidoMaterno());
+        clienteEncontrado.setCorreoElectronico(clienteDTO.getCorreoElectronico());
+        clienteEncontrado.setTelefono(clienteDTO.getTelefono());
+        
+        entityManager.merge(clienteEncontrado);
+        entityManager.getTransaction().commit();
+        
+        return clienteEncontrado;
+    }
+
+    @Override
+    public Cliente buscarClientePorId(Long idCliente) {   
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        
+        Cliente cliente = entityManager.find(Cliente.class, idCliente);
+        return cliente;       
+    }
 }

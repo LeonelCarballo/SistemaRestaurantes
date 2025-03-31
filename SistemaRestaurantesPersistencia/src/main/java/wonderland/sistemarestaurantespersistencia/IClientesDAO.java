@@ -6,6 +6,7 @@ package wonderland.sistemarestaurantespersistencia;
 
 import java.util.List;
 import wonderland.sistemarestaurantesdominio.Cliente;
+import wonderland.sistemarestaurantesdominio.dtos.ClienteDTO;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteDTO;
 import wonderland.sistemarestaurantespersistencia.persistenciaexception.PersistenciaException;
 
@@ -14,6 +15,7 @@ import wonderland.sistemarestaurantespersistencia.persistenciaexception.Persiste
  * @author Dana Chavez
  */
 public interface IClientesDAO {
+    
     public abstract Cliente registrarCliente(NuevoClienteDTO nuevoCliente);
     
     public abstract List<Cliente> consultarClientesPorNombre(String filtroBusqueda);
@@ -21,6 +23,12 @@ public interface IClientesDAO {
     public abstract List<Cliente> consultarClientesPorTelefono(String filtroBusqueda);
     
     public abstract List<Cliente> consultarClientesPorCorreoElectronico(String filtroBusqueda);
+    
+    public abstract List<Cliente> obtenerClientes();
+    
+    public abstract Cliente editarCliente(ClienteDTO clienteDTO);
+    
+    public abstract Cliente buscarClientePorId(Long idCliente);
     
     
 }

@@ -4,7 +4,9 @@
  */
 package wonderland.sistemarestaurantesnegocio.implementaciones;
 
+import java.util.List;
 import wonderland.sistemarestaurantesdominio.Cliente;
+import wonderland.sistemarestaurantesdominio.dtos.ClienteDTO;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteDTO;
 import wonderland.sistemarestaurantesnegocio.IClientesBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
@@ -22,6 +24,7 @@ public class ClientesBO implements IClientesBO {
     private static final int LIMITE_CARACTERES_NOMBRE = 100;
     private static final int LIMITE_CARACTERES_CORREO_ELECTRONICO = 100;
     private static final int LIMITE_CARACTERES_TELEFONO = 20;
+    private static final int LIMITE_CARACTERES = 100;
     
     public ClientesBO(IClientesDAO clientesDAO){
         this.clientesDAO = clientesDAO;
@@ -31,11 +34,11 @@ public class ClientesBO implements IClientesBO {
     public Cliente registrarCliente(NuevoClienteDTO nuevoCliente) throws NegocioException {
         
         //validaciones de campos obligatorios
-        if (nuevoCliente.getNombre() == null) {
+        if (nuevoCliente.getNombre() == null || nuevoCliente.getNombre().trim().isEmpty()) {
             throw new NegocioException ("Debes proporcionar el nombre del cliente");
         }
         
-        if (nuevoCliente.getApellidoPaterno() == null) {
+        if (nuevoCliente.getApellidoPaterno() == null || nuevoCliente.getApellidoPaterno().trim().isEmpty()) {
             throw new NegocioException ("Debes proporcionar el apellido paterno del cliente");
         }
         
@@ -43,7 +46,7 @@ public class ClientesBO implements IClientesBO {
             throw new NegocioException ("Debes proporcionar el apellido materno del cliente");
         }
         
-        if (nuevoCliente.getTelefono() == null) {
+        if (nuevoCliente.getTelefono() == null || nuevoCliente.getTelefono().trim().isEmpty()) {
             throw new NegocioException ("Debes proporcionar el telefono del cliente");
         }
         
@@ -80,6 +83,94 @@ public class ClientesBO implements IClientesBO {
         }
         
         return this.clientesDAO.registrarCliente(nuevoCliente);
+    }
+
+    @Override
+    public List<Cliente> consultarClientesPorNombre(String filtroBusqueda) throws NegocioException {
+        if (filtroBusqueda.length() > LIMITE_CARACTERES) {
+                    throw new NegocioException ("El Filtro de busqueda es demasiado largo");
+                }
+                return this.clientesDAO.consultarClientesPorNombre(filtroBusqueda);
+    }
+
+    @Override
+    public List<Cliente> consultarClientesPorTelefono(String filtroBusqueda) throws NegocioException {
+        if (filtroBusqueda.length() > LIMITE_CARACTERES_TELEFONO) {
+                    throw new NegocioException ("El Filtro de busqueda es demasiado largo");
+                }
+                return this.clientesDAO.consultarClientesPorTelefono(filtroBusqueda);
+    }
+
+    @Override
+    public List<Cliente> consultarClientesPorCorreoElectronico(String filtroBusqueda) throws NegocioException {
+        if (filtroBusqueda.length() > LIMITE_CARACTERES_CORREO_ELECTRONICO) {
+                    throw new NegocioException ("El Filtro de busqueda es demasiado largo");
+                }
+                return this.clientesDAO.consultarClientesPorCorreoElectronico(filtroBusqueda);
+    }
+
+    @Override
+    public List<Cliente> obtenerClientes() throws NegocioException {
+        return this.clientesDAO.obtenerClientes();
+    }
+
+    @Override
+    public Cliente editarCliente(ClienteDTO clienteDTO) throws NegocioException {
+         //validaciones de campos obligatorios
+        if (clienteDTO.getNombre() == null || clienteDTO.getNombre().trim().isEmpty()) {
+            throw new NegocioException ("Debes proporcionar el nombre del cliente");
+        }
+        
+        if (clienteDTO.getApellidoPaterno() == null || clienteDTO.getApellidoPaterno().trim().isEmpty()) {
+            throw new NegocioException ("Debes proporcionar el apellido paterno del cliente");
+        }
+        
+        if (clienteDTO.getApellidoMaterno() == null) {
+            throw new NegocioException ("Debes proporcionar el apellido materno del cliente");
+        }
+        
+        if (clienteDTO.getTelefono() == null || clienteDTO.getTelefono().trim().isEmpty()) {
+            throw new NegocioException ("Debes proporcionar el telefono del cliente");
+        }
+        
+        // validaciones de longitud
+        if (clienteDTO.getNombre().length() > LIMITE_CARACTERES_NOMBRE ){
+            throw new NegocioException ("El Nombre del cliente Excede el limite de " + LIMITE_CARACTERES_NOMBRE);
+        }
+        
+        if (clienteDTO.getApellidoPaterno().length() > LIMITE_CARACTERES_NOMBRE ){
+            throw new NegocioException ("El Nombre del cliente Excede el limite de " + LIMITE_CARACTERES_NOMBRE);
+        }
+        
+        if (clienteDTO.getApellidoMaterno().length() > LIMITE_CARACTERES_NOMBRE ){
+            throw new NegocioException ("El Nombre del cliente Excede el limite de " + LIMITE_CARACTERES_NOMBRE);
+        }
+        
+        if (clienteDTO.getCorreoElectronico().length() > LIMITE_CARACTERES_CORREO_ELECTRONICO ){
+            throw new NegocioException ("El Nombre del cliente Excede el limite de " + LIMITE_CARACTERES_NOMBRE);
+        }
+        
+        if (clienteDTO.getTelefono().length() > LIMITE_CARACTERES_TELEFONO ){
+            throw new NegocioException ("El Nombre del cliente Excede el limite de " + LIMITE_CARACTERES_NOMBRE);
+        }
+        
+        // validacion formato correo
+        String correo = clienteDTO.getCorreoElectronico();
+        if (correo != null && !correo.trim().isEmpty()) {
+            if (correo.length() > LIMITE_CARACTERES_CORREO_ELECTRONICO) {
+                throw new NegocioException("El correo electrónico excede el límite de " + LIMITE_CARACTERES_CORREO_ELECTRONICO + " caracteres.");
+            }
+            if (!correo.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
+                throw new NegocioException("El formato del correo electrónico no es válido.");
+            }
+        }
+        
+        return this.clientesDAO.editarCliente(clienteDTO);
+    }
+
+    @Override
+    public Cliente buscarClientePorId(Long id) throws NegocioException {
+        return this.clientesDAO.buscarClientePorId(id);
     }
     
     

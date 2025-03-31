@@ -4,7 +4,14 @@
  */
 package wonderland.sistemarestaurantes;
 
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantesdominio.Mesa;
+import wonderland.sistemarestaurantesdominio.dtos.NuevaMesaDTO;
+import wonderland.sistemarestaurantesnegocio.IMesasBO;
+import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
 /**
  *
@@ -13,6 +20,10 @@ import wonderland.sistemarestaurantes.control.ControlPresentacion;
 public class Mesas extends javax.swing.JFrame {
 
     private ControlPresentacion control;
+    private IMesasBO mesasBO;
+    private List<Mesa> mesas;
+    private static final Logger LOG = Logger.getLogger(Mesas.class.getName());
+    
     
     /**
      * Creates new form Mesas
@@ -21,10 +32,26 @@ public class Mesas extends javax.swing.JFrame {
         initComponents();
     }
 
-    public Mesas(ControlPresentacion control) {
+    public Mesas(ControlPresentacion control, IMesasBO mesasBO) {
         this.control = control;
         initComponents();
+        this.mesasBO = mesasBO;
         setLocationRelativeTo(null);
+        mostrarMesas();
+    }
+    
+    public void mostrarMesas(){
+        try {
+            for (Mesa mesa : mesasBO.mostrarMesas()) { 
+                panelMesas.add(new PanelMesas(mesa.getNumeroMesa()));
+            }
+        } catch (NegocioException ex) {
+            LOG.severe("No se pudo llenar la tabla de mesas: " + ex.getMessage());
+        }
+
+        panelMesas.revalidate();
+        panelMesas.repaint();
+        
     }
     
     public void mostrar(){
@@ -45,14 +72,36 @@ public class Mesas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButtonAgregarMesas = new javax.swing.JButton();
         jScrollPaneMesas = new javax.swing.JScrollPane();
+        panelMesas = new javax.swing.JPanel();
         jButtonAnterior = new javax.swing.JButton();
         jLabelFondoMesas = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButtonAgregarMesas.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonAgregarMesas.setFont(new java.awt.Font("Century Gothic", 1, 10)); // NOI18N
+        jButtonAgregarMesas.setForeground(new java.awt.Color(0, 0, 0));
+        jButtonAgregarMesas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAgregarMesas.png"))); // NOI18N
+        jButtonAgregarMesas.setContentAreaFilled(false);
+        jButtonAgregarMesas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAgregarMesasActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonAgregarMesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 30, 40, 40));
+
+        jScrollPaneMesas.setBackground(new java.awt.Color(29, 39, 56));
+        jScrollPaneMesas.setBorder(null);
         jScrollPaneMesas.setForeground(new java.awt.Color(29, 39, 56));
+
+        panelMesas.setBackground(new java.awt.Color(29, 39, 56));
+        panelMesas.setForeground(new java.awt.Color(29, 39, 56));
+        panelMesas.setLayout(new java.awt.GridLayout(0, 5));
+        jScrollPaneMesas.setViewportView(panelMesas);
+
         getContentPane().add(jScrollPaneMesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 150, 600, 380));
 
         jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
@@ -75,44 +124,29 @@ public class Mesas extends javax.swing.JFrame {
         control.mostrarVentanaPrincial();
     }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void jButtonAgregarMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarMesasActionPerformed
+       
+        List<Mesa> nuevasMesas = null;
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Mesas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Mesas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Mesas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Mesas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            nuevasMesas = mesasBO.agregarMesas(new NuevaMesaDTO(1)); 
+        } catch (NegocioException ex) {
+            LOG.severe("No se pudo llenar la tabla de mesas: " + ex.getMessage());
         }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Mesas().setVisible(true);
-            }
-        });
-    }
+        mesas = nuevasMesas;
+        
+        for (Mesa mesa : mesas) {
+            panelMesas.add(new PanelMesas(mesa.getNumeroMesa())); 
+        }
+        
+        jScrollPaneMesas.setViewportView(panelMesas);
+    }//GEN-LAST:event_jButtonAgregarMesasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAgregarMesas;
     private javax.swing.JButton jButtonAnterior;
     private javax.swing.JLabel jLabelFondoMesas;
     private javax.swing.JScrollPane jScrollPaneMesas;
+    private javax.swing.JPanel panelMesas;
     // End of variables declaration//GEN-END:variables
 }
