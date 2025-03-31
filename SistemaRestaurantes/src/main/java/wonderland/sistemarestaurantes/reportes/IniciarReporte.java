@@ -23,6 +23,8 @@ public class IniciarReporte extends javax.swing.JFrame {
 
     public IniciarReporte(ControlPresentacion control) {
         this.control = control;
+        initComponents();
+        setLocationRelativeTo(null);
     }
     
     public void mostrar(){
@@ -49,6 +51,7 @@ public class IniciarReporte extends javax.swing.JFrame {
         jLabelFondoInicioReportes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(864, 560));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -67,6 +70,11 @@ public class IniciarReporte extends javax.swing.JFrame {
 
         jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
         jButtonAnterior.setContentAreaFilled(false);
+        jButtonAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnteriorActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 80, 80));
 
         jLabelFondoInicioReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoInicioReportes.png"))); // NOI18N
@@ -78,6 +86,11 @@ public class IniciarReporte extends javax.swing.JFrame {
     private void jButtonReporteComandasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReporteComandasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonReporteComandasActionPerformed
+
+    private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
+        cerrar();
+        control.mostrarVentanaPrincial();
+    }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
     /**
      * @param args the command line arguments

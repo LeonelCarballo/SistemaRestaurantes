@@ -19,14 +19,23 @@ import wonderland.sistemarestaurantes.productos.EditarProducto;
 import wonderland.sistemarestaurantes.productos.ListaProductos;
 import wonderland.sistemarestaurantes.productos.NuevoProducto;
 import wonderland.sistemarestaurantes.reportes.IniciarReporte;
-import wonderland.sistemarestaurantesnegocio.IClientesBO;
+import wonderland.sistemarestaurantesnegocio.implementaciones.ClientesBO;
+import wonderland.sistemarestaurantesnegocio.implementaciones.IngredientesBO;
+import wonderland.sistemarestaurantespersistencia.daos.ClientesDAO;
+import wonderland.sistemarestaurantespersistencia.daos.IngredientesDAO;
 
 /**
  *
  * @author leoca
  */
 public class ControlPresentacion {
-      
+    
+    ClientesDAO clientesDAO = new ClientesDAO();
+    ClientesBO clientesBO = new ClientesBO(clientesDAO);
+    
+    IngredientesDAO ingredientesDAO = new IngredientesDAO();
+    IngredientesBO ingredientesBO = new IngredientesBO(ingredientesDAO);
+    
     public void mostrarVentanaPrincial(){
         VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(this);
         ventanaPrincipal.mostrar();
@@ -48,7 +57,7 @@ public class ControlPresentacion {
     }
     
     public void mostrarRegistrarCliente(){
-        RegistrarCliente registrarCliente = new RegistrarCliente(this);
+        RegistrarCliente registrarCliente = new RegistrarCliente(this,clientesBO);
         registrarCliente.mostrar();
     }
     
@@ -78,7 +87,7 @@ public class ControlPresentacion {
     }
     
     public void mostrarNuevoIngrediente(){
-        NuevoIngrediente nuevoIngrediente = new NuevoIngrediente(this);
+        NuevoIngrediente nuevoIngrediente = new NuevoIngrediente(this,ingredientesBO);
         nuevoIngrediente.mostrar();
     }
     

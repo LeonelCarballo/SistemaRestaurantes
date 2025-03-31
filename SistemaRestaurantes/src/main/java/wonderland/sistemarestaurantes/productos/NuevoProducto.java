@@ -92,6 +92,11 @@ public class NuevoProducto extends javax.swing.JFrame {
         jComboBoxCategoria.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxCategoria.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jComboBoxCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCategoriaActionPerformed(evt);
+            }
+        });
         getContentPane().add(jComboBoxCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 346, 310, 40));
 
         jLabelFondoNuevoProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoNuevoProducto.png"))); // NOI18N
@@ -112,6 +117,10 @@ public class NuevoProducto extends javax.swing.JFrame {
         cerrar();
         control.mostrarListaProductos();
     }//GEN-LAST:event_jButtonRegresarActionPerformed
+
+    private void jComboBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
 
     /**
      * @param args the command line arguments
