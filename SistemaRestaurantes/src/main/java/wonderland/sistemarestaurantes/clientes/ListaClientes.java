@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.JPanel;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantesdominio.Cliente;
+import wonderland.sistemarestaurantesdominio.dtos.ClienteDTO;
 import wonderland.sistemarestaurantesnegocio.IClientesBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
@@ -39,9 +40,9 @@ public class ListaClientes extends javax.swing.JFrame {
     }
     
     public void mostrarInformacionClientes() {
-        panelListaClientes.removeAll(); // Limpiar panel antes de agregar nuevos clientes
+        panelListaClientes.removeAll(); 
         try {
-            for (Cliente cliente : clientesBO.obtenerClientes()) { // Método que retorna la lista de clientes
+            for (Cliente cliente : clientesBO.obtenerClientes()) { 
                 panelListaClientes.add(new ClientePanel(cliente));
             }
         } catch (NegocioException ex) {
@@ -110,7 +111,7 @@ public class ListaClientes extends javax.swing.JFrame {
                 jButtonRegistrarClienteActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonRegistrarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, -1, 50));
+        getContentPane().add(jButtonRegistrarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 140, 30));
 
         buscador.setBackground(new java.awt.Color(255, 255, 255));
         buscador.setForeground(new java.awt.Color(0, 0, 0));

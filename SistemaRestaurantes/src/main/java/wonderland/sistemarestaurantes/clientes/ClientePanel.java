@@ -13,12 +13,13 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantesdominio.Cliente;
+import wonderland.sistemarestaurantesdominio.dtos.ClienteDTO;
 
 
 public class ClientePanel extends JPanel {
-
-
+    
     public ClientePanel(Cliente cliente) {
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.WHITE));
@@ -48,6 +49,12 @@ public class ClientePanel extends JPanel {
         JButton btnInfo = new JButton("Información");
         btnInfo.setBackground(Color.WHITE);
         btnInfo.setFont(new Font("Century Gothic", Font.BOLD, 12));
+        
+        btnInfo.addActionListener(e -> {
+            ControlPresentacion control = new ControlPresentacion();
+            control.mostrarPerfilCliente(cliente);
+            //hacer q se cierre con el control 
+        });
 
         // Primera fila: Teléfono
         gbc.gridx = 0;

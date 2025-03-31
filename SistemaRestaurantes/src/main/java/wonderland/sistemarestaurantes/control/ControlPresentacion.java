@@ -19,6 +19,8 @@ import wonderland.sistemarestaurantes.productos.EditarProducto;
 import wonderland.sistemarestaurantes.productos.ListaProductos;
 import wonderland.sistemarestaurantes.productos.NuevoProducto;
 import wonderland.sistemarestaurantes.reportes.IniciarReporte;
+import wonderland.sistemarestaurantesdominio.Cliente;
+import wonderland.sistemarestaurantesdominio.dtos.ClienteDTO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ClientesBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.MesasBO;
 import wonderland.sistemarestaurantespersistencia.daos.ClientesDAO;
@@ -34,6 +36,7 @@ public class ControlPresentacion {
     ClientesBO clientesBO = new ClientesBO(clientesDAO);
     MesasDAO mesasDAO = new MesasDAO();
     MesasBO mesasBO = new MesasBO(mesasDAO);
+
     
     public void mostrarVentanaPrincial(){
         VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(this);
@@ -50,8 +53,24 @@ public class ControlPresentacion {
         listaClientes.mostrar();
     }
     
-    public void mostrarPerfilCliente(){
-        PerfilCliente perfilCliente = new PerfilCliente(this, clientesBO);
+    public void mostrarPerfilCliente(Cliente cliente) {
+        if (cliente == null) {
+            System.out.println("Error: Cliente es null en mostrarPerfilCliente");
+            return;
+        }
+
+        System.out.println("Mostrando perfil de: " + cliente.getNombre());
+        
+        Long clienteId = cliente.getId();
+        String nombreCliente = cliente.getNombre();
+        String apellidoPaternoCliente = cliente.getApellidoPaterno();
+        String apellidoMaternoCliente = cliente.getApellidoMaterno();
+        String correoElectronicoCliente = cliente.getCorreoElectronico();
+        String telefonoCliente = cliente.getTelefono();
+
+
+        ClienteDTO clienteDTO = new ClienteDTO(clienteId,nombreCliente,apellidoPaternoCliente,apellidoMaternoCliente,correoElectronicoCliente,telefonoCliente);
+        PerfilCliente perfilCliente = new PerfilCliente(this, clientesBO, clienteDTO);
         perfilCliente.mostrar();
     }
     

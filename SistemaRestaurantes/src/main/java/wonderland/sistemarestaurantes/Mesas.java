@@ -84,13 +84,14 @@ public class Mesas extends javax.swing.JFrame {
         jButtonAgregarMesas.setBackground(new java.awt.Color(255, 255, 255));
         jButtonAgregarMesas.setFont(new java.awt.Font("Century Gothic", 1, 10)); // NOI18N
         jButtonAgregarMesas.setForeground(new java.awt.Color(0, 0, 0));
-        jButtonAgregarMesas.setText("Agregar Mesas");
+        jButtonAgregarMesas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAgregarMesas.png"))); // NOI18N
+        jButtonAgregarMesas.setContentAreaFilled(false);
         jButtonAgregarMesas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAgregarMesasActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAgregarMesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 30, 120, -1));
+        getContentPane().add(jButtonAgregarMesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 30, 40, 40));
 
         jScrollPaneMesas.setBackground(new java.awt.Color(29, 39, 56));
         jScrollPaneMesas.setBorder(null);

@@ -109,4 +109,42 @@ public class ClientesDAOTest {
 //
 //    }
 //    
+//    @Test
+//    public void testConsultarClientePorNombreCompletoOk(){
+//        ClientesDAO clientesDAO = new ClientesDAO();
+//        final Long ID_CLIENTE_BUSCADO = 1L;
+//
+//        Cliente clienteConsultado = clientesDAO.buscarClientePorId(ID_CLIENTE_BUSCADO);
+//        
+//        assertNotNull(clienteConsultado);
+//        
+//        assertEquals("Dana Melissa", clienteConsultado.getNombre());
+//    }
+//    
+    @Test
+    public void testEditarClienteOk(){
+        ClientesDAO clientesDAO = new ClientesDAO();
+
+        NuevoClienteDTO nuevoClienteDTO = new NuevoClienteDTO("Juan","Perez","Gom","juan@example.com","1234567890");
+
+        Cliente clienteRegistrado = clientesDAO.registrarCliente(nuevoClienteDTO);
+
+        ClienteDTO clienteDTO = new ClienteDTO();
+        clienteDTO.setId(clienteRegistrado.getId());
+        clienteDTO.setNombre("Juan Carlos");
+        clienteDTO.setApellidoPaterno("Perez");
+        clienteDTO.setApellidoMaterno("Gomez");
+        clienteDTO.setCorreoElectronico("juan.carlos@example.com");
+        clienteDTO.setTelefono("0987654321");
+
+        Cliente clienteEditado = clientesDAO.editarCliente(clienteDTO);
+
+        assertNotNull(clienteEditado);
+        assertEquals(clienteDTO.getId(), clienteEditado.getId());
+        assertEquals("Juan Carlos", clienteEditado.getNombre());
+        assertEquals("Perez", clienteEditado.getApellidoPaterno());
+        assertEquals("Gomez", clienteEditado.getApellidoMaterno());
+        assertEquals("juan.carlos@example.com", clienteEditado.getCorreoElectronico());
+        assertEquals("0987654321", clienteEditado.getTelefono());       
+    }
 }

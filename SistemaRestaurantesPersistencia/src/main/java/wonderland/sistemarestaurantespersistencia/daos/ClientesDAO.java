@@ -48,6 +48,7 @@ public class ClientesDAO implements IClientesDAO {
     @Override
     public List<Cliente> consultarClientesPorNombre(String filtroBusqueda) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Cliente> criteria = builder.createQuery(Cliente.class);
         Root<Cliente> entidadCliente = criteria.from(Cliente.class);
@@ -77,6 +78,7 @@ public class ClientesDAO implements IClientesDAO {
     @Override
     public List<Cliente> consultarClientesPorTelefono(String filtroBusqueda) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Cliente> criteria = builder.createQuery(Cliente.class);
         Root<Cliente> entidadCliente = criteria.from(Cliente.class);
@@ -93,6 +95,7 @@ public class ClientesDAO implements IClientesDAO {
     @Override
     public List<Cliente> consultarClientesPorCorreoElectronico(String filtroBusqueda) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Cliente> criteria = builder.createQuery(Cliente.class);
         Root<Cliente> entidadCliente = criteria.from(Cliente.class);
@@ -119,9 +122,27 @@ public class ClientesDAO implements IClientesDAO {
     @Override
     public Cliente editarCliente(ClienteDTO clienteDTO) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        return null;
+        
+        entityManager.getTransaction().begin();
+        
+        Cliente clienteEncontrado = buscarClientePorId(clienteDTO.getId());
+        clienteEncontrado.setNombre(clienteDTO.getNombre());
+        clienteEncontrado.setApellidoPaterno(clienteDTO.getApellidoPaterno());
+        clienteEncontrado.setApellidoMaterno(clienteDTO.getApellidoMaterno());
+        clienteEncontrado.setCorreoElectronico(clienteDTO.getCorreoElectronico());
+        clienteEncontrado.setTelefono(clienteDTO.getTelefono());
+        
+        entityManager.merge(clienteEncontrado);
+        entityManager.getTransaction().commit();
+        
+        return clienteEncontrado;
     }
 
-
-    
+    @Override
+    public Cliente buscarClientePorId(Long idCliente) {   
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        
+        Cliente cliente = entityManager.find(Cliente.class, idCliente);
+        return cliente;       
+    }
 }

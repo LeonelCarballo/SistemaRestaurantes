@@ -19,8 +19,20 @@ public class ClienteDTO {
     public ClienteDTO() {
     }
 
+    public ClienteDTO(Long id) {
+        this.id = id;
+    }
+    
     public ClienteDTO(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico, String telefono) {
         this.id = id;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.correoElectronico = correoElectronico;
+        this.telefono = telefono;
+    }
+
+    public ClienteDTO(String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico, String telefono) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;

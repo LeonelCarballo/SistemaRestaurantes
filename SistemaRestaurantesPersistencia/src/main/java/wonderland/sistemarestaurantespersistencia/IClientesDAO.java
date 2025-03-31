@@ -28,5 +28,7 @@ public interface IClientesDAO {
     
     public abstract Cliente editarCliente(ClienteDTO clienteDTO);
     
+    public abstract Cliente buscarClientePorId(Long idCliente);
+    
     
 }
