@@ -46,6 +46,7 @@ public class ListaIngredientes extends javax.swing.JFrame {
     private void initComponents() {
 
         jButtonAnterior = new javax.swing.JButton();
+        jButtonAnadirProducto = new javax.swing.JButton();
         jLabelFondoListaIngredientes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -61,6 +62,15 @@ public class ListaIngredientes extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 100, 100));
 
+        jButtonAnadirProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnadirProducto.png"))); // NOI18N
+        jButtonAnadirProducto.setContentAreaFilled(false);
+        jButtonAnadirProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnadirProductoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonAnadirProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, -1, 60));
+
         jLabelFondoListaIngredientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoIngredientes.png"))); // NOI18N
         getContentPane().add(jLabelFondoListaIngredientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -71,6 +81,11 @@ public class ListaIngredientes extends javax.swing.JFrame {
         cerrar();
         control.mostrarVentanaPrincial();
     }//GEN-LAST:event_jButtonAnteriorActionPerformed
+
+    private void jButtonAnadirProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnadirProductoActionPerformed
+        cerrar();
+        control.mostrarNuevoIngrediente();
+    }//GEN-LAST:event_jButtonAnadirProductoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -108,6 +123,7 @@ public class ListaIngredientes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAnadirProducto;
     private javax.swing.JButton jButtonAnterior;
     private javax.swing.JLabel jLabelFondoListaIngredientes;
     // End of variables declaration//GEN-END:variables

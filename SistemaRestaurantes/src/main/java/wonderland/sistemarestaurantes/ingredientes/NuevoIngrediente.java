@@ -4,7 +4,13 @@
  */
 package wonderland.sistemarestaurantes.ingredientes;
 
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantesdominio.UnidadMedida;
+import wonderland.sistemarestaurantesdominio.dtos.NuevoIngredienteDTO;
+import wonderland.sistemarestaurantesnegocio.IIngredientesBO;
+import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
 /**
  *
@@ -12,7 +18,9 @@ import wonderland.sistemarestaurantes.control.ControlPresentacion;
  */
 public class NuevoIngrediente extends javax.swing.JFrame {
 
+    private IIngredientesBO ingredientesBO;
     private ControlPresentacion control;
+    private static final Logger LOG = Logger.getLogger(NuevoIngrediente.class.getName());
     
     /**
      * Creates new form AnadirIngrediente
@@ -21,9 +29,10 @@ public class NuevoIngrediente extends javax.swing.JFrame {
         initComponents();
     }
 
-    public NuevoIngrediente(ControlPresentacion control) {
+    public NuevoIngrediente(ControlPresentacion control, IIngredientesBO ingredientesBO) {
         this.control = control;
-        initComponents();
+        this.ingredientesBO = ingredientesBO;
+        initComponents();    
         setLocationRelativeTo(null);
     }
     
@@ -35,7 +44,43 @@ public class NuevoIngrediente extends javax.swing.JFrame {
         setVisible(false);
         dispose();
     }
-
+    
+    public void registrar(){
+        
+        String nombre = this.jTextFieldNombre.getText();
+        float stock = 0;
+        try {
+        stock = Float.parseFloat(this.jTextFieldCantidad.getText());
+        } catch (NumberFormatException ex) {
+            LOG.severe("No fue posible registrar el cliente" + ex.getMessage());
+        }
+        UnidadMedida unidadMedida = UnidadMedida.PIEZA;
+        if(jComboBoxUnidad.getSelectedItem().equals("Piezas")){
+            unidadMedida = UnidadMedida.PIEZA;
+        }else if(jComboBoxUnidad.getSelectedItem().equals("gr")){
+            unidadMedida = UnidadMedida.GR;
+        }else if(jComboBoxUnidad.getSelectedItem().equals("ml")){
+            unidadMedida = UnidadMedida.ML;
+        }
+            
+        NuevoIngredienteDTO nuevoIngrediente = new NuevoIngredienteDTO(nombre, stock, unidadMedida);
+        
+        try {
+            this.ingredientesBO.registrarIngrediente(nuevoIngrediente);
+            JOptionPane.showMessageDialog(this, "Se registro el ingrediente con exito","Informacion", JOptionPane.INFORMATION_MESSAGE);
+            this.limpiar();
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(),"Informacion", JOptionPane.ERROR_MESSAGE);
+            LOG.severe("No fue posible registrar el cliente" + ex.getMessage());
+        }
+        
+    }
+    
+    public void limpiar(){
+        jTextFieldNombre.setText("Nombre");
+        jTextFieldCantidad.setText("0");
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,6 +91,13 @@ public class NuevoIngrediente extends javax.swing.JFrame {
     private void initComponents() {
 
         jButtonAnterior = new javax.swing.JButton();
+        jTextFieldNombre = new javax.swing.JTextField();
+        jTextFieldCantidad = new javax.swing.JTextField();
+        jComboBoxUnidad = new javax.swing.JComboBox<>();
+        jLabelNombre = new javax.swing.JLabel();
+        jLabelUnidad = new javax.swing.JLabel();
+        jLabelCantidad = new javax.swing.JLabel();
+        jButtonConfirmar = new javax.swing.JButton();
         jLabelFondoAnadirIngrediente = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -54,13 +106,102 @@ public class NuevoIngrediente extends javax.swing.JFrame {
 
         jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
         jButtonAnterior.setContentAreaFilled(false);
+        jButtonAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnteriorActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 100, 100));
+
+        jTextFieldNombre.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextFieldNombre.setText("Nombre");
+        jTextFieldNombre.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldNombreActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextFieldNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 220, 280, 40));
+
+        jTextFieldCantidad.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextFieldCantidad.setText("0");
+        jTextFieldCantidad.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        jTextFieldCantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldCantidadActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextFieldCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 370, 280, 40));
+
+        jComboBoxUnidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Piezas", "gr", "ml" }));
+        jComboBoxUnidad.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxUnidadItemStateChanged(evt);
+            }
+        });
+        jComboBoxUnidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxUnidadActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jComboBoxUnidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 290, 280, 40));
+
+        jLabelNombre.setFont(new java.awt.Font("Serif", 3, 30)); // NOI18N
+        jLabelNombre.setForeground(new java.awt.Color(230, 230, 230));
+        jLabelNombre.setText("Nombre");
+        getContentPane().add(jLabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 130, 40));
+
+        jLabelUnidad.setFont(new java.awt.Font("Serif", 3, 30)); // NOI18N
+        jLabelUnidad.setForeground(new java.awt.Color(230, 230, 230));
+        jLabelUnidad.setText("Unidad");
+        getContentPane().add(jLabelUnidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 130, 40));
+
+        jLabelCantidad.setFont(new java.awt.Font("Serif", 3, 30)); // NOI18N
+        jLabelCantidad.setForeground(new java.awt.Color(230, 230, 230));
+        jLabelCantidad.setText("Cantidad");
+        getContentPane().add(jLabelCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, 130, 40));
+
+        jButtonConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonConfirmar.png"))); // NOI18N
+        jButtonConfirmar.setContentAreaFilled(false);
+        jButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConfirmarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 490, -1, -1));
 
         jLabelFondoAnadirIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoAnadirIngrediente.png"))); // NOI18N
         getContentPane().add(jLabelFondoAnadirIngrediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jComboBoxUnidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxUnidadActionPerformed
+        
+    }//GEN-LAST:event_jComboBoxUnidadActionPerformed
+
+    private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
+        cerrar();
+        control.mostrarListaIngredientes();
+    }//GEN-LAST:event_jButtonAnteriorActionPerformed
+
+    private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
+        registrar();
+        cerrar();
+        control.mostrarVentanaPrincial();
+    }//GEN-LAST:event_jButtonConfirmarActionPerformed
+
+    private void jComboBoxUnidadItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxUnidadItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxUnidadItemStateChanged
+
+    private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNombreActionPerformed
+
+    private void jTextFieldCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCantidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldCantidadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -100,6 +241,13 @@ public class NuevoIngrediente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnterior;
+    private javax.swing.JButton jButtonConfirmar;
+    private javax.swing.JComboBox<String> jComboBoxUnidad;
+    private javax.swing.JLabel jLabelCantidad;
     private javax.swing.JLabel jLabelFondoAnadirIngrediente;
+    private javax.swing.JLabel jLabelNombre;
+    private javax.swing.JLabel jLabelUnidad;
+    private javax.swing.JTextField jTextFieldCantidad;
+    private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
 }

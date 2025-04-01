@@ -11,6 +11,7 @@ import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteDTO;
 import wonderland.sistemarestaurantesnegocio.IClientesBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
+import wonderland.sistemarestaurantesnegocio.implementaciones.ClientesBO;
 
 /**
  *
@@ -28,8 +29,8 @@ public class RegistrarCliente extends javax.swing.JFrame {
 
     public RegistrarCliente(ControlPresentacion control, IClientesBO clientesBO) {
         this.control = control;
-        initComponents();
         this.clientesBO = clientesBO;
+        initComponents();
         setLocationRelativeTo(null);
     }
     
