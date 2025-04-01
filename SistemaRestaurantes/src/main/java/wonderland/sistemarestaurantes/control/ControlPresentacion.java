@@ -4,6 +4,7 @@
  */
 package wonderland.sistemarestaurantes.control;
 
+import java.util.Calendar;
 import wonderland.sistemarestaurantes.Mesas;
 import wonderland.sistemarestaurantes.VentanaPrincipal;
 import wonderland.sistemarestaurantes.clientes.ListaClientes;
@@ -73,9 +74,10 @@ public class ControlPresentacion {
         String apellidoMaternoCliente = cliente.getApellidoMaterno();
         String correoElectronicoCliente = cliente.getCorreoElectronico();
         String telefonoCliente = cliente.getTelefono();
+        Calendar fechaRegistroCliente = cliente.getFechaRegistro();
 
 
-        ClienteDTO clienteDTO = new ClienteDTO(clienteId,nombreCliente,apellidoPaternoCliente,apellidoMaternoCliente,correoElectronicoCliente,telefonoCliente);
+        ClienteDTO clienteDTO = new ClienteDTO(clienteId,nombreCliente,apellidoPaternoCliente,apellidoMaternoCliente,correoElectronicoCliente,telefonoCliente, fechaRegistroCliente);
         PerfilCliente perfilCliente = new PerfilCliente(this, clientesBO, clienteDTO);
         perfilCliente.mostrar();
     }

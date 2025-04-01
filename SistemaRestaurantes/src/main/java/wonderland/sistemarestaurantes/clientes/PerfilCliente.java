@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.text.SimpleDateFormat;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -88,13 +89,17 @@ public class PerfilCliente extends javax.swing.JFrame {
     }
     
     private void cargarDatosCliente(ClienteDTO cliente) {
+        
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 
+        String fechaFormateada = dateFormat.format(cliente.getFechaRegistro().getTime());
+        
         if (cliente != null) {
             jTextFieldNombreCliente.setText(cliente.getNombre());
             jTextFieldApellidoPaterno.setText(cliente.getApellidoPaterno());
             jTextFieldApellidoMaterno.setText(cliente.getApellidoMaterno());
             jTextFieldTelefono.setText(cliente.getTelefono());
             jTextFieldCorreo.setText(cliente.getCorreoElectronico());
-            //jTextFieldFechaRegistro.setText(cliente.getFechaRegistro());
+            jTextFieldFechaRegistro.setText(fechaFormateada);
             //jTextFieldPuntos.setText(String.valueOf(cliente.getPuntos()));
 
             jTextFieldFechaRegistro.setEditable(false);

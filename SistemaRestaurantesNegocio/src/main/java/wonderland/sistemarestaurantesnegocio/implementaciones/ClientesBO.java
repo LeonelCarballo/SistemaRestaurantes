@@ -32,58 +32,75 @@ public class ClientesBO implements IClientesBO {
 
     @Override
     public Cliente registrarCliente(NuevoClienteDTO nuevoCliente) throws NegocioException {
-        
-        //validaciones de campos obligatorios
+
+        // Validaciones de campos obligatorios
         if (nuevoCliente.getNombre() == null || nuevoCliente.getNombre().trim().isEmpty()) {
-            throw new NegocioException ("Debes proporcionar el nombre del cliente");
+            throw new NegocioException("Debes proporcionar el nombre del cliente");
         }
-        
+
         if (nuevoCliente.getApellidoPaterno() == null || nuevoCliente.getApellidoPaterno().trim().isEmpty()) {
-            throw new NegocioException ("Debes proporcionar el apellido paterno del cliente");
+            throw new NegocioException("Debes proporcionar el apellido paterno del cliente");
         }
-        
-        if (nuevoCliente.getApellidoMaterno() == null) {
-            throw new NegocioException ("Debes proporcionar el apellido materno del cliente");
+
+        if (nuevoCliente.getApellidoMaterno() == null || nuevoCliente.getApellidoMaterno().trim().isEmpty()) {
+            throw new NegocioException("Debes proporcionar el apellido materno del cliente");
         }
-        
+
         if (nuevoCliente.getTelefono() == null || nuevoCliente.getTelefono().trim().isEmpty()) {
-            throw new NegocioException ("Debes proporcionar el telefono del cliente");
+            throw new NegocioException("Debes proporcionar el teléfono del cliente");
         }
-        
-        // validaciones de longitud
-        if (nuevoCliente.getNombre().length() > LIMITE_CARACTERES_NOMBRE ){
-            throw new NegocioException ("El Nombre del cliente Excede el limite de " + LIMITE_CARACTERES_NOMBRE);
+
+        // Validaciones de formato (solo letras para nombre y apellidos)
+        if (!nuevoCliente.getNombre().matches("^[a-zA-Z]+$")) {
+            throw new NegocioException("El nombre solo puede contener letras");
         }
-        
-        if (nuevoCliente.getApellidoPaterno().length() > LIMITE_CARACTERES_NOMBRE ){
-            throw new NegocioException ("El Nombre del cliente Excede el limite de " + LIMITE_CARACTERES_NOMBRE);
+
+        if (!nuevoCliente.getApellidoPaterno().matches("^[a-zA-Z]+$")) {
+            throw new NegocioException("El apellido paterno solo puede contener letras");
         }
-        
-        if (nuevoCliente.getApellidoMaterno().length() > LIMITE_CARACTERES_NOMBRE ){
-            throw new NegocioException ("El Nombre del cliente Excede el limite de " + LIMITE_CARACTERES_NOMBRE);
+
+        if (!nuevoCliente.getApellidoMaterno().matches("^[a-zA-Z]+$")) {
+            throw new NegocioException("El apellido materno solo puede contener letras");
         }
-        
-        if (nuevoCliente.getCorreoElectronico().length() > LIMITE_CARACTERES_CORREO_ELECTRONICO ){
-            throw new NegocioException ("El Nombre del cliente Excede el limite de " + LIMITE_CARACTERES_NOMBRE);
+
+        // Validaciones de longitud
+        if (nuevoCliente.getNombre().length() > LIMITE_CARACTERES_NOMBRE) {
+            throw new NegocioException("El nombre del cliente excede el límite de " + LIMITE_CARACTERES_NOMBRE + " caracteres.");
         }
-        
-        if (nuevoCliente.getTelefono().length() > LIMITE_CARACTERES_TELEFONO ){
-            throw new NegocioException ("El Nombre del cliente Excede el limite de " + LIMITE_CARACTERES_NOMBRE);
+
+        if (nuevoCliente.getApellidoPaterno().length() > LIMITE_CARACTERES_NOMBRE) {
+            throw new NegocioException("El apellido paterno excede el límite de " + LIMITE_CARACTERES_NOMBRE + " caracteres.");
         }
-        
-        // validacion formato correo
+
+        if (nuevoCliente.getApellidoMaterno().length() > LIMITE_CARACTERES_NOMBRE) {
+            throw new NegocioException("El apellido materno excede el límite de " + LIMITE_CARACTERES_NOMBRE + " caracteres.");
+        }
+
+        if (nuevoCliente.getCorreoElectronico().length() > LIMITE_CARACTERES_CORREO_ELECTRONICO) {
+            throw new NegocioException("El correo electrónico excede el límite de " + LIMITE_CARACTERES_CORREO_ELECTRONICO + " caracteres.");
+        }
+
+        if (nuevoCliente.getTelefono().length() > LIMITE_CARACTERES_TELEFONO) {
+            throw new NegocioException("El teléfono excede el límite de " + LIMITE_CARACTERES_TELEFONO + " caracteres.");
+        }
+
+        // Validación de formato de teléfono
+        String telefono = nuevoCliente.getTelefono();
+        if (!telefono.matches("^\\+?\\d+$")) {
+            throw new NegocioException("El teléfono solo puede contener números y puede comenzar con un +.");
+        }
+
+        // Validación de formato de correo electrónico
         String correo = nuevoCliente.getCorreoElectronico();
         if (correo != null && !correo.trim().isEmpty()) {
-            if (correo.length() > LIMITE_CARACTERES_CORREO_ELECTRONICO) {
-                throw new NegocioException("El correo electrónico excede el límite de " + LIMITE_CARACTERES_CORREO_ELECTRONICO + " caracteres.");
-            }
             if (!correo.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
                 throw new NegocioException("El formato del correo electrónico no es válido.");
             }
         }
-        
+
         return this.clientesDAO.registrarCliente(nuevoCliente);
     }
+
 
     @Override
     public List<Cliente> consultarClientesPorNombre(String filtroBusqueda) throws NegocioException {
@@ -116,50 +133,67 @@ public class ClientesBO implements IClientesBO {
 
     @Override
     public Cliente editarCliente(ClienteDTO clienteDTO) throws NegocioException {
-         //validaciones de campos obligatorios
+
+        // Validaciones de campos obligatorios
         if (clienteDTO.getNombre() == null || clienteDTO.getNombre().trim().isEmpty()) {
-            throw new NegocioException ("Debes proporcionar el nombre del cliente");
+            throw new NegocioException("Debes proporcionar el nombre del cliente");
         }
-        
+
         if (clienteDTO.getApellidoPaterno() == null || clienteDTO.getApellidoPaterno().trim().isEmpty()) {
-            throw new NegocioException ("Debes proporcionar el apellido paterno del cliente");
+            throw new NegocioException("Debes proporcionar el apellido paterno del cliente");
         }
-        
-        if (clienteDTO.getApellidoMaterno() == null) {
-            throw new NegocioException ("Debes proporcionar el apellido materno del cliente");
+
+        if (clienteDTO.getApellidoMaterno() == null || clienteDTO.getApellidoMaterno().trim().isEmpty()) {
+            throw new NegocioException("Debes proporcionar el apellido materno del cliente");
         }
-        
+
         if (clienteDTO.getTelefono() == null || clienteDTO.getTelefono().trim().isEmpty()) {
-            throw new NegocioException ("Debes proporcionar el telefono del cliente");
+            throw new NegocioException("Debes proporcionar el teléfono del cliente");
         }
-        
-        // validaciones de longitud
-        if (clienteDTO.getNombre().length() > LIMITE_CARACTERES_NOMBRE ){
-            throw new NegocioException ("El Nombre del cliente Excede el limite de " + LIMITE_CARACTERES_NOMBRE);
+
+        // Validaciones de formato (solo letras para nombre y apellidos)
+        if (!clienteDTO.getNombre().matches("^[a-zA-Z]+$")) {
+            throw new NegocioException("El nombre solo puede contener letras");
         }
-        
-        if (clienteDTO.getApellidoPaterno().length() > LIMITE_CARACTERES_NOMBRE ){
-            throw new NegocioException ("El Nombre del cliente Excede el limite de " + LIMITE_CARACTERES_NOMBRE);
+
+        if (!clienteDTO.getApellidoPaterno().matches("^[a-zA-Z]+$")) {
+            throw new NegocioException("El apellido paterno solo puede contener letras");
         }
-        
-        if (clienteDTO.getApellidoMaterno().length() > LIMITE_CARACTERES_NOMBRE ){
-            throw new NegocioException ("El Nombre del cliente Excede el limite de " + LIMITE_CARACTERES_NOMBRE);
+
+        if (!clienteDTO.getApellidoMaterno().matches("^[a-zA-Z]+$")) {
+            throw new NegocioException("El apellido materno solo puede contener letras");
         }
-        
-        if (clienteDTO.getCorreoElectronico().length() > LIMITE_CARACTERES_CORREO_ELECTRONICO ){
-            throw new NegocioException ("El Nombre del cliente Excede el limite de " + LIMITE_CARACTERES_NOMBRE);
+
+        // Validaciones de longitud
+        if (clienteDTO.getNombre().length() > LIMITE_CARACTERES_NOMBRE) {
+            throw new NegocioException("El nombre del cliente excede el límite de " + LIMITE_CARACTERES_NOMBRE + " caracteres.");
         }
-        
-        if (clienteDTO.getTelefono().length() > LIMITE_CARACTERES_TELEFONO ){
-            throw new NegocioException ("El Nombre del cliente Excede el limite de " + LIMITE_CARACTERES_NOMBRE);
+
+        if (clienteDTO.getApellidoPaterno().length() > LIMITE_CARACTERES_NOMBRE) {
+            throw new NegocioException("El apellido paterno excede el límite de " + LIMITE_CARACTERES_NOMBRE + " caracteres.");
         }
-        
-        // validacion formato correo
+
+        if (clienteDTO.getApellidoMaterno().length() > LIMITE_CARACTERES_NOMBRE) {
+            throw new NegocioException("El apellido materno excede el límite de " + LIMITE_CARACTERES_NOMBRE + " caracteres.");
+        }
+
+        if (clienteDTO.getCorreoElectronico().length() > LIMITE_CARACTERES_CORREO_ELECTRONICO) {
+            throw new NegocioException("El correo electrónico excede el límite de " + LIMITE_CARACTERES_CORREO_ELECTRONICO + " caracteres.");
+        }
+
+        if (clienteDTO.getTelefono().length() > LIMITE_CARACTERES_TELEFONO) {
+            throw new NegocioException("El teléfono excede el límite de " + LIMITE_CARACTERES_TELEFONO + " caracteres.");
+        }
+
+        // Validación de formato de teléfono
+        String telefono = clienteDTO.getTelefono();
+        if (!telefono.matches("^\\+?\\d+$")) {
+            throw new NegocioException("El teléfono solo puede contener números y puede comenzar con un +.");
+        }
+
+        // Validación de formato de correo electrónico
         String correo = clienteDTO.getCorreoElectronico();
         if (correo != null && !correo.trim().isEmpty()) {
-            if (correo.length() > LIMITE_CARACTERES_CORREO_ELECTRONICO) {
-                throw new NegocioException("El correo electrónico excede el límite de " + LIMITE_CARACTERES_CORREO_ELECTRONICO + " caracteres.");
-            }
             if (!correo.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
                 throw new NegocioException("El formato del correo electrónico no es válido.");
             }
