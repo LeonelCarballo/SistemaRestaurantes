@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,6 +28,10 @@ public class Mesa implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @Enumerated (EnumType.STRING)
+    @Column (name = "estado" , nullable = false)
+    private EstadoMesa estado;
+    
     @Column(name = "numero_mesa", nullable = false)
     private Integer numeroMesa;
     
@@ -35,12 +41,13 @@ public class Mesa implements Serializable {
     public Mesa() {
     }
 
-    public Mesa(Long id, Integer numeroMesa, List<Comanda> comandas) {
+    public Mesa(Long id, EstadoMesa estado, Integer numeroMesa, List<Comanda> comandas) {
         this.id = id;
+        this.estado = estado;
         this.numeroMesa = numeroMesa;
         this.comandas = comandas;
     }
-    
+
     public Mesa(Long id, List<Comanda> comandas) {
         this.id = id;
         this.comandas = comandas;
@@ -61,6 +68,14 @@ public class Mesa implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public EstadoMesa getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoMesa estado) {
+        this.estado = estado;
     }
 
     public List<Comanda> getComandas() {
