@@ -52,10 +52,10 @@ public class ClientesBO implements IClientesBO {
         }
 
         // Validaciones de formato (solo letras para nombre y apellidos)
-        if (!nuevoClienteFrecuente.getNombre().matches("^[a-zA-Z]+$")) {
-            throw new NegocioException("El nombre solo puede contener letras");
+        if (!nuevoClienteFrecuente.getNombre().matches("^[a-zA-Z ]+$")) {
+             throw new NegocioException("El nombre solo puede contener letras y espacios simples");
         }
-
+        
         if (!nuevoClienteFrecuente.getApellidoPaterno().matches("^[a-zA-Z]+$")) {
             throw new NegocioException("El apellido paterno solo puede contener letras");
         }
@@ -153,8 +153,8 @@ public class ClientesBO implements IClientesBO {
         }
 
         // Validaciones de formato (solo letras para nombre y apellidos)
-        if (!clienteFrecuenteDTO.getNombre().matches("^[a-zA-Z]+$")) {
-            throw new NegocioException("El nombre solo puede contener letras");
+        if (!clienteFrecuenteDTO.getNombre().matches("^[a-zA-Z ]+$")) {
+            throw new NegocioException("El nombre solo puede contener letras y espacios simples");
         }
 
         if (!clienteFrecuenteDTO.getApellidoPaterno().matches("^[a-zA-Z]+$")) {

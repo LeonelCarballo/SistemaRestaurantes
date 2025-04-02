@@ -27,10 +27,10 @@ public class IngredienteProducto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     @Column(name= "id_ingrediente_producto")
-        private Long id;
+    private Long id;
     
     @Column(name= "cantidad", nullable = false)
-        private Float cantidad;
+    private Float cantidad;
 
     @ManyToOne()
     @JoinColumn(name = "id_producto")

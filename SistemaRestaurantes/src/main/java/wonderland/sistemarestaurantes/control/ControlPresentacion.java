@@ -25,7 +25,6 @@ import wonderland.sistemarestaurantespersistencia.daos.IngredientesDAO;
 import wonderland.sistemarestaurantesdominio.Cliente;
 import wonderland.sistemarestaurantesdominio.Ingrediente;
 import wonderland.sistemarestaurantesdominio.UnidadMedida;
-import wonderland.sistemarestaurantesdominio.dtos.ClienteDTO;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoIngredienteDTO;
 import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ClientesBO;

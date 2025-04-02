@@ -5,6 +5,7 @@
 package wonderland.sistemarestaurantes.ingredientes;
 
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantesnegocio.IIngredientesBO;
 
 /**
  *
@@ -13,6 +14,7 @@ import wonderland.sistemarestaurantes.control.ControlPresentacion;
 public class ListaIngredientes extends javax.swing.JFrame {
 
     private ControlPresentacion control;
+    private IIngredientesBO ingredientesBO;
     
     /**
      * Creates new form ListaIngredientes
@@ -21,7 +23,7 @@ public class ListaIngredientes extends javax.swing.JFrame {
         initComponents();
     }
 
-    public ListaIngredientes(ControlPresentacion control) {
+    public ListaIngredientes(ControlPresentacion control, IIngredientesBO ingredientesBO) {
         this.control = control;
         initComponents();
         setLocationRelativeTo(null);

@@ -24,8 +24,7 @@ public class Ingrediente implements Serializable {
 
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)   
     @Column(name = "id_ingrediente")
     private Long id;
     
@@ -38,7 +37,16 @@ public class Ingrediente implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column (name = "unidad_medida", nullable = false)
     private UnidadMedida unidadMedida;
-    
+
+    public Ingrediente() {
+    }
+
+    public Ingrediente(Long id, String nombre, Float stock, UnidadMedida unidadMedida) {
+        this.id = id;
+        this.nombre = nombre;
+        this.stock = stock;
+        this.unidadMedida = unidadMedida;
+    }
 
     public Long getId() {
         return id;

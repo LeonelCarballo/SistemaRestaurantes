@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import wonderland.sistemarestaurantesdominio.encrypt.JasyptUtil;
 
 /**
  * Representa un cliente frecuente del sistema de comandas.
@@ -50,8 +51,11 @@ public class Cliente implements Serializable {
     @Column (name = "correo_electronico", length = 100)
     private String correoElectronico;
     
-    @Column (name = "telefono" , unique = true, length = 20, nullable = false)
-    private String telefono;
+    @Column (name = "telefono" , unique = true, length = 255, nullable = false)
+    private String telefonoEncriptado;
+    
+    @Transient
+    private String telefono; 
     
     @Temporal (TemporalType.TIMESTAMP)
     @Column (name = "fecha_registro", nullable = false)
@@ -61,11 +65,9 @@ public class Cliente implements Serializable {
     private List<Comanda> comandas;
 
     public Cliente() {
+        
     }
-    
-    /**
-    * Constructor requerido para registrar un cliente
-    */
+
     public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico, String telefono, Calendar fechaRegistro) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -116,11 +118,16 @@ public class Cliente implements Serializable {
     }
 
     public String getTelefono() {
-        return telefono;
+        if (this.telefono == null && this.telefonoEncriptado != null) {
+            this.telefono = JasyptUtil.decrypt(this.telefonoEncriptado);
+        }
+        return this.telefono;
     }
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+        this.telefonoEncriptado = (telefono != null) ? 
+            JasyptUtil.encrypt(telefono) : null;
     }
 
     public Calendar getFechaRegistro() {

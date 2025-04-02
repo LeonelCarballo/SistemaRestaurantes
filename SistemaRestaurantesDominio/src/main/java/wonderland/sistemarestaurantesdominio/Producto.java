@@ -25,17 +25,17 @@ public class Producto implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     @Column(name= "id_producto")
-        private Long id;
+    private Long id;
       
     @Column(name = "nombre", nullable = false, length = 50)
-        private String nombre;
+    private String nombre;
     
     @Column(name = "precio", nullable = false)
-        private Float precio;
+    private Float precio;
     
     @Enumerated(EnumType.STRING)
     @Column (name = "tipo_producto", nullable = false)
-        private TipoProducto tipoProducto;
+    private TipoProducto tipoProducto;
 
     @OneToMany(mappedBy = "producto")
     private List<IngredienteProducto> ingredientesProductos;

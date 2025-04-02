@@ -23,16 +23,16 @@ public class DetalleComanda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     @Column(name= "id_detalle_comanda")
-        private Long id;
+    private Long id;
     
     @Column(name="cantidad_producto", nullable = false)
-        private Integer cantidadProducto;
+    private Integer cantidadProducto;
     
     @Column(name="precio", nullable = false)
-        private Float precio;
+    private Float precio;
     
     @Column(name="notas", nullable = false, length = 250)
-        private String nota;
+    private String nota;
 
     @Transient 
     private Float importe;
