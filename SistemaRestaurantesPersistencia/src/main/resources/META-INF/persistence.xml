@@ -8,11 +8,14 @@
     <class>wonderland.sistemarestaurantesdominio.Mesa</class>
     <class>wonderland.sistemarestaurantesdominio.Cliente_Frecuente</class>
     <class>wonderland.sistemarestaurantesdominio.ClienteFrecuente</class>
+    <class>wonderland.sistemarestaurantesdominio.Producto</class>
+    <class>wonderland.sistemarestaurantesdominio.DetalleComanda</class>
+    <class>wonderland.sistemarestaurantesdominio.IngredienteProducto</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sistema_restaurantes_test?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="Danoninocongelado1!"/>
+      <property name="javax.persistence.jdbc.password" value="Mazapan1501@"/>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>
