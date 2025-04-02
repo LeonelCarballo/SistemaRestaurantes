@@ -22,7 +22,10 @@ import wonderland.sistemarestaurantes.reportes.IniciarReporte;
 import wonderland.sistemarestaurantesnegocio.implementaciones.IngredientesBO;
 import wonderland.sistemarestaurantespersistencia.daos.IngredientesDAO;
 import wonderland.sistemarestaurantesdominio.Cliente;
+import wonderland.sistemarestaurantesdominio.Ingrediente;
+import wonderland.sistemarestaurantesdominio.UnidadMedida;
 import wonderland.sistemarestaurantesdominio.dtos.ClienteDTO;
+import wonderland.sistemarestaurantesdominio.dtos.NuevoIngredienteDTO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ClientesBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.MesasBO;
 import wonderland.sistemarestaurantespersistencia.daos.ClientesDAO;
@@ -80,6 +83,21 @@ public class ControlPresentacion {
         perfilCliente.mostrar();
     }
     
+    public void mostrarIngrediente(Ingrediente ingrediente){
+        if (ingrediente == null) {
+            System.out.println("Error: El ingrediente es nulo en mostrarIngrediente");
+            return;
+        }
+        
+        Long IdIngrediente = ingrediente.getId();
+        String nombreIngrediente = ingrediente.getNombre();
+        float StockIngrediente = ingrediente.getStock();
+        UnidadMedida UnidadIngrediente = ingrediente.getUnidadMedida();
+        
+        NuevoIngredienteDTO ingredienteDTO = new NuevoIngredienteDTO(nombreIngrediente, StockIngrediente, UnidadIngrediente);
+        
+    }
+    
     public void mostrarRegistrarCliente(){
         RegistrarCliente registrarCliente = new RegistrarCliente(this,clientesBO);
         registrarCliente.mostrar();
@@ -106,7 +124,7 @@ public class ControlPresentacion {
     }
     
     public void mostrarListaIngredientes(){
-        ListaIngredientes listaIngredientes = new ListaIngredientes(this);
+        ListaIngredientes listaIngredientes = new ListaIngredientes(this,ingredientesBO);
         listaIngredientes.mostrar();
     }
     
