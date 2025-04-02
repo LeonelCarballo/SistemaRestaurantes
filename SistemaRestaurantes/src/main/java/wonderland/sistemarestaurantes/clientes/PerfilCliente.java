@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantesdominio.Cliente;
-import wonderland.sistemarestaurantesdominio.dtos.ClienteDTO;
+import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
 import wonderland.sistemarestaurantesnegocio.IClientesBO;
 
 /**
@@ -24,7 +24,7 @@ import wonderland.sistemarestaurantesnegocio.IClientesBO;
 public class PerfilCliente extends javax.swing.JFrame {
     
     private IClientesBO clientesBO;
-    private ClienteDTO clienteDTO;
+    private ClienteFrecuenteDTO clienteDTO;
     private ControlPresentacion control;
     private static final Logger LOG = Logger.getLogger(PerfilCliente.class.getName());
     
@@ -36,7 +36,7 @@ public class PerfilCliente extends javax.swing.JFrame {
         initComponents();
     }
 
-    public PerfilCliente(ControlPresentacion control, IClientesBO clientesBO, ClienteDTO clienteDTO) {
+    public PerfilCliente(ControlPresentacion control, IClientesBO clientesBO, ClienteFrecuenteDTO clienteDTO) {
         this.control = control;
         initComponents();
         this.clientesBO = clientesBO;
@@ -70,7 +70,7 @@ public class PerfilCliente extends javax.swing.JFrame {
 
     }
     
-    public void actualizarNombreCliente(ClienteDTO cliente) {
+    public void actualizarNombreCliente(ClienteFrecuenteDTO cliente) {
         
         JLabel lblNombreCliente = new JLabel();
         lblNombreCliente.setFont(new Font("Vladimir Script", Font.PLAIN, 60));
@@ -88,7 +88,7 @@ public class PerfilCliente extends javax.swing.JFrame {
         }
     }
     
-    private void cargarDatosCliente(ClienteDTO cliente) {
+    private void cargarDatosCliente(ClienteFrecuenteDTO cliente) {
         
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 
         String fechaFormateada = dateFormat.format(cliente.getFechaRegistro().getTime());
@@ -431,7 +431,7 @@ public class PerfilCliente extends javax.swing.JFrame {
         
         Long idCliente = clienteDTO.getId();
         
-        ClienteDTO clienteDTO = new ClienteDTO(idCliente);
+        ClienteFrecuenteDTO clienteDTO = new ClienteFrecuenteDTO(idCliente);
         clienteDTO.setNombre(nuevoNombre);
         clienteDTO.setApellidoPaterno(nuevoApellidoPaterno);
         clienteDTO.setApellidoMaterno(nuevoApellidoMaterno);

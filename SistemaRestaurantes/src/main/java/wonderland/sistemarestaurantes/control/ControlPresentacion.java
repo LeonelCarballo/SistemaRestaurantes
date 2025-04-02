@@ -23,10 +23,10 @@ import wonderland.sistemarestaurantes.reportes.IniciarReporte;
 import wonderland.sistemarestaurantesnegocio.implementaciones.IngredientesBO;
 import wonderland.sistemarestaurantespersistencia.daos.IngredientesDAO;
 import wonderland.sistemarestaurantesdominio.Cliente;
-import wonderland.sistemarestaurantesdominio.dtos.ClienteDTO;
+import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ClientesBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.MesasBO;
-import wonderland.sistemarestaurantespersistencia.daos.ClientesDAO;
+import wonderland.sistemarestaurantespersistencia.daos.ClientesFrecuentesDAO;
 import wonderland.sistemarestaurantespersistencia.daos.MesasDAO;
 
 /**
@@ -35,7 +35,7 @@ import wonderland.sistemarestaurantespersistencia.daos.MesasDAO;
  */
 public class ControlPresentacion {
     
-    ClientesDAO clientesDAO = new ClientesDAO();
+    ClientesFrecuentesDAO clientesDAO = new ClientesFrecuentesDAO();
     ClientesBO clientesBO = new ClientesBO(clientesDAO);
     
     IngredientesDAO ingredientesDAO = new IngredientesDAO();
@@ -77,7 +77,7 @@ public class ControlPresentacion {
         Calendar fechaRegistroCliente = cliente.getFechaRegistro();
 
 
-        ClienteDTO clienteDTO = new ClienteDTO(clienteId,nombreCliente,apellidoPaternoCliente,apellidoMaternoCliente,correoElectronicoCliente,telefonoCliente, fechaRegistroCliente);
+        ClienteFrecuenteDTO clienteDTO = new ClienteFrecuenteDTO(clienteId,nombreCliente,apellidoPaternoCliente,apellidoMaternoCliente,correoElectronicoCliente,telefonoCliente, fechaRegistroCliente);
         PerfilCliente perfilCliente = new PerfilCliente(this, clientesBO, clienteDTO);
         perfilCliente.mostrar();
     }

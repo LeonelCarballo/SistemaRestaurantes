@@ -15,12 +15,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantesdominio.Cliente;
-import wonderland.sistemarestaurantesdominio.dtos.ClienteDTO;
+import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
+import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
 
 
 public class ClientePanel extends JPanel {
     
-    public ClientePanel(Cliente cliente) {
+    public ClientePanel(ClienteFrecuente cliente) {
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.WHITE));
         setBackground(new Color(19, 28, 54));

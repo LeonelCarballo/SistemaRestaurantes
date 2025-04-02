@@ -10,7 +10,7 @@ import java.util.Calendar;
  *
  * @author Dana Chavez
  */
-public class ClienteDTO {
+public class ClienteFrecuenteDTO {
     private Long id;
     private String nombre;
     private String apellidoPaterno;
@@ -19,14 +19,14 @@ public class ClienteDTO {
     private String telefono;
     private Calendar fechaRegistro;
 
-    public ClienteDTO() {
+    public ClienteFrecuenteDTO() {
     }
 
-    public ClienteDTO(Long id) {
+    public ClienteFrecuenteDTO(Long id) {
         this.id = id;
     }
     
-    public ClienteDTO(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico, String telefono, Calendar fechaRegistro) {
+    public ClienteFrecuenteDTO(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico, String telefono, Calendar fechaRegistro) {
         this.id = id;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -36,7 +36,7 @@ public class ClienteDTO {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public ClienteDTO(String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico, String telefono) {
+    public ClienteFrecuenteDTO(String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico, String telefono) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;

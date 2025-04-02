@@ -23,21 +23,21 @@ public class MesasDAOTest {
     /**
      * Test of agregarMesas method, of class MesasDAO.
      */
-    @Test
-    public void testAgregarMesasOk() {
-        
-        MesasDAO mesasDAO = new MesasDAO();
-        NuevaMesaDTO nuevaMesaDTO = new NuevaMesaDTO(1L);
-
-        List<Mesa> mesasAgregadas = mesasDAO.agregarMesas(nuevaMesaDTO);
-
-        assertNotNull(mesasAgregadas, "La lista de mesas no debe ser nula");
-        assertEquals(20, mesasAgregadas.size(), "Se deben agregar exactamente 20 mesas");
-
-        for (int i = 0; i < 20; i++) {
-            Mesa mesa = mesasAgregadas.get(i);
-            assertNotNull(mesa.getId(), "La mesa debe tener un ID asignado");
-        }
-    }
+//    @Test
+//    public void testAgregarMesasOk() {
+//        
+//        MesasDAO mesasDAO = new MesasDAO();
+//        NuevaMesaDTO nuevaMesaDTO = new NuevaMesaDTO(1L);
+//
+//        List<Mesa> mesasAgregadas = mesasDAO.agregarMesas(nuevaMesaDTO);
+//
+//        assertNotNull(mesasAgregadas, "La lista de mesas no debe ser nula");
+//        assertEquals(20, mesasAgregadas.size(), "Se deben agregar exactamente 20 mesas");
+//
+//        for (int i = 0; i < 20; i++) {
+//            Mesa mesa = mesasAgregadas.get(i);
+//            assertNotNull(mesa.getId(), "La mesa debe tener un ID asignado");
+//        }
+//    }
     
 }

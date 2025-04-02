@@ -8,8 +8,9 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import wonderland.sistemarestaurantesdominio.Cliente;
-import wonderland.sistemarestaurantesdominio.dtos.ClienteDTO;
-import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteDTO;
+import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
+import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
+import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteFrecuenteDTO;
 
 /**
  *
@@ -25,9 +26,9 @@ public class ClientesDAOTest {
      */
 //    @Test
 //    public void testRegistrarClienteCompletoOk() {
-//        ClientesDAO clientesDAO = new ClientesDAO();
-//        NuevoClienteDTO nuevoCliente = new NuevoClienteDTO("Dana Melissa", "Chavez", "Gutierrez", "dana11@hotmail.com", "1234567890");
-//        Cliente clienteGuardado = clientesDAO.registrarCliente(nuevoCliente);
+//        ClientesFrecuentesDAO clientesFrecuentesDAO = new ClientesFrecuentesDAO();
+//        NuevoClienteFrecuenteDTO nuevoCliente = new NuevoClienteFrecuenteDTO("Dana Melissa", "Chavez", "Gutierrez", "dana11@hotmail.com", "1234567890");
+//        ClienteFrecuente clienteGuardado = clientesFrecuentesDAO.registrarCliente(nuevoCliente);
 //        
 //        assertNotNull(clienteGuardado.getId());
 //        
@@ -40,9 +41,9 @@ public class ClientesDAOTest {
 //    
 //    @Test
 //    public void testRegistrarClienteSinCorreoElectronicoOk() {
-//        ClientesDAO clientesDAO = new ClientesDAO();
-//        NuevoClienteDTO nuevoCliente = new NuevoClienteDTO("Dana Melissa", "Chavez", "Gutierrez", "1234567890");
-//        Cliente clienteGuardado = clientesDAO.registrarCliente(nuevoCliente);
+//        ClientesFrecuentesDAO clientesFrecuentesDAO = new ClientesFrecuentesDAO();
+//        NuevoClienteFrecuenteDTO nuevoCliente = new NuevoClienteFrecuenteDTO("Dana Melissa", "Chavez", "Gutierrez", "12345678902");
+//        ClienteFrecuente clienteGuardado = clientesFrecuentesDAO.registrarCliente(nuevoCliente);
 //        
 //        assertNotNull(clienteGuardado.getId());
 //        
@@ -56,10 +57,12 @@ public class ClientesDAOTest {
 //    
 //    @Test
 //    public void testConsultarClientePorNombreCompletoOk(){
-//        ClientesDAO clientesDAO = new ClientesDAO();
-//        String filtroBusqueda = "Dana Melissa Chavez Gutierrez";
+//        ClientesFrecuentesDAO clientesFrecuentesDAO = new ClientesFrecuentesDAO();
+//        
+//        final String filtroBusqueda = "Dana Melissa Chavez Gutierrez";
 //        final int NUMERO_CLIENTES_ESPERADOS = 4;
-//        List<Cliente> clientesConsultados = clientesDAO.consultarClientesPorNombre(filtroBusqueda);
+//        
+//        List<ClienteFrecuente> clientesConsultados = clientesFrecuentesDAO.consultarClientesPorNombre(filtroBusqueda);
 //        
 //        assertNotNull(clientesConsultados);
 //        
@@ -68,10 +71,12 @@ public class ClientesDAOTest {
 //    
 //    @Test
 //    public void testConsultarClientePorParteDelNombreOk(){
-//        ClientesDAO clientesDAO = new ClientesDAO();
-//        String filtroBusqueda = "Dana";
+//        ClientesFrecuentesDAO clientesFrecuentesDAO = new ClientesFrecuentesDAO();
+//        
+//        final String filtroBusqueda = "Dana";
 //        final int NUMERO_CLIENTES_ESPERADOS = 4;
-//        List<Cliente> clientesConsultados = clientesDAO.consultarClientesPorNombre(filtroBusqueda);
+//        
+//        List<ClienteFrecuente> clientesConsultados = clientesFrecuentesDAO.consultarClientesPorNombre(filtroBusqueda);
 //        
 //        assertNotNull(clientesConsultados);
 //        
@@ -80,10 +85,10 @@ public class ClientesDAOTest {
 //    
 //    @Test
 //    public void testConsultarClientePorTelefonoOk(){
-//        ClientesDAO clientesDAO = new ClientesDAO();
+//        ClientesFrecuentesDAO clientesFrecuentesDAO = new ClientesFrecuentesDAO();
 //        String filtroBusqueda = "1234567890";
 //        final int NUMERO_CLIENTES_ESPERADOS = 4;
-//        List<Cliente> clientesConsultados = clientesDAO.consultarClientesPorTelefono(filtroBusqueda);
+//        List<ClienteFrecuente> clientesConsultados = clientesFrecuentesDAO.consultarClientesPorTelefono(filtroBusqueda);
 //        
 //        assertNotNull(clientesConsultados);
 //        
@@ -92,44 +97,38 @@ public class ClientesDAOTest {
 //    
 //    @Test
 //    public void testConsultarClientePorCorreoElectronicoOk(){
-//        ClientesDAO clientesDAO = new ClientesDAO();
+//        ClientesFrecuentesDAO clientesFrecuentesDAO = new ClientesFrecuentesDAO();
 //        String filtroBusqueda = "dana11@hotmail.com";
 //        final int NUMERO_CLIENTES_ESPERADOS = 2;
-//        List<Cliente> clientesConsultados = clientesDAO.consultarClientesPorCorreoElectronico(filtroBusqueda);
+//        List<ClienteFrecuente> clientesConsultados = clientesFrecuentesDAO.consultarClientesPorCorreoElectronico(filtroBusqueda);
 //        
 //        assertNotNull(clientesConsultados);
 //        
 //        assertEquals(NUMERO_CLIENTES_ESPERADOS, clientesConsultados.size());
 //    }
-    
-//    @Test
-//    public void testEditarClienteOk(){
-//        ClientesDAO clientesDAO = new ClientesDAO();
-//        Long idCliente = 1L;
-//
-//    }
 //    
 //    @Test
-//    public void testConsultarClientePorNombreCompletoOk(){
-//        ClientesDAO clientesDAO = new ClientesDAO();
+//    public void testConsultarClientePorIdOk(){
+//        ClientesFrecuentesDAO clientesFrecuentesDAO = new ClientesFrecuentesDAO();
 //        final Long ID_CLIENTE_BUSCADO = 1L;
+//        final String NOMBRE_CLIENTE_BUSCADO = "Dana Melissa";
 //
-//        Cliente clienteConsultado = clientesDAO.buscarClientePorId(ID_CLIENTE_BUSCADO);
+//        ClienteFrecuente clienteConsultado = clientesFrecuentesDAO.buscarClientePorId(ID_CLIENTE_BUSCADO);
 //        
 //        assertNotNull(clienteConsultado);
 //        
-//        assertEquals("Dana Melissa", clienteConsultado.getNombre());
+//        assertEquals(NOMBRE_CLIENTE_BUSCADO, clienteConsultado.getNombre());
 //    }
 //    
 //    @Test
 //    public void testEditarClienteOk(){
-//        ClientesDAO clientesDAO = new ClientesDAO();
+//        ClientesFrecuentesDAO clientesFrecuentesDAO = new ClientesFrecuentesDAO();
 //
-//        NuevoClienteDTO nuevoClienteDTO = new NuevoClienteDTO("Juan","Perez","Gom","juan@example.com","1234567890");
+//        NuevoClienteFrecuenteDTO nuevoClienteDTO = new NuevoClienteFrecuenteDTO("Juan","Perez","Gom","juan@example.com","1234567890");
 //
-//        Cliente clienteRegistrado = clientesDAO.registrarCliente(nuevoClienteDTO);
+//        Cliente clienteRegistrado = clientesFrecuentesDAO.registrarCliente(nuevoClienteDTO);
 //
-//        ClienteDTO clienteDTO = new ClienteDTO();
+//        ClienteFrecuenteDTO clienteDTO = new ClienteFrecuenteDTO();
 //        clienteDTO.setId(clienteRegistrado.getId());
 //        clienteDTO.setNombre("Juan Carlos");
 //        clienteDTO.setApellidoPaterno("Perez");
@@ -137,7 +136,7 @@ public class ClientesDAOTest {
 //        clienteDTO.setCorreoElectronico("juan.carlos@example.com");
 //        clienteDTO.setTelefono("0987654321");
 //
-//        Cliente clienteEditado = clientesDAO.editarCliente(clienteDTO);
+//        ClienteFrecuente clienteEditado = clientesFrecuentesDAO.editarCliente(clienteDTO);
 //
 //        assertNotNull(clienteEditado);
 //        assertEquals(clienteDTO.getId(), clienteEditado.getId());
