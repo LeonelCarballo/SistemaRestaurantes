@@ -5,9 +5,9 @@
 package wonderland.sistemarestaurantesnegocio;
 
 import java.util.List;
-import wonderland.sistemarestaurantesdominio.Cliente;
-import wonderland.sistemarestaurantesdominio.dtos.ClienteDTO;
-import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteDTO;
+import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
+import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
+import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteFrecuenteDTO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
 /**
@@ -16,18 +16,18 @@ import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
  */
 public interface IClientesBO {
     
-    public abstract Cliente registrarCliente(NuevoClienteDTO nuevoCliente) throws NegocioException;
+    public abstract ClienteFrecuente registrarCliente(NuevoClienteFrecuenteDTO nuevoCliente) throws NegocioException;
     
-    public abstract List<Cliente> consultarClientesPorNombre(String filtroBusqueda) throws NegocioException;
+    public abstract List<ClienteFrecuente> consultarClientesPorNombre(String filtroBusqueda) throws NegocioException;
     
-    public abstract List<Cliente> consultarClientesPorTelefono(String filtroBusqueda) throws NegocioException;
+    public abstract List<ClienteFrecuente> consultarClientesPorTelefono(String filtroBusqueda) throws NegocioException;
     
-    public abstract List<Cliente> consultarClientesPorCorreoElectronico(String filtroBusqueda) throws NegocioException;
+    public abstract List<ClienteFrecuente> consultarClientesPorCorreoElectronico(String filtroBusqueda) throws NegocioException;
     
-    public abstract List<Cliente> obtenerClientes() throws NegocioException;
+    public abstract List<ClienteFrecuente> obtenerClientes() throws NegocioException;
     
-    public abstract Cliente editarCliente(ClienteDTO clienteDTO) throws NegocioException;
+    public abstract ClienteFrecuente editarCliente(ClienteFrecuenteDTO clienteDTO) throws NegocioException;
     
-    public abstract Cliente buscarClientePorId(Long id) throws NegocioException;
+    public abstract ClienteFrecuente buscarClientePorId(Long id) throws NegocioException;
     
 }

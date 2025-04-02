@@ -8,21 +8,21 @@ package wonderland.sistemarestaurantesdominio.dtos;
  *
  * @author Dana Chavez
  */
-public class NuevoClienteDTO {
+public class NuevoClienteFrecuenteDTO {
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
     private String correoElectronico;
     private String telefono;
 
-    public NuevoClienteDTO(String nombre, String apellidoPaterno, String apellidoMaterno, String telefono) {
+    public NuevoClienteFrecuenteDTO(String nombre, String apellidoPaterno, String apellidoMaterno, String telefono) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.telefono = telefono;
     }
     
-    public NuevoClienteDTO(String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico, String telefono) {
+    public NuevoClienteFrecuenteDTO(String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico, String telefono) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;

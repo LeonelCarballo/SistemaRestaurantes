@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import wonderland.sistemarestaurantesdominio.EstadoMesa;
 import wonderland.sistemarestaurantesdominio.Mesa;
 import wonderland.sistemarestaurantesdominio.dtos.NuevaMesaDTO;
 import wonderland.sistemarestaurantespersistencia.IMesasDAO;
@@ -33,7 +34,7 @@ public class MesasDAO implements IMesasDAO {
         for(int i = 0; i < 20; i++){
             Mesa mesa = new Mesa();
             mesa.setNumeroMesa(nuevaMesa.getNumeroMesa() + i);
-
+            mesa.setEstado(EstadoMesa.DISPONIBLE);
             entityManager.persist(mesa);
             
             mesas.add(mesa);

@@ -12,7 +12,8 @@ import java.util.logging.Logger;
 import javax.swing.JPanel;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantesdominio.Cliente;
-import wonderland.sistemarestaurantesdominio.dtos.ClienteDTO;
+import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
+import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
 import wonderland.sistemarestaurantesnegocio.IClientesBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
@@ -42,7 +43,7 @@ public class ListaClientes extends javax.swing.JFrame {
     public void mostrarInformacionClientes() {
         panelListaClientes.removeAll(); 
         try {
-            for (Cliente cliente : clientesBO.obtenerClientes()) { 
+            for (ClienteFrecuente cliente : clientesBO.obtenerClientes()) { 
                 panelListaClientes.add(new ClientePanel(cliente));
             }
         } catch (NegocioException ex) {
@@ -166,18 +167,18 @@ public class ListaClientes extends javax.swing.JFrame {
         panelListaClientes.removeAll();
 
         try {
-            List<Cliente> clientesPorNombre = this.clientesBO.consultarClientesPorNombre(filtroBusqueda);
-            List<Cliente> clientesPorTelefono = this.clientesBO.consultarClientesPorTelefono(filtroBusqueda);
-            List<Cliente> clientesPorCorreo = this.clientesBO.consultarClientesPorCorreoElectronico(filtroBusqueda);
+            List<ClienteFrecuente> clientesPorNombre = this.clientesBO.consultarClientesPorNombre(filtroBusqueda);
+            List<ClienteFrecuente> clientesPorTelefono = this.clientesBO.consultarClientesPorTelefono(filtroBusqueda);
+            List<ClienteFrecuente> clientesPorCorreo = this.clientesBO.consultarClientesPorCorreoElectronico(filtroBusqueda);
 
-            Set<Cliente> clientesUnicos = new HashSet<>();
+            Set<ClienteFrecuente> clientesUnicos = new HashSet<>();
             clientesUnicos.addAll(clientesPorNombre);
             clientesUnicos.addAll(clientesPorTelefono);
             clientesUnicos.addAll(clientesPorCorreo);
 
             System.out.println("Clientes encontrados: " + clientesUnicos.size());
 
-            for (Cliente cliente : clientesUnicos) {
+            for (ClienteFrecuente cliente : clientesUnicos) {
                 System.out.println("Procesando cliente: " + cliente.getNombre());
                 panelListaClientes.add(new ClientePanel(cliente));
             } 

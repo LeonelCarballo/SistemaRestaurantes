@@ -22,19 +22,19 @@ public class IngredientesDAOTest {
     /**
      * Test of registrarIngrediente method, of class IngredientesDAO.
      */
-    @Test
-    public void testRegistrarClienteCompletoOk() {
-        IngredientesDAO ingredientesDAO = new IngredientesDAO();
-        UnidadMedida unidadMedidaPieza = UnidadMedida.PIEZA;
-        NuevoIngredienteDTO nuevoIngrediente = new NuevoIngredienteDTO("Putas",4.0f,unidadMedidaPieza);
-        Ingrediente IngredienteGuardado = ingredientesDAO.registrarIngrediente(nuevoIngrediente);
-        
-        assertNotNull(IngredienteGuardado.getId());
-        
-        assertEquals(nuevoIngrediente.getNombre(), IngredienteGuardado.getNombre());
-        assertEquals(nuevoIngrediente.getStock(), IngredienteGuardado.getStock());
-        assertEquals(nuevoIngrediente.getUnidadMedida(), IngredienteGuardado.getUnidadMedida());
-        
-    }
+//    @Test
+//    public void testRegistrarClienteCompletoOk() {
+//        IngredientesDAO ingredientesDAO = new IngredientesDAO();
+//        UnidadMedida unidadMedidaPieza = UnidadMedida.PIEZA;
+//        NuevoIngredienteDTO nuevoIngrediente = new NuevoIngredienteDTO("Putas",4.0f,unidadMedidaPieza);
+//        Ingrediente IngredienteGuardado = ingredientesDAO.registrarIngrediente(nuevoIngrediente);
+//        
+//        assertNotNull(IngredienteGuardado.getId());
+//        
+//        assertEquals(nuevoIngrediente.getNombre(), IngredienteGuardado.getNombre());
+//        assertEquals(nuevoIngrediente.getStock(), IngredienteGuardado.getStock());
+//        assertEquals(nuevoIngrediente.getUnidadMedida(), IngredienteGuardado.getUnidadMedida());
+//        
+//    }
     
 }

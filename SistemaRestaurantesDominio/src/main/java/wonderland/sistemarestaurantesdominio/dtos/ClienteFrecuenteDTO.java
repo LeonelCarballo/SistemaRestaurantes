@@ -4,35 +4,39 @@
  */
 package wonderland.sistemarestaurantesdominio.dtos;
 
+import java.util.Calendar;
+
 /**
  *
  * @author Dana Chavez
  */
-public class ClienteDTO {
+public class ClienteFrecuenteDTO {
     private Long id;
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
     private String correoElectronico;
     private String telefono;
+    private Calendar fechaRegistro;
 
-    public ClienteDTO() {
+    public ClienteFrecuenteDTO() {
     }
 
-    public ClienteDTO(Long id) {
+    public ClienteFrecuenteDTO(Long id) {
         this.id = id;
     }
     
-    public ClienteDTO(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico, String telefono) {
+    public ClienteFrecuenteDTO(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico, String telefono, Calendar fechaRegistro) {
         this.id = id;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.correoElectronico = correoElectronico;
         this.telefono = telefono;
+        this.fechaRegistro = fechaRegistro;
     }
 
-    public ClienteDTO(String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico, String telefono) {
+    public ClienteFrecuenteDTO(String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico, String telefono) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -87,5 +91,15 @@ public class ClienteDTO {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
+
+    public Calendar getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Calendar fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+    
+    
      
 }

@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
-import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteDTO;
+import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteFrecuenteDTO;
 import wonderland.sistemarestaurantesnegocio.IClientesBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ClientesBO;
@@ -41,7 +41,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
         String correoElectronico = this.jTextFieldCorreoElectronico.getText();
         String telefono = this.jTextFieldTelefono.getText();
         
-        NuevoClienteDTO nuevoCliente = new NuevoClienteDTO(nombre, apellidoPaterno, apellidoMaterno, correoElectronico, telefono);
+        NuevoClienteFrecuenteDTO nuevoCliente = new NuevoClienteFrecuenteDTO(nombre, apellidoPaterno, apellidoMaterno, correoElectronico, telefono);
         
         try {
             this.clientesBO.registrarCliente(nuevoCliente);

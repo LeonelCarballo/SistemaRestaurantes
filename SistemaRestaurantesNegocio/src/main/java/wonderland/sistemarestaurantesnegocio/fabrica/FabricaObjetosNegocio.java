@@ -8,10 +8,10 @@ import wonderland.sistemarestaurantesnegocio.IClientesBO;
 import wonderland.sistemarestaurantesnegocio.IIngredientesBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ClientesBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.IngredientesBO;
-import wonderland.sistemarestaurantespersistencia.IClientesDAO;
 import wonderland.sistemarestaurantespersistencia.IIngredientesDAO;
-import wonderland.sistemarestaurantespersistencia.daos.ClientesDAO;
+import wonderland.sistemarestaurantespersistencia.daos.ClientesFrecuentesDAO;
 import wonderland.sistemarestaurantespersistencia.daos.IngredientesDAO;
+import wonderland.sistemarestaurantespersistencia.IClientesFrecuentesDAO;
 
 /**
  *
@@ -20,7 +20,7 @@ import wonderland.sistemarestaurantespersistencia.daos.IngredientesDAO;
 public class FabricaObjetosNegocio {
     
      public static IClientesBO crearClientesBO(){
-        IClientesDAO clientesDAO = new ClientesDAO();
+        IClientesFrecuentesDAO clientesDAO = new ClientesFrecuentesDAO();
         IClientesBO clientesBO = new ClientesBO(clientesDAO);
         return clientesBO;
     }

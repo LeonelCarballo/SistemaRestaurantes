@@ -4,6 +4,7 @@
  */
 package wonderland.sistemarestaurantes.control;
 
+import java.util.Calendar;
 import wonderland.sistemarestaurantes.Mesas;
 import wonderland.sistemarestaurantes.VentanaPrincipal;
 import wonderland.sistemarestaurantes.clientes.ListaClientes;
@@ -26,9 +27,10 @@ import wonderland.sistemarestaurantesdominio.Ingrediente;
 import wonderland.sistemarestaurantesdominio.UnidadMedida;
 import wonderland.sistemarestaurantesdominio.dtos.ClienteDTO;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoIngredienteDTO;
+import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ClientesBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.MesasBO;
-import wonderland.sistemarestaurantespersistencia.daos.ClientesDAO;
+import wonderland.sistemarestaurantespersistencia.daos.ClientesFrecuentesDAO;
 import wonderland.sistemarestaurantespersistencia.daos.MesasDAO;
 
 /**
@@ -37,7 +39,7 @@ import wonderland.sistemarestaurantespersistencia.daos.MesasDAO;
  */
 public class ControlPresentacion {
     
-    ClientesDAO clientesDAO = new ClientesDAO();
+    ClientesFrecuentesDAO clientesDAO = new ClientesFrecuentesDAO();
     ClientesBO clientesBO = new ClientesBO(clientesDAO);
     
     IngredientesDAO ingredientesDAO = new IngredientesDAO();
@@ -76,9 +78,10 @@ public class ControlPresentacion {
         String apellidoMaternoCliente = cliente.getApellidoMaterno();
         String correoElectronicoCliente = cliente.getCorreoElectronico();
         String telefonoCliente = cliente.getTelefono();
+        Calendar fechaRegistroCliente = cliente.getFechaRegistro();
 
 
-        ClienteDTO clienteDTO = new ClienteDTO(clienteId,nombreCliente,apellidoPaternoCliente,apellidoMaternoCliente,correoElectronicoCliente,telefonoCliente);
+        ClienteFrecuenteDTO clienteDTO = new ClienteFrecuenteDTO(clienteId,nombreCliente,apellidoPaternoCliente,apellidoMaternoCliente,correoElectronicoCliente,telefonoCliente, fechaRegistroCliente);
         PerfilCliente perfilCliente = new PerfilCliente(this, clientesBO, clienteDTO);
         perfilCliente.mostrar();
     }
