@@ -12,6 +12,7 @@ import wonderland.sistemarestaurantesdominio.UnidadMedida;
  */
 public class NuevoIngredienteDTO {
     
+    private Long id;
     private String nombre;
     private Float stock;
     private UnidadMedida unidadMedida;
@@ -20,6 +21,17 @@ public class NuevoIngredienteDTO {
         this.nombre = nombre;
         this.stock = stock;
         this.unidadMedida = unidadMedida;
+    }
+
+    public NuevoIngredienteDTO(Long id, String nombre, Float stock, UnidadMedida unidadMedida) {
+        this.id = id;
+        this.nombre = nombre;
+        this.stock = stock;
+        this.unidadMedida = unidadMedida;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getNombre() {
