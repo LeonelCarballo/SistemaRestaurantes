@@ -4,6 +4,7 @@
  */
 package wonderland.sistemarestaurantes.clientes;
 
+import java.awt.BorderLayout;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,8 +38,25 @@ public class ListaClientes extends javax.swing.JFrame {
         initComponents();
         this.clientesBO = clientesBO;
         setLocationRelativeTo(null);
+        
+        agregarBuscador();
         mostrarInformacionClientes();
     }
+    
+    private void agregarBuscador() {
+        BuscadorClientes buscadorClientes = new BuscadorClientes(clientesBO, this::actualizarListaClientes);
+        jPanelBuscador.add(buscadorClientes, BorderLayout.CENTER);
+    }
+    
+    private void actualizarListaClientes(List<ClienteFrecuente> clientes) {
+        panelListaClientes.removeAll();
+        for (ClienteFrecuente cliente : clientes) {
+            panelListaClientes.add(new ClientePanel(cliente));
+        }
+        panelListaClientes.revalidate();
+        panelListaClientes.repaint();
+    }
+
     
     public void mostrarInformacionClientes() {
         panelListaClientes.removeAll(); 
@@ -73,10 +91,9 @@ public class ListaClientes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButtonBuscar = new javax.swing.JButton();
         jButtonAnterior = new javax.swing.JButton();
         jButtonRegistrarCliente = new javax.swing.JButton();
-        buscador = new javax.swing.JTextField();
+        jPanelBuscador = new javax.swing.JPanel();
         jPanelColor = new javax.swing.JPanel();
         jScrollListaClientes = new javax.swing.JScrollPane();
         panelListaClientes = new javax.swing.JPanel();
@@ -84,17 +101,6 @@ public class ListaClientes extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButtonBuscar.setBackground(new java.awt.Color(255, 255, 255));
-        jButtonBuscar.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jButtonBuscar.setForeground(new java.awt.Color(0, 0, 0));
-        jButtonBuscar.setText("Filtrar");
-        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBuscarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 170, -1, -1));
 
         jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
         jButtonAnterior.setContentAreaFilled(false);
@@ -114,14 +120,14 @@ public class ListaClientes extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonRegistrarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 140, 30));
 
-        buscador.setBackground(new java.awt.Color(255, 255, 255));
-        buscador.setForeground(new java.awt.Color(0, 0, 0));
-        buscador.setText("Cliente");
-        getContentPane().add(buscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 170, 250, 30));
+        jPanelBuscador.setBackground(new java.awt.Color(10, 15, 31));
+        jPanelBuscador.setLayout(new javax.swing.BoxLayout(jPanelBuscador, javax.swing.BoxLayout.LINE_AXIS));
+        getContentPane().add(jPanelBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 170, 280, 30));
 
         jPanelColor.setBackground(new java.awt.Color(19, 28, 54));
 
         jScrollListaClientes.setBorder(null);
+        jScrollListaClientes.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         panelListaClientes.setBackground(new java.awt.Color(19, 28, 54));
         panelListaClientes.setLayout(new javax.swing.BoxLayout(panelListaClientes, javax.swing.BoxLayout.Y_AXIS));
@@ -138,13 +144,12 @@ public class ListaClientes extends javax.swing.JFrame {
         );
         jPanelColorLayout.setVerticalGroup(
             jPanelColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelColorLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollListaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(jPanelColorLayout.createSequentialGroup()
+                .addComponent(jScrollListaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanelColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 540, 300));
+        getContentPane().add(jPanelColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 540, 320));
 
         jLabelClientesFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoClientes.png"))); // NOI18N
         getContentPane().add(jLabelClientesFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -162,41 +167,12 @@ public class ListaClientes extends javax.swing.JFrame {
         control.mostrarRegistrarCliente();
     }//GEN-LAST:event_jButtonRegistrarClienteActionPerformed
 
-    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-        String filtroBusqueda = buscador.getText().toLowerCase();
-        panelListaClientes.removeAll();
-
-        try {
-            List<ClienteFrecuente> clientesPorNombre = this.clientesBO.consultarClientesPorNombre(filtroBusqueda);
-            List<ClienteFrecuente> clientesPorTelefono = this.clientesBO.consultarClientesPorTelefono(filtroBusqueda);
-            List<ClienteFrecuente> clientesPorCorreo = this.clientesBO.consultarClientesPorCorreoElectronico(filtroBusqueda);
-
-            Set<ClienteFrecuente> clientesUnicos = new HashSet<>();
-            clientesUnicos.addAll(clientesPorNombre);
-            clientesUnicos.addAll(clientesPorTelefono);
-            clientesUnicos.addAll(clientesPorCorreo);
-
-            System.out.println("Clientes encontrados: " + clientesUnicos.size());
-
-            for (ClienteFrecuente cliente : clientesUnicos) {
-                System.out.println("Procesando cliente: " + cliente.getNombre());
-                panelListaClientes.add(new ClientePanel(cliente));
-            } 
-
-            panelListaClientes.revalidate();
-            panelListaClientes.repaint();
-        } catch (NegocioException ex) {
-            LOG.severe("No se pudo llenar la lista de clientes: " + ex.getMessage());
-        }
-    }//GEN-LAST:event_jButtonBuscarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField buscador;
     private javax.swing.JButton jButtonAnterior;
-    private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonRegistrarCliente;
     private javax.swing.JLabel jLabelClientesFondo;
+    private javax.swing.JPanel jPanelBuscador;
     private javax.swing.JPanel jPanelColor;
     private javax.swing.JScrollPane jScrollListaClientes;
     private javax.swing.JPanel panelListaClientes;

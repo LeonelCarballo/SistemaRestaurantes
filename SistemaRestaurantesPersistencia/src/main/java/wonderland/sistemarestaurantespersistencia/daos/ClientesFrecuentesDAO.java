@@ -86,7 +86,7 @@ public class ClientesFrecuentesDAO implements IClientesFrecuentesDAO {
         
         String filtro = filtroBusqueda;
         
-        criteria = criteria.select(entidadCliente).where(builder.like(entidadCliente.get("telefono"), filtro));
+        criteria = criteria.select(entidadCliente).where(builder.like(entidadCliente.get("telefonoEncriptado"), filtro));
         
         TypedQuery<ClienteFrecuente> query = entityManager.createQuery(criteria);
         List<ClienteFrecuente> clientes = query.getResultList();

@@ -21,7 +21,7 @@ import wonderland.sistemarestaurantes.ingredientes.NuevoIngrediente;
 import wonderland.sistemarestaurantes.productos.EditarProducto;
 import wonderland.sistemarestaurantes.productos.ListaProductos;
 import wonderland.sistemarestaurantes.productos.NuevoProducto;
-import wonderland.sistemarestaurantes.reportes.IniciarReporte;
+import wonderland.sistemarestaurantes.reportes.InicioReporte;
 import wonderland.sistemarestaurantesnegocio.implementaciones.IngredientesBO;
 import wonderland.sistemarestaurantespersistencia.daos.IngredientesDAO;
 import wonderland.sistemarestaurantesdominio.Cliente;
@@ -166,9 +166,9 @@ public class ControlPresentacion {
         NuevoProducto nuevoProducto = new NuevoProducto(this);
         nuevoProducto.mostrar();
     }
-
-    public void mostrarIniciarReporte() {
-        IniciarReporte iniciarReporte = new IniciarReporte(this);
+    
+    public void mostrarIniciarReporte(){
+        InicioReporte iniciarReporte = new InicioReporte(this);
         iniciarReporte.mostrar();
     }
 

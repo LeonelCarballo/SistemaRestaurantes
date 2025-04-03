@@ -143,6 +143,11 @@ public class RegistrarCliente extends javax.swing.JFrame {
         jTextFieldApellidoMaterno.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldApellidoMaterno.setText("    Apellido Materno");
         jTextFieldApellidoMaterno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jTextFieldApellidoMaterno.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTextFieldApellidoMaternoMousePressed(evt);
+            }
+        });
         jTextFieldApellidoMaterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldApellidoMaternoActionPerformed(evt);
@@ -155,6 +160,11 @@ public class RegistrarCliente extends javax.swing.JFrame {
         jTextFieldNombres.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldNombres.setText("    Nombre");
         jTextFieldNombres.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jTextFieldNombres.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTextFieldNombresMousePressed(evt);
+            }
+        });
         jTextFieldNombres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombresActionPerformed(evt);
@@ -167,6 +177,11 @@ public class RegistrarCliente extends javax.swing.JFrame {
         jTextFieldCorreoElectronico.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldCorreoElectronico.setText("    Correo Electronico");
         jTextFieldCorreoElectronico.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jTextFieldCorreoElectronico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTextFieldCorreoElectronicoMousePressed(evt);
+            }
+        });
         jTextFieldCorreoElectronico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCorreoElectronicoActionPerformed(evt);
@@ -179,6 +194,11 @@ public class RegistrarCliente extends javax.swing.JFrame {
         jTextFieldApellidoPaterno.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldApellidoPaterno.setText("    Apellido Paterno");
         jTextFieldApellidoPaterno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jTextFieldApellidoPaterno.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTextFieldApellidoPaternoMousePressed(evt);
+            }
+        });
         jTextFieldApellidoPaterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldApellidoPaternoActionPerformed(evt);
@@ -191,6 +211,11 @@ public class RegistrarCliente extends javax.swing.JFrame {
         jTextFieldTelefono.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldTelefono.setText("    Telefono");
         jTextFieldTelefono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jTextFieldTelefono.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTextFieldTelefonoMousePressed(evt);
+            }
+        });
         jTextFieldTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldTelefonoActionPerformed(evt);
@@ -234,6 +259,96 @@ public class RegistrarCliente extends javax.swing.JFrame {
     private void jTextFieldNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombresActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNombresActionPerformed
+
+    private void jTextFieldNombresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldNombresMousePressed
+        if(jTextFieldNombres.getText().equals("    Nombre")){
+            jTextFieldNombres.setText("");
+        } 
+        if(jTextFieldApellidoPaterno.getText().isEmpty()){
+             jTextFieldApellidoPaterno.setText("    Apellido Paterno");
+        }  
+        if(jTextFieldApellidoMaterno.getText().isEmpty()){
+             jTextFieldApellidoMaterno.setText("    Apellido Materno");
+        }  
+        if(jTextFieldTelefono.getText().isEmpty()){
+             jTextFieldTelefono.setText("    Telefono");
+        }  
+        if(jTextFieldCorreoElectronico.getText().isEmpty()){
+             jTextFieldCorreoElectronico.setText("    Correo Electronico");
+        }
+    }//GEN-LAST:event_jTextFieldNombresMousePressed
+
+    private void jTextFieldApellidoPaternoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldApellidoPaternoMousePressed
+        if(jTextFieldNombres.getText().isEmpty()){
+            jTextFieldNombres.setText("    Nombre");
+        } 
+        if(jTextFieldApellidoPaterno.getText().equals("    Apellido Paterno")){
+             jTextFieldApellidoPaterno.setText("");
+        }  
+        if(jTextFieldApellidoMaterno.getText().isEmpty()){
+             jTextFieldApellidoMaterno.setText("    Apellido Materno");
+        }  
+        if(jTextFieldTelefono.getText().isEmpty()){
+             jTextFieldTelefono.setText("    Telefono");
+        }  
+        if(jTextFieldCorreoElectronico.getText().isEmpty()){
+             jTextFieldCorreoElectronico.setText("    Correo Electronico");
+        }
+    }//GEN-LAST:event_jTextFieldApellidoPaternoMousePressed
+
+    private void jTextFieldApellidoMaternoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldApellidoMaternoMousePressed
+        if(jTextFieldNombres.getText().isEmpty()){
+            jTextFieldNombres.setText("    Nombre");
+        } 
+        if(jTextFieldApellidoPaterno.getText().isEmpty()){
+             jTextFieldApellidoPaterno.setText("    Apellido Paterno");
+        }  
+        if(jTextFieldApellidoMaterno.getText().equals("    Apellido Materno")){
+             jTextFieldApellidoMaterno.setText("");
+        }  
+        if(jTextFieldTelefono.getText().isEmpty()){
+             jTextFieldTelefono.setText("    Telefono");
+        }  
+        if(jTextFieldCorreoElectronico.getText().isEmpty()){
+             jTextFieldCorreoElectronico.setText("    Correo Electronico");
+        }
+    }//GEN-LAST:event_jTextFieldApellidoMaternoMousePressed
+
+    private void jTextFieldTelefonoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoMousePressed
+        if(jTextFieldNombres.getText().isEmpty()){
+            jTextFieldNombres.setText("    Nombre");
+        } 
+        if(jTextFieldApellidoPaterno.getText().isEmpty()){
+             jTextFieldApellidoPaterno.setText("    Apellido Paterno");
+        }  
+        if(jTextFieldApellidoMaterno.getText().isEmpty()){
+             jTextFieldApellidoMaterno.setText("    Apellido Materno");
+        }  
+        if(jTextFieldTelefono.getText().equals("    Telefono")){
+             jTextFieldTelefono.setText("");
+        }  
+        if(jTextFieldCorreoElectronico.getText().isEmpty()){
+             jTextFieldCorreoElectronico.setText("    Correo Electronico");
+        }
+    }//GEN-LAST:event_jTextFieldTelefonoMousePressed
+
+    private void jTextFieldCorreoElectronicoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldCorreoElectronicoMousePressed
+        if(jTextFieldNombres.getText().isEmpty()){
+            jTextFieldNombres.setText("    Nombre");
+        } 
+        if(jTextFieldApellidoPaterno.getText().isEmpty()){
+             jTextFieldApellidoPaterno.setText("    Apellido Paterno");
+        }  
+        if(jTextFieldApellidoMaterno.getText().isEmpty()){
+             jTextFieldApellidoMaterno.setText("    Apellido Materno");
+        }  
+        if(jTextFieldTelefono.getText().isEmpty()){
+             jTextFieldTelefono.setText("    Telefono");
+        }  
+        if(jTextFieldCorreoElectronico.getText().equals("    Correo Electronico")){
+             jTextFieldCorreoElectronico.setText("");
+        }
+    }//GEN-LAST:event_jTextFieldCorreoElectronicoMousePressed
 
     /**
      * @param args the command line arguments

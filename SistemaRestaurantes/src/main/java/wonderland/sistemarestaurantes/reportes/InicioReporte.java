@@ -10,18 +10,14 @@ import wonderland.sistemarestaurantes.control.ControlPresentacion;
  *
  * @author Dana Chavez
  */
-public class IniciarReporte extends javax.swing.JFrame {
+public class InicioReporte extends javax.swing.JFrame {
+    ControlPresentacion control;
 
-    private ControlPresentacion control;
-    
-    /**
-     * Creates new form IniciarReporte
-     */
-    public IniciarReporte() {
+    public InicioReporte() {
         initComponents();
     }
-
-    public IniciarReporte(ControlPresentacion control) {
+    
+    public InicioReporte(ControlPresentacion control) {
         this.control = control;
         initComponents();
         setLocationRelativeTo(null);
@@ -48,11 +44,9 @@ public class IniciarReporte extends javax.swing.JFrame {
         jButtonReporteComandas = new javax.swing.JButton();
         jButtonReporteClientes = new javax.swing.JButton();
         jButtonAnterior = new javax.swing.JButton();
-        jLabelFondoInicioReportes = new javax.swing.JLabel();
+        jLabelFondoInicioRerporte = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(864, 560));
-        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButtonReporteComandas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonReporteComanda.png"))); // NOI18N
@@ -77,8 +71,8 @@ public class IniciarReporte extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 80, 80));
 
-        jLabelFondoInicioReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoInicioReportes.png"))); // NOI18N
-        getContentPane().add(jLabelFondoInicioReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1230, 560));
+        jLabelFondoInicioRerporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoInicioReportes.png"))); // NOI18N
+        getContentPane().add(jLabelFondoInicioRerporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -109,20 +103,20 @@ public class IniciarReporte extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IniciarReporte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InicioReporte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IniciarReporte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InicioReporte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IniciarReporte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InicioReporte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IniciarReporte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InicioReporte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new IniciarReporte().setVisible(true);
+                new InicioReporte().setVisible(true);
             }
         });
     }
@@ -131,6 +125,6 @@ public class IniciarReporte extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAnterior;
     private javax.swing.JButton jButtonReporteClientes;
     private javax.swing.JButton jButtonReporteComandas;
-    private javax.swing.JLabel jLabelFondoInicioReportes;
+    private javax.swing.JLabel jLabelFondoInicioRerporte;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,6 +4,7 @@
  */
 package wonderland.sistemarestaurantesdominio;
 
+import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -23,6 +24,14 @@ public class ClienteFrecuente extends Cliente {
     
     @Transient
     private Float gastoTotalAcumulado;
+    
+    public ClienteFrecuente() {
+        
+    }
+    
+    public ClienteFrecuente(String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String telefonoEncriptado, Calendar fechaRegistro) {
+         super(nombre, apellidoPaterno, apellidoMaterno, correo, telefonoEncriptado, fechaRegistro);
+    }
 
     public Integer getPuntosFidelidad() {
         return puntosFidelidad;
