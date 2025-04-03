@@ -4,6 +4,7 @@
  */
 package wonderland.sistemarestaurantes.clientes;
 
+import Fonts.FontManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
@@ -24,13 +25,15 @@ public class BuscadorClientes extends javax.swing.JPanel {
     private IClientesBO clientesBO;
     private Consumer<List<ClienteFrecuente>> onResults;
     private static final Logger LOG = Logger.getLogger(BuscadorClientes.class.getName());
-
+    FontManager fontManager = new FontManager();
+    
     public BuscadorClientes(IClientesBO clientesBO, Consumer<List<ClienteFrecuente>> onResults) {
         this.clientesBO = clientesBO;
         this.onResults = onResults;
         initComponents();
         setOpaque(false);
         jButtonBuscar.addActionListener(this::buscarClientes);
+        
     }
     
     private void buscarClientes(ActionEvent e) {
@@ -68,9 +71,9 @@ public class BuscadorClientes extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextFieldBuscador.setBackground(new java.awt.Color(10, 15, 31));
-        jTextFieldBuscador.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jTextFieldBuscador.setFont(fontManager.getNunitoRegular(14f));
         jTextFieldBuscador.setForeground(new java.awt.Color(255, 255, 255));
-        jTextFieldBuscador.setText("  Cliente");
+        jTextFieldBuscador.setText("  Clientes");
         jTextFieldBuscador.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jTextFieldBuscador.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -100,7 +103,7 @@ public class BuscadorClientes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldBuscadorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldBuscadorMousePressed
-        if(jTextFieldBuscador.getText().equals("  Cliente")){
+        if(jTextFieldBuscador.getText().equals("  Clientes")){
             jTextFieldBuscador.setText("");
         } 
     }//GEN-LAST:event_jTextFieldBuscadorMousePressed

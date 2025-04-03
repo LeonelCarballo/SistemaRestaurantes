@@ -127,6 +127,7 @@ public class ListaClientes extends javax.swing.JFrame {
         jPanelColor.setBackground(new java.awt.Color(19, 28, 54));
 
         jScrollListaClientes.setBorder(null);
+        jScrollListaClientes.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         panelListaClientes.setBackground(new java.awt.Color(19, 28, 54));
         panelListaClientes.setLayout(new javax.swing.BoxLayout(panelListaClientes, javax.swing.BoxLayout.Y_AXIS));
@@ -143,13 +144,12 @@ public class ListaClientes extends javax.swing.JFrame {
         );
         jPanelColorLayout.setVerticalGroup(
             jPanelColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelColorLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollListaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(jPanelColorLayout.createSequentialGroup()
+                .addComponent(jScrollListaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanelColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 540, 300));
+        getContentPane().add(jPanelColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 540, 320));
 
         jLabelClientesFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoClientes.png"))); // NOI18N
         getContentPane().add(jLabelClientesFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
