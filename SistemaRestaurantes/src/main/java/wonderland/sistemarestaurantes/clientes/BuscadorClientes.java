@@ -4,17 +4,53 @@
  */
 package wonderland.sistemarestaurantes.clientes;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.function.Consumer;
+import java.util.logging.Logger;
+import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
+import wonderland.sistemarestaurantesnegocio.IClientesBO;
+import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
+
 /**
  *
  * @author Dana Chavez
  */
 public class BuscadorClientes extends javax.swing.JPanel {
 
-    /**
-     * Creates new form BuscadorClientes
-     */
-    public BuscadorClientes() {
+    private IClientesBO clientesBO;
+    private Consumer<List<ClienteFrecuente>> onResults;
+    private static final Logger LOG = Logger.getLogger(BuscadorClientes.class.getName());
+
+    public BuscadorClientes(IClientesBO clientesBO, Consumer<List<ClienteFrecuente>> onResults) {
+        this.clientesBO = clientesBO;
+        this.onResults = onResults;
         initComponents();
+        setOpaque(false);
+        jButtonBuscar.addActionListener(this::buscarClientes);
+    }
+    
+    private void buscarClientes(ActionEvent e) {
+        String filtroBusqueda = jTextFieldBuscador.getText().toLowerCase();
+        try {
+            List<ClienteFrecuente> clientesPorNombre = clientesBO.consultarClientesPorNombre(filtroBusqueda);
+            List<ClienteFrecuente> clientesPorTelefono = clientesBO.consultarClientesPorTelefono(filtroBusqueda);
+            List<ClienteFrecuente> clientesPorCorreo = clientesBO.consultarClientesPorCorreoElectronico(filtroBusqueda);
+
+            Set<ClienteFrecuente> clientesUnicos = new HashSet<>();
+            clientesUnicos.addAll(clientesPorNombre);
+            clientesUnicos.addAll(clientesPorTelefono);
+            clientesUnicos.addAll(clientesPorCorreo);
+
+            LOG.info("Clientes encontrados: " + clientesUnicos.size());
+
+            onResults.accept(List.copyOf(clientesUnicos));
+        } catch (NegocioException ex) {
+            LOG.severe("No se pudo llenar la lista de clientes: " + ex.getMessage());
+        }
     }
 
     /**
@@ -26,19 +62,67 @@ public class BuscadorClientes extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 864, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 558, Short.MAX_VALUE)
-        );
+        jTextFieldBuscador = new javax.swing.JTextField();
+        jButtonBuscar = new javax.swing.JButton();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTextFieldBuscador.setBackground(new java.awt.Color(10, 15, 31));
+        jTextFieldBuscador.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jTextFieldBuscador.setForeground(new java.awt.Color(255, 255, 255));
+        jTextFieldBuscador.setText("  Cliente");
+        jTextFieldBuscador.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jTextFieldBuscador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTextFieldBuscadorMousePressed(evt);
+            }
+        });
+        jTextFieldBuscador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldBuscadorActionPerformed(evt);
+            }
+        });
+        jTextFieldBuscador.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldBuscadorKeyPressed(evt);
+            }
+        });
+        add(jTextFieldBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 30));
+
+        jButtonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonBuscar.png"))); // NOI18N
+        jButtonBuscar.setContentAreaFilled(false);
+        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarActionPerformed(evt);
+            }
+        });
+        add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 30, 30));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextFieldBuscadorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldBuscadorMousePressed
+        if(jTextFieldBuscador.getText().equals("  Cliente")){
+            jTextFieldBuscador.setText("");
+        } 
+    }//GEN-LAST:event_jTextFieldBuscadorMousePressed
+
+    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonBuscarActionPerformed
+
+    private void jTextFieldBuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBuscadorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldBuscadorActionPerformed
+
+    private void jTextFieldBuscadorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBuscadorKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            ActionEvent actionEvent = new ActionEvent(evt.getSource(), evt.getID(), evt.paramString());
+            buscarClientes(actionEvent);
+        }
+    }//GEN-LAST:event_jTextFieldBuscadorKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonBuscar;
+    private javax.swing.JTextField jTextFieldBuscador;
     // End of variables declaration//GEN-END:variables
 }

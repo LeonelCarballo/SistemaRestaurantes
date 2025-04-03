@@ -207,8 +207,5 @@ public class ClientesBO implements IClientesBO {
     public ClienteFrecuente buscarClientePorId(Long id) throws NegocioException {
         return this.clientesFrecuentesDAO.buscarClientePorId(id);
     }
-    
-    
-    
-    
+       
 }
