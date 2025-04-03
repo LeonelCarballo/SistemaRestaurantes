@@ -4,6 +4,7 @@
  */
 package wonderland.sistemarestaurantes.clientes;
 
+import Fonts.FontManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -27,6 +28,7 @@ public class PerfilCliente extends javax.swing.JFrame {
     private ClienteFrecuenteDTO clienteDTO;
     private ControlPresentacion control;
     private static final Logger LOG = Logger.getLogger(PerfilCliente.class.getName());
+    FontManager fontManager = new FontManager();
     
     
     /**
@@ -73,7 +75,7 @@ public class PerfilCliente extends javax.swing.JFrame {
     public void actualizarNombreCliente(ClienteFrecuenteDTO cliente) {
         
         JLabel lblNombreCliente = new JLabel();
-        lblNombreCliente.setFont(new Font("Vladimir Script", Font.PLAIN, 60));
+        lblNombreCliente.setFont(fontManager.getGreatVibesRegular(80f));
         lblNombreCliente.setForeground(Color.WHITE); 
 
         jPanelNombreCliente.add(lblNombreCliente, BorderLayout.CENTER);
@@ -192,31 +194,31 @@ public class PerfilCliente extends javax.swing.JFrame {
         getContentPane().add(jButtonConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 420, -1, -1));
 
         jLabelTituloCorreoElectronico2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelTituloCorreoElectronico2.setFont(new java.awt.Font("Book Antiqua", 0, 24)); // NOI18N
+        jLabelTituloCorreoElectronico2.setFont(fontManager.getNotoSerifCondensedRegular(22f));
         jLabelTituloCorreoElectronico2.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTituloCorreoElectronico2.setText("Visitas");
-        getContentPane().add(jLabelTituloCorreoElectronico2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 310, -1, -1));
+        getContentPane().add(jLabelTituloCorreoElectronico2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 310, -1, -1));
 
         jLabelTituloFechaRegistro.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelTituloFechaRegistro.setFont(new java.awt.Font("Book Antiqua", 0, 24)); // NOI18N
+        jLabelTituloFechaRegistro.setFont(fontManager.getNotoSerifCondensedRegular(22f));
         jLabelTituloFechaRegistro.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTituloFechaRegistro.setText("Fecha Registro");
         getContentPane().add(jLabelTituloFechaRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 420, -1, -1));
 
         jLabelTituloCorreoElectronico.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelTituloCorreoElectronico.setFont(new java.awt.Font("Book Antiqua", 0, 24)); // NOI18N
+        jLabelTituloCorreoElectronico.setFont(fontManager.getNotoSerifCondensedRegular(22f));
         jLabelTituloCorreoElectronico.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTituloCorreoElectronico.setText("Correo Electronico");
         getContentPane().add(jLabelTituloCorreoElectronico, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, -1, -1));
 
         jLabelTituloTelefono.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelTituloTelefono.setFont(new java.awt.Font("Book Antiqua", 0, 24)); // NOI18N
+        jLabelTituloTelefono.setFont(fontManager.getNotoSerifCondensedRegular(22f));
         jLabelTituloTelefono.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTituloTelefono.setText("Telefono");
         getContentPane().add(jLabelTituloTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, -1, -1));
 
         jLabelTituloNombre.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelTituloNombre.setFont(new java.awt.Font("Book Antiqua", 0, 24)); // NOI18N
+        jLabelTituloNombre.setFont(fontManager.getNotoSerifCondensedRegular(22f));
         jLabelTituloNombre.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTituloNombre.setText("Nombre Completo");
         getContentPane().add(jLabelTituloNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, -1, -1));
@@ -246,7 +248,7 @@ public class PerfilCliente extends javax.swing.JFrame {
         getContentPane().add(jPanelNumVisitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 340, 80, 80));
 
         jLabelTituloTotal.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelTituloTotal.setFont(new java.awt.Font("Baskerville Old Face", 0, 24)); // NOI18N
+        jLabelTituloTotal.setFont(fontManager.getNotoSerifCondensedRegular(20f));
         jLabelTituloTotal.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTituloTotal.setText("Total acumulado:");
         getContentPane().add(jLabelTituloTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 510, -1, -1));
