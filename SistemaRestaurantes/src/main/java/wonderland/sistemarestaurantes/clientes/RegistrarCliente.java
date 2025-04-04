@@ -4,14 +4,13 @@
  */
 package wonderland.sistemarestaurantes.clientes;
 
-import java.util.logging.Level;
+import Fonts.FontManager;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteFrecuenteDTO;
 import wonderland.sistemarestaurantesnegocio.IClientesBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
-import wonderland.sistemarestaurantesnegocio.implementaciones.ClientesBO;
 
 /**
  *
@@ -22,6 +21,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
     private IClientesBO clientesBO;
     private ControlPresentacion control;
     private static final Logger LOG = Logger.getLogger(RegistrarCliente.class.getName());
+    FontManager fontManager = new FontManager();
  
     /**
      * Creates new form ListaClientes
@@ -124,22 +124,23 @@ public class RegistrarCliente extends javax.swing.JFrame {
         jPanelColor.add(jPanelColorBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 270, 10));
 
         jLabelTitulo.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelTitulo.setFont(new java.awt.Font("Century Gothic", 1, 20)); // NOI18N
+        jLabelTitulo.setFont(fontManager.getNotoSerifCondensedRegular(22f));
         jLabelTitulo.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTitulo.setText("Registrar Cliente");
         jPanelColor.add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
 
         jButtonRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonRegistrar.png"))); // NOI18N
+        jButtonRegistrar.setBorder(null);
         jButtonRegistrar.setContentAreaFilled(false);
         jButtonRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRegistrarActionPerformed(evt);
             }
         });
-        jPanelColor.add(jButtonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 210, 40));
+        jPanelColor.add(jButtonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, 170, 40));
 
         jTextFieldApellidoMaterno.setBackground(new java.awt.Color(29, 39, 56));
-        jTextFieldApellidoMaterno.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        jTextFieldApellidoMaterno.setFont(fontManager.getNunitoRegular(16f));
         jTextFieldApellidoMaterno.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldApellidoMaterno.setText("    Apellido Materno");
         jTextFieldApellidoMaterno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -156,7 +157,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
         jPanelColor.add(jTextFieldApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 210, 40));
 
         jTextFieldNombres.setBackground(new java.awt.Color(29, 39, 56));
-        jTextFieldNombres.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        jTextFieldNombres.setFont(fontManager.getNunitoRegular(16f));
         jTextFieldNombres.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldNombres.setText("    Nombre");
         jTextFieldNombres.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -173,7 +174,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
         jPanelColor.add(jTextFieldNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 210, 40));
 
         jTextFieldCorreoElectronico.setBackground(new java.awt.Color(29, 39, 56));
-        jTextFieldCorreoElectronico.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        jTextFieldCorreoElectronico.setFont(fontManager.getNunitoRegular(16f));
         jTextFieldCorreoElectronico.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldCorreoElectronico.setText("    Correo Electronico");
         jTextFieldCorreoElectronico.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -190,7 +191,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
         jPanelColor.add(jTextFieldCorreoElectronico, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 210, 40));
 
         jTextFieldApellidoPaterno.setBackground(new java.awt.Color(29, 39, 56));
-        jTextFieldApellidoPaterno.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        jTextFieldApellidoPaterno.setFont(fontManager.getNunitoRegular(16f));
         jTextFieldApellidoPaterno.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldApellidoPaterno.setText("    Apellido Paterno");
         jTextFieldApellidoPaterno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -207,7 +208,7 @@ public class RegistrarCliente extends javax.swing.JFrame {
         jPanelColor.add(jTextFieldApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 210, 40));
 
         jTextFieldTelefono.setBackground(new java.awt.Color(29, 39, 56));
-        jTextFieldTelefono.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        jTextFieldTelefono.setFont(fontManager.getNunitoRegular(16f));
         jTextFieldTelefono.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldTelefono.setText("    Telefono");
         jTextFieldTelefono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));

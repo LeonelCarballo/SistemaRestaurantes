@@ -11,7 +11,6 @@ import wonderland.sistemarestaurantes.clientes.ListaClientes;
 import wonderland.sistemarestaurantes.clientes.PerfilCliente;
 import wonderland.sistemarestaurantes.clientes.RegistrarCliente;
 import wonderland.sistemarestaurantes.comandas.ResumenComanda;
-import wonderland.sistemarestaurantes.comandas.SeleccionarMesaComanda;
 import wonderland.sistemarestaurantes.comandas.SeleccionarProductosComanda;
 import wonderland.sistemarestaurantes.comandas.VentanaInicioComanda;
 import wonderland.sistemarestaurantes.ingredientes.ListaIngredientes;
@@ -110,18 +109,14 @@ public class ControlPresentacion {
         resumenComanda.mostrar();
     }
     
-    public void mostrarSeleccionarMesaComanda(){
-        SeleccionarMesaComanda seleccionarMesa = new SeleccionarMesaComanda(this);
-        seleccionarMesa.mostrar();
-    }
-    
+
     public void mostrarSeleccionarProductosComanda(){
         SeleccionarProductosComanda seleccionarProducto = new SeleccionarProductosComanda(this);
         seleccionarProducto.mostrar();
     }
     
     public void mostrarVentanaInicioComanda(){
-        VentanaInicioComanda ventanaInicioComanda = new VentanaInicioComanda(this);
+        VentanaInicioComanda ventanaInicioComanda = new VentanaInicioComanda(this, mesasBO);
         ventanaInicioComanda.mostrar();
     }
     
