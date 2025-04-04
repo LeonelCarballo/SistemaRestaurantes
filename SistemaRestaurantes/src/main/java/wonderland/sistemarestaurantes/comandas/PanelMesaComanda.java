@@ -15,11 +15,14 @@ import java.awt.RenderingHints;
 import java.awt.event.*;
 import java.awt.geom.*;
 import javax.swing.*;
+import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantesdominio.*;
 
 public class PanelMesaComanda extends JButton {
+
     private final Mesa mesa;
     private final VentanaInicioComanda ventana;
+    private ControlPresentacion control;
     private Color colorTexto = Color.BLACK;
     private Color colorFondo;
     FontManager fontManager = new FontManager();
@@ -27,33 +30,33 @@ public class PanelMesaComanda extends JButton {
     public PanelMesaComanda(Mesa mesa, VentanaInicioComanda ventana) {
         this.mesa = mesa;
         this.ventana = ventana;
-        
+        this.control = new ControlPresentacion();
         setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(120, 120)); 
+        setPreferredSize(new Dimension(120, 120));
         setContentAreaFilled(false);
         setBorderPainted(false);
         setFocusPainted(false);
 
-        switch(mesa.getEstado()) {
+        switch (mesa.getEstado()) {
             case DISPONIBLE:
-                colorFondo = new Color(217, 217, 217); 
+                colorFondo = new Color(217, 217, 217);
                 colorTexto = new Color(14, 12, 66);
                 break;
             case RESERVADA:
-                colorFondo = new Color(105, 169, 215); 
+                colorFondo = new Color(105, 169, 215);
                 colorTexto = new Color(14, 12, 66);
                 break;
             default:
                 colorFondo = Color.WHITE;
                 colorTexto = Color.BLACK;
         }
-        
-        setText(String.valueOf(mesa.getNumeroMesa())); 
-        setFont(fontManager.getNunitoSemiBold(40f)); 
+
+        setText(String.valueOf(mesa.getNumeroMesa()));
+        setFont(fontManager.getNunitoSemiBold(40f));
         setForeground(colorTexto);
         setHorizontalTextPosition(JButton.CENTER);
         setVerticalTextPosition(JButton.CENTER);
-        
+
         addActionListener(this::manejarClicMesa);
     }
 
@@ -84,12 +87,13 @@ public class PanelMesaComanda extends JButton {
         int circleY = (getHeight() - diameter) / 2;
         return new Ellipse2D.Float(circleX, circleY, diameter, diameter).contains(x, y);
     }
-    
+
     private void manejarClicMesa(ActionEvent e) {
-        switch(mesa.getEstado()) {
-            case DISPONIBLE -> ventana.iniciarNuevaComanda(mesa);
-            case RESERVADA-> ventana.mostrarResumenComanda(mesa);
+        switch (mesa.getEstado()) {
+            case DISPONIBLE ->
+                control.mostrarSeleccionarProductosComanda(mesa);
+            case RESERVADA ->
+                control.mostrarResumenComanda(mesa);
         }
     }
 }
-

@@ -77,12 +77,12 @@ public class VentanaInicioComanda extends javax.swing.JFrame {
     }
     
     public void iniciarNuevaComanda(Mesa mesa) {
-        control.mostrarSeleccionarProductosComanda();
+        control.mostrarSeleccionarProductosComanda(mesa);
 
     }
     
     public void mostrarResumenComanda(Mesa mesa) {
-        control.mostrarResumenComanda();
+        control.mostrarResumenComanda(mesa);
 
     }
     
