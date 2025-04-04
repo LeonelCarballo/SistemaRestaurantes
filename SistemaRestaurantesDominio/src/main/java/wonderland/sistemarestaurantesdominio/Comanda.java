@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
@@ -36,16 +37,19 @@ public class Comanda implements Serializable {
     @Column(name = "id_comanda")
     private Long id;
     
-    @Column (name = "folio", nullable = false , length = 15)
+    @Column (name = "folio", unique = true, nullable = false , length = 15)
     private String folio;
     
     @Enumerated (EnumType.STRING)
     @Column (name = "estado" , nullable = false)
     private EstadoComanda estadoComanda; 
     
+    @Transient
+    private Float totalVenta;
+    
     @Temporal (TemporalType.TIMESTAMP)
-    @Column (name = "fechaHora_creacion" , nullable = false)
-    private Calendar fechaHora_creacion;
+    @Column (name = "fecha_hora_creacion" , nullable = false)
+    private Calendar fechaHoraCreacion;
     
     @ManyToOne()
     @JoinColumn(name = "id_cliente")
@@ -61,20 +65,15 @@ public class Comanda implements Serializable {
     public Comanda() {
     }
 
-    public Comanda(Long id, String folio, EstadoComanda estadoComanda, Calendar fechaHora_creacion) {
+    public Comanda(Long id, String folio, EstadoComanda estadoComanda, Float totalVenta, Calendar fechaHora_creacion, Cliente cliente, Mesa mesa, List<DetalleComanda> detallesComandas) {
         this.id = id;
         this.folio = folio;
         this.estadoComanda = estadoComanda;
-        this.fechaHora_creacion = fechaHora_creacion;
-    }
-
-    public Comanda(Long id, String folio, EstadoComanda estadoComanda, Calendar fechaHora_creacion, Cliente cliente, Mesa mesa) {
-        this.id = id;
-        this.folio = folio;
-        this.estadoComanda = estadoComanda;
-        this.fechaHora_creacion = fechaHora_creacion;
+        this.totalVenta = totalVenta;
+        this.fechaHoraCreacion = fechaHora_creacion;
         this.cliente = cliente;
         this.mesa = mesa;
+        this.detallesComandas = detallesComandas;
     }
 
     public Long getId() {
@@ -101,14 +100,30 @@ public class Comanda implements Serializable {
         this.estadoComanda = estadoComanda;
     }
 
-    public Calendar getFechaHora_creacion() {
-        return fechaHora_creacion;
+    public Calendar getFechaHoraCreacion() {
+        return fechaHoraCreacion;
     }
 
-    public void setFechaHora_creacion(Calendar fechaHora_creacion) {
-        this.fechaHora_creacion = fechaHora_creacion;
+    public void setFechaHoraCreacion(Calendar fechaHora_creacion) {
+        this.fechaHoraCreacion = fechaHora_creacion;
     }
 
+    public Float getTotalVenta() {
+        return totalVenta;
+    }
+
+    public void setTotalVenta(Float totalVenta) {
+        this.totalVenta = totalVenta;
+    }
+
+    public List<DetalleComanda> getDetallesComandas() {
+        return detallesComandas;
+    }
+
+    public void setDetallesComandas(List<DetalleComanda> detallesComandas) {
+        this.detallesComandas = detallesComandas;
+    }
+    
     public Cliente getCliente() {
         return cliente;
     }

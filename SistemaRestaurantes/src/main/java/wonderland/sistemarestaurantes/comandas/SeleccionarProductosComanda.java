@@ -5,6 +5,8 @@
 package wonderland.sistemarestaurantes.comandas;
 
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantesdominio.Mesa;
+import wonderland.sistemarestaurantesnegocio.IMesasBO;
 
 /**
  *
@@ -13,6 +15,7 @@ import wonderland.sistemarestaurantes.control.ControlPresentacion;
 public class SeleccionarProductosComanda extends javax.swing.JFrame {
 
     private ControlPresentacion control;
+    private Mesa mesa;
     
     /**
      * Creates new form SeleccionarProductosComanda
@@ -23,6 +26,7 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
 
     public SeleccionarProductosComanda(ControlPresentacion control) {
         this.control = control;
+        this.mesa = mesa;
         initComponents();
         setLocationRelativeTo(null);
     }

@@ -46,6 +46,10 @@ public class IngredientesBO implements IIngredientesBO {
         if (nuevoIngrediente.getUnidadMedida() == null) {
             throw new NegocioException("Debes proporcionar la unidad de medida (Piezas, gr o ml)");
         }
+        
+        if (existeIngrediente(nuevoIngrediente.getNombre(), nuevoIngrediente.getUnidadMedida(), nuevoIngrediente.getId()) == true) {
+            throw new NegocioException("Ya existe un ingrediente con el mismo nombre y unidad de medida");
+        }
 
         return this.ingredientesDAO.registrarIngrediente(nuevoIngrediente);
     }

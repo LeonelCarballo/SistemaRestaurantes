@@ -4,34 +4,93 @@
  */
 package wonderland.sistemarestaurantes.comandas;
 
+import Fonts.FontManager;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantesdominio.Mesa;
+import wonderland.sistemarestaurantesnegocio.IMesasBO;
+import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
 /**
  *
  * @author Dana Chavez
  */
 public class VentanaInicioComanda extends javax.swing.JFrame {
-
+    
+    FontManager fontManager = new FontManager();
     private ControlPresentacion control;
+    private IMesasBO mesasBO;
+    private List<Mesa> mesas;
+    private static final Logger LOG = Logger.getLogger(VentanaInicioComanda.class.getName());
     
-    /**
-     * Creates new form ResumenComanda
-     */
-    public VentanaInicioComanda() {
-        initComponents();
-    }
-
-    public VentanaInicioComanda(ControlPresentacion control) {
+    public VentanaInicioComanda(ControlPresentacion control, IMesasBO mesasBO) {
         this.control = control;
+        this.mesasBO = mesasBO;
         initComponents();
+        
+        jScrollPaneMesas.setOpaque(false);
+        jScrollPaneMesas.getViewport().setOpaque(false);
+        jScrollPaneMesas.setBorder(BorderFactory.createEmptyBorder());
+        jScrollPaneMesas.setViewportBorder(BorderFactory.createEmptyBorder());
+        jScrollPaneMesas.setBackground(new Color(0, 0, 0, 0));
+        jScrollPaneMesas.getVerticalScrollBar().setOpaque(false);
+        jScrollPaneMesas.getVerticalScrollBar().setUnitIncrement(16);
+        
+        jPanelMesas.setOpaque(false);
+        jPanelMesas.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
         setLocationRelativeTo(null);
+        cargarMesas();
     }
     
-    public void mostrar(){
+    private void cargarMesas() {
+        try {
+            mesas = mesasBO.mostrarMesas();
+
+            jPanelMesas.setLayout(new java.awt.GridLayout(0, 5, 10, 10)); 
+            
+            for (Mesa mesa : mesas) {
+                PanelMesaComanda btnMesa = new PanelMesaComanda(mesa, this);
+                btnMesa.setPreferredSize(new Dimension(120, 120));
+                jPanelMesas.add(btnMesa);
+            }
+
+            int mesasFaltantes = (5 - (mesas.size() % 5)) % 5;
+            for (int i = 0; i < mesasFaltantes; i++) {
+                JPanel panelVacio = new JPanel();
+                panelVacio.setOpaque(false);
+                jPanelMesas.add(panelVacio);
+            }
+            
+        } catch (NegocioException ex) {
+            LOG.log(Level.SEVERE, "Error al cargar mesas", ex);
+        }
+        
+        jPanelMesas.revalidate();
+        jPanelMesas.repaint();
+    }
+    
+    public void iniciarNuevaComanda(Mesa mesa) {
+        control.mostrarSeleccionarProductosComanda(mesa);
+
+    }
+    
+    public void mostrarResumenComanda(Mesa mesa) {
+        control.mostrarResumenComanda(mesa);
+
+    }
+    
+    public void mostrar() {
         setVisible(true);
     }
     
-    public void cerrar(){
+    public void cerrar() {
         setVisible(false);
         dispose();
     }
@@ -45,108 +104,33 @@ public class VentanaInicioComanda extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButtonAnterior = new javax.swing.JButton();
-        jButtonNuevaComanda = new javax.swing.JButton();
-        jButtonComandasAbiertas = new javax.swing.JButton();
-        FondoInicioComandas = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        jScrollPaneMesas = new javax.swing.JScrollPane();
+        jPanelMesas = new javax.swing.JPanel();
+        jLabelTituloComandas = new javax.swing.JLabel();
+        jLabelFondoInicioComandas = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
-        jButtonAnterior.setContentAreaFilled(false);
-        jButtonAnterior.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAnteriorActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 100, 100));
+        jScrollPaneMesas.setViewportView(jPanelMesas);
 
-        jButtonNuevaComanda.setFont(new java.awt.Font("Leelawadee UI", 0, 24)); // NOI18N
-        jButtonNuevaComanda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonNuevaComanda.png"))); // NOI18N
-        jButtonNuevaComanda.setBorder(null);
-        jButtonNuevaComanda.setContentAreaFilled(false);
-        jButtonNuevaComanda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonNuevaComandaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButtonNuevaComanda, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, 350, 100));
+        getContentPane().add(jScrollPaneMesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 800, 400));
 
-        jButtonComandasAbiertas.setFont(new java.awt.Font("Leelawadee UI", 0, 24)); // NOI18N
-        jButtonComandasAbiertas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bontonComandasActivas.png"))); // NOI18N
-        jButtonComandasAbiertas.setBorder(null);
-        jButtonComandasAbiertas.setContentAreaFilled(false);
-        jButtonComandasAbiertas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonComandasAbiertasActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButtonComandasAbiertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 350, 100));
+        jLabelTituloComandas.setFont(fontManager.getGreatVibesRegular(126f));
+        jLabelTituloComandas.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelTituloComandas.setText("Comandas");
+        getContentPane().add(jLabelTituloComandas, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, -1, -1));
 
-        FondoInicioComandas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoInicioComandas.png"))); // NOI18N
-        getContentPane().add(FondoInicioComandas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 240, -1, -1));
+        jLabelFondoInicioComandas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoInicioComandas.png"))); // NOI18N
+        getContentPane().add(jLabelFondoInicioComandas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonComandasAbiertasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComandasAbiertasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonComandasAbiertasActionPerformed
-
-    private void jButtonNuevaComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevaComandaActionPerformed
-        cerrar();
-        control.mostrarSeleccionarMesaComanda();
-    }//GEN-LAST:event_jButtonNuevaComandaActionPerformed
-
-    private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
-        cerrar();
-        control.mostrarVentanaPrincial();
-    }//GEN-LAST:event_jButtonAnteriorActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaInicioComanda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaInicioComanda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaInicioComanda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaInicioComanda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaInicioComanda().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel FondoInicioComandas;
-    private javax.swing.JButton jButtonAnterior;
-    private javax.swing.JButton jButtonComandasAbiertas;
-    private javax.swing.JButton jButtonNuevaComanda;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabelFondoInicioComandas;
+    private javax.swing.JLabel jLabelTituloComandas;
+    private javax.swing.JPanel jPanelMesas;
+    private javax.swing.JScrollPane jScrollPaneMesas;
     // End of variables declaration//GEN-END:variables
 }

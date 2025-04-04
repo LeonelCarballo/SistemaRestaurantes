@@ -7,6 +7,7 @@ package wonderland.sistemarestaurantespersistencia.daos;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import wonderland.sistemarestaurantesdominio.EstadoMesa;
 import wonderland.sistemarestaurantesdominio.Mesa;
@@ -14,34 +15,32 @@ import wonderland.sistemarestaurantesdominio.dtos.NuevaMesaDTO;
 import wonderland.sistemarestaurantespersistencia.IMesasDAO;
 import wonderland.sistemarestaurantespersistencia.conexiones.ManejadorConexiones;
 
-/**
- *
- * @author Dana Chavez
- */
 public class MesasDAO implements IMesasDAO {
 
     @Override
     public List<Mesa> agregarMesas(NuevaMesaDTO nuevaMesa) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        
+
         List<Mesa> mesas = new ArrayList<>();
-         
+
         entityManager.getTransaction().begin();
-        
-        if(nuevaMesa.getNumeroMesa() == null){
-            nuevaMesa.setNumeroMesa(1);
+
+        Integer ultimaMesa = obtenerUltimaMesa(entityManager);
+
+        if (nuevaMesa.getNumeroMesa() == null) {
+            nuevaMesa.setNumeroMesa(ultimaMesa + 1);
         }
-        for(int i = 0; i < 20; i++){
+
+        for (int i = 0; i < 20; i++) {
             Mesa mesa = new Mesa();
-            mesa.setNumeroMesa(nuevaMesa.getNumeroMesa() + i);
+            mesa.setNumeroMesa(nuevaMesa.getNumeroMesa() + i);  
             mesa.setEstado(EstadoMesa.DISPONIBLE);
-            entityManager.persist(mesa);
-            
-            mesas.add(mesa);
+            entityManager.persist(mesa); 
+            mesas.add(mesa); 
         }
 
         entityManager.getTransaction().commit();
-        
+
         return mesas;
     }
 
@@ -57,8 +56,17 @@ public class MesasDAO implements IMesasDAO {
         return mesas;
     }
 
+    public Integer obtenerUltimaMesa(EntityManager entityManager) {
+        String jpql = "SELECT MAX(m.numeroMesa) FROM Mesa m";
+        Query query = entityManager.createQuery(jpql);
 
-    
+        Integer ultimaMesa = (Integer) query.getSingleResult();
+
+        if (ultimaMesa == null) {
+            return 0; 
+        }
+        return ultimaMesa;
+    }
     
     
 }

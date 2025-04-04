@@ -4,7 +4,6 @@
  */
 package wonderland.sistemarestaurantesdominio.encrypt;
 
-import org.jasypt.util.text.AES256TextEncryptor;
 import org.jasypt.util.text.BasicTextEncryptor;
 
 public class JasyptUtil {
