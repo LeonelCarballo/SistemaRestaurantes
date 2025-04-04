@@ -85,4 +85,11 @@ public class IngredientesBO implements IIngredientesBO {
 
         return this.ingredientesDAO.aumentarStock(nuevoIngredienteDTO);
     }
+
+    @Override
+    public List<Ingrediente> consultarIngredientesPorNombre(String filtroNombre) throws NegocioException {
+        
+        return this.ingredientesDAO.consultarIngredientesPorNombre(filtroNombre);
+        
+    }
 }

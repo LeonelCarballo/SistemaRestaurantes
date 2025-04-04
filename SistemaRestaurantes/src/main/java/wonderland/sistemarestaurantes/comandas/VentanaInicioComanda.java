@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantesdominio.Mesa;
@@ -28,7 +29,11 @@ public class VentanaInicioComanda extends javax.swing.JFrame {
     private IMesasBO mesasBO;
     private List<Mesa> mesas;
     private static final Logger LOG = Logger.getLogger(VentanaInicioComanda.class.getName());
-    
+
+    public VentanaInicioComanda() {
+        initComponents();
+    }
+
     public VentanaInicioComanda(ControlPresentacion control, IMesasBO mesasBO) {
         this.control = control;
         this.mesasBO = mesasBO;
@@ -44,7 +49,7 @@ public class VentanaInicioComanda extends javax.swing.JFrame {
         
         jPanelMesas.setOpaque(false);
         jPanelMesas.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
+        
         setLocationRelativeTo(null);
         cargarMesas();
     }
@@ -52,15 +57,15 @@ public class VentanaInicioComanda extends javax.swing.JFrame {
     private void cargarMesas() {
         try {
             mesas = mesasBO.mostrarMesas();
-
-            jPanelMesas.setLayout(new java.awt.GridLayout(0, 5, 10, 10)); 
+            
+            jPanelMesas.setLayout(new java.awt.GridLayout(0, 5, 10, 10));            
             
             for (Mesa mesa : mesas) {
-                PanelMesaComanda btnMesa = new PanelMesaComanda(mesa, this);
+                PanelMesaComanda btnMesa = new PanelMesaComanda(mesa, this, control);
                 btnMesa.setPreferredSize(new Dimension(120, 120));
                 jPanelMesas.add(btnMesa);
             }
-
+            
             int mesasFaltantes = (5 - (mesas.size() % 5)) % 5;
             for (int i = 0; i < mesasFaltantes; i++) {
                 JPanel panelVacio = new JPanel();
@@ -77,13 +82,14 @@ public class VentanaInicioComanda extends javax.swing.JFrame {
     }
     
     public void iniciarNuevaComanda(Mesa mesa) {
-        control.mostrarSeleccionarProductosComanda(mesa);
-
+         System.out.println("Intentando mostrar confirmación para la mesa: " + mesa.getNumeroMesa());
+        control.mostrarConfirmacionInicioComanda(mesa, this);
+        
     }
     
     public void mostrarResumenComanda(Mesa mesa) {
         control.mostrarResumenComanda(mesa);
-
+        
     }
     
     public void mostrar() {

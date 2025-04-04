@@ -16,7 +16,7 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
 
     private ControlPresentacion control;
     private Mesa mesa;
-    
+
     /**
      * Creates new form SeleccionarProductosComanda
      */
@@ -30,12 +30,12 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
     }
-    
-    public void mostrar(){
+
+    public void mostrar() {
         setVisible(true);
     }
-    
-    public void cerrar(){
+
+    public void cerrar() {
         setVisible(false);
         dispose();
     }
@@ -58,6 +58,11 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
 
         jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
         jButtonAnterior.setContentAreaFilled(false);
+        jButtonAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnteriorActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 100, 100));
 
         jLabelFondoSeleccionarProductosComanda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoComandaSeleccionarProducto.png"))); // NOI18N
@@ -65,6 +70,11 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
+        control.mostrarVentanaInicioComanda();
+        cerrar();
+    }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
     /**
      * @param args the command line arguments

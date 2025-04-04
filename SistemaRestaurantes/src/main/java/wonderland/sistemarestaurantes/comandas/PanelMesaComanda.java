@@ -22,15 +22,15 @@ public class PanelMesaComanda extends JButton {
 
     private final Mesa mesa;
     private final VentanaInicioComanda ventana;
-    private ControlPresentacion control;
+    private final ControlPresentacion control;
     private Color colorTexto = Color.BLACK;
     private Color colorFondo;
     FontManager fontManager = new FontManager();
 
-    public PanelMesaComanda(Mesa mesa, VentanaInicioComanda ventana) {
+    public PanelMesaComanda(Mesa mesa, VentanaInicioComanda ventana, ControlPresentacion control) {
         this.mesa = mesa;
         this.ventana = ventana;
-        this.control = new ControlPresentacion();
+        this.control = control;
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(120, 120));
         setContentAreaFilled(false);
@@ -89,9 +89,10 @@ public class PanelMesaComanda extends JButton {
     }
 
     private void manejarClicMesa(ActionEvent e) {
+        System.out.println("Clic en mesa " + mesa.getNumeroMesa() + " - Estado: " + mesa.getEstado());
         switch (mesa.getEstado()) {
             case DISPONIBLE ->
-                control.mostrarSeleccionarProductosComanda(mesa);
+                control.mostrarConfirmacionInicioComanda(mesa, ventana);
             case RESERVADA ->
                 control.mostrarResumenComanda(mesa);
         }

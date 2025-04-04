@@ -4,6 +4,8 @@
  */
 package wonderland.sistemarestaurantes.ingredientes;
 
+import java.awt.BorderLayout;
+import java.util.List;
 import java.util.logging.Logger;
 import wonderland.sistemarestaurantes.clientes.ListaClientes;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
@@ -33,6 +35,7 @@ public class ListaIngredientes extends javax.swing.JFrame {
         this.ingredientesBO = ingredientesBO;
         initComponents();
         setLocationRelativeTo(null);
+        agregarBuscador();
         mostrarListaIngredientes();
         
         revalidate();
@@ -62,6 +65,20 @@ public class ListaIngredientes extends javax.swing.JFrame {
         jPanelListaIngredientes.repaint();
     }
     
+    private void actualizarListaIngredientes(List<Ingrediente> ingredientes) {
+        jPanelListaIngredientes.removeAll();
+        for (Ingrediente ingrediente : ingredientes) {
+            jPanelListaIngredientes.add(new IngredientePanel(ingrediente));
+        }
+        jPanelListaIngredientes.revalidate();
+        jPanelListaIngredientes.repaint();
+    }
+    
+    private void agregarBuscador() {
+        BuscadorIngredientes buscadorIngredientes = new BuscadorIngredientes(ingredientesBO, this::actualizarListaIngredientes);
+        jPanelBuscador.add(buscadorIngredientes, BorderLayout.CENTER);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -76,8 +93,7 @@ public class ListaIngredientes extends javax.swing.JFrame {
         jLabelNombre = new javax.swing.JLabel();
         jLabelStock = new javax.swing.JLabel();
         Unidad = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jTextFieldBuscador = new javax.swing.JTextField();
+        jPanelBuscador = new javax.swing.JPanel();
         jScrollPaneListaIngredientes = new javax.swing.JScrollPane();
         jPanelListaIngredientes = new javax.swing.JPanel();
         jLabelFondoListaIngredientes = new javax.swing.JLabel();
@@ -120,11 +136,8 @@ public class ListaIngredientes extends javax.swing.JFrame {
         Unidad.setText("Unidad");
         getContentPane().add(Unidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, -1, -1));
 
-        jButton1.setText("jButton1");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 180, 30, -1));
-
-        jTextFieldBuscador.setText("Buscar...");
-        getContentPane().add(jTextFieldBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, 240, -1));
+        jPanelBuscador.setLayout(new javax.swing.BoxLayout(jPanelBuscador, javax.swing.BoxLayout.LINE_AXIS));
+        getContentPane().add(jPanelBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 170, 280, 30));
 
         jPanelListaIngredientes.setLayout(new javax.swing.BoxLayout(jPanelListaIngredientes, javax.swing.BoxLayout.Y_AXIS));
         jScrollPaneListaIngredientes.setViewportView(jPanelListaIngredientes);
@@ -184,14 +197,13 @@ public class ListaIngredientes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Unidad;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAnadirProducto;
     private javax.swing.JButton jButtonAnterior;
     private javax.swing.JLabel jLabelFondoListaIngredientes;
     private javax.swing.JLabel jLabelNombre;
     private javax.swing.JLabel jLabelStock;
+    private javax.swing.JPanel jPanelBuscador;
     private javax.swing.JPanel jPanelListaIngredientes;
     private javax.swing.JScrollPane jScrollPaneListaIngredientes;
-    private javax.swing.JTextField jTextFieldBuscador;
     // End of variables declaration//GEN-END:variables
 }

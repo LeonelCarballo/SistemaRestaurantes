@@ -23,4 +23,6 @@ public interface IIngredientesDAO {
     public abstract Ingrediente editarNombre(NuevoIngredienteDTO nuevoIngredienteDTO);
     
     public abstract Ingrediente aumentarStock(NuevoIngredienteDTO nuevoIngredienteDTO);
+    
+    public abstract List<Ingrediente> consultarIngredientesPorNombre(String nombre);
 }

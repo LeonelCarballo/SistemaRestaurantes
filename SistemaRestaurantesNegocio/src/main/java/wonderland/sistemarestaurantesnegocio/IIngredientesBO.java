@@ -22,4 +22,6 @@ public interface IIngredientesBO {
     public abstract Ingrediente editarIngrediente(NuevoIngredienteDTO nuevoIngredienteDTO) throws NegocioException;
     
     public abstract Ingrediente aumentarStock(NuevoIngredienteDTO nuevoIngredienteDTO) throws NegocioException;
+    
+     public abstract List<Ingrediente> consultarIngredientesPorNombre(String filtroNombre) throws NegocioException;
 }

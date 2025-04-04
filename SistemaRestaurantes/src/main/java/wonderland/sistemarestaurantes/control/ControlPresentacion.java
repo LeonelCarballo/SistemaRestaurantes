@@ -5,11 +5,13 @@
 package wonderland.sistemarestaurantes.control;
 
 import java.util.Calendar;
+import javax.swing.JLayeredPane;
 import wonderland.sistemarestaurantes.Mesas;
 import wonderland.sistemarestaurantes.VentanaPrincipal;
 import wonderland.sistemarestaurantes.clientes.ListaClientes;
 import wonderland.sistemarestaurantes.clientes.PerfilCliente;
 import wonderland.sistemarestaurantes.clientes.RegistrarCliente;
+import wonderland.sistemarestaurantes.comandas.ConfirmacionInicioComanda;
 import wonderland.sistemarestaurantes.comandas.ResumenComanda;
 import wonderland.sistemarestaurantes.comandas.SeleccionarProductosComanda;
 import wonderland.sistemarestaurantes.comandas.VentanaInicioComanda;
@@ -49,6 +51,8 @@ public class ControlPresentacion {
     Mesa mesa = new Mesa();
     MesasDAO mesasDAO = new MesasDAO();
     MesasBO mesasBO = new MesasBO(mesasDAO);
+
+    private VentanaInicioComanda ventanaInicioComanda = new VentanaInicioComanda();
 
     public void mostrarVentanaPrincial() {
         VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(this);
@@ -127,14 +131,28 @@ public class ControlPresentacion {
         ResumenComanda resumenComanda = new ResumenComanda(this);
         resumenComanda.mostrar();
     }
-    
 
-    public void mostrarSeleccionarProductosComanda(Mesa mesa){
+    public void mostrarSeleccionarProductosComanda(Mesa mesa) {
         SeleccionarProductosComanda seleccionarProducto = new SeleccionarProductosComanda(this);
         seleccionarProducto.mostrar();
     }
-    
-    public void mostrarVentanaInicioComanda(){
+
+    public void mostrarConfirmacionInicioComanda(Mesa mesa, VentanaInicioComanda ventanaInicioComanda) {
+        ConfirmacionInicioComanda confirmacionInicioComanda = new ConfirmacionInicioComanda(this, mesa, ventanaInicioComanda);
+
+        confirmacionInicioComanda.setBounds(0, 0,
+                ventanaInicioComanda.getWidth(),
+                ventanaInicioComanda.getHeight()
+        );
+
+        ventanaInicioComanda.getLayeredPane().add(confirmacionInicioComanda, JLayeredPane.MODAL_LAYER);
+
+        confirmacionInicioComanda.setVisible(true);
+        ventanaInicioComanda.revalidate();
+        ventanaInicioComanda.repaint();
+    }
+
+    public void mostrarVentanaInicioComanda() {
         VentanaInicioComanda ventanaInicioComanda = new VentanaInicioComanda(this, mesasBO);
         ventanaInicioComanda.mostrar();
     }
@@ -163,8 +181,8 @@ public class ControlPresentacion {
         NuevoProducto nuevoProducto = new NuevoProducto(this);
         nuevoProducto.mostrar();
     }
-    
-    public void mostrarIniciarReporte(){
+
+    public void mostrarIniciarReporte() {
         InicioReporte iniciarReporte = new InicioReporte(this);
         iniciarReporte.mostrar();
     }

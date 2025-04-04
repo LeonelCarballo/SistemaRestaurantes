@@ -49,46 +49,55 @@ public class IngredientesDAO implements IIngredientesDAO {
     @Override
     public Ingrediente editarNombre(NuevoIngredienteDTO nuevoIngredienteDTO) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        
+
         entityManager.getTransaction().begin();
-        
+
         Ingrediente ingredienteEncontrado = buscarIngredienteId(nuevoIngredienteDTO.getId());
         ingredienteEncontrado.setNombre(nuevoIngredienteDTO.getNombre());
         ingredienteEncontrado.setStock(nuevoIngredienteDTO.getStock());
         ingredienteEncontrado.setUnidadMedida(nuevoIngredienteDTO.getUnidadMedida());
-        
+
         entityManager.merge(ingredienteEncontrado);
         entityManager.getTransaction().commit();
-        
+
         return ingredienteEncontrado;
     }
 
     @Override
     public Ingrediente aumentarStock(NuevoIngredienteDTO nuevoIngredienteDTO) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        
+
         entityManager.getTransaction().begin();
-        
+
         Ingrediente ingredienteEncontrado = buscarIngredienteId(nuevoIngredienteDTO.getId());
         ingredienteEncontrado.setNombre(nuevoIngredienteDTO.getNombre());
         ingredienteEncontrado.setStock(nuevoIngredienteDTO.getStock());
         ingredienteEncontrado.setUnidadMedida(nuevoIngredienteDTO.getUnidadMedida());
-        
+
         entityManager.merge(ingredienteEncontrado);
         entityManager.getTransaction().commit();
-        
+
         return ingredienteEncontrado;
     }
-    
+
     @Override
     public Ingrediente buscarIngredienteId(Long idIngrediente) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        
+
         Ingrediente ingrediente = entityManager.find(Ingrediente.class, idIngrediente);
         return ingrediente;
     }
 
-    
+    @Override
+    public List<Ingrediente> consultarIngredientesPorNombre(String nombre) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        String jpqlQuery = "SELECT i FROM Ingrediente i WHERE i.nombre LIKE :nombre ORDER BY i.nombre ASC";
+
+        TypedQuery<Ingrediente> query = entityManager.createQuery(jpqlQuery, Ingrediente.class);
+        query.setParameter("nombre", "%" + nombre + "%"); // El % permite buscar coincidencias parciales
+
+        List<Ingrediente> ingredientes = query.getResultList();
+        return ingredientes;
+    }
 
 }
-
