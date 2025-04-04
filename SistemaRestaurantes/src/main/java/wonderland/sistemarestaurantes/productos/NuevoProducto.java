@@ -1,10 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package wonderland.sistemarestaurantes.productos;
 
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantesdominio.TipoProducto;
+import wonderland.sistemarestaurantesdominio.dtos.NuevoProductoDTO;
+import wonderland.sistemarestaurantesnegocio.IProductosBO;
 
 /**
  *
@@ -13,7 +13,8 @@ import wonderland.sistemarestaurantes.control.ControlPresentacion;
 public class NuevoProducto extends javax.swing.JFrame {
 
     private ControlPresentacion control;
-    
+    private IProductosBO productosBO;
+
     /**
      * Creates new form NuevoProducto
      */
@@ -21,10 +22,12 @@ public class NuevoProducto extends javax.swing.JFrame {
         initComponents();
     }
 
-    public NuevoProducto(ControlPresentacion control) {
+    public NuevoProducto(ControlPresentacion control, IProductosBO productosBO) {
         this.control = control;
+        this.productosBO = productosBO;
         initComponents();
         setLocationRelativeTo(null);
+        
     }
     
     public void mostrar(){
@@ -34,6 +37,23 @@ public class NuevoProducto extends javax.swing.JFrame {
     public void cerrar(){
         setVisible(false);
         dispose();
+    }
+    
+    public void registrarProducto(){
+        String nombre= this.jTextFieldNombreProducto.getText();
+        float precio = Float.parseFloat(this.jTextFieldNombrePrecio.getText());
+        
+        TipoProducto tipo = TipoProducto.PLATILLO;
+        if (jComboBoxCategoria.getSelectedItem().equals("Platillo")) {
+            tipo = TipoProducto.PLATILLO;
+        }else if(jComboBoxCategoria.getSelectedItem().equals("Postre")){
+            tipo= TipoProducto.POSTRE;
+        }else if(jComboBoxCategoria.getSelectedItem().equals("Bebida")){
+            tipo= TipoProducto.POSTRE;
+        }
+        
+        NuevoProductoDTO nuevoProducto = new NuevoProductoDTO(nombre, precio, tipo);
+            
     }
 
     /**
@@ -90,7 +110,7 @@ public class NuevoProducto extends javax.swing.JFrame {
         jComboBoxCategoria.setBackground(new java.awt.Color(29, 39, 56));
         jComboBoxCategoria.setEditable(true);
         jComboBoxCategoria.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
-        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Platillo", "Postre", "Bebida" }));
         jComboBoxCategoria.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jComboBoxCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,6 +177,7 @@ public class NuevoProducto extends javax.swing.JFrame {
         });
     }
 
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonRegresar;
     private javax.swing.JComboBox<String> jComboBoxCategoria;
