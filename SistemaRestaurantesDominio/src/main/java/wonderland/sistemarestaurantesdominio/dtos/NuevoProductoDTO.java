@@ -8,9 +8,19 @@ import wonderland.sistemarestaurantesdominio.TipoProducto;
  */
 public class NuevoProductoDTO {
     private String nombre;
-    private float precio;
+    private Float precio;
     private TipoProducto tipoProducto;
 
+    public NuevoProductoDTO() {
+    }
+
+    public NuevoProductoDTO(String nombre, Float precio, TipoProducto tipoProducto) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.tipoProducto = tipoProducto;
+    }
+
+    
     public String getNombre() {
         return nombre;
     }
@@ -23,7 +33,7 @@ public class NuevoProductoDTO {
         return precio;
     }
 
-    public void setPrecio(float precio) {
+    public void setPrecio(Float precio) {
         this.precio = precio;
     }
 

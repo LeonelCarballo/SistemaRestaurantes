@@ -128,7 +128,7 @@ public class Mesas extends javax.swing.JFrame {
        
         List<Mesa> nuevasMesas = null;
         try {
-            nuevasMesas = mesasBO.agregarMesas(new NuevaMesaDTO(1)); 
+            nuevasMesas = mesasBO.agregarMesas(new NuevaMesaDTO()); 
         } catch (NegocioException ex) {
             LOG.severe("No se pudo llenar la tabla de mesas: " + ex.getMessage());
         }

@@ -13,6 +13,9 @@ public class NuevaMesaDTO {
     private Long id;
     private Integer numeroMesa;
 
+    public NuevaMesaDTO() {
+    }
+    
     public NuevaMesaDTO(Long id) {
         this.id = id;
     }
