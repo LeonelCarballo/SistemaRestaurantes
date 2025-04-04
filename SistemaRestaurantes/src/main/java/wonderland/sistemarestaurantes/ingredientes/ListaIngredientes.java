@@ -4,8 +4,12 @@
  */
 package wonderland.sistemarestaurantes.ingredientes;
 
+import java.util.logging.Logger;
+import wonderland.sistemarestaurantes.clientes.ListaClientes;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantesdominio.Ingrediente;
 import wonderland.sistemarestaurantesnegocio.IIngredientesBO;
+import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
 /**
  *
@@ -15,6 +19,7 @@ public class ListaIngredientes extends javax.swing.JFrame {
 
     private ControlPresentacion control;
     private IIngredientesBO ingredientesBO;
+    private static final Logger LOG = Logger.getLogger(ListaClientes.class.getName());
     
     /**
      * Creates new form ListaIngredientes
@@ -25,8 +30,13 @@ public class ListaIngredientes extends javax.swing.JFrame {
 
     public ListaIngredientes(ControlPresentacion control, IIngredientesBO ingredientesBO) {
         this.control = control;
+        this.ingredientesBO = ingredientesBO;
         initComponents();
         setLocationRelativeTo(null);
+        mostrarListaIngredientes();
+        
+        revalidate();
+        repaint();
     }
     
     public void mostrar(){
@@ -38,6 +48,20 @@ public class ListaIngredientes extends javax.swing.JFrame {
         dispose();
     }
 
+    public void mostrarListaIngredientes() {
+        jPanelListaIngredientes.removeAll(); 
+        try {
+            for (Ingrediente ingrediente : ingredientesBO.consultarIngredientes()) { 
+                jPanelListaIngredientes.add(new IngredientePanel(ingrediente));
+            }
+        } catch (NegocioException ex) {
+             LOG.severe("No se pudo llenar la lista de ingredientes: " + ex.getMessage());
+        }
+
+        jPanelListaIngredientes.revalidate();
+        jPanelListaIngredientes.repaint();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,6 +73,13 @@ public class ListaIngredientes extends javax.swing.JFrame {
 
         jButtonAnterior = new javax.swing.JButton();
         jButtonAnadirProducto = new javax.swing.JButton();
+        jLabelNombre = new javax.swing.JLabel();
+        jLabelStock = new javax.swing.JLabel();
+        Unidad = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jTextFieldBuscador = new javax.swing.JTextField();
+        jScrollPaneListaIngredientes = new javax.swing.JScrollPane();
+        jPanelListaIngredientes = new javax.swing.JPanel();
         jLabelFondoListaIngredientes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,6 +87,7 @@ public class ListaIngredientes extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
+        jButtonAnterior.setBorderPainted(false);
         jButtonAnterior.setContentAreaFilled(false);
         jButtonAnterior.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,7 +103,33 @@ public class ListaIngredientes extends javax.swing.JFrame {
                 jButtonAnadirProductoActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAnadirProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, -1, 60));
+        getContentPane().add(jButtonAnadirProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 80, -1, 60));
+
+        jLabelNombre.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        jLabelNombre.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelNombre.setText("Nombre");
+        getContentPane().add(jLabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 130, -1));
+
+        jLabelStock.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        jLabelStock.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelStock.setText("Stock");
+        getContentPane().add(jLabelStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, -1, -1));
+
+        Unidad.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        Unidad.setForeground(new java.awt.Color(255, 255, 255));
+        Unidad.setText("Unidad");
+        getContentPane().add(Unidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, -1, -1));
+
+        jButton1.setText("jButton1");
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 180, 30, -1));
+
+        jTextFieldBuscador.setText("Buscar...");
+        getContentPane().add(jTextFieldBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, 240, -1));
+
+        jPanelListaIngredientes.setLayout(new javax.swing.BoxLayout(jPanelListaIngredientes, javax.swing.BoxLayout.Y_AXIS));
+        jScrollPaneListaIngredientes.setViewportView(jPanelListaIngredientes);
+
+        getContentPane().add(jScrollPaneListaIngredientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 630, 310));
 
         jLabelFondoListaIngredientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoIngredientes.png"))); // NOI18N
         getContentPane().add(jLabelFondoListaIngredientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -125,8 +183,15 @@ public class ListaIngredientes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Unidad;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAnadirProducto;
     private javax.swing.JButton jButtonAnterior;
     private javax.swing.JLabel jLabelFondoListaIngredientes;
+    private javax.swing.JLabel jLabelNombre;
+    private javax.swing.JLabel jLabelStock;
+    private javax.swing.JPanel jPanelListaIngredientes;
+    private javax.swing.JScrollPane jScrollPaneListaIngredientes;
+    private javax.swing.JTextField jTextFieldBuscador;
     // End of variables declaration//GEN-END:variables
 }

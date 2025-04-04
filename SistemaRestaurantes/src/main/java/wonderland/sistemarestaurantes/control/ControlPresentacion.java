@@ -13,6 +13,8 @@ import wonderland.sistemarestaurantes.clientes.RegistrarCliente;
 import wonderland.sistemarestaurantes.comandas.ResumenComanda;
 import wonderland.sistemarestaurantes.comandas.SeleccionarProductosComanda;
 import wonderland.sistemarestaurantes.comandas.VentanaInicioComanda;
+import wonderland.sistemarestaurantes.ingredientes.AñadirStockIngrediente;
+import wonderland.sistemarestaurantes.ingredientes.EditarNombreIngrediente;
 import wonderland.sistemarestaurantes.ingredientes.ListaIngredientes;
 import wonderland.sistemarestaurantes.ingredientes.NuevoIngrediente;
 import wonderland.sistemarestaurantes.productos.EditarProducto;
@@ -36,32 +38,31 @@ import wonderland.sistemarestaurantespersistencia.daos.MesasDAO;
  * @author leoca
  */
 public class ControlPresentacion {
-    
+
     ClientesFrecuentesDAO clientesDAO = new ClientesFrecuentesDAO();
     ClientesBO clientesBO = new ClientesBO(clientesDAO);
-    
+
     IngredientesDAO ingredientesDAO = new IngredientesDAO();
     IngredientesBO ingredientesBO = new IngredientesBO(ingredientesDAO);
-  
+
     MesasDAO mesasDAO = new MesasDAO();
     MesasBO mesasBO = new MesasBO(mesasDAO);
 
-    
-    public void mostrarVentanaPrincial(){
+    public void mostrarVentanaPrincial() {
         VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(this);
         ventanaPrincipal.mostrar();
     }
-    
-    public void mostrarMesas(){
+
+    public void mostrarMesas() {
         Mesas mesas = new Mesas(this, mesasBO);
         mesas.mostrar();
     }
-    
-    public void mostrarListaClientes(){
+
+    public void mostrarListaClientes() {
         ListaClientes listaClientes = new ListaClientes(this, clientesBO);
         listaClientes.mostrar();
     }
-    
+
     public void mostrarPerfilCliente(Cliente cliente) {
         if (cliente == null) {
             System.out.println("Error: Cliente es null en mostrarPerfilCliente");
@@ -69,7 +70,7 @@ public class ControlPresentacion {
         }
 
         System.out.println("Mostrando perfil de: " + cliente.getNombre());
-        
+
         Long clienteId = cliente.getId();
         String nombreCliente = cliente.getNombre();
         String apellidoPaternoCliente = cliente.getApellidoPaterno();
@@ -78,33 +79,49 @@ public class ControlPresentacion {
         String telefonoCliente = cliente.getTelefono();
         Calendar fechaRegistroCliente = cliente.getFechaRegistro();
 
-
-        ClienteFrecuenteDTO clienteDTO = new ClienteFrecuenteDTO(clienteId,nombreCliente,apellidoPaternoCliente,apellidoMaternoCliente,correoElectronicoCliente,telefonoCliente, fechaRegistroCliente);
+        ClienteFrecuenteDTO clienteDTO = new ClienteFrecuenteDTO(clienteId, nombreCliente, apellidoPaternoCliente, apellidoMaternoCliente, correoElectronicoCliente, telefonoCliente, fechaRegistroCliente);
         PerfilCliente perfilCliente = new PerfilCliente(this, clientesBO, clienteDTO);
         perfilCliente.mostrar();
     }
-    
-    public void mostrarIngrediente(Ingrediente ingrediente){
+
+    public void mostrarEditarNombreIngrediente(Ingrediente ingrediente) {
         if (ingrediente == null) {
             System.out.println("Error: El ingrediente es nulo en mostrarIngrediente");
             return;
         }
-        
+
         Long IdIngrediente = ingrediente.getId();
         String nombreIngrediente = ingrediente.getNombre();
         float StockIngrediente = ingrediente.getStock();
         UnidadMedida UnidadIngrediente = ingrediente.getUnidadMedida();
-        
-        NuevoIngredienteDTO ingredienteDTO = new NuevoIngredienteDTO(nombreIngrediente, StockIngrediente, UnidadIngrediente);
-        
+
+        NuevoIngredienteDTO ingredienteDTO = new NuevoIngredienteDTO(IdIngrediente, nombreIngrediente, StockIngrediente, UnidadIngrediente);
+        EditarNombreIngrediente editarNombre = new EditarNombreIngrediente(this, ingredientesBO, ingredienteDTO);
+        editarNombre.mostrar();
     }
-    
-    public void mostrarRegistrarCliente(){
-        RegistrarCliente registrarCliente = new RegistrarCliente(this,clientesBO);
+
+    public void mostrarAñadirStockIngrediente(Ingrediente ingrediente) {
+        if (ingrediente == null) {
+            System.out.println("Error: El ingrediente es nulo en mostrarIngrediente");
+            return;
+        }
+
+        Long IdIngrediente = ingrediente.getId();
+        String nombreIngrediente = ingrediente.getNombre();
+        float StockIngrediente = ingrediente.getStock();
+        UnidadMedida UnidadIngrediente = ingrediente.getUnidadMedida();
+
+        NuevoIngredienteDTO ingredienteDTO = new NuevoIngredienteDTO(IdIngrediente, nombreIngrediente, StockIngrediente, UnidadIngrediente);
+        AñadirStockIngrediente añadirStock = new AñadirStockIngrediente(this, ingredientesBO, ingredienteDTO);
+        añadirStock.mostrar();
+    }
+
+    public void mostrarRegistrarCliente() {
+        RegistrarCliente registrarCliente = new RegistrarCliente(this, clientesBO);
         registrarCliente.mostrar();
     }
-    
-    public void mostrarResumenComanda(){
+
+    public void mostrarResumenComanda() {
         ResumenComanda resumenComanda = new ResumenComanda(this);
         resumenComanda.mostrar();
     }
@@ -119,28 +136,28 @@ public class ControlPresentacion {
         VentanaInicioComanda ventanaInicioComanda = new VentanaInicioComanda(this, mesasBO);
         ventanaInicioComanda.mostrar();
     }
-    
-    public void mostrarListaIngredientes(){
-        ListaIngredientes listaIngredientes = new ListaIngredientes(this,ingredientesBO);
+
+    public void mostrarListaIngredientes() {
+        ListaIngredientes listaIngredientes = new ListaIngredientes(this, ingredientesBO);
         listaIngredientes.mostrar();
     }
-    
-    public void mostrarNuevoIngrediente(){
-        NuevoIngrediente nuevoIngrediente = new NuevoIngrediente(this,ingredientesBO);
+
+    public void mostrarNuevoIngrediente() {
+        NuevoIngrediente nuevoIngrediente = new NuevoIngrediente(this, ingredientesBO);
         nuevoIngrediente.mostrar();
     }
-    
-    public void mostrarEditarProducto(){
+
+    public void mostrarEditarProducto() {
         EditarProducto editarProducto = new EditarProducto(this);
         editarProducto.mostrar();
     }
-    
-    public void mostrarListaProductos(){
+
+    public void mostrarListaProductos() {
         ListaProductos listaProductos = new ListaProductos(this);
         listaProductos.mostrar();
     }
-    
-    public void mostrarNuevoProducto(){
+
+    public void mostrarNuevoProducto() {
         NuevoProducto nuevoProducto = new NuevoProducto(this);
         nuevoProducto.mostrar();
     }
@@ -149,5 +166,5 @@ public class ControlPresentacion {
         InicioReporte iniciarReporte = new InicioReporte(this);
         iniciarReporte.mostrar();
     }
-    
+
 }

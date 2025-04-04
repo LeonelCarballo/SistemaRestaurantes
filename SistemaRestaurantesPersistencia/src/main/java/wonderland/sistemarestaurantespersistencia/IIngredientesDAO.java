@@ -4,6 +4,7 @@
  */
 package wonderland.sistemarestaurantespersistencia;
 
+import java.util.List;
 import wonderland.sistemarestaurantesdominio.Ingrediente;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoIngredienteDTO;
 
@@ -15,4 +16,11 @@ public interface IIngredientesDAO {
     
     public abstract Ingrediente registrarIngrediente(NuevoIngredienteDTO nuevoIngrediente);
     
+    public abstract List<Ingrediente> consultarIngredientes();
+    
+    public abstract Ingrediente buscarIngredienteId(Long idCliente);   
+    
+    public abstract Ingrediente editarNombre(NuevoIngredienteDTO nuevoIngredienteDTO);
+    
+    public abstract Ingrediente aumentarStock(NuevoIngredienteDTO nuevoIngredienteDTO);
 }

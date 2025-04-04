@@ -4,6 +4,7 @@
  */
 package wonderland.sistemarestaurantesnegocio;
 
+import java.util.List;
 import wonderland.sistemarestaurantesdominio.Ingrediente;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoIngredienteDTO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
@@ -16,4 +17,9 @@ public interface IIngredientesBO {
     
     public abstract Ingrediente registrarIngrediente(NuevoIngredienteDTO nuevoIngrediente) throws NegocioException;
     
+    public abstract List<Ingrediente> consultarIngredientes() throws NegocioException;
+    
+    public abstract Ingrediente editarIngrediente(NuevoIngredienteDTO nuevoIngredienteDTO) throws NegocioException;
+    
+    public abstract Ingrediente aumentarStock(NuevoIngredienteDTO nuevoIngredienteDTO) throws NegocioException;
 }

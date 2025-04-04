@@ -46,33 +46,35 @@ public class NuevoIngrediente extends javax.swing.JFrame {
     }
     
     public void registrar(){
-        
+       try {
         String nombre = this.jTextFieldNombre.getText();
-        float stock = 0;
-        try {
-        stock = Float.parseFloat(this.jTextFieldCantidad.getText());
-        } catch (NumberFormatException ex) {
-            LOG.severe("No fue posible registrar el cliente" + ex.getMessage());
-        }
+        float stock = Float.parseFloat(this.jTextFieldCantidad.getText());
+
         UnidadMedida unidadMedida = UnidadMedida.PIEZA;
-        if(jComboBoxUnidad.getSelectedItem().equals("Piezas")){
+        if (jComboBoxUnidad.getSelectedItem().equals("Piezas")) {
             unidadMedida = UnidadMedida.PIEZA;
-        }else if(jComboBoxUnidad.getSelectedItem().equals("gr")){
+        } else if (jComboBoxUnidad.getSelectedItem().equals("gr")) {
             unidadMedida = UnidadMedida.GR;
-        }else if(jComboBoxUnidad.getSelectedItem().equals("ml")){
+        } else if (jComboBoxUnidad.getSelectedItem().equals("ml")) {
             unidadMedida = UnidadMedida.ML;
         }
-            
+
         NuevoIngredienteDTO nuevoIngrediente = new NuevoIngredienteDTO(nombre, stock, unidadMedida);
-        
+
         try {
             this.ingredientesBO.registrarIngrediente(nuevoIngrediente);
-            JOptionPane.showMessageDialog(this, "Se registro el ingrediente con exito","Informacion", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Se registró el ingrediente con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);
             this.limpiar();
         } catch (NegocioException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(),"Informacion", JOptionPane.ERROR_MESSAGE);
-            LOG.severe("No fue posible registrar el cliente" + ex.getMessage());
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            LOG.severe("No fue posible registrar el ingredientee: " + ex.getMessage());
         }
+
+    } catch (NumberFormatException ex) {
+        NegocioException negocioEx = new NegocioException("Error: La cantidad ingresada no es válida");
+        JOptionPane.showMessageDialog(this, negocioEx.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        LOG.severe("Se ingresó incorrectamente la cantidad: " + negocioEx.getMessage());
+    }
         
     }
     
@@ -187,8 +189,6 @@ public class NuevoIngrediente extends javax.swing.JFrame {
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
         registrar();
-        cerrar();
-        control.mostrarVentanaPrincial();
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
     private void jComboBoxUnidadItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxUnidadItemStateChanged
