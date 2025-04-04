@@ -25,6 +25,7 @@ import wonderland.sistemarestaurantesnegocio.implementaciones.IngredientesBO;
 import wonderland.sistemarestaurantespersistencia.daos.IngredientesDAO;
 import wonderland.sistemarestaurantesdominio.Cliente;
 import wonderland.sistemarestaurantesdominio.Ingrediente;
+import wonderland.sistemarestaurantesdominio.Mesa;
 import wonderland.sistemarestaurantesdominio.UnidadMedida;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoIngredienteDTO;
 import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
@@ -45,6 +46,7 @@ public class ControlPresentacion {
     IngredientesDAO ingredientesDAO = new IngredientesDAO();
     IngredientesBO ingredientesBO = new IngredientesBO(ingredientesDAO);
 
+    Mesa mesa = new Mesa();
     MesasDAO mesasDAO = new MesasDAO();
     MesasBO mesasBO = new MesasBO(mesasDAO);
 
@@ -121,13 +123,13 @@ public class ControlPresentacion {
         registrarCliente.mostrar();
     }
 
-    public void mostrarResumenComanda() {
+    public void mostrarResumenComanda(Mesa mesa) {
         ResumenComanda resumenComanda = new ResumenComanda(this);
         resumenComanda.mostrar();
     }
     
 
-    public void mostrarSeleccionarProductosComanda(){
+    public void mostrarSeleccionarProductosComanda(Mesa mesa){
         SeleccionarProductosComanda seleccionarProducto = new SeleccionarProductosComanda(this);
         seleccionarProducto.mostrar();
     }
