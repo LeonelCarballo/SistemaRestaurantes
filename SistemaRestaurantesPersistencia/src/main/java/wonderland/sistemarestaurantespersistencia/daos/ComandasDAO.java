@@ -31,7 +31,7 @@ public class ComandasDAO implements IComandasDAO {
         comanda.setFechaHoraCreacion(Calendar.getInstance());
         comanda.setMesa(nuevaComanda.getMesa());
         comanda.setCliente(nuevaComanda.getCliente());
-        comanda.setDetallesComandas(nuevaComanda.getDetallesComandas());
+//        comanda.setDetallesComandas(nuevaComanda.getDetallesComandas());
         
         entityManager.persist(comanda);
         entityManager.getTransaction().commit();

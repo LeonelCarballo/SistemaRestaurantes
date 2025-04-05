@@ -38,6 +38,9 @@ public class ListaIngredientes extends javax.swing.JFrame {
         agregarBuscador();
         mostrarListaIngredientes();
         
+        jScrollPaneListaIngredientes.setOpaque(false);
+        jScrollPaneListaIngredientes.getViewport().setOpaque(false);
+        
         revalidate();
         repaint();
     }
@@ -139,6 +142,7 @@ public class ListaIngredientes extends javax.swing.JFrame {
         jPanelBuscador.setLayout(new javax.swing.BoxLayout(jPanelBuscador, javax.swing.BoxLayout.LINE_AXIS));
         getContentPane().add(jPanelBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 170, 280, 30));
 
+        jPanelListaIngredientes.setOpaque(false);
         jPanelListaIngredientes.setLayout(new javax.swing.BoxLayout(jPanelListaIngredientes, javax.swing.BoxLayout.Y_AXIS));
         jScrollPaneListaIngredientes.setViewportView(jPanelListaIngredientes);
 

@@ -118,6 +118,11 @@ public class NuevoIngrediente extends javax.swing.JFrame {
         jTextFieldNombre.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jTextFieldNombre.setText("Nombre");
         jTextFieldNombre.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        jTextFieldNombre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTextFieldNombreMousePressed(evt);
+            }
+        });
         jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombreActionPerformed(evt);
@@ -128,6 +133,11 @@ public class NuevoIngrediente extends javax.swing.JFrame {
         jTextFieldCantidad.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jTextFieldCantidad.setText("0");
         jTextFieldCantidad.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        jTextFieldCantidad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTextFieldCantidadMousePressed(evt);
+            }
+        });
         jTextFieldCantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCantidadActionPerformed(evt);
@@ -202,6 +212,24 @@ public class NuevoIngrediente extends javax.swing.JFrame {
     private void jTextFieldCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCantidadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldCantidadActionPerformed
+
+    private void jTextFieldNombreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldNombreMousePressed
+        if(jTextFieldNombre.getText().equals("Nombre")){
+            jTextFieldNombre.setText("");
+        } 
+        if(jTextFieldCantidad.getText().isEmpty()){
+             jTextFieldCantidad.setText("0");
+        }  
+    }//GEN-LAST:event_jTextFieldNombreMousePressed
+
+    private void jTextFieldCantidadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldCantidadMousePressed
+        if(jTextFieldCantidad.getText().equals("0")){
+            jTextFieldCantidad.setText("");
+        } 
+        if(jTextFieldNombre.getText().isEmpty()){
+             jTextFieldNombre.setText("Nombre");
+        } 
+    }//GEN-LAST:event_jTextFieldCantidadMousePressed
 
     /**
      * @param args the command line arguments
