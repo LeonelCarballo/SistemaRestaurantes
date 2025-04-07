@@ -4,7 +4,7 @@
  */
 package wonderland.sistemarestaurantes.comandas;
 
-import Fonts.FontManager;
+import wonderland.sistemarestaurantes.utils.FontManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;

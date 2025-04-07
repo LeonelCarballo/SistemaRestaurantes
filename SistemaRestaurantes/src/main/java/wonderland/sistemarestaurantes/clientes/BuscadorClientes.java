@@ -4,7 +4,7 @@
  */
 package wonderland.sistemarestaurantes.clientes;
 
-import Fonts.FontManager;
+import wonderland.sistemarestaurantes.utils.FontManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;

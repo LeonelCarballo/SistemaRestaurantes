@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package wonderland.sistemarestaurantesdominio.encrypt;
+package wonderland.sistemarestaurantesdominio.utils;
 
 import org.jasypt.util.text.BasicTextEncryptor;
 
