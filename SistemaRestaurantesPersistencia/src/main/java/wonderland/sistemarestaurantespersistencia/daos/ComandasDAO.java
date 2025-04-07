@@ -8,6 +8,7 @@ import java.util.Calendar;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import wonderland.sistemarestaurantesdominio.Comanda;
+import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.NuevaComandaDTO;
 import wonderland.sistemarestaurantespersistencia.IComandasDAO;
 import wonderland.sistemarestaurantespersistencia.conexiones.ManejadorConexiones;
@@ -62,6 +63,11 @@ public class ComandasDAO implements IComandasDAO {
         } else {
             return 1;
         }
+    }
+
+    @Override
+    public Comanda asociarClienteAComanda(ComandaDTO comandaDTO) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

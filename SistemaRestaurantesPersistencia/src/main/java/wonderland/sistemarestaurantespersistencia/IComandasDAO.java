@@ -5,6 +5,7 @@
 package wonderland.sistemarestaurantespersistencia;
 
 import wonderland.sistemarestaurantesdominio.Comanda;
+import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.NuevaComandaDTO;
 
 /**
@@ -13,6 +14,8 @@ import wonderland.sistemarestaurantesdominio.dtos.NuevaComandaDTO;
  */
 public interface IComandasDAO {
     public abstract Comanda crearNuevarComanda(NuevaComandaDTO nuevaComanda);
+    
+    public abstract Comanda asociarClienteAComanda(ComandaDTO comandaDTO);
     
     //public abstract Comanda editarComanda(ComandaDTO comandaDTO);
 }
