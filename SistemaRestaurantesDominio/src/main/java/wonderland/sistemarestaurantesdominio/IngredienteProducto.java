@@ -36,6 +36,10 @@ public class IngredienteProducto {
     @JoinColumn(name = "id_producto")
     private Producto producto;
     
+    @ManyToOne()
+    @JoinColumn(name = "id_ingrediente")
+    private Ingrediente ingrediente;
+    
     public IngredienteProducto() {
     }
 

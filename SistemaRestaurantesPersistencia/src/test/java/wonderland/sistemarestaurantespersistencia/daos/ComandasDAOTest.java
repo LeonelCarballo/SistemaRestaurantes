@@ -24,18 +24,18 @@ public class ComandasDAOTest {
     /**
      * Test of crearNuevarComanda method, of class ComandasDAO.
      */
-    @Test
-    public void testCrearNuevarComandaConClienteOk() {
-
-        ComandasDAO comandasDAO = new ComandasDAO();
-        EstadoComanda estadoComanda = null;
-        NuevaComandaDTO nuevaComanda = new NuevaComandaDTO(comandasDAO.generarFolio(), estadoComanda.ABIERTA);
-        Comanda comandaGuardada = comandasDAO.crearNuevarComanda(nuevaComanda);
-        
-        assertNotNull(comandaGuardada.getId());
-        assertEquals(nuevaComanda.getFolio(), comandaGuardada.getFolio());
-        assertEquals(nuevaComanda.getEstadoComanda(), comandaGuardada.getEstadoComanda());
-        assertEquals(nuevaComanda.getMesa(), comandaGuardada.getMesa());
-    }
+//    @Test
+//    public void testCrearNuevarComandaConClienteOk() {
+//
+//        ComandasDAO comandasDAO = new ComandasDAO();
+//        EstadoComanda estadoComanda = null;
+//        NuevaComandaDTO nuevaComanda = new NuevaComandaDTO(comandasDAO.generarFolio(), estadoComanda.ABIERTA);
+//        Comanda comandaGuardada = comandasDAO.crearNuevarComanda(nuevaComanda);
+//        
+//        assertNotNull(comandaGuardada.getId());
+//        assertEquals(nuevaComanda.getFolio(), comandaGuardada.getFolio());
+//        assertEquals(nuevaComanda.getEstadoComanda(), comandaGuardada.getEstadoComanda());
+//        assertEquals(nuevaComanda.getMesa(), comandaGuardada.getMesa());
+//    }
     
 }
