@@ -4,6 +4,7 @@
  */
 package wonderland.sistemarestaurantes.productos;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantes.ingredientes.BuscadorIngredientes;
+import wonderland.sistemarestaurantes.ingredientes.IngredientePanel;
 import wonderland.sistemarestaurantesdominio.Ingrediente;
 import wonderland.sistemarestaurantesdominio.dtos.IngredienteProductoDTO;
 import wonderland.sistemarestaurantesnegocio.IIngredientesBO;
@@ -22,25 +25,28 @@ import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
  * @author payde
  */
 public class AgregarIngrediente extends javax.swing.JFrame {
+
     private IIngredientesProductosBO ingredientesProductosBO;
     private IIngredientesBO ingredientesBO;
     private ControlPresentacion control;
     private Long idProducto;
     private Object padre;
     private List<IngredienteSeleccionPanel> panelesIngredientesSeleccion;
-    
-   //Constructor
-   public AgregarIngrediente(Long idProducto, IIngredientesBO ingredientesBO, IIngredientesProductosBO ingredientesProductosBO, Object padre, List<IngredienteProductoDTO> ingredientesYaSeleccionados) {
+    private JPanel panelIngredientes;
+
+    //Constructor
+    public AgregarIngrediente(Long idProducto, IIngredientesBO ingredientesBO, IIngredientesProductosBO ingredientesProductosBO, Object padre, List<IngredienteProductoDTO> ingredientesYaSeleccionados) {
         this.idProducto = idProducto;
         this.ingredientesBO = ingredientesBO;
         this.ingredientesProductosBO = ingredientesProductosBO;
         this.padre = padre;
 
         initComponents();
+        agregarBuscador();
         panelesIngredientesSeleccion = new ArrayList<>();
 
         try {
-            JPanel panelIngredientes = new JPanel();
+            panelIngredientes = new JPanel();
             panelIngredientes.setLayout(new BoxLayout(panelIngredientes, BoxLayout.Y_AXIS));
             panelIngredientes.setOpaque(false);
 
@@ -64,20 +70,20 @@ public class AgregarIngrediente extends javax.swing.JFrame {
             jScrollPaneIngredientesDisponibles.setViewportView(panelIngredientes);
 
         } catch (NegocioException ex) {
-            ex.printStackTrace(); 
+            ex.printStackTrace();
         }
     }
-    
-    public void mostrar(){
+
+    public void mostrar() {
         setVisible(true);
     }
-    
-    public void cerrar(){
+
+    public void cerrar() {
         setVisible(false);
         dispose();
     }
-    
-   public List<IngredienteProductoDTO> obtenerIngredientesSeleccionados() {
+
+    public List<IngredienteProductoDTO> obtenerIngredientesSeleccionados() {
         List<IngredienteProductoDTO> seleccionados = new ArrayList<>();
 
         JPanel panelIngredientes = (JPanel) jScrollPaneIngredientesDisponibles.getViewport().getView();
@@ -87,7 +93,7 @@ public class AgregarIngrediente extends javax.swing.JFrame {
                 if (panel.esSeleccionado()) {
                     Ingrediente ingrediente = panel.getIngrediente();
                     Float cantidad = panel.getCantidad();
-                    
+
                     if (cantidad != null && cantidad > 0) {
                         IngredienteProductoDTO ingredienteProductoDTO = new IngredienteProductoDTO();
                         ingredienteProductoDTO.setIngrediente(ingrediente);
@@ -139,6 +145,26 @@ public class AgregarIngrediente extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+
+    private void actualizarListaIngredientes(List<Ingrediente> ingredientes) {
+        panelIngredientes.removeAll();
+        panelesIngredientesSeleccion.clear();
+
+        for (Ingrediente ingrediente : ingredientes) {
+            IngredienteSeleccionPanel panel = new IngredienteSeleccionPanel(ingrediente);
+            panelesIngredientesSeleccion.add(panel);
+            panelIngredientes.add(panel);
+        }
+
+        panelIngredientes.revalidate();
+        panelIngredientes.repaint();
+    }
+
+    private void agregarBuscador() {
+        BuscadorIngredientes buscadorIngredientes = new BuscadorIngredientes(ingredientesBO, this::actualizarListaIngredientes);
+        jPanelBuscador.add(buscadorIngredientes, BorderLayout.CENTER);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -153,11 +179,14 @@ public class AgregarIngrediente extends javax.swing.JFrame {
         jLabelNombreIngrediente = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jPanelBuscador = new javax.swing.JPanel();
         jLabelFondoAgregarIngrediente = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jScrollPaneIngredientesDisponibles, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 410, 230));
+
+        jScrollPaneIngredientesDisponibles.setMaximumSize(new java.awt.Dimension(410, 230));
+        getContentPane().add(jScrollPaneIngredientesDisponibles, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 410, 230));
 
         jButtonConfirmar.setForeground(new java.awt.Color(0, 0, 0));
         jButtonConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonConfirmarOscuro.png"))); // NOI18N
@@ -174,19 +203,22 @@ public class AgregarIngrediente extends javax.swing.JFrame {
         jLabelNombreIngrediente.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jLabelNombreIngrediente.setForeground(new java.awt.Color(0, 0, 0));
         jLabelNombreIngrediente.setText("Nombre Ingrediente");
-        getContentPane().add(jLabelNombreIngrediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, -1, -1));
+        getContentPane().add(jLabelNombreIngrediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, -1, -1));
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Cantidad");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, -1, -1));
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Unidad");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, -1, -1));
+
+        jPanelBuscador.setLayout(new javax.swing.BoxLayout(jPanelBuscador, javax.swing.BoxLayout.LINE_AXIS));
+        getContentPane().add(jPanelBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 250, 30));
 
         jLabelFondoAgregarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoAgregarIngrediente.png"))); // NOI18N
         getContentPane().add(jLabelFondoAgregarIngrediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 0, -1, 416));
@@ -214,7 +246,6 @@ public class AgregarIngrediente extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonConfirmar;
@@ -222,6 +253,7 @@ public class AgregarIngrediente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelFondoAgregarIngrediente;
     private javax.swing.JLabel jLabelNombreIngrediente;
+    private javax.swing.JPanel jPanelBuscador;
     private javax.swing.JScrollPane jScrollPaneIngredientesDisponibles;
     // End of variables declaration//GEN-END:variables
 }

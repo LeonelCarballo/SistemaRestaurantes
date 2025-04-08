@@ -113,7 +113,7 @@ public class NuevoIngrediente extends javax.swing.JFrame {
                 jButtonAnteriorActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 100, 100));
+        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 100, 100));
 
         jTextFieldNombre.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jTextFieldNombre.setText("Nombre");
@@ -180,7 +180,7 @@ public class NuevoIngrediente extends javax.swing.JFrame {
                 jButtonConfirmarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 490, -1, -1));
+        getContentPane().add(jButtonConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 470, -1, 80));
 
         jLabelFondoAnadirIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoAnadirIngrediente.png"))); // NOI18N
         getContentPane().add(jLabelFondoAnadirIngrediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
