@@ -7,8 +7,6 @@ package wonderland.sistemarestaurantes.clientes;
 import wonderland.sistemarestaurantes.utils.FontManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
@@ -75,11 +73,16 @@ public class PerfilCliente extends javax.swing.JFrame {
     public void actualizarNombreCliente(ClienteFrecuenteDTO cliente) {
         
         JLabel lblNombreCliente = new JLabel();
-        lblNombreCliente.setFont(fontManager.getGreatVibesRegular(80f));
+        lblNombreCliente.setFont(fontManager.getGreatVibesRegular(105f));
         lblNombreCliente.setForeground(Color.WHITE); 
 
+        jPanelNombreCliente.setLayout(new BorderLayout());
+
+        lblNombreCliente.setHorizontalAlignment(JLabel.CENTER);
+        lblNombreCliente.setVerticalAlignment(JLabel.CENTER);
+
         jPanelNombreCliente.add(lblNombreCliente, BorderLayout.CENTER);
-        
+
         String nombreCompleto = cliente.getNombre();
         String primerNombre = nombreCompleto.split(" ")[0]; 
         
@@ -158,7 +161,6 @@ public class PerfilCliente extends javax.swing.JFrame {
         jPanelNumVisitas = new javax.swing.JPanel();
         jLabelTituloTotal = new javax.swing.JLabel();
         jTextFieldPuntos = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
         jTextFieldFechaRegistro = new javax.swing.JTextField();
         jTextFieldCorreo = new javax.swing.JTextField();
         jTextFieldTelefono = new javax.swing.JTextField();
@@ -184,44 +186,44 @@ public class PerfilCliente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButtonConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonConfirmar.png"))); // NOI18N
+        jButtonConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonConfirmar.png"))); // NOI18N
         jButtonConfirmar.setContentAreaFilled(false);
         jButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonConfirmarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 420, -1, -1));
+        getContentPane().add(jButtonConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 580, 90, 90));
 
         jLabelTituloCorreoElectronico2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelTituloCorreoElectronico2.setFont(fontManager.getNotoSerifCondensedRegular(22f));
+        jLabelTituloCorreoElectronico2.setFont(fontManager.getNotoSerifCondensedRegular(30f));
         jLabelTituloCorreoElectronico2.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTituloCorreoElectronico2.setText("Visitas");
-        getContentPane().add(jLabelTituloCorreoElectronico2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 310, -1, -1));
+        getContentPane().add(jLabelTituloCorreoElectronico2, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 390, -1, -1));
 
         jLabelTituloFechaRegistro.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelTituloFechaRegistro.setFont(fontManager.getNotoSerifCondensedRegular(22f));
+        jLabelTituloFechaRegistro.setFont(fontManager.getNotoSerifCondensedRegular(30f));
         jLabelTituloFechaRegistro.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTituloFechaRegistro.setText("Fecha Registro");
-        getContentPane().add(jLabelTituloFechaRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 420, -1, -1));
+        getContentPane().add(jLabelTituloFechaRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 570, -1, -1));
 
         jLabelTituloCorreoElectronico.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelTituloCorreoElectronico.setFont(fontManager.getNotoSerifCondensedRegular(22f));
+        jLabelTituloCorreoElectronico.setFont(fontManager.getNotoSerifCondensedRegular(30f));
         jLabelTituloCorreoElectronico.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTituloCorreoElectronico.setText("Correo Electronico");
-        getContentPane().add(jLabelTituloCorreoElectronico, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, -1, -1));
+        getContentPane().add(jLabelTituloCorreoElectronico, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 480, -1, -1));
 
         jLabelTituloTelefono.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelTituloTelefono.setFont(fontManager.getNotoSerifCondensedRegular(22f));
+        jLabelTituloTelefono.setFont(fontManager.getNotoSerifCondensedRegular(30f));
         jLabelTituloTelefono.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTituloTelefono.setText("Telefono");
-        getContentPane().add(jLabelTituloTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, -1, -1));
+        getContentPane().add(jLabelTituloTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 390, -1, -1));
 
         jLabelTituloNombre.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelTituloNombre.setFont(fontManager.getNotoSerifCondensedRegular(22f));
+        jLabelTituloNombre.setFont(fontManager.getNotoSerifCondensedRegular(30f));
         jLabelTituloNombre.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTituloNombre.setText("Nombre Completo");
-        getContentPane().add(jLabelTituloNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, -1, -1));
+        getContentPane().add(jLabelTituloNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 240, -1, -1));
 
         jToggleButton1.setBackground(new java.awt.Color(119, 151, 189));
         jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonEditar.png"))); // NOI18N
@@ -230,7 +232,7 @@ public class PerfilCliente extends javax.swing.JFrame {
                 jToggleButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 160, 40, 40));
+        getContentPane().add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 230, 40, 40));
 
         jPanelNumVisitas.setBackground(new java.awt.Color(10, 15, 31));
 
@@ -238,20 +240,20 @@ public class PerfilCliente extends javax.swing.JFrame {
         jPanelNumVisitas.setLayout(jPanelNumVisitasLayout);
         jPanelNumVisitasLayout.setHorizontalGroup(
             jPanelNumVisitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 80, Short.MAX_VALUE)
+            .addGap(0, 110, Short.MAX_VALUE)
         );
         jPanelNumVisitasLayout.setVerticalGroup(
             jPanelNumVisitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanelNumVisitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 340, 80, 80));
+        getContentPane().add(jPanelNumVisitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 420, 110, 110));
 
         jLabelTituloTotal.setBackground(new java.awt.Color(255, 255, 255));
         jLabelTituloTotal.setFont(fontManager.getNotoSerifCondensedRegular(20f));
         jLabelTituloTotal.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTituloTotal.setText("Total acumulado:");
-        getContentPane().add(jLabelTituloTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 510, -1, -1));
+        getContentPane().add(jLabelTituloTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 680, -1, -1));
 
         jTextFieldPuntos.setBackground(new java.awt.Color(25, 33, 50));
         jTextFieldPuntos.setBorder(null);
@@ -260,25 +262,10 @@ public class PerfilCliente extends javax.swing.JFrame {
                 jTextFieldPuntosActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextFieldPuntos, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 210, 140, 50));
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 490, 500, 10));
+        getContentPane().add(jTextFieldPuntos, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 290, 197, 60));
 
         jTextFieldFechaRegistro.setBackground(new java.awt.Color(25, 30, 52));
-        jTextFieldFechaRegistro.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        jTextFieldFechaRegistro.setFont(fontManager.getNunitoSemiBold(21f));
         jTextFieldFechaRegistro.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldFechaRegistro.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
         jTextFieldFechaRegistro.addActionListener(new java.awt.event.ActionListener() {
@@ -286,10 +273,10 @@ public class PerfilCliente extends javax.swing.JFrame {
                 jTextFieldFechaRegistroActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextFieldFechaRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 450, 270, 30));
+        getContentPane().add(jTextFieldFechaRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 610, 336, 43));
 
         jTextFieldCorreo.setBackground(new java.awt.Color(25, 30, 52));
-        jTextFieldCorreo.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        jTextFieldCorreo.setFont(fontManager.getNunitoSemiBold(21f));
         jTextFieldCorreo.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldCorreo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
         jTextFieldCorreo.addActionListener(new java.awt.event.ActionListener() {
@@ -297,10 +284,10 @@ public class PerfilCliente extends javax.swing.JFrame {
                 jTextFieldCorreoActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextFieldCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 380, 270, 30));
+        getContentPane().add(jTextFieldCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 520, 336, 43));
 
         jTextFieldTelefono.setBackground(new java.awt.Color(25, 30, 52));
-        jTextFieldTelefono.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        jTextFieldTelefono.setFont(fontManager.getNunitoSemiBold(21f));
         jTextFieldTelefono.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldTelefono.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
         jTextFieldTelefono.addActionListener(new java.awt.event.ActionListener() {
@@ -308,10 +295,10 @@ public class PerfilCliente extends javax.swing.JFrame {
                 jTextFieldTelefonoActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextFieldTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, 270, 30));
+        getContentPane().add(jTextFieldTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 430, 336, 43));
 
         jTextFieldApellidoMaterno.setBackground(new java.awt.Color(25, 30, 52));
-        jTextFieldApellidoMaterno.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        jTextFieldApellidoMaterno.setFont(fontManager.getNunitoSemiBold(21f));
         jTextFieldApellidoMaterno.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldApellidoMaterno.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
         jTextFieldApellidoMaterno.addActionListener(new java.awt.event.ActionListener() {
@@ -319,10 +306,10 @@ public class PerfilCliente extends javax.swing.JFrame {
                 jTextFieldApellidoMaternoActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextFieldApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 240, 130, 30));
+        getContentPane().add(jTextFieldApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 340, 164, 43));
 
         jTextFieldApellidoPaterno.setBackground(new java.awt.Color(25, 30, 52));
-        jTextFieldApellidoPaterno.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        jTextFieldApellidoPaterno.setFont(fontManager.getNunitoSemiBold(21f));
         jTextFieldApellidoPaterno.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldApellidoPaterno.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
         jTextFieldApellidoPaterno.addActionListener(new java.awt.event.ActionListener() {
@@ -330,10 +317,10 @@ public class PerfilCliente extends javax.swing.JFrame {
                 jTextFieldApellidoPaternoActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextFieldApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, 130, 30));
+        getContentPane().add(jTextFieldApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 340, 164, 43));
 
         jTextFieldNombreCliente.setBackground(new java.awt.Color(25, 30, 52));
-        jTextFieldNombreCliente.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        jTextFieldNombreCliente.setFont(fontManager.getNunitoSemiBold(21f));
         jTextFieldNombreCliente.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldNombreCliente.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
         jTextFieldNombreCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -341,22 +328,22 @@ public class PerfilCliente extends javax.swing.JFrame {
                 jTextFieldNombreClienteActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextFieldNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, 270, 30));
+        getContentPane().add(jTextFieldNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 290, 336, 43));
 
         jPanelNombreCliente.setBackground(new java.awt.Color(10, 15, 31));
-        jPanelNombreCliente.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(jPanelNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 430, 110));
+        jPanelNombreCliente.setLayout(new javax.swing.BoxLayout(jPanelNombreCliente, javax.swing.BoxLayout.LINE_AXIS));
+        getContentPane().add(jPanelNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, 660, 140));
 
-        jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
+        jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonAnterior.png"))); // NOI18N
         jButtonAnterior.setContentAreaFilled(false);
         jButtonAnterior.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAnteriorActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, -1, -1));
+        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 610, -1, -1));
 
-        jLabelClientesFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoClientes.png"))); // NOI18N
+        jLabelClientesFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoInformacionCliente.png"))); // NOI18N
         getContentPane().add(jLabelClientesFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jPanelTotalAcum1.setBackground(new java.awt.Color(10, 15, 31));
@@ -476,7 +463,6 @@ public class PerfilCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTituloNombre;
     private javax.swing.JLabel jLabelTituloTelefono;
     private javax.swing.JLabel jLabelTituloTotal;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelNombreCliente;
     private javax.swing.JPanel jPanelNumVisitas;

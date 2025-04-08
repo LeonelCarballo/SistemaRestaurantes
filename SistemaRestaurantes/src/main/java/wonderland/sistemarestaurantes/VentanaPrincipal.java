@@ -45,7 +45,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jLabelReportes = new javax.swing.JLabel();
         jButtonClientes = new javax.swing.JButton();
         jButtonMesas = new javax.swing.JButton();
         jButtonMenu = new javax.swing.JButton();
@@ -57,38 +57,38 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("REPORTES");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, -1, -1));
+        jLabelReportes.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelReportes.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabelReportes.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelReportes.setText("REPORTES");
+        getContentPane().add(jLabelReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 700, -1, -1));
 
-        jButtonClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonClientes.png"))); // NOI18N
+        jButtonClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonClientes.png"))); // NOI18N
         jButtonClientes.setContentAreaFilled(false);
         jButtonClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonClientesActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 480, -1, -1));
+        getContentPane().add(jButtonClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 640, -1, -1));
 
-        jButtonMesas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonMesas.png"))); // NOI18N
+        jButtonMesas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonMesas.png"))); // NOI18N
         jButtonMesas.setContentAreaFilled(false);
         jButtonMesas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonMesasActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonMesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 240, -1, -1));
+        getContentPane().add(jButtonMesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 320, -1, -1));
 
-        jButtonMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonMenu.png"))); // NOI18N
+        jButtonMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonMenu.png"))); // NOI18N
         jButtonMenu.setContentAreaFilled(false);
         jButtonMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonMenuActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 360, -1, -1));
+        getContentPane().add(jButtonMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 480, -1, -1));
 
         jButtonReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonReportes.png"))); // NOI18N
         jButtonReportes.setContentAreaFilled(false);
@@ -97,27 +97,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 jButtonReportesActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 80, -1));
+        getContentPane().add(jButtonReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 620, 80, -1));
 
-        jButtonInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonInventario.png"))); // NOI18N
+        jButtonInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonInventario.png"))); // NOI18N
         jButtonInventario.setContentAreaFilled(false);
         jButtonInventario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonInventarioActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonInventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 420, -1, -1));
+        getContentPane().add(jButtonInventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 560, -1, -1));
 
-        jButtonComandas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonComandas.png"))); // NOI18N
+        jButtonComandas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonComandas.png"))); // NOI18N
         jButtonComandas.setContentAreaFilled(false);
         jButtonComandas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonComandasActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonComandas, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, -1, -1));
+        getContentPane().add(jButtonComandas, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 400, -1, -1));
 
-        jLabelFondoVentanaPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/VentanaPrincipalFondo.png"))); // NOI18N
+        jLabelFondoVentanaPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoVentanaPrincipal.png"))); // NOI18N
         getContentPane().add(jLabelFondoVentanaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
@@ -196,7 +196,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButtonMenu;
     private javax.swing.JButton jButtonMesas;
     private javax.swing.JButton jButtonReportes;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelFondoVentanaPrincipal;
+    private javax.swing.JLabel jLabelReportes;
     // End of variables declaration//GEN-END:variables
 }

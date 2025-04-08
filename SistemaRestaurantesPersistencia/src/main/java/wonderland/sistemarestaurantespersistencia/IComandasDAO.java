@@ -17,5 +17,7 @@ public interface IComandasDAO {
     
     public abstract Comanda asociarClienteAComanda(ComandaDTO comandaDTO);
     
+    public abstract Comanda obtenerComandaPorId(Long idComanda);
+    
     //public abstract Comanda editarComanda(ComandaDTO comandaDTO);
 }

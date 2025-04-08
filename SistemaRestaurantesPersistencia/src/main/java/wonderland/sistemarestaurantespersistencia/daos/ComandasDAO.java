@@ -67,7 +67,22 @@ public class ComandasDAO implements IComandasDAO {
 
     @Override
     public Comanda asociarClienteAComanda(ComandaDTO comandaDTO) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        Comanda comandaEncontrada = obtenerComandaPorId(comandaDTO.getId());
+        comandaEncontrada.setCliente(comandaDTO.getCliente());
+        
+        entityManager.merge(comandaEncontrada);
+        entityManager.getTransaction().commit();
+        
+        return comandaEncontrada;
+    }
+
+    @Override
+    public Comanda obtenerComandaPorId(Long idComanda) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        
+        Comanda comanda = entityManager.find(Comanda.class, idComanda);
+        return comanda;   
     }
     
 }

@@ -31,9 +31,9 @@ public class ClientePanel extends JPanel {
         setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.WHITE));
         setBackground(new Color(19, 28, 54));
 
-        setPreferredSize(new Dimension(500, 130));
-        setMinimumSize(new Dimension(500, 130));
-        setMaximumSize(new Dimension(500, 130));
+        setPreferredSize(new Dimension(680, 130));
+        setMinimumSize(new Dimension(680, 130));
+        setMaximumSize(new Dimension(680, 130));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(3, 10, 3, 10);
@@ -44,7 +44,7 @@ public class ClientePanel extends JPanel {
 
         JLabel lblNombre = new JLabel(cliente.getNombre().toUpperCase() + " " + 
                                    cliente.getApellidoPaterno().toUpperCase());
-        lblNombre.setFont(fontManager.getNotoSerifCondensedRegular(22f));
+        lblNombre.setFont(fontManager.getNotoSerifCondensedRegular(27f));
         lblNombre.setForeground(Color.WHITE);
         lblNombre.setToolTipText(lblNombre.getText());
 
@@ -54,11 +54,11 @@ public class ClientePanel extends JPanel {
         lblNombre.setMaximumSize(new Dimension(350, 30));
 
         JButton btnInfo = new JButton("Información");
-        btnInfo.setPreferredSize(new Dimension(130, 30)); 
-        btnInfo.setMinimumSize(new Dimension(130, 30));
-        btnInfo.setMaximumSize(new Dimension(130, 30));
+        btnInfo.setPreferredSize(new Dimension(176, 36)); 
+        btnInfo.setMinimumSize(new Dimension(176, 36));
+        btnInfo.setMaximumSize(new Dimension(176, 36));
         btnInfo.setBackground(Color.WHITE);
-        btnInfo.setFont(fontManager.getNunitoRegular(12f));
+        btnInfo.setFont(fontManager.getNunitoRegular(14f));
         btnInfo.setForeground(new Color(0, 0, 0));
 
         btnInfo.addActionListener(e -> {
