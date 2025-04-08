@@ -58,6 +58,11 @@ public class IngredientesBO implements IIngredientesBO {
     public List<Ingrediente> consultarIngredientes() throws NegocioException {
         return this.ingredientesDAO.consultarIngredientes();
     }
+    
+    @Override
+    public List<Ingrediente> obtenerTodos()throws NegocioException{
+        return this.ingredientesDAO.obtenerTodos();
+    }
 
     @Override
     public Ingrediente editarIngrediente(NuevoIngredienteDTO nuevoIngredienteDTO) throws NegocioException {

@@ -6,12 +6,16 @@ package wonderland.sistemarestaurantesnegocio.fabrica;
 
 import wonderland.sistemarestaurantesnegocio.IClientesBO;
 import wonderland.sistemarestaurantesnegocio.IIngredientesBO;
+import wonderland.sistemarestaurantesnegocio.IProductosBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ClientesBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.IngredientesBO;
+import wonderland.sistemarestaurantesnegocio.implementaciones.ProductosBO;
 import wonderland.sistemarestaurantespersistencia.IIngredientesDAO;
 import wonderland.sistemarestaurantespersistencia.daos.ClientesFrecuentesDAO;
 import wonderland.sistemarestaurantespersistencia.daos.IngredientesDAO;
 import wonderland.sistemarestaurantespersistencia.IClientesFrecuentesDAO;
+import wonderland.sistemarestaurantespersistencia.IProductosDAO;
+import wonderland.sistemarestaurantespersistencia.daos.ProductosDAO;
 
 /**
  *
@@ -31,4 +35,9 @@ public class FabricaObjetosNegocio {
         return ingredientesBO;
     }
     
+     public static IProductosBO crearProductosBO(){
+         IProductosDAO productosDAO = new ProductosDAO();
+         IProductosBO productosBO = new ProductosBO(productosDAO);
+         return productosBO;
+     }
 }

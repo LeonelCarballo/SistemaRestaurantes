@@ -4,7 +4,9 @@
  */
 package wonderland.sistemarestaurantes.control;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import javax.swing.JLayeredPane;
 import wonderland.sistemarestaurantes.Mesas;
 import wonderland.sistemarestaurantes.VentanaPrincipal;
@@ -19,7 +21,9 @@ import wonderland.sistemarestaurantes.ingredientes.AñadirStockIngrediente;
 import wonderland.sistemarestaurantes.ingredientes.EditarNombreIngrediente;
 import wonderland.sistemarestaurantes.ingredientes.ListaIngredientes;
 import wonderland.sistemarestaurantes.ingredientes.NuevoIngrediente;
+import wonderland.sistemarestaurantes.productos.AgregarIngrediente;
 import wonderland.sistemarestaurantes.productos.EditarProducto;
+import wonderland.sistemarestaurantes.productos.IngredienteSeleccionPanel;
 import wonderland.sistemarestaurantes.productos.ListaProductos;
 import wonderland.sistemarestaurantes.productos.NuevoProducto;
 import wonderland.sistemarestaurantes.reportes.InicioReporte;
@@ -28,13 +32,17 @@ import wonderland.sistemarestaurantespersistencia.daos.IngredientesDAO;
 import wonderland.sistemarestaurantesdominio.Cliente;
 import wonderland.sistemarestaurantesdominio.Ingrediente;
 import wonderland.sistemarestaurantesdominio.Mesa;
+import wonderland.sistemarestaurantesdominio.Producto;
 import wonderland.sistemarestaurantesdominio.UnidadMedida;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoIngredienteDTO;
 import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
+import wonderland.sistemarestaurantesdominio.dtos.IngredienteProductoDTO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ClientesBO;
+import wonderland.sistemarestaurantesnegocio.implementaciones.IngredientesProductosBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.MesasBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ProductosBO;
 import wonderland.sistemarestaurantespersistencia.daos.ClientesFrecuentesDAO;
+import wonderland.sistemarestaurantespersistencia.daos.IngredienteProductoDAO;
 import wonderland.sistemarestaurantespersistencia.daos.MesasDAO;
 import wonderland.sistemarestaurantespersistencia.daos.ProductosDAO;
 
@@ -56,7 +64,10 @@ public class ControlPresentacion {
     
     ProductosDAO productosDAO = new ProductosDAO();
     ProductosBO productosBO = new ProductosBO(productosDAO);
-
+    
+    IngredienteProductoDAO ingredienteProductoDAO = new IngredienteProductoDAO();
+    IngredientesProductosBO ingredientesProductosBO = new IngredientesProductosBO(ingredienteProductoDAO);
+    private Object padre;
     private VentanaInicioComanda ventanaInicioComanda = new VentanaInicioComanda();
 
     public void mostrarVentanaPrincial() {
@@ -172,19 +183,26 @@ public class ControlPresentacion {
         nuevoIngrediente.mostrar();
     }
 
-    public void mostrarEditarProducto() {
-        EditarProducto editarProducto = new EditarProducto(this);
+    public void mostrarEditarProducto(Producto producto) {
+        EditarProducto editarProducto = new EditarProducto(
+                this,
+                productosBO,
+                ingredientesBO, 
+                ingredientesProductosBO,
+                producto
+        );
         editarProducto.mostrar();
     }
 
     public void mostrarListaProductos() {
-        ListaProductos listaProductos = new ListaProductos(this);
+        ListaProductos listaProductos = new ListaProductos(this, productosBO);
         listaProductos.mostrar();
+        listaProductos.mostrarProductos();
     }
 
     public void mostrarNuevoProducto() {
-        NuevoProducto nuevoProducto = new NuevoProducto(this, productosBO);
-        nuevoProducto.mostrar();
+        NuevoProducto nuevo = new NuevoProducto(this, productosBO, ingredientesBO, ingredientesProductosBO);
+        nuevo.mostrar();
     }
 
     public void mostrarIniciarReporte() {
@@ -192,4 +210,9 @@ public class ControlPresentacion {
         iniciarReporte.mostrar();
     }
 
+    public void mostrarAgregarIngrediente(Long idProducto, NuevoProducto padre, List<IngredienteProductoDTO> seleccionados) {
+    AgregarIngrediente agregar = new AgregarIngrediente(
+        idProducto, ingredientesBO, ingredientesProductosBO, padre, seleccionados);
+        agregar.setVisible(true);
+    }
 }
