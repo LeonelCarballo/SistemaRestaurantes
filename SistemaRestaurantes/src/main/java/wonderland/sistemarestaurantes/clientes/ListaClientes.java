@@ -27,7 +27,8 @@ public class ListaClientes extends javax.swing.JFrame {
     private IClientesBO clientesBO;
     private ControlPresentacion control;
     private static final Logger LOG = Logger.getLogger(ListaClientes.class.getName());
-    
+
+
     
     /**
      * Creates new form ListaClientes
@@ -51,28 +52,36 @@ public class ListaClientes extends javax.swing.JFrame {
     private void actualizarListaClientes(List<ClienteFrecuente> clientes) {
         panelListaClientes.removeAll();
         for (ClienteFrecuente cliente : clientes) {
-            panelListaClientes.add(new ClientePanel(cliente));
+            ClientePanel panel = new ClientePanel(
+                cliente,
+                "Información",
+                e -> control.mostrarPerfilCliente(cliente)
+            );
+            panelListaClientes.add(panel);
         }
         panelListaClientes.revalidate();
         panelListaClientes.repaint();
     }
-
     
     public void mostrarInformacionClientes() {
         panelListaClientes.removeAll(); 
         try {
-            for (ClienteFrecuente cliente : clientesBO.obtenerClientes()) { 
-                panelListaClientes.add(new ClientePanel(cliente));
+            for (ClienteFrecuente cliente : clientesBO.obtenerClientes()) {
+                ClientePanel panel = new ClientePanel(
+                    cliente,
+                    "Información",
+                    e -> control.mostrarPerfilCliente(cliente)
+                );
+                panelListaClientes.add(panel);
             }
         } catch (NegocioException ex) {
-             LOG.severe("No se pudo llenar la lista de clientes: " + ex.getMessage());
+            LOG.severe("No se pudo llenar la lista de clientes: " + ex.getMessage());
         }
 
         panelListaClientes.revalidate();
         panelListaClientes.repaint();
     }
-
-    
+ 
     public void mostrar(){
         setVisible(true);
     }
