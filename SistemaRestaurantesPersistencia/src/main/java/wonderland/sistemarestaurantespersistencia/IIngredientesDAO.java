@@ -18,6 +18,8 @@ public interface IIngredientesDAO {
     
     public abstract List<Ingrediente> consultarIngredientes();
     
+    public abstract List<Ingrediente> obtenerTodos();
+    
     public abstract Ingrediente buscarIngredienteId(Long idCliente);   
     
     public abstract Ingrediente editarNombre(NuevoIngredienteDTO nuevoIngredienteDTO);

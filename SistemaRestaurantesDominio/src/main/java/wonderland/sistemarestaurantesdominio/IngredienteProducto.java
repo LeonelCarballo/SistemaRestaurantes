@@ -32,16 +32,21 @@ public class IngredienteProducto {
     @Column(name= "cantidad", nullable = false)
     private Float cantidad;
 
-    @ManyToOne()
-    @JoinColumn(name = "id_producto")
+    @ManyToOne
+    @JoinColumn(name = "id_producto", nullable = false)
     private Producto producto;
+
+    @ManyToOne
+    @JoinColumn(name = "id_ingrediente", nullable = false)
+    private Ingrediente ingrediente;
     
     public IngredienteProducto() {
     }
 
-    public IngredienteProducto(Long id, Float cantidad) {
-        this.id = id;
+    public IngredienteProducto(Float cantidad, Producto producto, Ingrediente ingrediente) {
         this.cantidad = cantidad;
+        this.producto = producto;
+        this.ingrediente = ingrediente;
     }
 
     public Long getId() {
@@ -58,6 +63,22 @@ public class IngredienteProducto {
 
     public void setCantidad(Float cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public Ingrediente getIngrediente() {
+        return ingrediente;
+    }
+
+    public void setIngrediente(Ingrediente ingrediente) {
+        this.ingrediente = ingrediente;
     }
 
     @Override

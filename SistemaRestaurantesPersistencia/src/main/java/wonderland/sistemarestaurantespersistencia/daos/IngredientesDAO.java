@@ -45,6 +45,13 @@ public class IngredientesDAO implements IIngredientesDAO {
         List<Ingrediente> ingredientes = query.getResultList();
         return ingredientes;
     }
+    
+    @Override
+    public List<Ingrediente> obtenerTodos() {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        TypedQuery<Ingrediente> query = entityManager.createQuery("SELECT i FROM Ingrediente i", Ingrediente.class);
+        return query.getResultList();
+    }
 
     @Override
     public Ingrediente editarNombre(NuevoIngredienteDTO nuevoIngredienteDTO) {
