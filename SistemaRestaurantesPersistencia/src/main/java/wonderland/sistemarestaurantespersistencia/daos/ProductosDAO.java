@@ -6,6 +6,11 @@ package wonderland.sistemarestaurantespersistencia.daos;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import wonderland.sistemarestaurantesdominio.Producto;
 import wonderland.sistemarestaurantesdominio.TipoProducto;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoProductoDTO;
@@ -33,6 +38,20 @@ public class ProductosDAO implements IProductosDAO{
 
         return producto;     
     }
+    
+    @Override
+    public List<Producto> obtenerTodos() {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+
+        try {
+            TypedQuery<Producto> query = entityManager.createQuery("SELECT p FROM Producto p", Producto.class);
+            List<Producto> productos = query.getResultList();
+            return productos;
+        } finally {
+            entityManager.close();
+    }
+}
+    
 
     @Override
     public List<Producto> obtenerProductoPorTipo(TipoProducto tipo) {
@@ -43,20 +62,47 @@ public class ProductosDAO implements IProductosDAO{
                 .setParameter("tipo", tipo)
                 .getResultList();
         
+        
         return productos;
+        
     }
     
-//    public List<Producto> buscarPorNombre(String nombreBusqueda) {
-//    EntityManager entityManager = ManejadorConexiones.getEntityManager();
-//
-//    List<Producto> productos = entityManager.createQuery(
-//        "SELECT p FROM Producto p WHERE LOWER(p.nombre) LIKE :nombre", Producto.class)
-//        .setParameter("nombre", "%" + nombreBusqueda.toLowerCase() + "%")
-//        .getResultList();
-//
-//    entityManager.close();
-//
-//    return productos;
-//}
+    @Override
+    public Producto editarProducto(NuevoProductoDTO productoDTO) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+
+        entityManager.getTransaction().begin();
+
+        Producto productoEncontrado = entityManager.find(Producto.class, productoDTO.getId());
+
+        productoEncontrado.setNombre(productoDTO.getNombre());
+        productoEncontrado.setPrecio(productoDTO.getPrecio());
+        productoEncontrado.setTipoProducto(productoDTO.getTipoProducto());
+
+        entityManager.merge(productoEncontrado);
+        entityManager.getTransaction().commit();
+
+        return productoEncontrado;
+   }
+    
+    @Override
+    public List<Producto> buscarPorNombre(String nombre) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Producto> criteria = builder.createQuery(Producto.class);
+        Root<Producto> entidadProducto = criteria.from(Producto.class);
+
+        Predicate nombreLike = builder.like(
+            builder.lower(entidadProducto.get("nombre")),
+            "%" + nombre.toLowerCase() + "%"
+        );
+
+        criteria.select(entidadProducto).where(nombreLike);
+
+        TypedQuery<Producto> query = entityManager.createQuery(criteria);
+        return query.getResultList();
+    }
+
     
 }

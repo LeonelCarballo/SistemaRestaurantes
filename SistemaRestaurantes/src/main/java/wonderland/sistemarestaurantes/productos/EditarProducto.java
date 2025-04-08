@@ -4,16 +4,34 @@
  */
 package wonderland.sistemarestaurantes.productos;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.BoxLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantesdominio.Producto;
+import wonderland.sistemarestaurantesdominio.TipoProducto;
+import wonderland.sistemarestaurantesdominio.dtos.IngredienteProductoDTO;
+import wonderland.sistemarestaurantesdominio.dtos.NuevoProductoDTO;
+import wonderland.sistemarestaurantesnegocio.IIngredientesBO;
+import wonderland.sistemarestaurantesnegocio.IIngredientesProductosBO;
+import wonderland.sistemarestaurantesnegocio.IProductosBO;
+import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
+
 
 /**
  *
  * @author Dana Chavez
  */
 public class EditarProducto extends javax.swing.JFrame {
-
+    private IIngredientesBO ingredientesBO;
+    private IIngredientesProductosBO ingredientesProductosBO;
     private ControlPresentacion control;
-    
+    private IProductosBO productosBO;
+    private Producto producto; 
+    private TipoProducto tipoProducto;
+    private List<IngredienteProductoDTO> ingredientesSeleccionados = new ArrayList<>();
     /**
      * Creates new form NuevoProducto
      */
@@ -21,10 +39,25 @@ public class EditarProducto extends javax.swing.JFrame {
         initComponents();
     }
 
-    public EditarProducto(ControlPresentacion control) {
+    public EditarProducto(ControlPresentacion control, IProductosBO productosBO,
+        IIngredientesBO ingredientesBO, IIngredientesProductosBO ingredientesProductosBO,
+        Producto producto) {
         this.control = control;
+        this.productosBO = productosBO;
+        this.ingredientesBO = ingredientesBO;
+        this.ingredientesProductosBO = ingredientesProductosBO;
+        this.producto = producto;
         initComponents();
         setLocationRelativeTo(null);
+        cargarDatosProducto();
+
+        try {
+            List<IngredienteProductoDTO> ingredientes = ingredientesProductosBO.buscarPorProducto(producto.getId());
+            mostrarIngredientesSeleccionados(ingredientes);
+        } catch (NegocioException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al cargar ingredientes del producto.");
+        }
     }
     
     public void mostrar(){
@@ -36,6 +69,55 @@ public class EditarProducto extends javax.swing.JFrame {
         dispose();
     }
 
+    private void cargarDatosProducto() {
+        lblTitulo.setText(producto.getNombre()); 
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTextFieldNombreProducto.setText(producto.getNombre());
+        jTextFieldNombrePrecio.setText(String.valueOf(producto.getPrecio()));
+        jComboBoxCategoria.setSelectedItem(producto.getTipoProducto().toString()); 
+    }
+   
+    private void guardarCambiosProducto() {
+        try {
+            String nombre = jTextFieldNombreProducto.getText().trim();
+            String precioStr = jTextFieldNombrePrecio.getText().trim().replace("$", "").trim();
+            String tipoSeleccionado = jComboBoxCategoria.getSelectedItem().toString().toUpperCase();
+
+            float precio = Float.parseFloat(precioStr);
+
+            NuevoProductoDTO productoDTO = new NuevoProductoDTO();
+            productoDTO.setId(producto.getId()); 
+            productoDTO.setNombre(nombre);
+            productoDTO.setPrecio(precio);
+            productoDTO.setTipoProducto(TipoProducto.valueOf(tipoSeleccionado)); 
+
+            productosBO.editarProducto(productoDTO);
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Producto actualizado con éxito");
+
+        }catch (Exception ex) {
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al actualizar el producto: " + ex.getMessage());
+        }
+    }
+    
+    public void mostrarIngredientesSeleccionados(List<IngredienteProductoDTO> nuevos) {
+        JPanel panelVisual = new JPanel();
+        panelVisual.setLayout(new BoxLayout(panelVisual, BoxLayout.Y_AXIS));
+        panelVisual.setOpaque(false);
+
+        for (IngredienteProductoDTO ingredienteProductoDTO : nuevos) {
+            String nombre = ingredienteProductoDTO.getIngrediente().getNombre();
+            float cantidad = ingredienteProductoDTO.getCantidad();
+            String unidad = ingredienteProductoDTO.getIngrediente().getUnidadMedida().toString();
+
+            panelVisual.add(new IngredienteVisualPanel(nombre, cantidad, unidad));
+        }
+
+        jScrollPane1.setViewportView(panelVisual);
+        panelVisual.revalidate();
+        panelVisual.repaint();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,6 +131,11 @@ public class EditarProducto extends javax.swing.JFrame {
         jTextFieldNombrePrecio = new javax.swing.JTextField();
         jTextFieldNombreProducto = new javax.swing.JTextField();
         jComboBoxCategoria = new javax.swing.JComboBox<>();
+        lblTitulo = new javax.swing.JLabel();
+        jButtonGuardar = new javax.swing.JButton();
+        jButtonEditarIngredientes = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jButtonEliminarProducto = new javax.swing.JButton();
         jLabelFondoEditarProducto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,6 +143,11 @@ public class EditarProducto extends javax.swing.JFrame {
 
         jButtonRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonregresar.png"))); // NOI18N
         jButtonRegresar.setContentAreaFilled(false);
+        jButtonRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRegresarActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(291, 500, 280, 50));
 
         jTextFieldNombrePrecio.setBackground(new java.awt.Color(29, 39, 56));
@@ -85,9 +177,33 @@ public class EditarProducto extends javax.swing.JFrame {
         jComboBoxCategoria.setBackground(new java.awt.Color(29, 39, 56));
         jComboBoxCategoria.setEditable(true);
         jComboBoxCategoria.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
-        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Platillo", "Postre", "Bebida" }));
         jComboBoxCategoria.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         getContentPane().add(jComboBoxCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 346, 310, 40));
+
+        lblTitulo.setFont(new java.awt.Font("Georgia", 0, 65)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, 470, 140));
+
+        jButtonGuardar.setText("Guardar");
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 480, -1, -1));
+
+        jButtonEditarIngredientes.setText("EditarIngredientes");
+        jButtonEditarIngredientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarIngredientesActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonEditarIngredientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 220, -1, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 250, 310, 220));
+
+        jButtonEliminarProducto.setText("Eliminar");
+        getContentPane().add(jButtonEliminarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 180, -1, -1));
 
         jLabelFondoEditarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoEditarProducto.png"))); // NOI18N
         getContentPane().add(jLabelFondoEditarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -103,47 +219,43 @@ public class EditarProducto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNombrePrecioActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void jButtonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegresarActionPerformed
+        cerrar();
+        control.mostrarListaProductos();
+    }//GEN-LAST:event_jButtonRegresarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EditarProducto().setVisible(true);
-            }
-        });
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        guardarCambiosProducto();
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void jButtonEditarIngredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarIngredientesActionPerformed
+        try {
+            List<IngredienteProductoDTO> ingredientesActuales = ingredientesProductosBO.buscarPorProducto(producto.getId());
+
+            AgregarIngrediente agregar = new AgregarIngrediente(
+                producto.getId(),
+                ingredientesBO,
+                ingredientesProductosBO,
+                this,
+                ingredientesActuales
+            );
+            agregar.setVisible(true);
+        }catch (NegocioException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al cargar los ingredientes del producto.");
     }
+    }//GEN-LAST:event_jButtonEditarIngredientesActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonEditarIngredientes;
+    private javax.swing.JButton jButtonEliminarProducto;
+    private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonRegresar;
     private javax.swing.JComboBox<String> jComboBoxCategoria;
     private javax.swing.JLabel jLabelFondoEditarProducto;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextFieldNombrePrecio;
     private javax.swing.JTextField jTextFieldNombreProducto;
+    private javax.swing.JLabel lblTitulo;
     // End of variables declaration//GEN-END:variables
 }

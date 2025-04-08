@@ -18,5 +18,11 @@ public interface IProductosDAO {
     
     public Producto registrarProducto(NuevoProductoDTO nuevoProducto);
     
+    public abstract List<Producto> obtenerTodos();
+    
     public abstract List<Producto> obtenerProductoPorTipo(TipoProducto tipo);
+    
+    public Producto editarProducto(NuevoProductoDTO nuevoProducto);
+    
+    public abstract List<Producto> buscarPorNombre(String nombre);
 }

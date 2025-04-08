@@ -4,16 +4,28 @@
  */
 package wonderland.sistemarestaurantes.productos;
 
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JPanel;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantesdominio.Producto;
+import wonderland.sistemarestaurantesdominio.TipoProducto;
+import wonderland.sistemarestaurantesnegocio.IProductosBO;
+import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
+import wonderland.sistemarestaurantesnegocio.implementaciones.ProductosBO;
 
 /**
  *
  * @author Dana Chavez
  */
 public class ListaProductos extends javax.swing.JFrame {
-
+    private JPanel panelPlatillos;
+    private JPanel panelPostres;
+    private JPanel panelBebidas;
     private ControlPresentacion control;
-    
+    private ProductosBO productosBO;
+ 
     /**
      * Creates new form Productos
      */
@@ -21,10 +33,47 @@ public class ListaProductos extends javax.swing.JFrame {
         initComponents();
     }
 
-    public ListaProductos(ControlPresentacion control) {
+    public ListaProductos(ControlPresentacion control, IProductosBO productosBO) {
         this.control = control;
+       
         initComponents();
+       
         setLocationRelativeTo(null);
+        this.productosBO = (ProductosBO) productosBO;
+
+        panelPlatillos = new JPanel();
+        panelPostres = new JPanel();
+        panelBebidas = new JPanel();
+
+        panelPlatillos.setLayout(new javax.swing.BoxLayout(panelPlatillos, javax.swing.BoxLayout.Y_AXIS));
+        panelPostres.setLayout(new javax.swing.BoxLayout(panelPostres, javax.swing.BoxLayout.Y_AXIS));
+        panelBebidas.setLayout(new javax.swing.BoxLayout(panelBebidas, javax.swing.BoxLayout.Y_AXIS));
+        
+        
+        panelPlatillos.setOpaque(false);
+
+        jScrollPanePlatillos.setOpaque(false);
+        jScrollPanePlatillos.getViewport().setOpaque(false);
+        jScrollPanePlatillos.setBorder(null); 
+
+        panelPostres.setOpaque(false);
+        jScrollPanePostres.setOpaque(false);
+        jScrollPanePostres.getViewport().setOpaque(false);
+        jScrollPanePostres.setBorder(null);
+
+        panelBebidas.setOpaque(false);
+        jScrollPaneBebidas.setOpaque(false);
+        jScrollPaneBebidas.getViewport().setOpaque(false);
+        jScrollPaneBebidas.setBorder(null);
+        
+        jScrollPanePlatillos.setViewportView(panelPlatillos);
+        jScrollPanePostres.setViewportView(panelPostres);
+        jScrollPaneBebidas.setViewportView(panelBebidas);
+        
+        BuscadorProductos buscador = new BuscadorProductos(this.productosBO, this);
+        getLayeredPane().add(buscador, javax.swing.JLayeredPane.PALETTE_LAYER);
+        buscador.setBounds(510, 130, 280, 30);
+        buscador.setOpaque(false);
     }
     
     public void mostrar(){
@@ -36,6 +85,61 @@ public class ListaProductos extends javax.swing.JFrame {
         dispose();
     }
 
+    public void mostrarProductos(){
+        try {
+            panelPlatillos.removeAll();
+            panelPostres.removeAll();
+            panelBebidas.removeAll();
+            
+            List<Producto> platillos = productosBO.obtenerProductoPorTipo(TipoProducto.PLATILLO);
+            List<Producto> postres = productosBO.obtenerProductoPorTipo(TipoProducto.POSTRE);
+            List<Producto> bebidas = productosBO.obtenerProductoPorTipo(TipoProducto.BEBIDA);
+            
+            
+            for (Producto producto : platillos) {
+                panelPlatillos.add(new ProductoPanel(control, productosBO, producto));
+            }
+            
+            for (Producto producto : postres) {
+                panelPostres.add(new ProductoPanel(control, productosBO, producto));
+            }
+            
+            for (Producto producto : bebidas) {
+                panelBebidas.add(new ProductoPanel(control, productosBO, producto));
+            }
+            
+            panelPlatillos.revalidate();
+            panelPostres.revalidate();
+            panelBebidas.revalidate();
+            
+            panelPlatillos.repaint();
+            panelPostres.repaint();
+            panelBebidas.repaint();
+        } catch (NegocioException ex) {
+            Logger.getLogger(ListaProductos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void mostrarResultados(List<Producto> resultados) {
+    panelPlatillos.removeAll();
+    panelPostres.removeAll();
+    panelBebidas.removeAll();
+
+    for (Producto producto : resultados) {
+        ProductoPanel panel = new ProductoPanel(control, productosBO, producto);
+        switch (producto.getTipoProducto()) {
+            case PLATILLO -> panelPlatillos.add(panel);
+            case POSTRE -> panelPostres.add(panel);
+            case BEBIDA -> panelBebidas.add(panel);
+        }
+    }
+        panelPlatillos.revalidate();
+        panelPostres.revalidate();
+        panelBebidas.revalidate();
+        panelPlatillos.repaint();
+        panelPostres.repaint();
+        panelBebidas.repaint();
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,7 +150,6 @@ public class ListaProductos extends javax.swing.JFrame {
     private void initComponents() {
 
         jButtonAnadirProducto = new javax.swing.JButton();
-        buscadorProductos = new javax.swing.JTextField();
         jScrollPaneBebidas = new javax.swing.JScrollPane();
         jScrollPanePostres = new javax.swing.JScrollPane();
         jScrollPanePlatillos = new javax.swing.JScrollPane();
@@ -64,17 +167,6 @@ public class ListaProductos extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonAnadirProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
-
-        buscadorProductos.setBackground(new java.awt.Color(255, 255, 255));
-        buscadorProductos.setForeground(new java.awt.Color(0, 0, 0));
-        buscadorProductos.setText("Productos");
-        buscadorProductos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        buscadorProductos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscadorProductosActionPerformed(evt);
-            }
-        });
-        getContentPane().add(buscadorProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 130, 280, 30));
         getContentPane().add(jScrollPaneBebidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 210, 220, 270));
         getContentPane().add(jScrollPanePostres, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 210, 220, 270));
         getContentPane().add(jScrollPanePlatillos, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 220, 270));
@@ -94,12 +186,9 @@ public class ListaProductos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buscadorProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscadorProductosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buscadorProductosActionPerformed
-
     private void jButtonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegresarActionPerformed
         cerrar();
+        
         control.mostrarVentanaPrincial();
     }//GEN-LAST:event_jButtonRegresarActionPerformed
 
@@ -108,44 +197,7 @@ public class ListaProductos extends javax.swing.JFrame {
         control.mostrarNuevoProducto();
     }//GEN-LAST:event_jButtonAnadirProductoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListaProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListaProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListaProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListaProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ListaProductos().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField buscadorProductos;
     private javax.swing.JButton jButtonAnadirProducto;
     private javax.swing.JButton jButtonRegresar;
     private javax.swing.JLabel jLabelFondoMenu;

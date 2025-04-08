@@ -1,10 +1,23 @@
 
 package wonderland.sistemarestaurantes.productos;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+import javax.swing.BoxLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantes.ingredientes.NuevoIngrediente;
+import wonderland.sistemarestaurantesdominio.Producto;
 import wonderland.sistemarestaurantesdominio.TipoProducto;
+import wonderland.sistemarestaurantesdominio.dtos.IngredienteProductoDTO;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoProductoDTO;
+import wonderland.sistemarestaurantesnegocio.IIngredientesBO;
+import wonderland.sistemarestaurantesnegocio.IIngredientesProductosBO;
 import wonderland.sistemarestaurantesnegocio.IProductosBO;
+import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
+import wonderland.sistemarestaurantesnegocio.implementaciones.IngredientesProductosBO;
 
 /**
  *
@@ -13,22 +26,29 @@ import wonderland.sistemarestaurantesnegocio.IProductosBO;
 public class NuevoProducto extends javax.swing.JFrame {
 
     private ControlPresentacion control;
+    private IIngredientesBO ingredientesBO;
+    private IngredientesProductosBO ingredientesProductosBO;
     private IProductosBO productosBO;
+    private static final Logger LOG = Logger.getLogger(NuevoProducto.class.getName());
+    private Long idProductoActual;
+    private List<IngredienteProductoDTO> ingredientesSeleccionados = new ArrayList<>();
 
     /**
      * Creates new form NuevoProducto
      */
+    
     public NuevoProducto() {
         initComponents();
     }
 
-    public NuevoProducto(ControlPresentacion control, IProductosBO productosBO) {
-        this.control = control;
-        this.productosBO = productosBO;
-        initComponents();
-        setLocationRelativeTo(null);
-        
-    }
+    public NuevoProducto(ControlPresentacion control, IProductosBO productosBO, IIngredientesBO ingredientesBO, IIngredientesProductosBO ingredientesProductosBO) {
+    this.control = control;
+    this.productosBO = productosBO;
+    this.ingredientesBO = ingredientesBO;
+    this.ingredientesProductosBO = (IngredientesProductosBO) ingredientesProductosBO;
+    initComponents();
+    setLocationRelativeTo(null);
+  }
     
     public void mostrar(){
         setVisible(true);
@@ -39,23 +59,62 @@ public class NuevoProducto extends javax.swing.JFrame {
         dispose();
     }
     
+    public void limpiar(){
+        jTextFieldNombreProducto.setText("Nombre");
+        jTextFieldNombrePrecio.setText("0.00");
+    }
+    
     public void registrarProducto(){
         String nombre= this.jTextFieldNombreProducto.getText();
         float precio = Float.parseFloat(this.jTextFieldNombrePrecio.getText());
         
+        try{
         TipoProducto tipo = TipoProducto.PLATILLO;
-        if (jComboBoxCategoria.getSelectedItem().equals("Platillo")) {
-            tipo = TipoProducto.PLATILLO;
+        if(jComboBoxCategoria.getSelectedItem().equals("Platillo")){
+            tipo= TipoProducto.PLATILLO;
         }else if(jComboBoxCategoria.getSelectedItem().equals("Postre")){
             tipo= TipoProducto.POSTRE;
         }else if(jComboBoxCategoria.getSelectedItem().equals("Bebida")){
-            tipo= TipoProducto.POSTRE;
+            tipo= TipoProducto.BEBIDA;
         }
         
-        NuevoProductoDTO nuevoProducto = new NuevoProductoDTO(nombre, precio, tipo);
-            
+        NuevoProductoDTO nuevoProducto = new NuevoProductoDTO(nombre, precio, tipo);            
+        
+        try{
+            Producto productoRegistrado = this.productosBO.registrarProducto(nuevoProducto);
+            Long idProducto = productoRegistrado.getId();
+            this.idProductoActual = idProducto;
+            AgregarIngrediente agregar = new AgregarIngrediente(idProducto, ingredientesBO, ingredientesProductosBO, this, ingredientesSeleccionados);          
+            agregar.setVisible(true);
+      
+            }catch(NegocioException ex){
+                LOG.severe("No se pudo registrar el producto" + ex.getMessage());
+        }
+        }catch(NumberFormatException ex){
+            NegocioException negocioEx = new NegocioException("El precio ingresado no es valido");
+        }
     }
+    
+    public void mostrarIngredientesSeleccionados(List<IngredienteProductoDTO> nuevos) {
+        this.ingredientesSeleccionados = nuevos; 
 
+        JPanel panelVisual = new JPanel();
+        panelVisual.setLayout(new BoxLayout(panelVisual, BoxLayout.Y_AXIS));
+        panelVisual.setOpaque(false);
+
+        for (IngredienteProductoDTO ingredienteProductoDTO : nuevos) {
+            String nombre = ingredienteProductoDTO.getIngrediente().getNombre();
+            float cantidad = ingredienteProductoDTO.getCantidad();
+            String unidad = ingredienteProductoDTO.getIngrediente().getUnidadMedida().toString();
+
+            panelVisual.add(new IngredienteVisualPanel(nombre, cantidad, unidad));
+        }
+
+        jScrollPaneIngredientesSeleccionados.setViewportView(panelVisual);
+        panelVisual.revalidate();
+        panelVisual.repaint();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,6 +128,9 @@ public class NuevoProducto extends javax.swing.JFrame {
         jTextFieldNombrePrecio = new javax.swing.JTextField();
         jTextFieldNombreProducto = new javax.swing.JTextField();
         jComboBoxCategoria = new javax.swing.JComboBox<>();
+        jButtonGuardar = new javax.swing.JButton();
+        jButtonMostrarAgregarIgrediente = new javax.swing.JButton();
+        jScrollPaneIngredientesSeleccionados = new javax.swing.JScrollPane();
         jLabelFondoNuevoProducto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -119,6 +181,23 @@ public class NuevoProducto extends javax.swing.JFrame {
         });
         getContentPane().add(jComboBoxCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 346, 310, 40));
 
+        jButtonGuardar.setText("Guardar");
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 484, -1, 30));
+
+        jButtonMostrarAgregarIgrediente.setText("AgregarIngrediente");
+        jButtonMostrarAgregarIgrediente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMostrarAgregarIgredienteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonMostrarAgregarIgrediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 180, -1, -1));
+        getContentPane().add(jScrollPaneIngredientesSeleccionados, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 210, 340, 240));
+
         jLabelFondoNuevoProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoNuevoProducto.png"))); // NOI18N
         getContentPane().add(jLabelFondoNuevoProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -142,46 +221,29 @@ public class NuevoProducto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NuevoProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NuevoProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NuevoProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NuevoProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        registrarProducto();
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NuevoProducto().setVisible(true);
-            }
-        });
-    }
+    private void jButtonMostrarAgregarIgredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMostrarAgregarIgredienteActionPerformed
+        AgregarIngrediente agregar = new AgregarIngrediente(
+        null, 
+        ingredientesBO,
+        ingredientesProductosBO,
+        this,
+        ingredientesSeleccionados 
+    );
+    agregar.setVisible(true);
+    }//GEN-LAST:event_jButtonMostrarAgregarIgredienteActionPerformed
 
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonGuardar;
+    private javax.swing.JButton jButtonMostrarAgregarIgrediente;
     private javax.swing.JButton jButtonRegresar;
     private javax.swing.JComboBox<String> jComboBoxCategoria;
     private javax.swing.JLabel jLabelFondoNuevoProducto;
+    private javax.swing.JScrollPane jScrollPaneIngredientesSeleccionados;
     private javax.swing.JTextField jTextFieldNombrePrecio;
     private javax.swing.JTextField jTextFieldNombreProducto;
     // End of variables declaration//GEN-END:variables

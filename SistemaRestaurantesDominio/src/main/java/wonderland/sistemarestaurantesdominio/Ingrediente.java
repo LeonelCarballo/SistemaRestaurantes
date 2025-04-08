@@ -43,6 +43,12 @@ public class Ingrediente implements Serializable {
     @OneToMany(mappedBy = "ingrediente")
     private List<IngredienteProducto> ingredientesProductos;
 
+    @OneToMany(mappedBy = "ingrediente")
+    private List<IngredienteProducto> ingredientesProductos;
+
+    public List<IngredienteProducto> getIngredientesProductos() {
+        return ingredientesProductos;
+}
     public Ingrediente() {
     }
 

@@ -1,5 +1,6 @@
 package wonderland.sistemarestaurantesdominio.dtos;
 
+import java.util.List;
 import wonderland.sistemarestaurantesdominio.TipoProducto;
 
 /**
@@ -7,10 +8,11 @@ import wonderland.sistemarestaurantesdominio.TipoProducto;
  * @author payde
  */
 public class NuevoProductoDTO {
+    private Long id;
     private String nombre;
     private Float precio;
     private TipoProducto tipoProducto;
-
+      
     public NuevoProductoDTO() {
     }
 
@@ -21,6 +23,21 @@ public class NuevoProductoDTO {
     }
 
     
+    public NuevoProductoDTO(Long id, String nombre, Float precio, TipoProducto tipoProducto) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.tipoProducto = tipoProducto;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -29,7 +46,7 @@ public class NuevoProductoDTO {
         this.nombre = nombre;
     }
 
-    public float getPrecio() {
+    public Float getPrecio() {
         return precio;
     }
 
@@ -44,6 +61,8 @@ public class NuevoProductoDTO {
     public void setTipoProducto(TipoProducto tipoProducto) {
         this.tipoProducto = tipoProducto;
     }
+
+    
     
     
 }

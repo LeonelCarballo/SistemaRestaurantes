@@ -19,9 +19,11 @@ public interface IIngredientesBO {
     
     public abstract List<Ingrediente> consultarIngredientes() throws NegocioException;
     
+    public abstract List<Ingrediente> obtenerTodos() throws NegocioException;
+    
     public abstract Ingrediente editarIngrediente(NuevoIngredienteDTO nuevoIngredienteDTO) throws NegocioException;
     
     public abstract Ingrediente aumentarStock(NuevoIngredienteDTO nuevoIngredienteDTO) throws NegocioException;
     
-     public abstract List<Ingrediente> consultarIngredientesPorNombre(String filtroNombre) throws NegocioException;
+    public abstract List<Ingrediente> consultarIngredientesPorNombre(String filtroNombre) throws NegocioException;
 }
