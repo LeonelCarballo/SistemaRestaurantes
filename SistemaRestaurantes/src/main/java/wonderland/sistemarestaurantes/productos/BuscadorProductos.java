@@ -22,6 +22,7 @@ public class BuscadorProductos extends javax.swing.JPanel {
     /**
      * Creates new form BuscadorProductos
      */
+    
     public BuscadorProductos(IProductosBO productosBO, ListaProductos listaProductos) {
         this.productosBO = productosBO;
         this.listaProductos = listaProductos;
@@ -43,6 +44,11 @@ public class BuscadorProductos extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextFieldBuscador.setText("Productos...");
+        jTextFieldBuscador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTextFieldBuscadorMousePressed(evt);
+            }
+        });
         jTextFieldBuscador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldBuscadorActionPerformed(evt);
@@ -78,6 +84,12 @@ public class BuscadorProductos extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_jButtonBuscarActionPerformed
+
+    private void jTextFieldBuscadorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldBuscadorMousePressed
+            if(jTextFieldBuscador.getText().equals("Productos...")){
+            jTextFieldBuscador.setText("");
+        } 
+    }//GEN-LAST:event_jTextFieldBuscadorMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -39,16 +39,16 @@ public class ProductosBO implements IProductosBO{
     }
 
     List<Producto> productosExistentes = productosDAO.obtenerTodos();
-    String nombreNormalizado = normalizarNombre(nuevoProducto.getNombre());
+        String nombreNormalizado = normalizarNombre(nuevoProducto.getNombre());
 
-    for (Producto productoExistente : productosExistentes) {
-        if (normalizarNombre(productoExistente.getNombre()).equals(nombreNormalizado)) {
-            throw new NegocioException("Ya existe un producto con ese nombre.");
+        for (Producto productoExistente : productosExistentes) {
+            if (normalizarNombre(productoExistente.getNombre()).equals(nombreNormalizado)) {
+                throw new NegocioException("Ya existe un producto con ese nombre.");
+            }
         }
-    }
 
-    return productosDAO.registrarProducto(nuevoProducto);
- }
+        return productosDAO.registrarProducto(nuevoProducto);
+     }
 
     private String normalizarNombre(String nombre) {
         return nombre.trim().replaceAll("\\s+", " ").toLowerCase();

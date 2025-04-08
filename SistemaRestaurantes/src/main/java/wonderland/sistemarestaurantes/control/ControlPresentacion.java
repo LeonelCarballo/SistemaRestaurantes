@@ -149,7 +149,7 @@ public class ControlPresentacion {
     }
 
     public void mostrarSeleccionarProductosComanda(Mesa mesa) {
-        SeleccionarProductosComanda seleccionarProducto = new SeleccionarProductosComanda(this);
+        SeleccionarProductosComanda seleccionarProducto = new SeleccionarProductosComanda(this, productosBO);
         seleccionarProducto.mostrar();
     }
 

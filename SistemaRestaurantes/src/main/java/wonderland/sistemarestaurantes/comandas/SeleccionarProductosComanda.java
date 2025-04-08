@@ -4,9 +4,15 @@
  */
 package wonderland.sistemarestaurantes.comandas;
 
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.BoxLayout;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantesdominio.Mesa;
-import wonderland.sistemarestaurantesnegocio.IMesasBO;
+import wonderland.sistemarestaurantesdominio.Producto;
+import wonderland.sistemarestaurantesnegocio.IProductosBO;
+import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
 /**
  *
@@ -16,6 +22,9 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
 
     private ControlPresentacion control;
     private Mesa mesa;
+    private IProductosBO productosBO;
+    private static final Logger LOG = Logger.getLogger(SeleccionarProductosComanda.class.getName());
+    
 
     /**
      * Creates new form SeleccionarProductosComanda
@@ -24,12 +33,46 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         initComponents();
     }
 
-    public SeleccionarProductosComanda(ControlPresentacion control) {
+    public SeleccionarProductosComanda(ControlPresentacion control, IProductosBO productosBO) {
         this.control = control;
         this.mesa = mesa;
+        this.productosBO = productosBO;
         initComponents();
         setLocationRelativeTo(null);
+        mostrarProductos();
+        
+        jPanelListaProductos.setOpaque(false);
+        jScrollPaneListsProductos.setOpaque(false);
+        jScrollPaneListsProductos.getViewport().setOpaque(false);
+
     }
+    
+
+    public void cargarListaDeProductos(List<Producto> productos) {
+        jPanelListaProductos.removeAll();
+        jPanelListaProductos.setLayout(new BoxLayout(jPanelListaProductos, BoxLayout.Y_AXIS));
+        jPanelListaProductos.setOpaque(false);
+
+        for (Producto producto : productos) {
+            PanelProductoComanda panel = new PanelProductoComanda(producto);
+            jPanelListaProductos.add(panel);
+        }
+
+        jPanelListaProductos.revalidate();
+        jPanelListaProductos.repaint();
+    }
+    
+    public void mostrarProductos() {
+        try {
+            List<Producto> productos = productosBO.obtenerTodos();
+            cargarListaDeProductos(productos);
+        } catch (NegocioException e) {
+            LOG.getLogger(SeleccionarProductosComanda.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
+
+
 
     public void mostrar() {
         setVisible(true);
@@ -51,6 +94,11 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
 
         jButtonAsociarCliente = new javax.swing.JButton();
         jButtonAnterior = new javax.swing.JButton();
+        jScrollPaneProductosSeleccionados = new javax.swing.JScrollPane();
+        jPanelProductosSeleccionados = new javax.swing.JPanel();
+        jPanelBuscador = new javax.swing.JPanel();
+        jScrollPaneListsProductos = new javax.swing.JScrollPane();
+        jPanelListaProductos = new javax.swing.JPanel();
         jLabelFondoSeleccionarProductosComanda = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -69,6 +117,16 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 630, 100, 100));
+
+        jScrollPaneProductosSeleccionados.setViewportView(jPanelProductosSeleccionados);
+
+        getContentPane().add(jScrollPaneProductosSeleccionados, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 290, 450, 340));
+        getContentPane().add(jPanelBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 250, 260, 30));
+
+        jScrollPaneListsProductos.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPaneListsProductos.setViewportView(jPanelListaProductos);
+
+        getContentPane().add(jScrollPaneListsProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 300, 520, 330));
 
         jLabelFondoSeleccionarProductosComanda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoProductoComanda.png"))); // NOI18N
         getContentPane().add(jLabelFondoSeleccionarProductosComanda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -120,5 +178,10 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAnterior;
     private javax.swing.JButton jButtonAsociarCliente;
     private javax.swing.JLabel jLabelFondoSeleccionarProductosComanda;
+    private javax.swing.JPanel jPanelBuscador;
+    private javax.swing.JPanel jPanelListaProductos;
+    private javax.swing.JPanel jPanelProductosSeleccionados;
+    private javax.swing.JScrollPane jScrollPaneListsProductos;
+    private javax.swing.JScrollPane jScrollPaneProductosSeleccionados;
     // End of variables declaration//GEN-END:variables
 }

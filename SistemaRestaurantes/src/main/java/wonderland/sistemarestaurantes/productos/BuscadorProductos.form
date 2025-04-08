@@ -23,6 +23,7 @@
         <Property name="text" type="java.lang.String" value="Productos..."/>
       </Properties>
       <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextFieldBuscadorMousePressed"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldBuscadorActionPerformed"/>
       </Events>
       <Constraints>

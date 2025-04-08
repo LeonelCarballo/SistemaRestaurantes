@@ -184,6 +184,8 @@ public class AgregarIngrediente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jScrollPaneIngredientesDisponibles.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPaneIngredientesDisponibles.setToolTipText("");
         jScrollPaneIngredientesDisponibles.setMaximumSize(new java.awt.Dimension(410, 230));
         getContentPane().add(jScrollPaneIngredientesDisponibles, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 410, 230));
 

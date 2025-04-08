@@ -38,8 +38,8 @@ public class IngredienteSeleccionPanel extends JPanel {
 
         setLayout(new GridBagLayout());
         setOpaque(false);
-        setMaximumSize(new Dimension(600, 35));
-        setPreferredSize(new Dimension(600, 35));
+        setMaximumSize(new Dimension(400, 35));
+        setPreferredSize(new Dimension(400, 35));
 
         Font font = new Font("Century Gothic", Font.PLAIN, 18);
         Color textColor = Color.BLACK;

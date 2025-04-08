@@ -58,6 +58,11 @@ public class ComandaDTO {
         return cliente;
     }
 
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    
+
     public List<DetalleComanda> getDetallesComandas() {
         return detallesComandas;
     }
