@@ -4,7 +4,7 @@
  */
 package wonderland.sistemarestaurantes.comandas;
 
-import Fonts.FontManager;
+import wonderland.sistemarestaurantes.utils.FontManager;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.List;
@@ -110,6 +110,7 @@ public class VentanaInicioComanda extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButtonAnterior = new javax.swing.JButton();
         jScrollPaneMesas = new javax.swing.JScrollPane();
         jPanelMesas = new javax.swing.JPanel();
         jLabelTituloComandas = new javax.swing.JLabel();
@@ -117,6 +118,15 @@ public class VentanaInicioComanda extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonAnterior.png"))); // NOI18N
+        jButtonAnterior.setContentAreaFilled(false);
+        jButtonAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnteriorActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 610, -1, -1));
 
         jScrollPaneMesas.setViewportView(jPanelMesas);
 
@@ -133,7 +143,13 @@ public class VentanaInicioComanda extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
+        cerrar();
+        control.mostrarVentanaPrincial();
+    }//GEN-LAST:event_jButtonAnteriorActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAnterior;
     private javax.swing.JLabel jLabelFondoInicioComandas;
     private javax.swing.JLabel jLabelTituloComandas;
     private javax.swing.JPanel jPanelMesas;

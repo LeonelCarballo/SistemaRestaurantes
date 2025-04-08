@@ -4,13 +4,14 @@
  */
 package wonderland.sistemarestaurantes.clientes;
 
-import Fonts.FontManager;
+import wonderland.sistemarestaurantes.utils.FontManager;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -24,16 +25,96 @@ import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
 
 public class ClientePanel extends JPanel {
 
-    public ClientePanel(ClienteFrecuente cliente) {
+//    public ClientePanel(ClienteFrecuente cliente) {
+//        FontManager fontManager = new FontManager();
+//
+//        setLayout(new GridBagLayout());
+//        setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.WHITE));
+//        setBackground(new Color(19, 28, 54));
+//
+//        setPreferredSize(new Dimension(680, 130));
+//        setMinimumSize(new Dimension(680, 130));
+//        setMaximumSize(new Dimension(680, 130));
+//
+//        GridBagConstraints gbc = new GridBagConstraints();
+//        gbc.insets = new Insets(3, 10, 3, 10);
+//
+//        JLabel lblTelefono = new JLabel(cliente.getTelefono());
+//        lblTelefono.setForeground(Color.WHITE);
+//        lblTelefono.setFont(fontManager.getNotoSerifCondensedRegular(16f));
+//
+//        JLabel lblNombre = new JLabel(cliente.getNombre().toUpperCase() + " " + 
+//                                   cliente.getApellidoPaterno().toUpperCase());
+//        lblNombre.setFont(fontManager.getNotoSerifCondensedRegular(27f));
+//        lblNombre.setForeground(Color.WHITE);
+//        lblNombre.setToolTipText(lblNombre.getText());
+//
+//        lblNombre.setHorizontalAlignment(SwingConstants.LEFT);
+//        lblNombre.setPreferredSize(new Dimension(350, 30)); 
+//        lblNombre.setMinimumSize(new Dimension(350, 30));
+//        lblNombre.setMaximumSize(new Dimension(350, 30));
+//
+//        JButton btnInfo = new JButton("Información");
+//        btnInfo.setPreferredSize(new Dimension(176, 36)); 
+//        btnInfo.setMinimumSize(new Dimension(176, 36));
+//        btnInfo.setMaximumSize(new Dimension(176, 36));
+//        btnInfo.setBackground(Color.WHITE);
+//        btnInfo.setFont(fontManager.getNunitoRegular(14f));
+//        btnInfo.setForeground(new Color(0, 0, 0));
+//
+//        btnInfo.addActionListener(e -> {
+//            ControlPresentacion control = new ControlPresentacion();
+//            control.mostrarPerfilCliente(cliente);
+//        });
+//
+//        gbc.gridx = 0;
+//        gbc.gridy = 0;
+//        gbc.gridwidth = 2;
+//        gbc.weightx = 1;
+//        gbc.fill = GridBagConstraints.HORIZONTAL;
+//        gbc.anchor = GridBagConstraints.WEST;
+//        add(lblTelefono, gbc);
+//
+//        gbc.gridx = 0;
+//        gbc.gridy = 1;
+//        gbc.gridwidth = 1;
+//        gbc.weightx = 1; 
+//        gbc.fill = GridBagConstraints.HORIZONTAL;
+//        add(lblNombre, gbc);
+//
+//        gbc.gridx = 1;
+//        gbc.gridy = 1;
+//        gbc.weightx = 0; 
+//        gbc.fill = GridBagConstraints.NONE; 
+//        gbc.anchor = GridBagConstraints.EAST;
+//        add(btnInfo, gbc);
+//
+//        JLabel lblCorreo = new JLabel(
+//            (cliente.getCorreoElectronico() != null && !cliente.getCorreoElectronico().isEmpty()) 
+//            ? cliente.getCorreoElectronico() 
+//            : "Correo electronico no registrado."); 
+//        lblCorreo.setFont(fontManager.getNotoSerifCondensedRegular(16f));
+//        lblCorreo.setForeground(new Color(178, 220, 251));
+//
+//        gbc.gridx = 0;
+//        gbc.gridy = 2;
+//        gbc.gridwidth = 2;
+//        gbc.weightx = 1;
+//        gbc.fill = GridBagConstraints.HORIZONTAL;
+//        gbc.anchor = GridBagConstraints.WEST;
+//        add(lblCorreo, gbc);
+//    }
+    
+    public ClientePanel(ClienteFrecuente cliente, String textoBoton, ActionListener accionBoton) {
         FontManager fontManager = new FontManager();
 
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.WHITE));
         setBackground(new Color(19, 28, 54));
 
-        setPreferredSize(new Dimension(500, 130));
-        setMinimumSize(new Dimension(500, 130));
-        setMaximumSize(new Dimension(500, 130));
+        setPreferredSize(new Dimension(680, 130));
+        setMinimumSize(new Dimension(680, 130));
+        setMaximumSize(new Dimension(680, 130));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(3, 10, 3, 10);
@@ -42,30 +123,35 @@ public class ClientePanel extends JPanel {
         lblTelefono.setForeground(Color.WHITE);
         lblTelefono.setFont(fontManager.getNotoSerifCondensedRegular(16f));
 
-        JLabel lblNombre = new JLabel(cliente.getNombre().toUpperCase() + " " + 
-                                   cliente.getApellidoPaterno().toUpperCase());
-        lblNombre.setFont(fontManager.getNotoSerifCondensedRegular(22f));
+        JLabel lblNombre = new JLabel(cliente.getNombre().toUpperCase() + " " +
+                                      cliente.getApellidoPaterno().toUpperCase());
+        lblNombre.setFont(fontManager.getNotoSerifCondensedRegular(27f));
         lblNombre.setForeground(Color.WHITE);
         lblNombre.setToolTipText(lblNombre.getText());
 
         lblNombre.setHorizontalAlignment(SwingConstants.LEFT);
-        lblNombre.setPreferredSize(new Dimension(350, 30)); 
+        lblNombre.setPreferredSize(new Dimension(350, 30));
         lblNombre.setMinimumSize(new Dimension(350, 30));
         lblNombre.setMaximumSize(new Dimension(350, 30));
 
-        JButton btnInfo = new JButton("Información");
-        btnInfo.setPreferredSize(new Dimension(130, 30)); 
-        btnInfo.setMinimumSize(new Dimension(130, 30));
-        btnInfo.setMaximumSize(new Dimension(130, 30));
-        btnInfo.setBackground(Color.WHITE);
-        btnInfo.setFont(fontManager.getNunitoRegular(12f));
-        btnInfo.setForeground(new Color(0, 0, 0));
+        JButton btnAccion = new JButton(textoBoton);
+        btnAccion.setPreferredSize(new Dimension(176, 36));
+        btnAccion.setMinimumSize(new Dimension(176, 36));
+        btnAccion.setMaximumSize(new Dimension(176, 36));
+        btnAccion.setBackground(Color.WHITE);
+        btnAccion.setFont(fontManager.getNunitoRegular(14f));
+        btnAccion.setForeground(new Color(0, 0, 0));
 
-        btnInfo.addActionListener(e -> {
-            ControlPresentacion control = new ControlPresentacion();
-            control.mostrarPerfilCliente(cliente);
-        });
+        btnAccion.addActionListener(accionBoton);
 
+        JLabel lblCorreo = new JLabel(
+            (cliente.getCorreoElectronico() != null && !cliente.getCorreoElectronico().isEmpty())
+            ? cliente.getCorreoElectronico()
+            : "Correo electrónico no registrado.");
+        lblCorreo.setFont(fontManager.getNotoSerifCondensedRegular(16f));
+        lblCorreo.setForeground(new Color(178, 220, 251));
+
+        // Layout
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
@@ -77,31 +163,19 @@ public class ClientePanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
-        gbc.weightx = 1; 
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         add(lblNombre, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 1;
-        gbc.weightx = 0; 
-        gbc.fill = GridBagConstraints.NONE; 
         gbc.anchor = GridBagConstraints.EAST;
-        add(btnInfo, gbc);
-
-        JLabel lblCorreo = new JLabel(
-            (cliente.getCorreoElectronico() != null && !cliente.getCorreoElectronico().isEmpty()) 
-            ? cliente.getCorreoElectronico() 
-            : "Correo electronico no registrado."); 
-        lblCorreo.setFont(fontManager.getNotoSerifCondensedRegular(16f));
-        lblCorreo.setForeground(new Color(178, 220, 251));
+        add(btnAccion, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
-        gbc.weightx = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.WEST;
         add(lblCorreo, gbc);
     }
+
 }
 

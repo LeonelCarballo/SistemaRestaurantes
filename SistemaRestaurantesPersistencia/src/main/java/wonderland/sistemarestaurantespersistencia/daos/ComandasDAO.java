@@ -8,6 +8,7 @@ import java.util.Calendar;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import wonderland.sistemarestaurantesdominio.Comanda;
+import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.NuevaComandaDTO;
 import wonderland.sistemarestaurantespersistencia.IComandasDAO;
 import wonderland.sistemarestaurantespersistencia.conexiones.ManejadorConexiones;
@@ -31,7 +32,7 @@ public class ComandasDAO implements IComandasDAO {
         comanda.setFechaHoraCreacion(Calendar.getInstance());
         comanda.setMesa(nuevaComanda.getMesa());
         comanda.setCliente(nuevaComanda.getCliente());
-        comanda.setDetallesComandas(nuevaComanda.getDetallesComandas());
+//        comanda.setDetallesComandas(nuevaComanda.getDetallesComandas());
         
         entityManager.persist(comanda);
         entityManager.getTransaction().commit();
@@ -62,6 +63,26 @@ public class ComandasDAO implements IComandasDAO {
         } else {
             return 1;
         }
+    }
+
+    @Override
+    public Comanda asociarClienteAComanda(ComandaDTO comandaDTO) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        Comanda comandaEncontrada = obtenerComandaPorId(comandaDTO.getId());
+        comandaEncontrada.setCliente(comandaDTO.getCliente());
+        
+        entityManager.merge(comandaEncontrada);
+        entityManager.getTransaction().commit();
+        
+        return comandaEncontrada;
+    }
+
+    @Override
+    public Comanda obtenerComandaPorId(Long idComanda) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        
+        Comanda comanda = entityManager.find(Comanda.class, idComanda);
+        return comanda;   
     }
     
 }

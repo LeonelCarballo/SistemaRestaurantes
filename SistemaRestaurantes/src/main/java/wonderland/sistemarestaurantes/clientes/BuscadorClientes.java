@@ -4,7 +4,7 @@
  */
 package wonderland.sistemarestaurantes.clientes;
 
-import Fonts.FontManager;
+import wonderland.sistemarestaurantes.utils.FontManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
@@ -71,7 +71,7 @@ public class BuscadorClientes extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextFieldBuscador.setBackground(new java.awt.Color(10, 15, 31));
-        jTextFieldBuscador.setFont(fontManager.getNunitoRegular(14f));
+        jTextFieldBuscador.setFont(fontManager.getNunitoRegular(15f));
         jTextFieldBuscador.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldBuscador.setText("  Clientes");
         jTextFieldBuscador.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -90,7 +90,7 @@ public class BuscadorClientes extends javax.swing.JPanel {
                 jTextFieldBuscadorKeyPressed(evt);
             }
         });
-        add(jTextFieldBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 30));
+        add(jTextFieldBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 40));
 
         jButtonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonBuscar.png"))); // NOI18N
         jButtonBuscar.setContentAreaFilled(false);
@@ -99,7 +99,7 @@ public class BuscadorClientes extends javax.swing.JPanel {
                 jButtonBuscarActionPerformed(evt);
             }
         });
-        add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 30, 30));
+        add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, 40, 40));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldBuscadorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldBuscadorMousePressed

@@ -7,11 +7,18 @@ package wonderland.sistemarestaurantes.ingredientes;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
+import java.io.IOException;
+import java.io.InputStream;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -23,22 +30,35 @@ import wonderland.sistemarestaurantesdominio.Ingrediente;
  * @author leoca
  */
 public class IngredientePanel extends JPanel {
-    
+
     public IngredientePanel(Ingrediente ingrediente) {
-                setPreferredSize(new Dimension(400, 50)); // Aumentar altura del panel
+        setPreferredSize(new Dimension(400, 50));
         setLayout(new GridBagLayout());
-        setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.WHITE));
-        setBackground(new Color(80, 80, 80)); // Gris medio oscuro
+        setOpaque(false);
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(8, 5, 8, 5); // Aumentar espacio vertical
+        gbc.insets = new Insets(8, 5, 8, 5);
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        Font font = new Font("Leelawadee UI Semilight", Font.PLAIN, 14);
+        Font font;
+
+        try {
+            InputStream is = getClass().getResourceAsStream("/fonts/NotoSerif_Condensed-Regular.ttf"); // Reemplaza con el nombre correcto
+            if (is == null) {
+                throw new IOException("No se encontró la fuente");
+            }
+
+            font = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(Font.PLAIN, 16f);
+
+        } catch (FontFormatException | IOException e) {
+            e.printStackTrace();
+            font = new Font("SansSerif", Font.PLAIN, 14); // Fallback
+        }
+
         Color textColor = Color.WHITE;
 
-        JLabel lblNombre = new JLabel(String.format("%-20s", ingrediente.getNombre().toUpperCase()));
+        JLabel lblNombre = new JLabel(String.format("%-20s", ingrediente.getNombre()));
         lblNombre.setFont(font);
         lblNombre.setForeground(textColor);
         lblNombre.setPreferredSize(new Dimension(150, 25));
@@ -54,25 +74,46 @@ public class IngredientePanel extends JPanel {
         lblUnidad.setForeground(textColor);
         lblUnidad.setPreferredSize(new Dimension(100, 25));
 
-        JButton btnEdit = new JButton("Editar");
-        btnEdit.setFont(font);
-        btnEdit.setBackground(new Color(180, 180, 180));
-        btnEdit.setPreferredSize(new Dimension(70, 25));
+        JButton btnEdit = new JButton();
+        btnEdit.setPreferredSize(new Dimension(32, 32));
+        btnEdit.setContentAreaFilled(false);
+        btnEdit.setBorderPainted(false);
+        btnEdit.setFocusPainted(false);
+
+        try {
+            ImageIcon iconEditar = new ImageIcon(getClass().getResource("/images/botonEditar.png"));
+            // Establecer el tamaño del icono para que coincida con el tamaño del botón
+            iconEditar = new ImageIcon(iconEditar.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
+            btnEdit.setIcon(iconEditar);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         btnEdit.addActionListener(e -> {
             ControlPresentacion control = new ControlPresentacion();
             control.mostrarEditarNombreIngrediente(ingrediente);
         });
-        
-        JButton btnAdd = new JButton("Añadir");
-        btnAdd.setFont(font);
-        btnAdd.setBackground(new Color(200, 200, 200));
-        btnAdd.setPreferredSize(new Dimension(70, 25));
+
+        JButton btnAdd = new JButton();
+        btnAdd.setPreferredSize(new Dimension(32, 32));
+        btnAdd.setContentAreaFilled(false);
+        btnAdd.setBorderPainted(false);
+        btnAdd.setFocusPainted(false);
+
+        try {
+            ImageIcon iconAgregar = new ImageIcon(getClass().getResource("/images/botonAgregarMesas.png"));
+            // Establecer el tamaño del icono para que coincida con el tamaño del botón
+            iconAgregar = new ImageIcon(iconAgregar.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
+            btnAdd.setIcon(iconAgregar);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         btnAdd.addActionListener(e -> {
             ControlPresentacion control = new ControlPresentacion();
             control.mostrarAñadirStockIngrediente(ingrediente);
         });
 
-        // Configuración para una única línea horizontal con separación fija
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 0;
@@ -89,13 +130,28 @@ public class IngredientePanel extends JPanel {
 
         gbc.gridx = 4;
         gbc.weightx = 1;
-        add(Box.createHorizontalGlue(), gbc); // Mantiene alineación
+        add(Box.createHorizontalGlue(), gbc);
 
         gbc.gridx = 5;
         gbc.anchor = GridBagConstraints.EAST;
+        gbc.insets = new Insets(8, 0, 8, 2); // Reducido margen derecho para que estén más cerca
+        btnEdit.setPreferredSize(new Dimension(32, 32)); // Tamaño fijo
         add(btnEdit, gbc);
 
         gbc.gridx = 6;
+        gbc.insets = new Insets(8, 0, 8, 0); // Margen sin espacio adicional
+        btnAdd.setPreferredSize(new Dimension(32, 32)); // Tamaño fijo
         add(btnAdd, gbc);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        // Pinta fondo semi-transparente
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setColor(new Color(80, 80, 80, 150));
+        g2.fillRect(0, 0, getWidth(), getHeight());
+        g2.dispose();
+
+        super.paintComponent(g);
     }
 }

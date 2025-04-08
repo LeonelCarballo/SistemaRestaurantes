@@ -27,7 +27,8 @@ public class ListaClientes extends javax.swing.JFrame {
     private IClientesBO clientesBO;
     private ControlPresentacion control;
     private static final Logger LOG = Logger.getLogger(ListaClientes.class.getName());
-    
+
+
     
     /**
      * Creates new form ListaClientes
@@ -51,28 +52,36 @@ public class ListaClientes extends javax.swing.JFrame {
     private void actualizarListaClientes(List<ClienteFrecuente> clientes) {
         panelListaClientes.removeAll();
         for (ClienteFrecuente cliente : clientes) {
-            panelListaClientes.add(new ClientePanel(cliente));
+            ClientePanel panel = new ClientePanel(
+                cliente,
+                "Información",
+                e -> control.mostrarPerfilCliente(cliente)
+            );
+            panelListaClientes.add(panel);
         }
         panelListaClientes.revalidate();
         panelListaClientes.repaint();
     }
-
     
     public void mostrarInformacionClientes() {
         panelListaClientes.removeAll(); 
         try {
-            for (ClienteFrecuente cliente : clientesBO.obtenerClientes()) { 
-                panelListaClientes.add(new ClientePanel(cliente));
+            for (ClienteFrecuente cliente : clientesBO.obtenerClientes()) {
+                ClientePanel panel = new ClientePanel(
+                    cliente,
+                    "Información",
+                    e -> control.mostrarPerfilCliente(cliente)
+                );
+                panelListaClientes.add(panel);
             }
         } catch (NegocioException ex) {
-             LOG.severe("No se pudo llenar la lista de clientes: " + ex.getMessage());
+            LOG.severe("No se pudo llenar la lista de clientes: " + ex.getMessage());
         }
 
         panelListaClientes.revalidate();
         panelListaClientes.repaint();
     }
-
-    
+ 
     public void mostrar(){
         setVisible(true);
     }
@@ -102,27 +111,27 @@ public class ListaClientes extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
+        jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonAnterior.png"))); // NOI18N
         jButtonAnterior.setContentAreaFilled(false);
         jButtonAnterior.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAnteriorActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, -1, -1));
+        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 610, -1, -1));
 
-        jButtonRegistrarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonRegistrarCliente.png"))); // NOI18N
+        jButtonRegistrarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonRegistrarCliente.png"))); // NOI18N
         jButtonRegistrarCliente.setContentAreaFilled(false);
         jButtonRegistrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRegistrarClienteActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonRegistrarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 140, 30));
+        getContentPane().add(jButtonRegistrarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 230, 190, 40));
 
         jPanelBuscador.setBackground(new java.awt.Color(10, 15, 31));
         jPanelBuscador.setLayout(new javax.swing.BoxLayout(jPanelBuscador, javax.swing.BoxLayout.LINE_AXIS));
-        getContentPane().add(jPanelBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 170, 280, 30));
+        getContentPane().add(jPanelBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 230, 360, 40));
 
         jPanelColor.setBackground(new java.awt.Color(19, 28, 54));
 
@@ -139,19 +148,19 @@ public class ListaClientes extends javax.swing.JFrame {
             jPanelColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelColorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollListaClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollListaClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE))
         );
         jPanelColorLayout.setVerticalGroup(
             jPanelColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelColorLayout.createSequentialGroup()
-                .addComponent(jScrollListaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelColorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollListaClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        getContentPane().add(jPanelColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 540, 320));
+        getContentPane().add(jPanelColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, 720, 420));
 
-        jLabelClientesFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoClientes.png"))); // NOI18N
+        jLabelClientesFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoListaClientes.png"))); // NOI18N
         getContentPane().add(jLabelClientesFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();

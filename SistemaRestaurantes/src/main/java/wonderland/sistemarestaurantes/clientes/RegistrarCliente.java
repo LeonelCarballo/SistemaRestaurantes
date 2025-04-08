@@ -4,7 +4,7 @@
  */
 package wonderland.sistemarestaurantes.clientes;
 
-import Fonts.FontManager;
+import wonderland.sistemarestaurantes.utils.FontManager;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
@@ -81,55 +81,19 @@ public class RegistrarCliente extends javax.swing.JFrame {
     private void initComponents() {
 
         jSeparator1 = new javax.swing.JSeparator();
-        jButtonAnterior = new javax.swing.JButton();
-        jPanelColor = new javax.swing.JPanel();
-        jPanelColorBlanco = new javax.swing.JPanel();
-        jLabelTitulo = new javax.swing.JLabel();
         jButtonRegistrar = new javax.swing.JButton();
         jTextFieldApellidoMaterno = new javax.swing.JTextField();
         jTextFieldNombres = new javax.swing.JTextField();
         jTextFieldCorreoElectronico = new javax.swing.JTextField();
         jTextFieldApellidoPaterno = new javax.swing.JTextField();
         jTextFieldTelefono = new javax.swing.JTextField();
+        jButtonAnterior = new javax.swing.JButton();
         jLabelClientesFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
-        jButtonAnterior.setContentAreaFilled(false);
-        jButtonAnterior.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAnteriorActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, -1, -1));
-
-        jPanelColor.setBackground(new java.awt.Color(29, 39, 56));
-        jPanelColor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanelColorBlanco.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanelColorBlancoLayout = new javax.swing.GroupLayout(jPanelColorBlanco);
-        jPanelColorBlanco.setLayout(jPanelColorBlancoLayout);
-        jPanelColorBlancoLayout.setHorizontalGroup(
-            jPanelColorBlancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 270, Short.MAX_VALUE)
-        );
-        jPanelColorBlancoLayout.setVerticalGroup(
-            jPanelColorBlancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-
-        jPanelColor.add(jPanelColorBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 270, 10));
-
-        jLabelTitulo.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelTitulo.setFont(fontManager.getNotoSerifCondensedRegular(22f));
-        jLabelTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelTitulo.setText("Registrar Cliente");
-        jPanelColor.add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
-
-        jButtonRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonRegistrar.png"))); // NOI18N
+        jButtonRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonRegistrar.png"))); // NOI18N
         jButtonRegistrar.setBorder(null);
         jButtonRegistrar.setContentAreaFilled(false);
         jButtonRegistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -137,10 +101,10 @@ public class RegistrarCliente extends javax.swing.JFrame {
                 jButtonRegistrarActionPerformed(evt);
             }
         });
-        jPanelColor.add(jButtonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, 170, 40));
+        getContentPane().add(jButtonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 590, 230, 40));
 
         jTextFieldApellidoMaterno.setBackground(new java.awt.Color(29, 39, 56));
-        jTextFieldApellidoMaterno.setFont(fontManager.getNunitoRegular(16f));
+        jTextFieldApellidoMaterno.setFont(fontManager.getNunitoBold(16f));
         jTextFieldApellidoMaterno.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldApellidoMaterno.setText("    Apellido Materno");
         jTextFieldApellidoMaterno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -154,10 +118,10 @@ public class RegistrarCliente extends javax.swing.JFrame {
                 jTextFieldApellidoMaternoActionPerformed(evt);
             }
         });
-        jPanelColor.add(jTextFieldApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 210, 40));
+        getContentPane().add(jTextFieldApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 420, 227, 40));
 
         jTextFieldNombres.setBackground(new java.awt.Color(29, 39, 56));
-        jTextFieldNombres.setFont(fontManager.getNunitoRegular(16f));
+        jTextFieldNombres.setFont(fontManager.getNunitoBold(16f));
         jTextFieldNombres.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldNombres.setText("    Nombre");
         jTextFieldNombres.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -171,10 +135,10 @@ public class RegistrarCliente extends javax.swing.JFrame {
                 jTextFieldNombresActionPerformed(evt);
             }
         });
-        jPanelColor.add(jTextFieldNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 210, 40));
+        getContentPane().add(jTextFieldNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 320, 227, 40));
 
         jTextFieldCorreoElectronico.setBackground(new java.awt.Color(29, 39, 56));
-        jTextFieldCorreoElectronico.setFont(fontManager.getNunitoRegular(16f));
+        jTextFieldCorreoElectronico.setFont(fontManager.getNunitoBold(16f));
         jTextFieldCorreoElectronico.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldCorreoElectronico.setText("    Correo Electronico");
         jTextFieldCorreoElectronico.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -188,10 +152,10 @@ public class RegistrarCliente extends javax.swing.JFrame {
                 jTextFieldCorreoElectronicoActionPerformed(evt);
             }
         });
-        jPanelColor.add(jTextFieldCorreoElectronico, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 210, 40));
+        getContentPane().add(jTextFieldCorreoElectronico, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 520, 227, 40));
 
         jTextFieldApellidoPaterno.setBackground(new java.awt.Color(29, 39, 56));
-        jTextFieldApellidoPaterno.setFont(fontManager.getNunitoRegular(16f));
+        jTextFieldApellidoPaterno.setFont(fontManager.getNunitoBold(16f));
         jTextFieldApellidoPaterno.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldApellidoPaterno.setText("    Apellido Paterno");
         jTextFieldApellidoPaterno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -205,10 +169,10 @@ public class RegistrarCliente extends javax.swing.JFrame {
                 jTextFieldApellidoPaternoActionPerformed(evt);
             }
         });
-        jPanelColor.add(jTextFieldApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 210, 40));
+        getContentPane().add(jTextFieldApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 370, 227, 40));
 
         jTextFieldTelefono.setBackground(new java.awt.Color(29, 39, 56));
-        jTextFieldTelefono.setFont(fontManager.getNunitoRegular(16f));
+        jTextFieldTelefono.setFont(fontManager.getNunitoBold(16f));
         jTextFieldTelefono.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldTelefono.setText("    Telefono");
         jTextFieldTelefono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -222,11 +186,18 @@ public class RegistrarCliente extends javax.swing.JFrame {
                 jTextFieldTelefonoActionPerformed(evt);
             }
         });
-        jPanelColor.add(jTextFieldTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 210, 40));
+        getContentPane().add(jTextFieldTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 470, 227, 40));
 
-        getContentPane().add(jPanelColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 160, 310, 360));
+        jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonAnterior.png"))); // NOI18N
+        jButtonAnterior.setContentAreaFilled(false);
+        jButtonAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnteriorActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 610, -1, -1));
 
-        jLabelClientesFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoClientes.png"))); // NOI18N
+        jLabelClientesFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoRegistrarCliente.png"))); // NOI18N
         getContentPane().add(jLabelClientesFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
@@ -361,9 +332,6 @@ public class RegistrarCliente extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAnterior;
     private javax.swing.JButton jButtonRegistrar;
     private javax.swing.JLabel jLabelClientesFondo;
-    private javax.swing.JLabel jLabelTitulo;
-    private javax.swing.JPanel jPanelColor;
-    private javax.swing.JPanel jPanelColorBlanco;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextFieldApellidoMaterno;
     private javax.swing.JTextField jTextFieldApellidoPaterno;

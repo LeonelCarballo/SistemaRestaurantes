@@ -19,7 +19,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import wonderland.sistemarestaurantesdominio.encrypt.JasyptUtil;
+import wonderland.sistemarestaurantesdominio.utils.JasyptUtil;
+import wonderland.sistemarestaurantesdominio.utils.SeguridadUtil;
 
 /**
  * Representa un cliente frecuente del sistema de comandas.
@@ -56,6 +57,9 @@ public class Cliente implements Serializable {
     
     @Transient
     private String telefono; 
+    
+    @Column(name = "hash_telefono", unique = true, nullable = false, length = 64)
+    private String hashTelefono;
     
     @Temporal (TemporalType.TIMESTAMP)
     @Column (name = "fecha_registro", nullable = false)
@@ -128,6 +132,8 @@ public class Cliente implements Serializable {
         this.telefono = telefono;
         this.telefonoEncriptado = (telefono != null) ? 
             JasyptUtil.encrypt(telefono) : null;
+        this.hashTelefono = (telefono != null) ? 
+                SeguridadUtil.generarHash(telefono) : null;
     }
 
     public Calendar getFechaRegistro() {

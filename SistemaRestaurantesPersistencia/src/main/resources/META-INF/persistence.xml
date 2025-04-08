@@ -11,6 +11,8 @@
     <class>wonderland.sistemarestaurantesdominio.Producto</class>
     <class>wonderland.sistemarestaurantesdominio.DetalleComanda</class>
     <class>wonderland.sistemarestaurantesdominio.IngredienteProducto</class>
+    <class>wonderland.sistemarestaurantesdominio.Rol</class>
+    <class>wonderland.sistemarestaurantesdominio.Empleado</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sistema_restaurantes_test?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

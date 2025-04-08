@@ -39,6 +39,9 @@ public class Ingrediente implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column (name = "unidad_medida", nullable = false)
     private UnidadMedida unidadMedida;
+    
+    @OneToMany(mappedBy = "ingrediente")
+    private List<IngredienteProducto> ingredientesProductos;
 
     @OneToMany(mappedBy = "ingrediente")
     private List<IngredienteProducto> ingredientesProductos;
@@ -89,7 +92,7 @@ public class Ingrediente implements Serializable {
     }
 
     
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
