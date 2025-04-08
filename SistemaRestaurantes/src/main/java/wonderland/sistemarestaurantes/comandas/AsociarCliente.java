@@ -93,11 +93,11 @@ public class AsociarCliente extends javax.swing.JFrame {
         jPanelListaClientes.setLayout(jPanelListaClientesLayout);
         jPanelListaClientesLayout.setHorizontalGroup(
             jPanelListaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 714, Short.MAX_VALUE)
+            .addGap(0, 718, Short.MAX_VALUE)
         );
         jPanelListaClientesLayout.setVerticalGroup(
             jPanelListaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 404, Short.MAX_VALUE)
+            .addGap(0, 408, Short.MAX_VALUE)
         );
 
         jScrollPaneClientes.setViewportView(jPanelListaClientes);
