@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package wonderland.sistemarestaurantespersistencia.daos;
 
 import java.util.Calendar;
@@ -12,7 +9,6 @@ import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.NuevaComandaDTO;
 import wonderland.sistemarestaurantespersistencia.IComandasDAO;
 import wonderland.sistemarestaurantespersistencia.conexiones.ManejadorConexiones;
-
 /**
  *
  * @author Dana Chavez

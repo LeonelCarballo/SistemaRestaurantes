@@ -51,7 +51,7 @@ public class AgregarIngrediente extends javax.swing.JFrame {
 
                 for (IngredienteProductoDTO ingredienteProductoDTO : ingredientesYaSeleccionados) {
                     if (ingrediente.getId().equals(ingredienteProductoDTO.getIdIngrediente())) {
-                        panel.seleccionar(true); // ✅ usa el nuevo método
+                        panel.seleccionar(true); 
                         panel.setCantidad(ingredienteProductoDTO.getCantidad());
                         break;
                     }
@@ -102,7 +102,6 @@ public class AgregarIngrediente extends javax.swing.JFrame {
                                 break;
                             }
                         }
-
                         if (!actualizado) {
                             seleccionados.add(ingredienteProductoDTO);
                         }
@@ -174,19 +173,19 @@ public class AgregarIngrediente extends javax.swing.JFrame {
         jLabelNombreIngrediente.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jLabelNombreIngrediente.setForeground(new java.awt.Color(0, 0, 0));
         jLabelNombreIngrediente.setText("Nombre Ingrediente");
-        getContentPane().add(jLabelNombreIngrediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, -1, -1));
+        getContentPane().add(jLabelNombreIngrediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, -1, -1));
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Cantidad");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, -1, -1));
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Unidad");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, -1, -1));
 
         jLabelFondoAgregarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoAgregarIngrediente.png"))); // NOI18N
         getContentPane().add(jLabelFondoAgregarIngrediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 0, -1, 416));

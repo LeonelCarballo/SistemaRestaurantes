@@ -187,7 +187,7 @@ public class NuevoProducto extends javax.swing.JFrame {
                 jButtonGuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 484, -1, 30));
+        getContentPane().add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 180, -1, 30));
 
         jButtonMostrarAgregarIgrediente.setText("AgregarIngrediente");
         jButtonMostrarAgregarIgrediente.addActionListener(new java.awt.event.ActionListener() {
