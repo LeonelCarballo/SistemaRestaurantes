@@ -86,7 +86,7 @@ public class AñadirStockIngrediente extends javax.swing.JFrame {
                 jButtonConfirmarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, -1, -1));
+        getContentPane().add(jButtonConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 80, 50));
 
         jButtonAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
         jButtonAtras.setBorderPainted(false);

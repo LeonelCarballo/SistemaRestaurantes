@@ -32,6 +32,7 @@ public class IngredienteSeleccionPanel extends JPanel {
     private final JRadioButton radioSeleccionar;
     private final JTextField txtCantidad;
     private final JLabel lblUnidad;
+    private ActionListener seleccionListener;
 
     public IngredienteSeleccionPanel(Ingrediente ingrediente) {
         this.ingrediente = ingrediente;
@@ -88,6 +89,10 @@ public class IngredienteSeleccionPanel extends JPanel {
             revalidate();
             repaint();
         });
+        
+        if (seleccionListener != null) {
+        seleccionListener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
+    }
     }
 
     public boolean esSeleccionado() {
@@ -118,6 +123,10 @@ public class IngredienteSeleccionPanel extends JPanel {
             txtCantidad.setText("");
         }
     }
+    
+    public void setSeleccionListener(ActionListener listener) {
+    this.seleccionListener = listener;
+}
 }
     
 
