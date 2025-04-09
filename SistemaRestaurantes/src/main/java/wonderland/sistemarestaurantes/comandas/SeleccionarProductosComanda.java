@@ -4,12 +4,19 @@
  */
 package wonderland.sistemarestaurantes.comandas;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantes.utils.FontManager;
 import wonderland.sistemarestaurantesdominio.Mesa;
 import wonderland.sistemarestaurantesdominio.Producto;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
@@ -27,6 +34,8 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
     private ComandaDTO comandaDTO;
     private IProductosBO productosBO;
     private static final Logger LOG = Logger.getLogger(SeleccionarProductosComanda.class.getName());
+    
+    FontManager fontManager = new FontManager();
     
 
     /**
@@ -48,6 +57,46 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         jPanelListaProductos.setOpaque(false);
         jScrollPaneListsProductos.setOpaque(false);
         jScrollPaneListsProductos.getViewport().setOpaque(false);
+        
+        jPanelProductosSeleccionados.setOpaque(false);
+        jScrollPaneProductosSeleccionados.setOpaque(false);
+        jScrollPaneProductosSeleccionados.getViewport().setOpaque(false);
+        jScrollPaneProductosSeleccionados.setBorder(null);
+        
+//        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd - MM - yyyy");
+//        SimpleDateFormat formatoHora = new SimpleDateFormat("HH : mm : ss");
+//        
+//        Calendar fechaCreacion = comandaDTO.getFechaHoraCreacion();
+//        Date fecha = fechaCreacion.getTime();
+//
+//        JLabel lblFecha = new JLabel("Fecha : " + formatoFecha.format(fecha));
+//        lblFecha.setFont(fontManager.getNunitoSemiBold(18f));
+//        lblFecha.setForeground(Color.WHITE);
+//
+//        JLabel lblHora = new JLabel("Hora : " + formatoHora.format(fecha));
+//        lblHora.setFont(fontManager.getNunitoSemiBold(18f));
+//        lblHora.setForeground(Color.WHITE);
+
+        JLabel lblMesa = new JLabel("Mesa : " + (mesa != null ? mesa.getNumeroMesa() : "Desconocida"));
+        lblMesa.setFont(fontManager.getNunitoSemiBold(18f));
+        lblMesa.setForeground(Color.WHITE);
+
+        JLabel lblFolio = new JLabel("Folio : " + (comandaDTO.getFolio() != null ? comandaDTO.getFolio() : "N/A"));
+        lblFolio.setFont(fontManager.getNunitoSemiBold(18f));
+        lblFolio.setForeground(Color.WHITE);
+        
+        jPanelFolio.setOpaque(false);
+        jPanelFecha.setOpaque(false);
+        jPanelHora.setOpaque(false);
+        jPanelMesa.setOpaque(false);
+        
+        jPanelCliente.setOpaque(false);
+
+        
+        jPanelFolio.add(lblFolio, BorderLayout.CENTER);
+//        jPanelFecha.add(lblFecha);
+//        jPanelHora.add(lblHora);
+        jPanelMesa.add(lblMesa);
 
     }
     
@@ -58,12 +107,20 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         jPanelListaProductos.setOpaque(false);
 
         for (Producto producto : productos) {
-            PanelProductoComanda panel = new PanelProductoComanda(producto);
+            PanelProductoComanda panel = new PanelProductoComanda(producto, this::agregarProductoSeleccionado);
             jPanelListaProductos.add(panel);
         }
 
         jPanelListaProductos.revalidate();
         jPanelListaProductos.repaint();
+    }
+    
+    private void agregarProductoSeleccionado(Producto producto) {
+        PanelProductoSeleccionado panelSeleccionado = new PanelProductoSeleccionado(producto);
+        jPanelProductosSeleccionados.setLayout(new BoxLayout(jPanelProductosSeleccionados, BoxLayout.Y_AXIS));
+        jPanelProductosSeleccionados.add(panelSeleccionado);
+        jPanelProductosSeleccionados.revalidate();
+        jPanelProductosSeleccionados.repaint();
     }
     
     public void mostrarProductos() {
@@ -74,9 +131,6 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
             LOG.getLogger(SeleccionarProductosComanda.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-
-
-
 
     public void mostrar() {
         setVisible(true);
@@ -96,7 +150,12 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanelFolio = new javax.swing.JPanel();
+        jPanelMesa = new javax.swing.JPanel();
+        jPanelHora = new javax.swing.JPanel();
+        jPanelFecha = new javax.swing.JPanel();
         jButtonAsociarCliente = new javax.swing.JButton();
+        jPanelCliente = new javax.swing.JPanel();
         jButtonAnterior = new javax.swing.JButton();
         jScrollPaneProductosSeleccionados = new javax.swing.JScrollPane();
         jPanelProductosSeleccionados = new javax.swing.JPanel();
@@ -109,6 +168,12 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanelFolio.setLayout(new java.awt.BorderLayout());
+        getContentPane().add(jPanelFolio, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 680, 230, 30));
+        getContentPane().add(jPanelMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 640, 130, 30));
+        getContentPane().add(jPanelHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 30, 150, 40));
+        getContentPane().add(jPanelFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 140, 40));
+
         jButtonAsociarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonAsociarCliente.png"))); // NOI18N
         jButtonAsociarCliente.setContentAreaFilled(false);
         jButtonAsociarCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -116,7 +181,13 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
                 jButtonAsociarClienteActionPerformed(evt);
             }
         });
+        jButtonAsociarCliente.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jButtonAsociarClientePropertyChange(evt);
+            }
+        });
         getContentPane().add(jButtonAsociarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 30, 180, 50));
+        getContentPane().add(jPanelCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 30, 180, 50));
 
         jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonAnterior.png"))); // NOI18N
         jButtonAnterior.setContentAreaFilled(false);
@@ -149,54 +220,29 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
     private void jButtonAsociarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAsociarClienteActionPerformed
-         if (comandaDTO != null && comandaDTO.getId() != null) {
-        control.mostrarAsociarCliente(comandaDTO);
+        if (comandaDTO != null && comandaDTO.getId() != null) {
+            control.mostrarAsociarCliente(comandaDTO);
         } else {
             JOptionPane.showMessageDialog(this, "La comanda aún no está inicializada correctamente.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonAsociarClienteActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SeleccionarProductosComanda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SeleccionarProductosComanda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SeleccionarProductosComanda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SeleccionarProductosComanda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButtonAsociarClientePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jButtonAsociarClientePropertyChange
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SeleccionarProductosComanda().setVisible(true);
-            }
-        });
-    }
+    }//GEN-LAST:event_jButtonAsociarClientePropertyChange
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnterior;
     private javax.swing.JButton jButtonAsociarCliente;
     private javax.swing.JLabel jLabelFondoSeleccionarProductosComanda;
     private javax.swing.JPanel jPanelBuscador;
+    private javax.swing.JPanel jPanelCliente;
+    private javax.swing.JPanel jPanelFecha;
+    private javax.swing.JPanel jPanelFolio;
+    private javax.swing.JPanel jPanelHora;
     private javax.swing.JPanel jPanelListaProductos;
+    private javax.swing.JPanel jPanelMesa;
     private javax.swing.JPanel jPanelProductosSeleccionados;
     private javax.swing.JScrollPane jScrollPaneListsProductos;
     private javax.swing.JScrollPane jScrollPaneProductosSeleccionados;

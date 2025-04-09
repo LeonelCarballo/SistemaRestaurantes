@@ -6,6 +6,8 @@ package wonderland.sistemarestaurantes.comandas;
 
 import java.awt.BorderLayout;
 import java.util.List;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import wonderland.sistemarestaurantes.clientes.BuscadorClientes;
 import wonderland.sistemarestaurantes.clientes.ClientePanel;
@@ -21,25 +23,32 @@ import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
  *
  * @author Dana Chavez
  */
-public class AsociarCliente extends javax.swing.JFrame {
-    
-    private ControlPresentacion control;
-    private IClientesBO clientesBO;
-    private IComandasBO comandasBO;
-    private ComandaDTO comandaDTO;
+    public class AsociarCliente extends javax.swing.JFrame {
 
-    public AsociarCliente(ControlPresentacion control, IClientesBO clientesBO, IComandasBO comandasBO, ComandaDTO comandaDTO) {
-        this.control = control;
-        this.clientesBO = clientesBO;
-        this.comandasBO = comandasBO;
-        this.comandaDTO = comandaDTO;
-        initComponents();
-        setLocationRelativeTo(null);
-        
-        agregarBuscador();
-        mostrarInformacionClientes();
-        
+        private ControlPresentacion control;
+        private IClientesBO clientesBO;
+        private IComandasBO comandasBO;
+        private ComandaDTO comandaDTO;
+
+        public AsociarCliente(ControlPresentacion control, IClientesBO clientesBO, IComandasBO comandasBO, ComandaDTO comandaDTO) {
+            this.control = control;
+            this.clientesBO = clientesBO;
+            this.comandasBO = comandasBO;
+            this.comandaDTO = comandaDTO;
+            initComponents();
+            setLocationRelativeTo(null);
+
+            agregarBuscador();
+            mostrarInformacionClientes();
+
+            jPanelListaClientes.setOpaque(false);
+            jScrollPaneClientes.setOpaque(false);
+            jScrollPaneClientes.getViewport().setOpaque(false);
+            jScrollPaneClientes.setBorder(null);
+
     }
+
+    
     
     private void agregarBuscador() {
         BuscadorClientes buscadorClientes = new BuscadorClientes(clientesBO, this::actualizarListaClientes);
@@ -48,9 +57,8 @@ public class AsociarCliente extends javax.swing.JFrame {
 
     private void actualizarListaClientes(List<ClienteFrecuente> clientes) {
         jPanelListaClientes.removeAll();
-        try {
-            for (ClienteFrecuente cliente : clientesBO.obtenerClientes()) {
-                ClientePanel panel = new ClientePanel(
+        for (ClienteFrecuente cliente : clientes) {
+            ClientePanel panel = new ClientePanel(
                     cliente,
                     "Seleccionar",
                     e -> {
@@ -66,12 +74,8 @@ public class AsociarCliente extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         }
                     }
-                );
-                jPanelListaClientes.add(panel);
-            }
-        } catch (NegocioException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al cargar clientes: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            );
+            jPanelListaClientes.add(panel);
         }
         jPanelListaClientes.revalidate();
         jPanelListaClientes.repaint();
@@ -145,10 +149,12 @@ public class AsociarCliente extends javax.swing.JFrame {
         jPanelBuscador.setLayout(new java.awt.BorderLayout());
         getContentPane().add(jPanelBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 240, 350, 40));
 
-        jPanelListaClientes.setLayout(new javax.swing.BoxLayout(jPanelListaClientes, javax.swing.BoxLayout.LINE_AXIS));
+        jScrollPaneClientes.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        jPanelListaClientes.setLayout(new javax.swing.BoxLayout(jPanelListaClientes, javax.swing.BoxLayout.Y_AXIS));
         jScrollPaneClientes.setViewportView(jPanelListaClientes);
 
-        getContentPane().add(jScrollPaneClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, 720, 410));
+        getContentPane().add(jScrollPaneClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 300, 700, 390));
 
         jLabelFondoAsociarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoAsociarCliente.png"))); // NOI18N
         getContentPane().add(jLabelFondoAsociarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
