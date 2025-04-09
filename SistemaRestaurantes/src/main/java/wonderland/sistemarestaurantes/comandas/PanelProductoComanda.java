@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.function.Consumer;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -27,7 +28,7 @@ public class PanelProductoComanda extends JPanel {
     
     FontManager fontManager = new FontManager();
     
-    public PanelProductoComanda(Producto producto) {
+    public PanelProductoComanda(Producto producto, Consumer<Producto> onSeleccionarProducto) {
         
         setLayout(new GridBagLayout());
         setPreferredSize(new Dimension(520, 80)); 
@@ -70,6 +71,11 @@ public class PanelProductoComanda extends JPanel {
         gbc.gridy = 0;
         gbc.gridheight = 2;
         gbc.anchor = GridBagConstraints.CENTER;
+
+        btnSeleccionar.addActionListener(e -> {
+            onSeleccionarProducto.accept(producto);
+        });
+
         add(btnSeleccionar, gbc);
     }
 
