@@ -4,11 +4,17 @@
  */
 package wonderland.sistemarestaurantes.comandas;
 
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantesdominio.Mesa;
+import wonderland.sistemarestaurantesdominio.Producto;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
-import wonderland.sistemarestaurantesnegocio.IMesasBO;
+import wonderland.sistemarestaurantesnegocio.IProductosBO;
+import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
 /**
  *
@@ -19,6 +25,9 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
     private ControlPresentacion control;
     private Mesa mesa;
     private ComandaDTO comandaDTO;
+    private IProductosBO productosBO;
+    private static final Logger LOG = Logger.getLogger(SeleccionarProductosComanda.class.getName());
+    
 
     /**
      * Creates new form SeleccionarProductosComanda
@@ -27,10 +36,11 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         initComponents();
     }
 
-    public SeleccionarProductosComanda(ControlPresentacion control, Mesa mesa, ComandaDTO comandaDTO) {
+    public SeleccionarProductosComanda(ControlPresentacion control, Mesa mesa, ComandaDTO comandaDTO, IProductosBO productosBO) {
         this.control = control;
         this.mesa = mesa;
         this.comandaDTO = comandaDTO;
+        this.productosBO = productosBO;
         initComponents();
         setLocationRelativeTo(null);
         mostrarProductos();
