@@ -167,8 +167,14 @@ public class ListaProductos extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonAnadirProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
+
+        jScrollPaneBebidas.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         getContentPane().add(jScrollPaneBebidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 210, 220, 270));
+
+        jScrollPanePostres.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         getContentPane().add(jScrollPanePostres, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 210, 220, 270));
+
+        jScrollPanePlatillos.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         getContentPane().add(jScrollPanePlatillos, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 220, 270));
 
         jButtonRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonregresar.png"))); // NOI18N

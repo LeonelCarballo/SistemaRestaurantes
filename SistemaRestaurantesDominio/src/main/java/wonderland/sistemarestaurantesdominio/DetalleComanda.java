@@ -96,6 +96,24 @@ public class DetalleComanda {
         this.importe = importe;
     }
 
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public Comanda getComanda() {
+        return comanda;
+    }
+
+    public void setComanda(Comanda comanda) {
+        this.comanda = comanda;
+    }
+    
+    
+
     @Override
     public int hashCode() {
         int hash = 5;

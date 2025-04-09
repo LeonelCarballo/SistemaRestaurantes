@@ -14,30 +14,32 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import wonderland.sistemarestaurantesdominio.Ingrediente;
 
 /**
  *
  * @author payde
  */
-public class IngredienteSeleccionPanel extends JPanel{
-    
-   private JRadioButton radioSeleccionar;
-    private JTextField txtCantidad;
-    private JLabel lblUnidad;
-    private Ingrediente ingrediente;
+public class IngredienteSeleccionPanel extends JPanel {
+    private final Ingrediente ingrediente;
+    private final JRadioButton radioSeleccionar;
+    private final JTextField txtCantidad;
+    private final JLabel lblUnidad;
 
     public IngredienteSeleccionPanel(Ingrediente ingrediente) {
         this.ingrediente = ingrediente;
 
-        setLayout(new FlowLayout(FlowLayout.LEFT, 5, 0));
+        setLayout(new GridBagLayout());
         setOpaque(false);
-        setMaximumSize(new Dimension(600, 35));
-        setPreferredSize(new Dimension(600, 35));
+        setMaximumSize(new Dimension(400, 35));
+        setPreferredSize(new Dimension(400, 35));
 
         Font font = new Font("Century Gothic", Font.PLAIN, 18);
         Color textColor = Color.BLACK;
@@ -46,15 +48,38 @@ public class IngredienteSeleccionPanel extends JPanel{
         radioSeleccionar.setFont(font);
         radioSeleccionar.setForeground(textColor);
         radioSeleccionar.setOpaque(false);
+        radioSeleccionar.setHorizontalAlignment(SwingConstants.LEFT);
 
         txtCantidad = new JTextField(5);
         txtCantidad.setFont(font);
         txtCantidad.setVisible(false);
+        txtCantidad.setPreferredSize(new Dimension(60, 30));
 
         lblUnidad = new JLabel(ingrediente.getUnidadMedida().toString());
         lblUnidad.setFont(font);
         lblUnidad.setForeground(textColor);
         lblUnidad.setVisible(false);
+        lblUnidad.setPreferredSize(new Dimension(50, 30));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(0, 5, 0, 5);
+
+        // Columna 0: radioSeleccionar (ocupa el resto del espacio horizontal, alineado a la izquierda)
+        gbc.gridx = 0;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(radioSeleccionar, gbc);
+
+        // Columna 1: txtCantidad (no se estira, posición fija)
+        gbc.gridx = 1;
+        gbc.weightx = 0;
+        gbc.fill = GridBagConstraints.NONE;
+        add(txtCantidad, gbc);
+
+        // Columna 2: lblUnidad
+        gbc.gridx = 2;
+        add(lblUnidad, gbc);
 
         radioSeleccionar.addActionListener(e -> {
             boolean selected = radioSeleccionar.isSelected();
@@ -63,10 +88,6 @@ public class IngredienteSeleccionPanel extends JPanel{
             revalidate();
             repaint();
         });
-
-        add(radioSeleccionar);
-        add(txtCantidad);
-        add(lblUnidad);
     }
 
     public boolean esSeleccionado() {
