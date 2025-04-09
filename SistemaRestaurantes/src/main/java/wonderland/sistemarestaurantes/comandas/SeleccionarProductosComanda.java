@@ -6,7 +6,9 @@ package wonderland.sistemarestaurantes.comandas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +22,7 @@ import wonderland.sistemarestaurantes.utils.FontManager;
 import wonderland.sistemarestaurantesdominio.Mesa;
 import wonderland.sistemarestaurantesdominio.Producto;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
+import wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO;
 import wonderland.sistemarestaurantesnegocio.IProductosBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
@@ -33,6 +36,7 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
     private Mesa mesa;
     private ComandaDTO comandaDTO;
     private IProductosBO productosBO;
+
     private static final Logger LOG = Logger.getLogger(SeleccionarProductosComanda.class.getName());
     
     FontManager fontManager = new FontManager();
@@ -63,6 +67,9 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         jScrollPaneProductosSeleccionados.getViewport().setOpaque(false);
         jScrollPaneProductosSeleccionados.setBorder(null);
         
+        
+        // TODO
+        // MANDA NULL
 //        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd - MM - yyyy");
 //        SimpleDateFormat formatoHora = new SimpleDateFormat("HH : mm : ss");
 //        
@@ -150,6 +157,7 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButtonSiguiente = new javax.swing.JButton();
         jPanelFolio = new javax.swing.JPanel();
         jPanelMesa = new javax.swing.JPanel();
         jPanelHora = new javax.swing.JPanel();
@@ -167,6 +175,15 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButtonSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonSiguiente.png"))); // NOI18N
+        jButtonSiguiente.setContentAreaFilled(false);
+        jButtonSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSiguienteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 630, 100, 100));
 
         jPanelFolio.setLayout(new java.awt.BorderLayout());
         getContentPane().add(jPanelFolio, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 680, 230, 30));
@@ -231,10 +248,25 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonAsociarClientePropertyChange
 
+    private void jButtonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSiguienteActionPerformed
+        List<ProductoSeleccionadoDTO> productos = new ArrayList<>();
+
+            for (Component comp : jPanelProductosSeleccionados.getComponents()) {
+                if (comp instanceof PanelProductoSeleccionado) {
+                    PanelProductoSeleccionado panel = (PanelProductoSeleccionado) comp;
+                    productos.add(panel.toDTO());
+                }
+            }
+
+            control.mostrarResumenComanda(productos);
+        
+    }//GEN-LAST:event_jButtonSiguienteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnterior;
     private javax.swing.JButton jButtonAsociarCliente;
+    private javax.swing.JButton jButtonSiguiente;
     private javax.swing.JLabel jLabelFondoSeleccionarProductosComanda;
     private javax.swing.JPanel jPanelBuscador;
     private javax.swing.JPanel jPanelCliente;

@@ -17,6 +17,7 @@ import javax.swing.event.DocumentListener;
 import org.w3c.dom.events.DocumentEvent;
 import wonderland.sistemarestaurantes.utils.FontManager;
 import wonderland.sistemarestaurantesdominio.Producto;
+import wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO;
 
 /**
  *
@@ -102,12 +103,14 @@ public class PanelProductoSeleccionado extends JPanel {
     }
 
     public String getNotas() {
-        return txtNotas.getText().trim();
+        return txtNotas.getText();
     }
 
     public Producto getProducto() {
         return producto;
     }
     
-    
+    public ProductoSeleccionadoDTO toDTO() {
+        return new ProductoSeleccionadoDTO(producto.getId(), producto.getNombre(), producto.getPrecio(), getCantidad(), getNotas());
+    }   
 }

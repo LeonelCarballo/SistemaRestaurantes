@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantesdominio.Mesa;
+import wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO;
 import wonderland.sistemarestaurantesnegocio.IComandasBO;
 import wonderland.sistemarestaurantesnegocio.IMesasBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
@@ -89,8 +89,10 @@ public class VentanaInicioComanda extends javax.swing.JFrame {
         
     }
     
-    public void mostrarResumenComanda(Mesa mesa) {
-        control.mostrarResumenComanda(mesa);
+    public void mostrarResumenComanda() {
+        
+        // TODO
+        control.mostrarResumenComanda(null);
         
     }
     
