@@ -7,6 +7,7 @@ package wonderland.sistemarestaurantespersistencia.daos;
 import java.util.Calendar;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
 import wonderland.sistemarestaurantesdominio.Comanda;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.NuevaComandaDTO;
@@ -66,15 +67,15 @@ public class ComandasDAO implements IComandasDAO {
     }
 
     @Override
-    public Comanda asociarClienteAComanda(ComandaDTO comandaDTO) {
+    public Comanda asociarClienteAComanda(Comanda comanda, ClienteFrecuente cliente) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        Comanda comandaEncontrada = obtenerComandaPorId(comandaDTO.getId());
-        comandaEncontrada.setCliente(comandaDTO.getCliente());
-        
-        entityManager.merge(comandaEncontrada);
+        entityManager.getTransaction().begin();
+
+        comanda.setCliente(cliente);
+        Comanda comandaActualizada = entityManager.merge(comanda);
         entityManager.getTransaction().commit();
         
-        return comandaEncontrada;
+        return comandaActualizada;
     }
 
     @Override

@@ -4,8 +4,10 @@
  */
 package wonderland.sistemarestaurantes.comandas;
 
+import javax.swing.JOptionPane;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantesdominio.Mesa;
+import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesnegocio.IMesasBO;
 
 /**
@@ -16,6 +18,7 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
 
     private ControlPresentacion control;
     private Mesa mesa;
+    private ComandaDTO comandaDTO;
 
     /**
      * Creates new form SeleccionarProductosComanda
@@ -24,9 +27,10 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         initComponents();
     }
 
-    public SeleccionarProductosComanda(ControlPresentacion control) {
+    public SeleccionarProductosComanda(ControlPresentacion control, Mesa mesa, ComandaDTO comandaDTO) {
         this.control = control;
         this.mesa = mesa;
+        this.comandaDTO = comandaDTO;
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -59,6 +63,11 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
 
         jButtonAsociarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonAsociarCliente.png"))); // NOI18N
         jButtonAsociarCliente.setContentAreaFilled(false);
+        jButtonAsociarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAsociarClienteActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonAsociarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 30, 180, 50));
 
         jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonAnterior.png"))); // NOI18N
@@ -80,6 +89,14 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         control.mostrarVentanaInicioComanda();
         cerrar();
     }//GEN-LAST:event_jButtonAnteriorActionPerformed
+
+    private void jButtonAsociarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAsociarClienteActionPerformed
+         if (comandaDTO != null && comandaDTO.getId() != null) {
+        control.mostrarAsociarCliente(comandaDTO);
+        } else {
+            JOptionPane.showMessageDialog(this, "La comanda aún no está inicializada correctamente.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonAsociarClienteActionPerformed
 
     /**
      * @param args the command line arguments

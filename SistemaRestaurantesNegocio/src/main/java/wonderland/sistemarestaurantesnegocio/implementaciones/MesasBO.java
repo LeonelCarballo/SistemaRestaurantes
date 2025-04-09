@@ -5,6 +5,7 @@
 package wonderland.sistemarestaurantesnegocio.implementaciones;
 
 import java.util.List;
+import wonderland.sistemarestaurantesdominio.EstadoMesa;
 import wonderland.sistemarestaurantesdominio.Mesa;
 import wonderland.sistemarestaurantesdominio.dtos.NuevaMesaDTO;
 import wonderland.sistemarestaurantesnegocio.IMesasBO;
@@ -34,6 +35,11 @@ public class MesasBO implements IMesasBO {
     public List<Mesa> mostrarMesas() throws NegocioException {
         
         return this.mesasDAO.mostrarMesas();
+    }
+
+    @Override
+    public Mesa cambiarEstadoMesa(Long idMesa, EstadoMesa nuevoEstado) throws NegocioException {
+        return this.mesasDAO.cambiarEstadoMesa(idMesa, nuevoEstado);
     }
     
     

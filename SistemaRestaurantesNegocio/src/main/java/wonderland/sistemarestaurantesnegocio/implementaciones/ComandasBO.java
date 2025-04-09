@@ -4,8 +4,11 @@
  */
 package wonderland.sistemarestaurantesnegocio.implementaciones;
 
+import wonderland.sistemarestaurantesdominio.Cliente;
+import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
 import wonderland.sistemarestaurantesdominio.Comanda;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
+import wonderland.sistemarestaurantesdominio.dtos.NuevaComandaDTO;
 import wonderland.sistemarestaurantesnegocio.IComandasBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 import wonderland.sistemarestaurantespersistencia.IComandasDAO;
@@ -17,10 +20,24 @@ import wonderland.sistemarestaurantespersistencia.IComandasDAO;
 public class ComandasBO implements IComandasBO {
     
     private IComandasDAO comandasDAO;
+
+    public ComandasBO(IComandasDAO comandasDAO) {
+        this.comandasDAO = comandasDAO;
+    }
     
     @Override
-    public Comanda asociarClienteAComanda(ComandaDTO comandaDTO) throws NegocioException {
-        return this.comandasDAO.asociarClienteAComanda(comandaDTO);
+    public Comanda asociarClienteAComanda(Comanda comanda, ClienteFrecuente cliente) throws NegocioException {
+        return this.comandasDAO.asociarClienteAComanda(comanda, cliente);
+    }
+
+    @Override
+    public Comanda crearNuevaComanda(NuevaComandaDTO nuevaComanda) throws NegocioException {
+        return this.comandasDAO.crearNuevarComanda(nuevaComanda);
+    }
+
+    @Override
+    public Comanda obtenerComandaPorId(Long idComanda) throws NegocioException {
+        return this.comandasDAO.obtenerComandaPorId(idComanda);
     }
     
 }

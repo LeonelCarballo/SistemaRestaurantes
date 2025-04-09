@@ -4,8 +4,11 @@
  */
 package wonderland.sistemarestaurantesnegocio;
 
+import wonderland.sistemarestaurantesdominio.Cliente;
+import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
 import wonderland.sistemarestaurantesdominio.Comanda;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
+import wonderland.sistemarestaurantesdominio.dtos.NuevaComandaDTO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
 /**
@@ -14,7 +17,11 @@ import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
  */
 public interface IComandasBO {
     
-    public abstract Comanda asociarClienteAComanda(ComandaDTO comandaDTO) throws NegocioException;
+    public abstract Comanda crearNuevaComanda(NuevaComandaDTO nuevaComanda) throws NegocioException;
+    
+    public abstract Comanda asociarClienteAComanda(Comanda comanda, ClienteFrecuente cliente) throws NegocioException;
+    
+    public abstract Comanda obtenerComandaPorId(Long idComanda) throws NegocioException;
     
     
 }

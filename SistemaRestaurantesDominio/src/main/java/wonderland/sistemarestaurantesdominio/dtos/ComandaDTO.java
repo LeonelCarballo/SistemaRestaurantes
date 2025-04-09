@@ -6,6 +6,7 @@ package wonderland.sistemarestaurantesdominio.dtos;
 
 import java.util.List;
 import wonderland.sistemarestaurantesdominio.Cliente;
+import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
 import wonderland.sistemarestaurantesdominio.DetalleComanda;
 import wonderland.sistemarestaurantesdominio.EstadoComanda;
 import wonderland.sistemarestaurantesdominio.Mesa;
@@ -42,26 +43,50 @@ public class ComandaDTO {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getFolio() {
         return folio;
+    }
+
+    public void setFolio(String folio) {
+        this.folio = folio;
     }
 
     public EstadoComanda getEstadoComanda() {
         return estadoComanda;
     }
 
+    public void setEstadoComanda(EstadoComanda estadoComanda) {
+        this.estadoComanda = estadoComanda;
+    }
+
     public Mesa getMesa() {
         return mesa;
+    }
+
+    public void setMesa(Mesa mesa) {
+        this.mesa = mesa;
     }
 
     public Cliente getCliente() {
         return cliente;
     }
 
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     public List<DetalleComanda> getDetallesComandas() {
         return detallesComandas;
     }
-    
-    
+
+    public void setDetallesComandas(List<DetalleComanda> detallesComandas) {
+        this.detallesComandas = detallesComandas;
+    }
+
+
     
 }

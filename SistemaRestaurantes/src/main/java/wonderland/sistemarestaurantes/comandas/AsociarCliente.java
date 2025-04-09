@@ -4,9 +4,14 @@
  */
 package wonderland.sistemarestaurantes.comandas;
 
+import java.awt.BorderLayout;
+import java.util.List;
+import javax.swing.JOptionPane;
+import wonderland.sistemarestaurantes.clientes.BuscadorClientes;
 import wonderland.sistemarestaurantes.clientes.ClientePanel;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
+import wonderland.sistemarestaurantesdominio.Comanda;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesnegocio.IClientesBO;
 import wonderland.sistemarestaurantesnegocio.IComandasBO;
@@ -30,10 +35,18 @@ public class AsociarCliente extends javax.swing.JFrame {
         this.comandaDTO = comandaDTO;
         initComponents();
         setLocationRelativeTo(null);
-        mostrarClientes();
+        
+        agregarBuscador();
+        mostrarInformacionClientes();
+        
     }
     
-    private void mostrarClientes() {
+    private void agregarBuscador() {
+        BuscadorClientes buscadorClientes = new BuscadorClientes(clientesBO, this::actualizarListaClientes);
+        jPanelBuscador.add(buscadorClientes, BorderLayout.CENTER);
+    }
+
+    private void actualizarListaClientes(List<ClienteFrecuente> clientes) {
         jPanelListaClientes.removeAll();
         try {
             for (ClienteFrecuente cliente : clientesBO.obtenerClientes()) {
@@ -42,15 +55,52 @@ public class AsociarCliente extends javax.swing.JFrame {
                     "Seleccionar",
                     e -> {
                         try {
-                            comandasBO.asociarClienteAComanda(comandaDTO); 
+                            Long idComanda = comandaDTO.getId();
+                            Comanda comanda = comandasBO.obtenerComandaPorId(idComanda);
+
+                            comandasBO.asociarClienteAComanda(comanda, cliente);
+
+                            JOptionPane.showMessageDialog(this, "Cliente asociado exitosamente.");
                             dispose();
-                    } catch (NegocioException ex) {
-                        javax.swing.JOptionPane.showMessageDialog(this,
-                            "Error al asociar cliente: " + ex.getMessage(),
-                            "Error",
-                            javax.swing.JOptionPane.ERROR_MESSAGE);
+                        } catch (NegocioException ex) {
+                            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
-                         
+                );
+                jPanelListaClientes.add(panel);
+            }
+        } catch (NegocioException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al cargar clientes: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        jPanelListaClientes.revalidate();
+        jPanelListaClientes.repaint();
+    }
+
+    private void mostrarInformacionClientes() {
+        jPanelListaClientes.removeAll();
+        try {
+            for (ClienteFrecuente cliente : clientesBO.obtenerClientes()) {
+                ClientePanel panel = new ClientePanel(
+                    cliente,
+                    "Seleccionar",
+                     e -> {
+                        try {
+                            Long idComanda = comandaDTO.getId();
+                            Comanda comanda = comandasBO.obtenerComandaPorId(idComanda);
+
+                            comandasBO.asociarClienteAComanda(comanda, cliente);
+
+                            JOptionPane.showMessageDialog(this, "Cliente asociado exitosamente.");
+                            dispose();
+
+                        } catch (NegocioException ex) {
+                            ex.printStackTrace();
+                            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                            JOptionPane.showMessageDialog(this, "Error inesperado: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
                 );
                 jPanelListaClientes.add(panel);
@@ -63,6 +113,8 @@ public class AsociarCliente extends javax.swing.JFrame {
         jPanelListaClientes.repaint();
     }
 
+    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -73,6 +125,7 @@ public class AsociarCliente extends javax.swing.JFrame {
     private void initComponents() {
 
         jButtonAnterior = new javax.swing.JButton();
+        jPanelBuscador = new javax.swing.JPanel();
         jScrollPaneClientes = new javax.swing.JScrollPane();
         jPanelListaClientes = new javax.swing.JPanel();
         jLabelFondoAsociarCliente = new javax.swing.JLabel();
@@ -89,17 +142,10 @@ public class AsociarCliente extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 610, -1, -1));
 
-        javax.swing.GroupLayout jPanelListaClientesLayout = new javax.swing.GroupLayout(jPanelListaClientes);
-        jPanelListaClientes.setLayout(jPanelListaClientesLayout);
-        jPanelListaClientesLayout.setHorizontalGroup(
-            jPanelListaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 714, Short.MAX_VALUE)
-        );
-        jPanelListaClientesLayout.setVerticalGroup(
-            jPanelListaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 404, Short.MAX_VALUE)
-        );
+        jPanelBuscador.setLayout(new java.awt.BorderLayout());
+        getContentPane().add(jPanelBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 240, 350, 40));
 
+        jPanelListaClientes.setLayout(new javax.swing.BoxLayout(jPanelListaClientes, javax.swing.BoxLayout.LINE_AXIS));
         jScrollPaneClientes.setViewportView(jPanelListaClientes);
 
         getContentPane().add(jScrollPaneClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, 720, 410));
@@ -119,6 +165,7 @@ public class AsociarCliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnterior;
     private javax.swing.JLabel jLabelFondoAsociarCliente;
+    private javax.swing.JPanel jPanelBuscador;
     private javax.swing.JPanel jPanelListaClientes;
     private javax.swing.JScrollPane jScrollPaneClientes;
     // End of variables declaration//GEN-END:variables

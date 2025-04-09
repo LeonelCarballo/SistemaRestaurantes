@@ -5,6 +5,7 @@
 package wonderland.sistemarestaurantespersistencia;
 
 import java.util.List;
+import wonderland.sistemarestaurantesdominio.EstadoMesa;
 import wonderland.sistemarestaurantesdominio.Mesa;
 import wonderland.sistemarestaurantesdominio.dtos.NuevaMesaDTO;
 
@@ -17,5 +18,7 @@ public interface IMesasDAO {
     public abstract List<Mesa> agregarMesas(NuevaMesaDTO nuevaMesa);
     
     public abstract List<Mesa> mostrarMesas();
+    
+    public abstract Mesa cambiarEstadoMesa(Long idMesa, EstadoMesa nuevaMesa);
     
 }

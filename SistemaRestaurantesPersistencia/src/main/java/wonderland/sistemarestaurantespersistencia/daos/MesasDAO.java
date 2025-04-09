@@ -67,6 +67,27 @@ public class MesasDAO implements IMesasDAO {
         }
         return ultimaMesa;
     }
+
+    @Override
+    public Mesa cambiarEstadoMesa(Long idMesa, EstadoMesa nuevoEstado) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+
+        entityManager.getTransaction().begin();
+
+        String jpql = "SELECT m FROM Mesa m WHERE m.id = :id";
+        TypedQuery<Mesa> query = entityManager.createQuery(jpql, Mesa.class);
+        query.setParameter("id", idMesa);
+
+        Mesa mesa = query.getSingleResult();
+
+        mesa.setEstado(nuevoEstado);
+        
+        Mesa mesaActualizada = entityManager.merge(mesa);
+
+        entityManager.getTransaction().commit();
+        
+        return mesaActualizada;
+    }
     
     
 }

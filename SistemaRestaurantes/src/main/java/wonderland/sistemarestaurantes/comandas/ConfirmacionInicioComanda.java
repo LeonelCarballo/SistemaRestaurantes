@@ -6,19 +6,34 @@ package wonderland.sistemarestaurantes.comandas;
 
 import wonderland.sistemarestaurantes.utils.FontManager;
 import java.awt.Color;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantesdominio.Comanda;
+import wonderland.sistemarestaurantesdominio.EstadoComanda;
+import wonderland.sistemarestaurantesdominio.EstadoMesa;
 import wonderland.sistemarestaurantesdominio.Mesa;
+import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
+import wonderland.sistemarestaurantesdominio.dtos.NuevaComandaDTO;
+import wonderland.sistemarestaurantesnegocio.IComandasBO;
+import wonderland.sistemarestaurantesnegocio.IMesasBO;
+import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
 /**
  *
  * @author Dana Chavez
  */
 public class ConfirmacionInicioComanda extends javax.swing.JPanel {
-
+    
+    private IComandasBO comandasBO;
+    private IMesasBO mesasBO;
+    private static final Logger LOG = Logger.getLogger(ConfirmacionInicioComanda.class.getName());
+    
     FontManager fontManager = new FontManager();
     ControlPresentacion control;
     VentanaInicioComanda ventanaInicioComanda;
     Mesa mesa;
+    
 
     /**
      * Creates new form ConfirmacionInicioComanda
@@ -27,14 +42,47 @@ public class ConfirmacionInicioComanda extends javax.swing.JPanel {
         initComponents();
     }
 
-    public ConfirmacionInicioComanda(ControlPresentacion control, Mesa mesa, VentanaInicioComanda ventanaInicioComanda) {
+    public ConfirmacionInicioComanda(ControlPresentacion control, Mesa mesa, VentanaInicioComanda ventanaInicioComanda, IComandasBO comandasBO, IMesasBO mesasBO) {
         this.control = control;
         this.mesa = mesa;
+        this.mesasBO = mesasBO;
         this.ventanaInicioComanda = ventanaInicioComanda;
+        this.comandasBO = comandasBO; 
         initComponents();
         setOpaque(false);
         String nuevoTexto = "¿Estás seguro de iniciar una nueva comanda para la mesa " + mesa.getNumeroMesa() + "?";
         this.jLabel2.setText(nuevoTexto);
+    }
+      
+    public void registrarComanda(){        
+        NuevaComandaDTO nuevaComanda = new NuevaComandaDTO(EstadoComanda.ABIERTA, mesa);
+
+        try {
+            Comanda comandaCreada = this.comandasBO.crearNuevaComanda(nuevaComanda);
+            
+            mesasBO.cambiarEstadoMesa(mesa.getId(), EstadoMesa.RESERVADA);
+
+            if (comandaCreada.getId() == null) {
+                JOptionPane.showMessageDialog(this, "No se generó el ID de la comanda", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            JOptionPane.showMessageDialog(this, "Se inició la nueva comanda con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);
+
+            ComandaDTO comandaDTO = new ComandaDTO();
+            comandaDTO.setId(comandaCreada.getId());
+            comandaDTO.setEstadoComanda(comandaCreada.getEstadoComanda());
+            comandaDTO.setFolio(comandaCreada.getFolio());
+            comandaDTO.setMesa(comandaCreada.getMesa());
+            comandaDTO.setCliente(comandaCreada.getCliente());
+            
+
+            control.mostrarSeleccionarProductosComanda(mesa, comandaDTO);
+
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            LOG.severe("No fue posible iniciar una nueva comanda: " + ex.getMessage());
+        }     
     }
 
     public void mostrar() {
@@ -103,7 +151,7 @@ public class ConfirmacionInicioComanda extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        control.mostrarSeleccionarProductosComanda(mesa);
+        registrarComanda();
         cerrar();
         ventanaInicioComanda.cerrar();
     }//GEN-LAST:event_jButton2ActionPerformed

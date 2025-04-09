@@ -17,9 +17,11 @@ import java.awt.geom.*;
 import javax.swing.*;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantesdominio.*;
+import wonderland.sistemarestaurantesnegocio.IComandasBO;
 
 public class PanelMesaComanda extends JButton {
-
+    
+    private IComandasBO comandasBO;
     private final Mesa mesa;
     private final VentanaInicioComanda ventana;
     private final ControlPresentacion control;

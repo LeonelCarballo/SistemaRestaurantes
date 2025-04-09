@@ -4,7 +4,6 @@
  */
 package wonderland.sistemarestaurantes.control;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.JLayeredPane;
@@ -13,6 +12,7 @@ import wonderland.sistemarestaurantes.VentanaPrincipal;
 import wonderland.sistemarestaurantes.clientes.ListaClientes;
 import wonderland.sistemarestaurantes.clientes.PerfilCliente;
 import wonderland.sistemarestaurantes.clientes.RegistrarCliente;
+import wonderland.sistemarestaurantes.comandas.AsociarCliente;
 import wonderland.sistemarestaurantes.comandas.ConfirmacionInicioComanda;
 import wonderland.sistemarestaurantes.comandas.ResumenComanda;
 import wonderland.sistemarestaurantes.comandas.SeleccionarProductosComanda;
@@ -23,7 +23,6 @@ import wonderland.sistemarestaurantes.ingredientes.ListaIngredientes;
 import wonderland.sistemarestaurantes.ingredientes.NuevoIngrediente;
 import wonderland.sistemarestaurantes.productos.AgregarIngrediente;
 import wonderland.sistemarestaurantes.productos.EditarProducto;
-import wonderland.sistemarestaurantes.productos.IngredienteSeleccionPanel;
 import wonderland.sistemarestaurantes.productos.ListaProductos;
 import wonderland.sistemarestaurantes.productos.NuevoProducto;
 import wonderland.sistemarestaurantes.reportes.InicioReporte;
@@ -36,12 +35,15 @@ import wonderland.sistemarestaurantesdominio.Producto;
 import wonderland.sistemarestaurantesdominio.UnidadMedida;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoIngredienteDTO;
 import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
+import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.IngredienteProductoDTO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ClientesBO;
+import wonderland.sistemarestaurantesnegocio.implementaciones.ComandasBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.IngredientesProductosBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.MesasBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ProductosBO;
 import wonderland.sistemarestaurantespersistencia.daos.ClientesFrecuentesDAO;
+import wonderland.sistemarestaurantespersistencia.daos.ComandasDAO;
 import wonderland.sistemarestaurantespersistencia.daos.IngredienteProductoDAO;
 import wonderland.sistemarestaurantespersistencia.daos.MesasDAO;
 import wonderland.sistemarestaurantespersistencia.daos.ProductosDAO;
@@ -51,7 +53,10 @@ import wonderland.sistemarestaurantespersistencia.daos.ProductosDAO;
  * @author leoca
  */
 public class ControlPresentacion {
-
+    
+    ComandasDAO comandasDAO = new ComandasDAO();
+    ComandasBO comandasBO = new ComandasBO(comandasDAO);
+    
     ClientesFrecuentesDAO clientesDAO = new ClientesFrecuentesDAO();
     ClientesBO clientesBO = new ClientesBO(clientesDAO);
 
@@ -67,7 +72,7 @@ public class ControlPresentacion {
     
     IngredienteProductoDAO ingredienteProductoDAO = new IngredienteProductoDAO();
     IngredientesProductosBO ingredientesProductosBO = new IngredientesProductosBO(ingredienteProductoDAO);
-    private Object padre;
+
     private VentanaInicioComanda ventanaInicioComanda = new VentanaInicioComanda();
 
     public void mostrarVentanaPrincial() {
@@ -148,13 +153,14 @@ public class ControlPresentacion {
         resumenComanda.mostrar();
     }
 
-    public void mostrarSeleccionarProductosComanda(Mesa mesa) {
-        SeleccionarProductosComanda seleccionarProducto = new SeleccionarProductosComanda(this);
-        seleccionarProducto.mostrar();
+    public void mostrarSeleccionarProductosComanda(Mesa mesa, ComandaDTO comandaDTO) {
+        SeleccionarProductosComanda ventana = new SeleccionarProductosComanda(this, mesa, comandaDTO);
+        ventana.mostrar();
     }
 
+
     public void mostrarConfirmacionInicioComanda(Mesa mesa, VentanaInicioComanda ventanaInicioComanda) {
-        ConfirmacionInicioComanda confirmacionInicioComanda = new ConfirmacionInicioComanda(this, mesa, ventanaInicioComanda);
+        ConfirmacionInicioComanda confirmacionInicioComanda = new ConfirmacionInicioComanda(this, mesa, ventanaInicioComanda, comandasBO, mesasBO);
 
         confirmacionInicioComanda.setBounds(0, 0,
                 ventanaInicioComanda.getWidth(),
@@ -214,5 +220,10 @@ public class ControlPresentacion {
     AgregarIngrediente agregar = new AgregarIngrediente(
         idProducto, ingredientesBO, ingredientesProductosBO, padre, seleccionados);
         agregar.setVisible(true);
+    }
+    
+    public void mostrarAsociarCliente(ComandaDTO comandaDTO) {
+        AsociarCliente asociarCliente = new AsociarCliente(this, clientesBO, comandasBO, comandaDTO);
+        asociarCliente.setVisible(true);
     }
 }

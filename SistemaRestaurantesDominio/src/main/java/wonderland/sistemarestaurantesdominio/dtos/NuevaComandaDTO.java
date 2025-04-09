@@ -43,9 +43,12 @@ public class NuevaComandaDTO {
         this.folio = folio;
         this.estadoComanda = estadoComanda;
     }
-    
-    
 
+    public NuevaComandaDTO(EstadoComanda estadoComanda, Mesa mesa) {
+        this.estadoComanda = estadoComanda;
+        this.mesa = mesa;
+    }
+    
     public String getFolio() {
         return folio;
     }

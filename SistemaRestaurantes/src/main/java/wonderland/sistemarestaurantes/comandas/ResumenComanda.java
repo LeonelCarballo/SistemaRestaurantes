@@ -46,7 +46,6 @@ public class ResumenComanda extends javax.swing.JFrame {
     private void initComponents() {
 
         jButtonAnterior = new javax.swing.JButton();
-        jButtonConfirmar = new javax.swing.JButton();
         FondoResumen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -60,10 +59,6 @@ public class ResumenComanda extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 610, 130, 120));
-
-        jButtonConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonConfirmar.png"))); // NOI18N
-        jButtonConfirmar.setContentAreaFilled(false);
-        getContentPane().add(jButtonConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 610, -1, -1));
 
         FondoResumen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoResumenComanda.png"))); // NOI18N
         getContentPane().add(FondoResumen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -113,6 +108,5 @@ public class ResumenComanda extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FondoResumen;
     private javax.swing.JButton jButtonAnterior;
-    private javax.swing.JButton jButtonConfirmar;
     // End of variables declaration//GEN-END:variables
 }

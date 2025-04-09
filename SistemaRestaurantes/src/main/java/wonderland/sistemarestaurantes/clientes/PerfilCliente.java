@@ -391,7 +391,7 @@ public class PerfilCliente extends javax.swing.JFrame {
 
         
         if (editando) {
-            jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonCancelar.png")));
+            jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonEditar.png")));
         } else {
             jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonEditar.png"))); 
             // cargarDatosCliente();

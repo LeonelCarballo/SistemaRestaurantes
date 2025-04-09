@@ -15,6 +15,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantesdominio.Mesa;
+import wonderland.sistemarestaurantesnegocio.IComandasBO;
 import wonderland.sistemarestaurantesnegocio.IMesasBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
@@ -26,6 +27,7 @@ public class VentanaInicioComanda extends javax.swing.JFrame {
     
     FontManager fontManager = new FontManager();
     private ControlPresentacion control;
+    private IComandasBO comandasBO;
     private IMesasBO mesasBO;
     private List<Mesa> mesas;
     private static final Logger LOG = Logger.getLogger(VentanaInicioComanda.class.getName());
@@ -82,7 +84,7 @@ public class VentanaInicioComanda extends javax.swing.JFrame {
     }
     
     public void iniciarNuevaComanda(Mesa mesa) {
-         System.out.println("Intentando mostrar confirmación para la mesa: " + mesa.getNumeroMesa());
+        System.out.println("Intentando mostrar confirmación para la mesa: " + mesa.getNumeroMesa());
         control.mostrarConfirmacionInicioComanda(mesa, this);
         
     }
