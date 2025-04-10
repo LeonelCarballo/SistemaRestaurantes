@@ -89,13 +89,6 @@ public class VentanaInicioComanda extends javax.swing.JFrame {
         
     }
     
-    public void mostrarResumenComanda() {
-        
-        // TODO
-        control.mostrarResumenComanda(null, null);
-        
-    }
-    
     public void mostrar() {
         setVisible(true);
     }

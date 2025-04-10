@@ -96,7 +96,8 @@ public class ResumenComanda extends javax.swing.JFrame {
                 detalleComandaDTO.setComanda(comandaEntidad);
 
                 try {
-                    detallesComandasBO.guardarDetalleComanda(detalleComandaDTO);
+                    this.detallesComandasBO.guardarDetalleComanda(detalleComandaDTO);
+                    JOptionPane.showMessageDialog(this, "Se registro el detalle de la comanda con exito","Informacion", JOptionPane.INFORMATION_MESSAGE);
                 } catch (NegocioException e) {
                     e.printStackTrace();
                     JOptionPane.showMessageDialog(this, "Error al guardar un detalle: " + e.getMessage());
