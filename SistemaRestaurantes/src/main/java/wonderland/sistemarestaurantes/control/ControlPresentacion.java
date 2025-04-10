@@ -40,11 +40,13 @@ import wonderland.sistemarestaurantesdominio.dtos.IngredienteProductoDTO;
 import wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ClientesBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ComandasBO;
+import wonderland.sistemarestaurantesnegocio.implementaciones.DetallesComandasBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.IngredientesProductosBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.MesasBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ProductosBO;
 import wonderland.sistemarestaurantespersistencia.daos.ClientesFrecuentesDAO;
 import wonderland.sistemarestaurantespersistencia.daos.ComandasDAO;
+import wonderland.sistemarestaurantespersistencia.daos.DetallesComandasDAO;
 import wonderland.sistemarestaurantespersistencia.daos.IngredienteProductoDAO;
 import wonderland.sistemarestaurantespersistencia.daos.MesasDAO;
 import wonderland.sistemarestaurantespersistencia.daos.ProductosDAO;
@@ -54,6 +56,9 @@ import wonderland.sistemarestaurantespersistencia.daos.ProductosDAO;
  * @author leoca
  */
 public class ControlPresentacion {
+    
+    DetallesComandasDAO detallesComandasDAO = new DetallesComandasDAO();
+    DetallesComandasBO detallesComandasBO = new DetallesComandasBO(detallesComandasDAO);
     
     ComandasDAO comandasDAO = new ComandasDAO();
     ComandasBO comandasBO = new ComandasBO(comandasDAO);
@@ -73,6 +78,8 @@ public class ControlPresentacion {
     
     IngredienteProductoDAO ingredienteProductoDAO = new IngredienteProductoDAO();
     IngredientesProductosBO ingredientesProductosBO = new IngredientesProductosBO(ingredienteProductoDAO);
+    
+    ComandaDTO comandaDTO = new ComandaDTO();
 
     private VentanaInicioComanda ventanaInicioComanda = new VentanaInicioComanda();
 
@@ -149,8 +156,8 @@ public class ControlPresentacion {
         registrarCliente.mostrar();
     }
 
-    public void mostrarResumenComanda(List<ProductoSeleccionadoDTO> productosSeleccionados) {
-        ResumenComanda resumenComanda = new ResumenComanda(this, productosSeleccionados);
+    public void mostrarResumenComanda(List<ProductoSeleccionadoDTO> productosSeleccionados, ComandaDTO comandaDTO) {
+        ResumenComanda resumenComanda = new ResumenComanda(this, productosSeleccionados, comandaDTO, detallesComandasBO);
         resumenComanda.mostrar();
     }
 

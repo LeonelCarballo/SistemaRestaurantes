@@ -92,7 +92,7 @@ public class VentanaInicioComanda extends javax.swing.JFrame {
     public void mostrarResumenComanda() {
         
         // TODO
-        control.mostrarResumenComanda(null);
+        control.mostrarResumenComanda(null, null);
         
     }
     

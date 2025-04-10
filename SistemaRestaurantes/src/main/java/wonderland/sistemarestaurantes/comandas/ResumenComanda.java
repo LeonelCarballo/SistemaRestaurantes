@@ -6,13 +6,19 @@ package wonderland.sistemarestaurantes.comandas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantes.utils.FontManager;
+import wonderland.sistemarestaurantesdominio.Comanda;
+import wonderland.sistemarestaurantesdominio.Producto;
+import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
+import wonderland.sistemarestaurantesdominio.dtos.DetalleComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO;
+import wonderland.sistemarestaurantesnegocio.IDetallesComandasBO;
+import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
 /**
  *
@@ -21,6 +27,9 @@ import wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO;
 public class ResumenComanda extends javax.swing.JFrame {
 
     private ControlPresentacion control;
+    private ComandaDTO comandaDTO;
+    private List<ProductoSeleccionadoDTO> productosSeleccionados;
+    private IDetallesComandasBO detallesComandasBO;
     FontManager fontManager = new FontManager();
     
     /**
@@ -30,8 +39,11 @@ public class ResumenComanda extends javax.swing.JFrame {
         initComponents();
     }
 
-    public ResumenComanda(ControlPresentacion control, List<ProductoSeleccionadoDTO> productosSeleccionados) {
+    public ResumenComanda(ControlPresentacion control, List<ProductoSeleccionadoDTO> productosSeleccionados, ComandaDTO comandaDTO, IDetallesComandasBO detallesComandasBO) {
         this.control = control;
+        this.productosSeleccionados = productosSeleccionados;
+        this.comandaDTO = comandaDTO;
+        this.detallesComandasBO = detallesComandasBO;
         initComponents();
         setLocationRelativeTo(null);
         
@@ -68,6 +80,30 @@ public class ResumenComanda extends javax.swing.JFrame {
         jPanelResumen.revalidate();
     }
     
+    public void confirmarComanda(){
+        for (ProductoSeleccionadoDTO producto : productosSeleccionados) {
+                DetalleComandaDTO detalleComandaDTO = new DetalleComandaDTO();
+                detalleComandaDTO.setCantidadProducto(producto.getCantidad());
+                detalleComandaDTO.setPrecio(producto.getPrecioUnitario());
+                detalleComandaDTO.setNota(producto.getNotas());
+
+                Producto productoEntidad = new Producto();
+                productoEntidad.setId(producto.getIdProducto());
+                detalleComandaDTO.setProducto(productoEntidad);
+
+                Comanda comandaEntidad = new Comanda();
+                comandaEntidad.setId(comandaDTO.getId());
+                detalleComandaDTO.setComanda(comandaEntidad);
+
+                try {
+                    detallesComandasBO.guardarDetalleComanda(detalleComandaDTO);
+                } catch (NegocioException e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(this, "Error al guardar un detalle: " + e.getMessage());
+                }
+        }
+    }
+    
     public void mostrar(){
         setVisible(true);
     }
@@ -87,6 +123,7 @@ public class ResumenComanda extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanelTotal = new javax.swing.JPanel();
+        jButtonConfirmar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -102,6 +139,15 @@ public class ResumenComanda extends javax.swing.JFrame {
 
         jPanelTotal.setLayout(new java.awt.BorderLayout());
         getContentPane().add(jPanelTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 550, 180, 50));
+
+        jButtonConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonConfirmarEscrito.png"))); // NOI18N
+        jButtonConfirmar.setContentAreaFilled(false);
+        jButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConfirmarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 650, -1, -1));
 
         jLabel5.setFont(fontManager.getNotoSerifCondensedRegular(20f));
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -154,10 +200,15 @@ public class ResumenComanda extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
+    private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
+        confirmarComanda();
+    }//GEN-LAST:event_jButtonConfirmarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FondoResumen;
     private javax.swing.JButton jButtonAnterior;
+    private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

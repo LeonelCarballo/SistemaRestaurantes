@@ -258,7 +258,7 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
                 }
             }
 
-            control.mostrarResumenComanda(productos);
+            control.mostrarResumenComanda(productos, comandaDTO);
         
     }//GEN-LAST:event_jButtonSiguienteActionPerformed
 
