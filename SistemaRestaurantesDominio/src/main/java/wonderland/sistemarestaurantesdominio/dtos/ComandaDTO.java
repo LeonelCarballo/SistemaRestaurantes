@@ -4,9 +4,9 @@
  */
 package wonderland.sistemarestaurantesdominio.dtos;
 
+import java.util.Calendar;
 import java.util.List;
 import wonderland.sistemarestaurantesdominio.Cliente;
-import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
 import wonderland.sistemarestaurantesdominio.DetalleComanda;
 import wonderland.sistemarestaurantesdominio.EstadoComanda;
 import wonderland.sistemarestaurantesdominio.Mesa;
@@ -19,6 +19,7 @@ public class ComandaDTO {
     private Long id;
     private String folio;
     private EstadoComanda estadoComanda;
+    private Calendar fechaHoraCreacion;
     private Mesa mesa;
     private Cliente cliente;
     private List<DetalleComanda> detallesComandas;
@@ -37,6 +38,24 @@ public class ComandaDTO {
         this.mesa = mesa;
         this.cliente = cliente;
         this.detallesComandas = detallesComandas;
+    }
+
+    public ComandaDTO(Long id, String folio, EstadoComanda estadoComanda, Calendar fechaHoraCreacion, Mesa mesa, Cliente cliente, List<DetalleComanda> detallesComandas) {
+        this.id = id;
+        this.folio = folio;
+        this.estadoComanda = estadoComanda;
+        this.fechaHoraCreacion = fechaHoraCreacion;
+        this.mesa = mesa;
+        this.cliente = cliente;
+        this.detallesComandas = detallesComandas;
+    }
+
+    public Calendar getFechaHoraCreacion() {
+        return fechaHoraCreacion;
+    }
+
+    public void setFechaHoraCreacion(Calendar fechaHoraCreacion) {
+        this.fechaHoraCreacion = fechaHoraCreacion;
     }
 
     public Long getId() {

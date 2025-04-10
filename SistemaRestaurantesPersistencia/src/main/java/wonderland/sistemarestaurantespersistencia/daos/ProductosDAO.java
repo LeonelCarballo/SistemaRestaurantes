@@ -103,6 +103,5 @@ public class ProductosDAO implements IProductosDAO{
         TypedQuery<Producto> query = entityManager.createQuery(criteria);
         return query.getResultList();
     }
-
     
 }

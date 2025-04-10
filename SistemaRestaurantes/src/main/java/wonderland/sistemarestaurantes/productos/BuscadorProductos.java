@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import wonderland.sistemarestaurantesdominio.Producto;
 import wonderland.sistemarestaurantesnegocio.IProductosBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
-import wonderland.sistemarestaurantesnegocio.implementaciones.ProductosBO;
+
 
 /**
  *
@@ -38,40 +38,40 @@ public class BuscadorProductos extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextFieldBuscador = new javax.swing.JTextField();
-        jButtonBuscar = new javax.swing.JButton();
+        jTextFieldIngresarProducto = new javax.swing.JTextField();
+        jButtonBuscarProducto = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextFieldBuscador.setText("Productos...");
-        jTextFieldBuscador.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTextFieldIngresarProducto.setText("Productos...");
+        jTextFieldIngresarProducto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jTextFieldBuscadorMousePressed(evt);
+                jTextFieldIngresarProductoMousePressed(evt);
             }
         });
-        jTextFieldBuscador.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldIngresarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldBuscadorActionPerformed(evt);
+                jTextFieldIngresarProductoActionPerformed(evt);
             }
         });
-        add(jTextFieldBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 30));
+        add(jTextFieldIngresarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 30));
 
-        jButtonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonBuscar.png"))); // NOI18N
-        jButtonBuscar.setContentAreaFilled(false);
-        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
+        jButtonBuscarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonBuscar.png"))); // NOI18N
+        jButtonBuscarProducto.setContentAreaFilled(false);
+        jButtonBuscarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBuscarActionPerformed(evt);
+                jButtonBuscarProductoActionPerformed(evt);
             }
         });
-        add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 30, 30));
+        add(jButtonBuscarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 30, 30));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldBuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBuscadorActionPerformed
+    private void jTextFieldIngresarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIngresarProductoActionPerformed
         // The Schulyer sisters
-    }//GEN-LAST:event_jTextFieldBuscadorActionPerformed
+    }//GEN-LAST:event_jTextFieldIngresarProductoActionPerformed
 
-    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-        String texto = jTextFieldBuscador.getText().trim();     
+    private void jButtonBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarProductoActionPerformed
+        String texto = jTextFieldIngresarProducto.getText().trim();     
         if (!texto.isEmpty()) {
             try {
                 List<Producto> resultados = productosBO.buscarPorNombre(texto);
@@ -83,17 +83,17 @@ public class BuscadorProductos extends javax.swing.JPanel {
             listaProductos.mostrarProductos(); 
         }
         
-    }//GEN-LAST:event_jButtonBuscarActionPerformed
+    }//GEN-LAST:event_jButtonBuscarProductoActionPerformed
 
-    private void jTextFieldBuscadorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldBuscadorMousePressed
-            if(jTextFieldBuscador.getText().equals("Productos...")){
-            jTextFieldBuscador.setText("");
+    private void jTextFieldIngresarProductoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldIngresarProductoMousePressed
+            if(jTextFieldIngresarProducto.getText().equals("Productos...")){
+            jTextFieldIngresarProducto.setText("");
         } 
-    }//GEN-LAST:event_jTextFieldBuscadorMousePressed
+    }//GEN-LAST:event_jTextFieldIngresarProductoMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonBuscar;
-    private javax.swing.JTextField jTextFieldBuscador;
+    private javax.swing.JButton jButtonBuscarProducto;
+    private javax.swing.JTextField jTextFieldIngresarProducto;
     // End of variables declaration//GEN-END:variables
 }

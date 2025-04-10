@@ -13,7 +13,7 @@ import wonderland.sistemarestaurantesdominio.Producto;
 import wonderland.sistemarestaurantesdominio.TipoProducto;
 import wonderland.sistemarestaurantesnegocio.IProductosBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
-import wonderland.sistemarestaurantesnegocio.implementaciones.ProductosBO;
+
 
 /**
  *
@@ -24,7 +24,7 @@ public class ListaProductos extends javax.swing.JFrame {
     private JPanel panelPostres;
     private JPanel panelBebidas;
     private ControlPresentacion control;
-    private ProductosBO productosBO;
+    private IProductosBO productosBO;
  
     /**
      * Creates new form Productos
@@ -39,7 +39,7 @@ public class ListaProductos extends javax.swing.JFrame {
         initComponents();
        
         setLocationRelativeTo(null);
-        this.productosBO = (ProductosBO) productosBO;
+        this.productosBO = (IProductosBO) productosBO;
 
         panelPlatillos = new JPanel();
         panelPostres = new JPanel();
@@ -121,25 +121,25 @@ public class ListaProductos extends javax.swing.JFrame {
     }
     
     public void mostrarResultados(List<Producto> resultados) {
-    panelPlatillos.removeAll();
-    panelPostres.removeAll();
-    panelBebidas.removeAll();
+        panelPlatillos.removeAll();
+        panelPostres.removeAll();
+        panelBebidas.removeAll();
 
-    for (Producto producto : resultados) {
-        ProductoPanel panel = new ProductoPanel(control, productosBO, producto);
-        switch (producto.getTipoProducto()) {
-            case PLATILLO -> panelPlatillos.add(panel);
-            case POSTRE -> panelPostres.add(panel);
-            case BEBIDA -> panelBebidas.add(panel);
+        for (Producto producto : resultados) {
+            ProductoPanel panel = new ProductoPanel(control, productosBO, producto);
+            switch (producto.getTipoProducto()) {
+                case PLATILLO -> panelPlatillos.add(panel);
+                case POSTRE -> panelPostres.add(panel);
+                case BEBIDA -> panelBebidas.add(panel);
+            }
         }
+            panelPlatillos.revalidate();
+            panelPostres.revalidate();
+            panelBebidas.revalidate();
+            panelPlatillos.repaint();
+            panelPostres.repaint();
+            panelBebidas.repaint();
     }
-        panelPlatillos.revalidate();
-        panelPostres.revalidate();
-        panelBebidas.revalidate();
-        panelPlatillos.repaint();
-        panelPostres.repaint();
-        panelBebidas.repaint();
-}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -193,8 +193,7 @@ public class ListaProductos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegresarActionPerformed
-        cerrar();
-        
+        cerrar();       
         control.mostrarVentanaPrincial();
     }//GEN-LAST:event_jButtonRegresarActionPerformed
 

@@ -37,6 +37,7 @@ import wonderland.sistemarestaurantesdominio.dtos.NuevoIngredienteDTO;
 import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.IngredienteProductoDTO;
+import wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ClientesBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ComandasBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.IngredientesProductosBO;
@@ -148,8 +149,8 @@ public class ControlPresentacion {
         registrarCliente.mostrar();
     }
 
-    public void mostrarResumenComanda(Mesa mesa) {
-        ResumenComanda resumenComanda = new ResumenComanda(this);
+    public void mostrarResumenComanda(List<ProductoSeleccionadoDTO> productosSeleccionados) {
+        ResumenComanda resumenComanda = new ResumenComanda(this, productosSeleccionados);
         resumenComanda.mostrar();
     }
 

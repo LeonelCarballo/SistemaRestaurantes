@@ -25,24 +25,24 @@ public class IngredientesProductosBO implements IIngredientesProductosBO{
     }
 
     @Override
-    public IngredienteProducto registrarIngredienteProducto(IngredienteProductoDTO dto) throws NegocioException {
-        if (dto == null) {
-            throw new NegocioException("La información del ingrediente es obligatoria.");
-        }
+    public IngredienteProducto registrarIngredienteProducto(IngredienteProductoDTO ingredienteProductoDTO) throws NegocioException {
+         if (ingredienteProductoDTO == null) {
+        throw new NegocioException("No se proporcionó información del ingrediente.");
+    }
 
-        if (dto.getIngrediente() == null || dto.getIdIngrediente() == null) {
-            throw new NegocioException("Debes seleccionar un ingrediente válido.");
-        }
+    if (ingredienteProductoDTO.getIdProducto() == null) {
+        throw new NegocioException("Falta el ID del producto.");
+    }
 
-        if (dto.getCantidad() == null || dto.getCantidad() <= 0) {
-            throw new NegocioException("La cantidad debe ser mayor a 0.");
-        }
+    if (ingredienteProductoDTO.getIdIngrediente() == null) {
+        throw new NegocioException("Debes seleccionar un ingrediente válido.");
+    }
 
-        if (dto.getIdProducto() == null) {
-            throw new NegocioException("No se ha especificado el producto al que pertenece el ingrediente.");
-        }
-
-        return ingredienteProductoDAO.registrarIngredienteProducto(dto);
+    if (ingredienteProductoDTO.getCantidad() == null) {
+        throw new NegocioException("La cantidad debe ser mayor a cero.");
+    }
+    
+        return ingredienteProductoDAO.registrarIngredienteProducto(ingredienteProductoDTO);
     }
 
     @Override

@@ -19,6 +19,7 @@ import wonderland.sistemarestaurantespersistencia.conexiones.ManejadorConexiones
  * @author payde
  */
 public class DetallesComandasDAO implements IDetallesComandasDAO {
+    
     @Override
     public DetalleComanda guardarDetalleComanda(DetalleComandaDTO detalleComandaDTO) {
         EntityManager em = ManejadorConexiones.getEntityManager();
@@ -69,7 +70,7 @@ public class DetallesComandasDAO implements IDetallesComandasDAO {
                 detalle.setNota(detalleComandaDTO.getNota());
 
                 em.persist(detalle);
-                ultimoGuardado = detalle; // opcional, para devolver uno
+                ultimoGuardado = detalle; 
             }
 
             tx.commit();

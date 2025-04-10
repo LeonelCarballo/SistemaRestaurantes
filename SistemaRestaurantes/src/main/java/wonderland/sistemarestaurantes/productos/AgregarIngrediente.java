@@ -8,6 +8,8 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -120,29 +122,31 @@ public class AgregarIngrediente extends javax.swing.JFrame {
     }
 
     private void guardarIngredientesSeleccionados(Long idProducto) {
+       
         try {
-            // Elimina TODOS los ingredientes actuales del producto
             ingredientesProductosBO.eliminarIngredientesPorProducto(idProducto);
+        } catch (NegocioException ex) {
+            Logger.getLogger(AgregarIngrediente.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-            // Agrega solo los nuevos seleccionados
             for (IngredienteSeleccionPanel panel : panelesIngredientesSeleccion) {
                 if (panel.esSeleccionado()) {
+                    Ingrediente ingrediente = panel.getIngrediente();
                     Float cantidad = panel.getCantidad();
-                    if (cantidad != null && cantidad > 0) {
-                        Ingrediente ingrediente = panel.getIngrediente();
 
-                        IngredienteProductoDTO ingredienteProductoDTO = new IngredienteProductoDTO();
-                        ingredienteProductoDTO.setIdProducto(idProducto);
-                        ingredienteProductoDTO.setIdIngrediente(ingrediente.getId());
-                        ingredienteProductoDTO.setCantidad(cantidad);
+                    IngredienteProductoDTO ingredienteProductoDTO = new IngredienteProductoDTO();
+                    ingredienteProductoDTO.setIdProducto(idProducto);
+                    ingredienteProductoDTO.setIdIngrediente(ingrediente.getId());
+                    ingredienteProductoDTO.setCantidad(cantidad);
 
+                    try {
                         ingredientesProductosBO.registrarIngredienteProducto(ingredienteProductoDTO);
+                    } catch (NegocioException ex) {
+                        Logger.getLogger(AgregarIngrediente.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
-        } catch (NegocioException e) {
-            e.printStackTrace();
-        }
+  
     }
 
     private void actualizarListaIngredientes(List<Ingrediente> ingredientes) {
@@ -243,7 +247,7 @@ public class AgregarIngrediente extends javax.swing.JFrame {
             editar.mostrarIngredientesSeleccionados(ingredientesSeleccionados);
         }
 
-        JOptionPane.showMessageDialog(this, "Ingredientes actualizados correctamente.");
+        JOptionPane.showMessageDialog(this, "Ingredientes agregados correctamente.");
         this.dispose();
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
