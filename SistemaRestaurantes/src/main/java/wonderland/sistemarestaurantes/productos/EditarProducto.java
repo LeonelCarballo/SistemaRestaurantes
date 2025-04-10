@@ -135,7 +135,6 @@ public class EditarProducto extends javax.swing.JFrame {
         jButtonGuardar = new javax.swing.JButton();
         jButtonEditarIngredientes = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jButtonEliminarProducto = new javax.swing.JButton();
         jLabelFondoEditarProducto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -153,8 +152,13 @@ public class EditarProducto extends javax.swing.JFrame {
         jTextFieldNombrePrecio.setBackground(new java.awt.Color(29, 39, 56));
         jTextFieldNombrePrecio.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         jTextFieldNombrePrecio.setForeground(new java.awt.Color(255, 255, 255));
-        jTextFieldNombrePrecio.setText("    Precio");
+        jTextFieldNombrePrecio.setText("Precio");
         jTextFieldNombrePrecio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jTextFieldNombrePrecio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTextFieldNombrePrecioMousePressed(evt);
+            }
+        });
         jTextFieldNombrePrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombrePrecioActionPerformed(evt);
@@ -165,8 +169,13 @@ public class EditarProducto extends javax.swing.JFrame {
         jTextFieldNombreProducto.setBackground(new java.awt.Color(29, 39, 56));
         jTextFieldNombreProducto.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         jTextFieldNombreProducto.setForeground(new java.awt.Color(255, 255, 255));
-        jTextFieldNombreProducto.setText("    Nombre");
+        jTextFieldNombreProducto.setText("Nombre");
         jTextFieldNombreProducto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jTextFieldNombreProducto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTextFieldNombreProductoMousePressed(evt);
+            }
+        });
         jTextFieldNombreProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombreProductoActionPerformed(evt);
@@ -191,7 +200,7 @@ public class EditarProducto extends javax.swing.JFrame {
                 jButtonGuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 480, -1, -1));
+        getContentPane().add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 220, -1, -1));
 
         jButtonEditarIngredientes.setText("EditarIngredientes");
         jButtonEditarIngredientes.addActionListener(new java.awt.event.ActionListener() {
@@ -201,9 +210,6 @@ public class EditarProducto extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonEditarIngredientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 220, -1, -1));
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 250, 310, 220));
-
-        jButtonEliminarProducto.setText("Eliminar");
-        getContentPane().add(jButtonEliminarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 180, -1, -1));
 
         jLabelFondoEditarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoEditarProducto.png"))); // NOI18N
         getContentPane().add(jLabelFondoEditarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -246,9 +252,18 @@ public class EditarProducto extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_jButtonEditarIngredientesActionPerformed
 
+    private void jTextFieldNombreProductoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldNombreProductoMousePressed
+        
+
+    }//GEN-LAST:event_jTextFieldNombreProductoMousePressed
+
+    private void jTextFieldNombrePrecioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldNombrePrecioMousePressed
+        
+
+    }//GEN-LAST:event_jTextFieldNombrePrecioMousePressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonEditarIngredientes;
-    private javax.swing.JButton jButtonEliminarProducto;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonRegresar;
     private javax.swing.JComboBox<String> jComboBoxCategoria;

@@ -4,11 +4,7 @@
  */
 package wonderland.sistemarestaurantespersistencia.daos;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
@@ -20,7 +16,7 @@ import wonderland.sistemarestaurantesdominio.Producto;
 import wonderland.sistemarestaurantesdominio.dtos.IngredienteProductoDTO;
 import wonderland.sistemarestaurantespersistencia.IIngredienteProductoDAO;
 import wonderland.sistemarestaurantespersistencia.conexiones.ManejadorConexiones;
-import wonderland.sistemarestaurantespersistencia.persistenciaexception.PersistenciaException;
+
 
 /**
  *
@@ -31,7 +27,7 @@ public class IngredienteProductoDAO implements IIngredienteProductoDAO{
     @Override
     public IngredienteProducto registrarIngredienteProducto(IngredienteProductoDTO ingredienteProductoDTO) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        entityManager.getTransaction().begin(); // ← INICIA TRANSACCIÓN
+        entityManager.getTransaction().begin(); 
 
         IngredienteProducto relacion = new IngredienteProducto();
 

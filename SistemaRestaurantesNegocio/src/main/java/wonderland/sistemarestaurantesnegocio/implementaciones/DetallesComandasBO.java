@@ -4,7 +4,9 @@
  */
 package wonderland.sistemarestaurantesnegocio.implementaciones;
 
+import java.util.List;
 import wonderland.sistemarestaurantesdominio.DetalleComanda;
+import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.DetalleComandaDTO;
 import wonderland.sistemarestaurantesnegocio.IDetallesComandasBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
@@ -26,6 +28,11 @@ public class DetallesComandasBO implements IDetallesComandasBO {
     @Override
     public DetalleComanda guardarDetalleComanda(DetalleComandaDTO detalleComandaDTO) throws NegocioException {
         return this.detallesComandasDAO.guardarDetalleComanda(detalleComandaDTO);
+    }
+
+    @Override
+    public List<DetalleComanda> obtenerDetalleComandaPorComanda(ComandaDTO comandaDTO) throws NegocioException {
+        return this.detallesComandasDAO.obtenerDetalleComandaPorComanda(comandaDTO);
     }
     
 }

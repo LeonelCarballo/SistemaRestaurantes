@@ -64,36 +64,40 @@ public class NuevoProducto extends javax.swing.JFrame {
         jTextFieldNombrePrecio.setText("0.00");
     }
     
-    public void registrarProducto(){
-        String nombre= this.jTextFieldNombreProducto.getText();
+    public void registrarProducto() {
+    String nombre = this.jTextFieldNombreProducto.getText();
+
+    try {
         float precio = Float.parseFloat(this.jTextFieldNombrePrecio.getText());
-        
-        try{
+
         TipoProducto tipo = TipoProducto.PLATILLO;
-        if(jComboBoxCategoria.getSelectedItem().equals("Platillo")){
-            tipo= TipoProducto.PLATILLO;
-        }else if(jComboBoxCategoria.getSelectedItem().equals("Postre")){
-            tipo= TipoProducto.POSTRE;
-        }else if(jComboBoxCategoria.getSelectedItem().equals("Bebida")){
-            tipo= TipoProducto.BEBIDA;
+        if (jComboBoxCategoria.getSelectedItem().equals("Platillo")) {
+            tipo = TipoProducto.PLATILLO;
+        } else if (jComboBoxCategoria.getSelectedItem().equals("Postre")) {
+            tipo = TipoProducto.POSTRE;
+        } else if (jComboBoxCategoria.getSelectedItem().equals("Bebida")) {
+            tipo = TipoProducto.BEBIDA;
         }
-        
-        NuevoProductoDTO nuevoProducto = new NuevoProductoDTO(nombre, precio, tipo);            
-        
-        try{
+
+        NuevoProductoDTO nuevoProducto = new NuevoProductoDTO(nombre, precio, tipo);
+
+        try {
             Producto productoRegistrado = this.productosBO.registrarProducto(nuevoProducto);
             Long idProducto = productoRegistrado.getId();
             this.idProductoActual = idProducto;
-            AgregarIngrediente agregar = new AgregarIngrediente(idProducto, ingredientesBO, ingredientesProductosBO, this, ingredientesSeleccionados);          
-            agregar.setVisible(true);
-      
-            }catch(NegocioException ex){
-                LOG.severe("No se pudo registrar el producto" + ex.getMessage());
+
+            // Mostrar mensaje de éxito 🎉
+            JOptionPane.showMessageDialog(this, "Producto registrado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (NegocioException ex) {
+            LOG.severe("No se pudo registrar el producto: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al registrar el producto:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-        }catch(NumberFormatException ex){
-            NegocioException negocioEx = new NegocioException("El precio ingresado no es valido");
-        }
+
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(this, "El precio ingresado no es válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
     }
+}
     
     public void mostrarIngredientesSeleccionados(List<IngredienteProductoDTO> nuevos) {
         this.ingredientesSeleccionados = nuevos; 
@@ -129,7 +133,6 @@ public class NuevoProducto extends javax.swing.JFrame {
         jTextFieldNombreProducto = new javax.swing.JTextField();
         jComboBoxCategoria = new javax.swing.JComboBox<>();
         jButtonGuardar = new javax.swing.JButton();
-        jButtonMostrarAgregarIgrediente = new javax.swing.JButton();
         jScrollPaneIngredientesSeleccionados = new javax.swing.JScrollPane();
         jLabelFondoNuevoProducto = new javax.swing.JLabel();
 
@@ -148,8 +151,13 @@ public class NuevoProducto extends javax.swing.JFrame {
         jTextFieldNombrePrecio.setBackground(new java.awt.Color(29, 39, 56));
         jTextFieldNombrePrecio.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         jTextFieldNombrePrecio.setForeground(new java.awt.Color(255, 255, 255));
-        jTextFieldNombrePrecio.setText("    Precio");
+        jTextFieldNombrePrecio.setText(" Precio");
         jTextFieldNombrePrecio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jTextFieldNombrePrecio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTextFieldNombrePrecioMousePressed(evt);
+            }
+        });
         jTextFieldNombrePrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombrePrecioActionPerformed(evt);
@@ -160,8 +168,13 @@ public class NuevoProducto extends javax.swing.JFrame {
         jTextFieldNombreProducto.setBackground(new java.awt.Color(29, 39, 56));
         jTextFieldNombreProducto.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         jTextFieldNombreProducto.setForeground(new java.awt.Color(255, 255, 255));
-        jTextFieldNombreProducto.setText("    Nombre");
+        jTextFieldNombreProducto.setText(" Nombre");
         jTextFieldNombreProducto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jTextFieldNombreProducto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTextFieldNombreProductoMousePressed(evt);
+            }
+        });
         jTextFieldNombreProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombreProductoActionPerformed(evt);
@@ -169,9 +182,10 @@ public class NuevoProducto extends javax.swing.JFrame {
         });
         getContentPane().add(jTextFieldNombreProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 310, 40));
 
-        jComboBoxCategoria.setBackground(new java.awt.Color(29, 39, 56));
+        jComboBoxCategoria.setBackground(new java.awt.Color(255, 255, 255));
         jComboBoxCategoria.setEditable(true);
         jComboBoxCategoria.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        jComboBoxCategoria.setForeground(new java.awt.Color(255, 255, 255));
         jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Platillo", "Postre", "Bebida" }));
         jComboBoxCategoria.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jComboBoxCategoria.addActionListener(new java.awt.event.ActionListener() {
@@ -187,15 +201,7 @@ public class NuevoProducto extends javax.swing.JFrame {
                 jButtonGuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 180, -1, 30));
-
-        jButtonMostrarAgregarIgrediente.setText("AgregarIngrediente");
-        jButtonMostrarAgregarIgrediente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonMostrarAgregarIgredienteActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButtonMostrarAgregarIgrediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 180, -1, -1));
+        getContentPane().add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 160, -1, 30));
         getContentPane().add(jScrollPaneIngredientesSeleccionados, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 210, 340, 240));
 
         jLabelFondoNuevoProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoNuevoProducto.png"))); // NOI18N
@@ -223,23 +229,32 @@ public class NuevoProducto extends javax.swing.JFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         registrarProducto();
-    }//GEN-LAST:event_jButtonGuardarActionPerformed
-
-    private void jButtonMostrarAgregarIgredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMostrarAgregarIgredienteActionPerformed
         AgregarIngrediente agregar = new AgregarIngrediente(
         null, 
         ingredientesBO,
         ingredientesProductosBO,
         this,
         ingredientesSeleccionados 
-    );
-    agregar.setVisible(true);
-    }//GEN-LAST:event_jButtonMostrarAgregarIgredienteActionPerformed
+    
+        );
+        control.mostrarAgregarIngrediente(idProductoActual, this, ingredientesSeleccionados);
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void jTextFieldNombreProductoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldNombreProductoMousePressed
+       if (jTextFieldNombreProducto.getText().equals(" Nombre")) {
+            jTextFieldNombreProducto.setText("");
+        }
+    }//GEN-LAST:event_jTextFieldNombreProductoMousePressed
+
+    private void jTextFieldNombrePrecioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldNombrePrecioMousePressed
+        if (jTextFieldNombrePrecio.getText().equals(" Precio")) {
+            jTextFieldNombrePrecio.setText("");
+        }
+    }//GEN-LAST:event_jTextFieldNombrePrecioMousePressed
 
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonGuardar;
-    private javax.swing.JButton jButtonMostrarAgregarIgrediente;
     private javax.swing.JButton jButtonRegresar;
     private javax.swing.JComboBox<String> jComboBoxCategoria;
     private javax.swing.JLabel jLabelFondoNuevoProducto;
