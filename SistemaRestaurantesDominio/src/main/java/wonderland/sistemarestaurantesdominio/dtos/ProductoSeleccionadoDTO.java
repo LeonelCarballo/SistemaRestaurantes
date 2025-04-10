@@ -25,6 +25,13 @@ public class ProductoSeleccionadoDTO {
         this.cantidad = cantidad;
         this.notas = notas;
     }
+
+    public ProductoSeleccionadoDTO(String nombreProducto, Integer cantidad, Float precioUnitario, String notas) {
+        this.nombreProducto = nombreProducto;
+        this.cantidad = cantidad;
+        this.precioUnitario = precioUnitario;
+        this.notas = notas;
+    }  
  
     public float getImporte() {
         return cantidad * precioUnitario;

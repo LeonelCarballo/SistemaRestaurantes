@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
 import wonderland.sistemarestaurantesdominio.Comanda;
+import wonderland.sistemarestaurantesdominio.EstadoMesa;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.NuevaComandaDTO;
 import wonderland.sistemarestaurantespersistencia.IComandasDAO;
@@ -82,5 +83,22 @@ public class ComandasDAO implements IComandasDAO {
         Comanda comanda = entityManager.find(Comanda.class, idComanda);
         return comanda;   
     }
+
+    @Override
+    public ComandaDTO obtenerComandaActivaPorMesa(Long idMesa) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+
+        String jpql = "SELECT c FROM Comanda c WHERE c.mesa.id = :idMesa AND c.mesa.estado = :estado";
+        Query query = entityManager.createQuery(jpql);
+        query.setParameter("idMesa", idMesa);
+        query.setParameter("estado", EstadoMesa.RESERVADA);
+
+        Comanda comanda = (Comanda) query.getSingleResult();
+        
+        ComandaDTO comandaDTO = new ComandaDTO(comanda);
+        
+        return comandaDTO;
+    }
+
     
 }

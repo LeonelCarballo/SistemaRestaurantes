@@ -8,6 +8,7 @@ import java.util.List;
 import wonderland.sistemarestaurantesdominio.DetalleComanda;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.DetalleComandaDTO;
+import wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO;
 import wonderland.sistemarestaurantesnegocio.IDetallesComandasBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 import wonderland.sistemarestaurantespersistencia.IDetallesComandasDAO;
@@ -31,7 +32,7 @@ public class DetallesComandasBO implements IDetallesComandasBO {
     }
 
     @Override
-    public List<DetalleComanda> obtenerDetalleComandaPorComanda(ComandaDTO comandaDTO) throws NegocioException {
+    public List<ProductoSeleccionadoDTO> obtenerDetalleComandaPorComanda(ComandaDTO comandaDTO) throws NegocioException {
         return this.detallesComandasDAO.obtenerDetalleComandaPorComanda(comandaDTO);
     }
     

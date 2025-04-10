@@ -20,5 +20,7 @@ public interface IComandasDAO {
     
     public abstract Comanda obtenerComandaPorId(Long idComanda);
     
+    public abstract ComandaDTO obtenerComandaActivaPorMesa(Long idMesa);
+    
     //public abstract Comanda editarComanda(ComandaDTO comandaDTO);
 }

@@ -7,11 +7,13 @@ package wonderland.sistemarestaurantespersistencia.daos;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import wonderland.sistemarestaurantesdominio.Comanda;
 import wonderland.sistemarestaurantesdominio.DetalleComanda;
 import wonderland.sistemarestaurantesdominio.Producto;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.DetalleComandaDTO;
+import wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO;
 import wonderland.sistemarestaurantespersistencia.IDetallesComandasDAO;
 import wonderland.sistemarestaurantespersistencia.conexiones.ManejadorConexiones;
 
@@ -84,8 +86,17 @@ public class DetallesComandasDAO implements IDetallesComandasDAO {
     }
 
     @Override
-    public List<DetalleComanda> obtenerDetalleComandaPorComanda(ComandaDTO comandaDTO) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<ProductoSeleccionadoDTO> obtenerDetalleComandaPorComanda(ComandaDTO comandaDTO) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+
+        String jpql = "SELECT new wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO(" +
+                      "dc.producto.nombre, dc.cantidadProducto, dc.precio, dc.nota) " +
+                      "FROM DetalleComanda dc WHERE dc.comanda.id = :idComanda";
+
+        Query query = entityManager.createQuery(jpql);
+        query.setParameter("idComanda", comandaDTO.getId());
+
+        return query.getResultList();
     }
 
 

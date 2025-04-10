@@ -6,7 +6,10 @@ package wonderland.sistemarestaurantes.control;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import wonderland.sistemarestaurantes.Mesas;
 import wonderland.sistemarestaurantes.VentanaPrincipal;
 import wonderland.sistemarestaurantes.clientes.ListaClientes;
@@ -29,6 +32,7 @@ import wonderland.sistemarestaurantes.reportes.InicioReporte;
 import wonderland.sistemarestaurantesnegocio.implementaciones.IngredientesBO;
 import wonderland.sistemarestaurantespersistencia.daos.IngredientesDAO;
 import wonderland.sistemarestaurantesdominio.Cliente;
+import wonderland.sistemarestaurantesdominio.Comanda;
 import wonderland.sistemarestaurantesdominio.Ingrediente;
 import wonderland.sistemarestaurantesdominio.Mesa;
 import wonderland.sistemarestaurantesdominio.Producto;
@@ -38,6 +42,7 @@ import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.IngredienteProductoDTO;
 import wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO;
+import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ClientesBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ComandasBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.DetallesComandasBO;
@@ -79,7 +84,6 @@ public class ControlPresentacion {
     IngredienteProductoDAO ingredienteProductoDAO = new IngredienteProductoDAO();
     IngredientesProductosBO ingredientesProductosBO = new IngredientesProductosBO(ingredienteProductoDAO);
     
-    ComandaDTO comandaDTO = new ComandaDTO();
 
     private VentanaInicioComanda ventanaInicioComanda = new VentanaInicioComanda();
 
@@ -162,10 +166,22 @@ public class ControlPresentacion {
     }
     
     public void mostrarResumenComandaMesaReservada(Mesa mesa, VentanaInicioComanda ventana){
-        //TODO : crear el resumen comanda de una mesa reservada
-        //ComandaDTO comandaDTO = comandasBO.obtenerComandaActivaPorMesa(mesa.getId());
-        //List<ProductoSeleccionadoDTO> productosSeleccionados = detallesComandasBO.obtenerDetalleComandaPorComanda(comandaDTO);
-        //ResumenComanda resumenComanda = new ResumenComanda(this, productosSeleccionados, comandaDTO, detallesComandasBO);
+        try {
+            ComandaDTO comandaDTO = comandasBO.obtenerComandaActivaPorMesa(mesa.getId());
+
+            if (comandaDTO != null) {
+                List<ProductoSeleccionadoDTO> productosSeleccionados = detallesComandasBO.obtenerDetalleComandaPorComanda(comandaDTO);
+
+                ResumenComanda resumenComanda = new ResumenComanda(this, productosSeleccionados, comandaDTO, detallesComandasBO);
+                resumenComanda.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró una comanda activa para esta mesa.");
+            }
+
+        } catch (NegocioException ex) {
+            Logger.getLogger(ControlPresentacion.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al cargar la comanda: " + ex.getMessage());
+        }
     }
 
     public void mostrarSeleccionarProductosComanda(Mesa mesa, ComandaDTO comandaDTO) {
