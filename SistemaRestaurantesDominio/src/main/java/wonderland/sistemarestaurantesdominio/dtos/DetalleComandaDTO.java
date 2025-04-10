@@ -55,6 +55,32 @@ public class DetalleComandaDTO {
     public Comanda getComanda() {
         return comanda;
     }
+
+    public void setIdDetalleComanda(Long idDetalleComanda) {
+        this.idDetalleComanda = idDetalleComanda;
+    }
+
+    public void setCantidadProducto(Integer cantidadProducto) {
+        this.cantidadProducto = cantidadProducto;
+    }
+
+    public void setPrecio(Float precio) {
+        this.precio = precio;
+    }
+
+    public void setNota(String nota) {
+        this.nota = nota;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public void setComanda(Comanda comanda) {
+        this.comanda = comanda;
+    }
+    
+    
     
     
     

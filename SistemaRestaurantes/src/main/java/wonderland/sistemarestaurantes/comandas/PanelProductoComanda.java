@@ -17,10 +17,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantes.utils.FontManager;
 import wonderland.sistemarestaurantesdominio.Producto;
-import wonderland.sistemarestaurantesnegocio.IProductosBO;
 
 /**
  *
@@ -29,15 +27,8 @@ import wonderland.sistemarestaurantesnegocio.IProductosBO;
 public class PanelProductoComanda extends JPanel {
     
     FontManager fontManager = new FontManager();
-    private ControlPresentacion control;
-    private IProductosBO productosBO;
-    private Producto producto;
     
-
     public PanelProductoComanda(Producto producto, Consumer<Producto> onSeleccionarProducto) {
-        this.control= control;
-        this.productosBO= productosBO;
-        this.producto= producto;
         
         setLayout(new GridBagLayout());
         setPreferredSize(new Dimension(520, 80)); 

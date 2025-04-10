@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantes.utils.FontManager;
 import wonderland.sistemarestaurantesdominio.Mesa;
@@ -37,7 +36,7 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
     private Mesa mesa;
     private ComandaDTO comandaDTO;
     private IProductosBO productosBO;
-    private JPanel panelProductos;
+
     private static final Logger LOG = Logger.getLogger(SeleccionarProductosComanda.class.getName());
     
     FontManager fontManager = new FontManager();
@@ -63,12 +62,6 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         jScrollPaneListsProductos.setOpaque(false);
         jScrollPaneListsProductos.getViewport().setOpaque(false);
         
-
-        BuscadorProductosComandas buscador = new BuscadorProductosComandas(productosBO, this);
-        jPanelBuscador.setLayout(new java.awt.BorderLayout());
-        jPanelBuscador.add(buscador);
-        buscador.setOpaque(false);
-
         jPanelProductosSeleccionados.setOpaque(false);
         jScrollPaneProductosSeleccionados.setOpaque(false);
         jScrollPaneProductosSeleccionados.getViewport().setOpaque(false);
@@ -112,7 +105,6 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
 //        jPanelHora.add(lblHora);
         jPanelMesa.add(lblMesa);
 
-
     }
     
 
@@ -122,7 +114,6 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         jPanelListaProductos.setOpaque(false);
 
         for (Producto producto : productos) {
-
             PanelProductoComanda panel = new PanelProductoComanda(producto, this::agregarProductoSeleccionado);
             jPanelListaProductos.add(panel);
         }
@@ -146,20 +137,6 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         } catch (NegocioException e) {
             LOG.getLogger(SeleccionarProductosComanda.class.getName()).log(Level.SEVERE, null, e);
         }
-    }
-
-    public void mostrarResultados(List<Producto> resultados) {
-        jPanelListaProductos.removeAll();
-        jPanelListaProductos.setLayout(new BoxLayout(jPanelListaProductos, BoxLayout.Y_AXIS));
-        jPanelListaProductos.setOpaque(false);
-
-        for (Producto producto : resultados) {
-            PanelProductoComanda panel = new PanelProductoComanda(producto, this::agregarProductoSeleccionado);
-            jPanelListaProductos.add(panel);
-        }
-
-        jPanelListaProductos.revalidate();
-        jPanelListaProductos.repaint();
     }
 
     public void mostrar() {
@@ -281,7 +258,7 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
                 }
             }
 
-            control.mostrarResumenComanda(productos);
+            control.mostrarResumenComanda(productos, comandaDTO);
         
     }//GEN-LAST:event_jButtonSiguienteActionPerformed
 

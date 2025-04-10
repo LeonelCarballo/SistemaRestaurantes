@@ -97,7 +97,9 @@ public class PanelMesaComanda extends JButton {
                 control.mostrarConfirmacionInicioComanda(mesa, ventana);
             case RESERVADA ->
                 // TODO
-                control.mostrarResumenComanda(null);
+
+                control.mostrarResumenComanda(null, null);
+
         }
     }
 }
