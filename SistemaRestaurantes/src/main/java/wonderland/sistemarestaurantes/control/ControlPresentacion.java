@@ -160,6 +160,13 @@ public class ControlPresentacion {
         ResumenComanda resumenComanda = new ResumenComanda(this, productosSeleccionados, comandaDTO, detallesComandasBO);
         resumenComanda.mostrar();
     }
+    
+    public void mostrarResumenComandaMesaReservada(Mesa mesa, VentanaInicioComanda ventana){
+        //TODO : crear el resumen comanda de una mesa reservada
+        //ComandaDTO comandaDTO = comandasBO.obtenerComandaActivaPorMesa(mesa.getId());
+        //List<ProductoSeleccionadoDTO> productosSeleccionados = detallesComandasBO.obtenerDetalleComandaPorComanda(comandaDTO);
+        //ResumenComanda resumenComanda = new ResumenComanda(this, productosSeleccionados, comandaDTO, detallesComandasBO);
+    }
 
     public void mostrarSeleccionarProductosComanda(Mesa mesa, ComandaDTO comandaDTO) {
         SeleccionarProductosComanda ventana = new SeleccionarProductosComanda(this, mesa, comandaDTO, productosBO);

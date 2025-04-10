@@ -201,7 +201,7 @@ public class NuevoProducto extends javax.swing.JFrame {
                 jButtonGuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 180, -1, 30));
+        getContentPane().add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 160, -1, 30));
         getContentPane().add(jScrollPaneIngredientesSeleccionados, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 210, 340, 240));
 
         jLabelFondoNuevoProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoNuevoProducto.png"))); // NOI18N

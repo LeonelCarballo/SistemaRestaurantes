@@ -10,6 +10,7 @@ import javax.persistence.EntityTransaction;
 import wonderland.sistemarestaurantesdominio.Comanda;
 import wonderland.sistemarestaurantesdominio.DetalleComanda;
 import wonderland.sistemarestaurantesdominio.Producto;
+import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.DetalleComandaDTO;
 import wonderland.sistemarestaurantespersistencia.IDetallesComandasDAO;
 import wonderland.sistemarestaurantespersistencia.conexiones.ManejadorConexiones;
@@ -81,5 +82,12 @@ public class DetallesComandasDAO implements IDetallesComandasDAO {
             throw new RuntimeException("Error al guardar lista de detalles de comanda", ex);
         }
     }
+
+    @Override
+    public List<DetalleComanda> obtenerDetalleComandaPorComanda(ComandaDTO comandaDTO) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+
 
 }

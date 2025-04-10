@@ -6,6 +6,7 @@ package wonderland.sistemarestaurantespersistencia;
 
 import java.util.List;
 import wonderland.sistemarestaurantesdominio.DetalleComanda;
+import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.DetalleComandaDTO;
 
 /**
@@ -17,5 +18,7 @@ public interface IDetallesComandasDAO {
     public abstract DetalleComanda guardarDetalleComanda(DetalleComandaDTO detalleComanda);
     
     public abstract DetalleComanda guardarDetallesComandas(List<DetalleComandaDTO> detalleComanda);
+    
+    public abstract List<DetalleComanda> obtenerDetalleComandaPorComanda(ComandaDTO comandaDTO);
     
 }

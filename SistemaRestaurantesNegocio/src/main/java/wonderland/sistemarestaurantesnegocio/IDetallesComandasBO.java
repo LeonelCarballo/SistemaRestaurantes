@@ -4,7 +4,9 @@
  */
 package wonderland.sistemarestaurantesnegocio;
 
+import java.util.List;
 import wonderland.sistemarestaurantesdominio.DetalleComanda;
+import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.DetalleComandaDTO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
@@ -16,4 +18,5 @@ public interface IDetallesComandasBO {
     
     public DetalleComanda guardarDetalleComanda(DetalleComandaDTO detalleComandaDTO) throws NegocioException;
     
+    public abstract List<DetalleComanda> obtenerDetalleComandaPorComanda(ComandaDTO comandaDTO) throws NegocioException;
 }
