@@ -67,6 +67,10 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         jScrollPaneProductosSeleccionados.getViewport().setOpaque(false);
         jScrollPaneProductosSeleccionados.setBorder(null);
         
+        BuscadorProductosComandas buscador = new BuscadorProductosComandas(productosBO, this);
+        jPanelBuscador.setLayout(new BorderLayout());
+        jPanelBuscador.add(buscador, BorderLayout.CENTER);
+        buscador.setOpaque(false);
         
         // TODO
         // MANDA NULL
@@ -139,6 +143,19 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         }
     }
 
+    public void mostrarResultados(List<Producto> resultados) {
+        jPanelListaProductos.removeAll();
+        jPanelListaProductos.setLayout(new BoxLayout(jPanelListaProductos, BoxLayout.Y_AXIS));
+        jPanelListaProductos.setOpaque(false);
+
+        for (Producto producto : resultados) {
+            PanelProductoComanda panel = new PanelProductoComanda(producto, this::agregarProductoSeleccionado);
+            jPanelListaProductos.add(panel);
+        }
+
+        jPanelListaProductos.revalidate();
+        jPanelListaProductos.repaint();
+    }
     public void mostrar() {
         setVisible(true);
     }
@@ -148,6 +165,7 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         dispose();
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -218,7 +236,7 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         jScrollPaneProductosSeleccionados.setViewportView(jPanelProductosSeleccionados);
 
         getContentPane().add(jScrollPaneProductosSeleccionados, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 290, 450, 340));
-        getContentPane().add(jPanelBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 250, 260, 30));
+        getContentPane().add(jPanelBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 250, 250, 30));
 
         jScrollPaneListsProductos.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPaneListsProductos.setViewportView(jPanelListaProductos);

@@ -138,7 +138,7 @@
     <Container class="javax.swing.JPanel" name="jPanelBuscador">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="340" y="250" width="260" height="30"/>
+          <AbsoluteConstraints x="340" y="250" width="250" height="30"/>
         </Constraint>
       </Constraints>
 
