@@ -11,13 +11,16 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.function.Consumer;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantes.utils.FontManager;
 import wonderland.sistemarestaurantesdominio.Producto;
+import wonderland.sistemarestaurantesnegocio.IProductosBO;
 
 /**
  *
@@ -26,8 +29,15 @@ import wonderland.sistemarestaurantesdominio.Producto;
 public class PanelProductoComanda extends JPanel {
     
     FontManager fontManager = new FontManager();
+    private ControlPresentacion control;
+    private IProductosBO productosBO;
+    private Producto producto;
     
-    public PanelProductoComanda(Producto producto) {
+
+    public PanelProductoComanda(Producto producto, Consumer<Producto> onSeleccionarProducto) {
+        this.control= control;
+        this.productosBO= productosBO;
+        this.producto= producto;
         
         setLayout(new GridBagLayout());
         setPreferredSize(new Dimension(520, 80)); 
@@ -70,6 +80,11 @@ public class PanelProductoComanda extends JPanel {
         gbc.gridy = 0;
         gbc.gridheight = 2;
         gbc.anchor = GridBagConstraints.CENTER;
+
+        btnSeleccionar.addActionListener(e -> {
+            onSeleccionarProducto.accept(producto);
+        });
+
         add(btnSeleccionar, gbc);
     }
 
