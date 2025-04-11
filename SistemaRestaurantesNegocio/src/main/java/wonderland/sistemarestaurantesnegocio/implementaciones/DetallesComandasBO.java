@@ -35,5 +35,10 @@ public class DetallesComandasBO implements IDetallesComandasBO {
     public List<ProductoSeleccionadoDTO> obtenerDetalleComandaPorComanda(ComandaDTO comandaDTO) throws NegocioException {
         return this.detallesComandasDAO.obtenerDetalleComandaPorComanda(comandaDTO);
     }
+
+    @Override
+    public void editarDetalleComanda(Long idComanda, ProductoSeleccionadoDTO productoSeleccionado) throws NegocioException {
+       this.detallesComandasDAO.editarDetalleComanda(idComanda, productoSeleccionado);
+    }
     
 }

@@ -24,6 +24,7 @@ public class ComandaDTO {
     private Mesa mesa;
     private Cliente cliente;
     private List<DetalleComanda> detallesComandas;
+    private List<ProductoSeleccionadoDTO> productosSeleccionados;
 
     public ComandaDTO() {
     }
@@ -58,7 +59,7 @@ public class ComandaDTO {
         this.fechaHoraCreacion = comanda.getFechaHoraCreacion();
         this.mesa = comanda.getMesa();
         this.cliente = comanda.getCliente();
-    }
+    } 
 
     public Calendar getFechaHoraCreacion() {
         return fechaHoraCreacion;
@@ -114,6 +115,14 @@ public class ComandaDTO {
 
     public void setDetallesComandas(List<DetalleComanda> detallesComandas) {
         this.detallesComandas = detallesComandas;
+    }
+    
+    public List<ProductoSeleccionadoDTO> getProductosSeleccionados() {
+    return productosSeleccionados;
+    }
+
+    public void setProductosSeleccionados(List<ProductoSeleccionadoDTO> productosSeleccionados) {
+        this.productosSeleccionados = productosSeleccionados;
     }
 
 

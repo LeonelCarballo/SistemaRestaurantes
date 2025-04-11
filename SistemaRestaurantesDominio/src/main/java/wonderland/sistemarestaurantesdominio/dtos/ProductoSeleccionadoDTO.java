@@ -4,11 +4,14 @@
  */
 package wonderland.sistemarestaurantesdominio.dtos;
 
+import wonderland.sistemarestaurantesdominio.Producto;
+
 /**
  *
  * @author Dana Chavez
  */
 public class ProductoSeleccionadoDTO {  
+    private Producto producto;
     private Long idProducto;
     private String nombreProducto;
     private Integer cantidad;
@@ -56,5 +59,13 @@ public class ProductoSeleccionadoDTO {
     public String getNotas() {
         return notas;
     }
-    
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+        
 }

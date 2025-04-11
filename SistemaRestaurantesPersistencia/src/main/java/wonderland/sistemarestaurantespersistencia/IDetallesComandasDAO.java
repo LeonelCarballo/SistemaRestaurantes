@@ -22,4 +22,6 @@ public interface IDetallesComandasDAO {
     
     public abstract List<ProductoSeleccionadoDTO> obtenerDetalleComandaPorComanda(ComandaDTO comandaDTO);
     
+    public abstract void editarDetalleComanda(Long idComanda, ProductoSeleccionadoDTO productoSeleccionado);
+    
 }

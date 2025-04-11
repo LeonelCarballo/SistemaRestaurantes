@@ -99,6 +99,26 @@ public class DetallesComandasDAO implements IDetallesComandasDAO {
         return query.getResultList();
     }
 
+    @Override
+    public void editarDetalleComanda(Long idComanda, ProductoSeleccionadoDTO productoSeleccionado) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        entityManager.getTransaction().begin();
+
+        String jpql = "SELECT dc FROM DetalleComanda dc WHERE dc.comanda.id = :idComanda AND dc.producto.nombre = :nombreProducto";
+        DetalleComanda detalle = entityManager.createQuery(jpql, DetalleComanda.class)
+            .setParameter("idComanda", idComanda)
+            .setParameter("nombreProducto", productoSeleccionado.getNombreProducto())
+            .getSingleResult();
+
+        detalle.setCantidadProducto(productoSeleccionado.getCantidad());
+        detalle.setPrecio(productoSeleccionado.getPrecioUnitario());
+        detalle.setNota(productoSeleccionado.getNotas());
+
+        entityManager.merge(detalle);
+        entityManager.getTransaction().commit();
+        
+    }
+
 
 
 }

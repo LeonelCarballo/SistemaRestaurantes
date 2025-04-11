@@ -300,7 +300,8 @@ public class ResumenComanda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonEliminarComandaActionPerformed
 
     private void jButtonEditarComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarComandaActionPerformed
-        // TODO add your handling code here:
+        control.mostrarSeleccionarProductosComanda(mesa, comandaDTO);
+        this.dispose();
     }//GEN-LAST:event_jButtonEditarComandaActionPerformed
 
     private void jButtonComandaEntregadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComandaEntregadaActionPerformed

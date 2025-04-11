@@ -32,7 +32,6 @@ import wonderland.sistemarestaurantes.reportes.InicioReporte;
 import wonderland.sistemarestaurantesnegocio.implementaciones.IngredientesBO;
 import wonderland.sistemarestaurantespersistencia.daos.IngredientesDAO;
 import wonderland.sistemarestaurantesdominio.Cliente;
-import wonderland.sistemarestaurantesdominio.Comanda;
 import wonderland.sistemarestaurantesdominio.Ingrediente;
 import wonderland.sistemarestaurantesdominio.Mesa;
 import wonderland.sistemarestaurantesdominio.Producto;
@@ -40,6 +39,7 @@ import wonderland.sistemarestaurantesdominio.UnidadMedida;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoIngredienteDTO;
 import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
+import wonderland.sistemarestaurantesdominio.dtos.DetalleComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.IngredienteProductoDTO;
 import wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
@@ -83,6 +83,8 @@ public class ControlPresentacion {
     
     IngredienteProductoDAO ingredienteProductoDAO = new IngredienteProductoDAO();
     IngredientesProductosBO ingredientesProductosBO = new IngredientesProductosBO(ingredienteProductoDAO);
+    
+    DetalleComandaDTO detalleComandaDTO = new DetalleComandaDTO();
     
 
     private VentanaInicioComanda ventanaInicioComanda = new VentanaInicioComanda();
@@ -185,7 +187,7 @@ public class ControlPresentacion {
     }
 
     public void mostrarSeleccionarProductosComanda(Mesa mesa, ComandaDTO comandaDTO) {
-        SeleccionarProductosComanda ventana = new SeleccionarProductosComanda(this, mesa, comandaDTO, productosBO);
+        SeleccionarProductosComanda ventana = new SeleccionarProductosComanda(this, mesa, comandaDTO, productosBO, detallesComandasBO, detalleComandaDTO);
         ventana.mostrar();
     }
 
@@ -256,5 +258,21 @@ public class ControlPresentacion {
     public void mostrarAsociarCliente(ComandaDTO comandaDTO) {
         AsociarCliente asociarCliente = new AsociarCliente(this, clientesBO, comandasBO, comandaDTO);
         asociarCliente.setVisible(true);
+    }
+    
+    public void mostrarEditarComanda(Mesa mesa, ComandaDTO comandaDTO){
+        
+        SeleccionarProductosComanda seleccionar = new SeleccionarProductosComanda(this, mesa, comandaDTO, productosBO, detallesComandasBO, detalleComandaDTO);
+        
+        List<ProductoSeleccionadoDTO> productosSeleccionados = comandaDTO.getProductosSeleccionados(); 
+        
+        if (productosSeleccionados != null) {
+            for (ProductoSeleccionadoDTO productoSeleccionado : productosSeleccionados) {
+                seleccionar.agregarProductoDesdeDTO(productoSeleccionado); 
+                }
+        }
+
+        seleccionar.mostrar();
+        
     }
 }

@@ -7,10 +7,7 @@ package wonderland.sistemarestaurantes.comandas;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +19,9 @@ import wonderland.sistemarestaurantes.utils.FontManager;
 import wonderland.sistemarestaurantesdominio.Mesa;
 import wonderland.sistemarestaurantesdominio.Producto;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
+import wonderland.sistemarestaurantesdominio.dtos.DetalleComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO;
+import wonderland.sistemarestaurantesnegocio.IDetallesComandasBO;
 import wonderland.sistemarestaurantesnegocio.IProductosBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
@@ -36,7 +35,9 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
     private Mesa mesa;
     private ComandaDTO comandaDTO;
     private IProductosBO productosBO;
-
+    private IDetallesComandasBO detallesComandasBO;
+    private DetalleComandaDTO detalleComandaDTO;
+    
     private static final Logger LOG = Logger.getLogger(SeleccionarProductosComanda.class.getName());
     
     FontManager fontManager = new FontManager();
@@ -49,14 +50,20 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         initComponents();
     }
 
-    public SeleccionarProductosComanda(ControlPresentacion control, Mesa mesa, ComandaDTO comandaDTO, IProductosBO productosBO) {
+    public SeleccionarProductosComanda(ControlPresentacion control, Mesa mesa, ComandaDTO comandaDTO, IProductosBO productosBO, IDetallesComandasBO detallesComandasBO, DetalleComandaDTO detalleComandaDTO) {
         this.control = control;
         this.mesa = mesa;
         this.comandaDTO = comandaDTO;
         this.productosBO = productosBO;
+        this.detallesComandasBO = detallesComandasBO;
+        this.detalleComandaDTO = detalleComandaDTO;
         initComponents();
         setLocationRelativeTo(null);
         mostrarProductos();
+        
+        if(detalleComandaDTO != null) {
+            cargarProductosComandaExistente(comandaDTO);
+        }
         
         jPanelListaProductos.setOpaque(false);
         jScrollPaneListsProductos.setOpaque(false);
@@ -156,6 +163,41 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         jPanelListaProductos.revalidate();
         jPanelListaProductos.repaint();
     }
+    
+    public void cargarProductosComandaExistente(ComandaDTO comandaDTO) {
+    try {
+        List<ProductoSeleccionadoDTO> productosExistentes = detallesComandasBO.obtenerDetalleComandaPorComanda(comandaDTO);
+        
+        jPanelProductosSeleccionados.removeAll();
+        
+        for(ProductoSeleccionadoDTO productoDTO : productosExistentes) {
+            agregarProductoDesdeDTO(productoDTO);
+        }
+        
+        jPanelProductosSeleccionados.revalidate();
+        jPanelProductosSeleccionados.repaint();
+    } catch (NegocioException e) {
+        LOG.log(Level.SEVERE, "Error al cargar productos existentes", e);
+        JOptionPane.showMessageDialog(this, "Error al cargar productos de la comanda", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+    
+    public void agregarProductoDesdeDTO(ProductoSeleccionadoDTO productoSeleccionadoDTO) {
+        Producto producto = productoSeleccionadoDTO.getProducto(); 
+        PanelProductoSeleccionado panel = new PanelProductoSeleccionado(producto);
+
+        panel.setCantidad(productoSeleccionadoDTO.getCantidad());
+        panel.setNotas(productoSeleccionadoDTO.getNotas());
+
+
+        jPanelProductosSeleccionados.setLayout(new BoxLayout(jPanelProductosSeleccionados, BoxLayout.Y_AXIS));
+        jPanelProductosSeleccionados.add(panel);
+        jPanelProductosSeleccionados.revalidate();
+        jPanelProductosSeleccionados.repaint();
+    }
+    
+
+    
     public void mostrar() {
         setVisible(true);
     }
@@ -276,8 +318,12 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
                 }
             }
             
-            boolean esComandaNueva = true;
-            control.mostrarResumenComanda(productos, comandaDTO, esComandaNueva);
+            if(detalleComandaDTO != null){
+                control.mostrarEditarComanda(mesa, comandaDTO);
+            } else {
+                control.mostrarResumenComanda(productos, comandaDTO, true);
+            }
+            
         
     }//GEN-LAST:event_jButtonSiguienteActionPerformed
 
