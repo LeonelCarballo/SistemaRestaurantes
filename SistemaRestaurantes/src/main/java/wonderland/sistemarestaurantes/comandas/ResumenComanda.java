@@ -108,9 +108,9 @@ public class ResumenComanda extends javax.swing.JFrame {
             detalleComandaDTO.setComanda(comandaEntidad);
 
             try {
-                if (esComandaNueva == true) {
+                if (esComandaNueva == false) {
                     this.detallesComandasBO.guardarDetalleComanda(detalleComandaDTO);
-                } else if (esComandaNueva == false) {
+                } else if (esComandaNueva == true) {
                     this.detallesComandasBO.ActualizarDetallesComanda(detalleComandaDTO);
                 }
 
@@ -323,6 +323,7 @@ public class ResumenComanda extends javax.swing.JFrame {
 
     private void jButtonEliminarComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarComandaActionPerformed
         cancelarComanda(comandaDTO);
+        control.mostrarVentanaInicioComanda();
     }//GEN-LAST:event_jButtonEliminarComandaActionPerformed
 
     private void jButtonEditarComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarComandaActionPerformed
