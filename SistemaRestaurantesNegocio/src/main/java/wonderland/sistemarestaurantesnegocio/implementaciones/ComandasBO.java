@@ -4,7 +4,8 @@
  */
 package wonderland.sistemarestaurantesnegocio.implementaciones;
 
-import wonderland.sistemarestaurantesdominio.Cliente;
+import java.util.Calendar;
+import java.util.List;
 import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
 import wonderland.sistemarestaurantesdominio.Comanda;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
@@ -53,6 +54,16 @@ public class ComandasBO implements IComandasBO {
     @Override
     public Comanda cancelarComanda(ComandaDTO comandaDTO) throws NegocioException {
         return this.comandasDAO.cancelarComanda(comandaDTO);
+    }
+
+    @Override
+    public List<ComandaDTO> obtenerComandas() throws NegocioException {
+        return this.comandasDAO.obtenerComandas();
+    }
+
+    @Override
+    public List<ComandaDTO> obtenerComandasPorFechas(Calendar fechaInicio, Calendar fechaFin) throws NegocioException {
+        return this.comandasDAO.obtenerComandasPorFechas(fechaInicio, fechaFin);
     }
     
 }

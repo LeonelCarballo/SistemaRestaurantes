@@ -10,4 +10,5 @@ package wonderland.sistemarestaurantesdominio;
  */
 public enum EstadoComanda {
     ABIERTA,ENTREGADA,CANCELADA
+
 }

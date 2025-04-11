@@ -4,18 +4,108 @@
  */
 package wonderland.sistemarestaurantes.reportes;
 
-/**
- *
- * @author Dana Chavez
- */
-public class ReportesComandas extends javax.swing.JFrame {
+import com.itextpdf.text.Document;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Font;
+import java.awt.Point;
+import java.io.FileOutputStream;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.List;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantes.utils.FontManager;
+import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
+import wonderland.sistemarestaurantesnegocio.IComandasBO;
 
-    /**
-     * Creates new form ReportesComandas
-     */
-    public ReportesComandas() {
+
+
+
+public class ReportesComandas extends javax.swing.JFrame {
+    
+    FontManager fontManager = new FontManager();
+    private IComandasBO comandasBO;
+
+    public ReportesComandas(ControlPresentacion controlPresentacion, IComandasBO comandasBO) {
         initComponents();
+        setLocationRelativeTo(null);
+        
+        this.comandasBO = comandasBO;
+        
+        mostrarTodasLasComandas();
+        jPanelComandas.setOpaque(false);
+        jScrollPaneComandas.setOpaque(false);
+        jScrollPaneComandas.getViewport().setOpaque(false);
+        jScrollPaneComandas.setBorder(null);
+        
+
     }
+    
+    public void mostrarTodasLasComandas() {
+        try {
+            List<ComandaDTO> comandas = comandasBO.obtenerComandas();
+            actualizarListaComandas(comandas);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar comandas: " + ex.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void actualizarListaComandas(List<ComandaDTO> comandas) {
+        jPanelComandas.removeAll(); 
+
+        if (comandas.isEmpty()) {
+            JLabel lblMensaje = new JLabel("No hay comandas en el rango seleccionado");
+            lblMensaje.setFont(new Font("Arial", Font.PLAIN, 16));
+            lblMensaje.setHorizontalAlignment(SwingConstants.CENTER);
+            jPanelComandas.add(lblMensaje);
+        } else {
+            for (ComandaDTO comanda : comandas) {
+                PanelReporteComanda panel = new PanelReporteComanda(comanda);
+                jPanelComandas.add(panel);
+            }
+        }
+
+        jPanelComandas.revalidate();
+        jPanelComandas.repaint();
+
+        SwingUtilities.invokeLater(() -> {
+            jScrollPaneComandas.getViewport().setViewPosition(new Point(0, 0));
+        });
+    }
+    
+    private void aplicarFiltroPorFechas() {
+        LocalDate fechaInicio = pickerFechaInicio.getDate();
+        LocalDate fechaFin = pickerFechaFin.getDate();
+        System.out.println("[DEBUG] Filtrando entre: " + fechaInicio + " y " + fechaFin);
+
+        try {
+            List<ComandaDTO> comandas;
+            if (fechaInicio == null || fechaFin == null) {
+                comandas = comandasBO.obtenerComandas();
+                System.out.println("[DEBUG] Sin filtro. Total comandas: " + comandas.size());
+            } else {
+                Calendar inicio = convertLocalDateToCalendar(fechaInicio);
+                Calendar fin = convertLocalDateToCalendar(fechaFin);
+                comandas = comandasBO.obtenerComandasPorFechas(inicio, fin);
+                System.out.println("[DEBUG] Comandas filtradas: " + comandas.size());
+            }
+
+            actualizarListaComandas(comandas);
+        } catch (Exception ex) {
+            System.err.println("[ERROR] Al filtrar: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al filtrar", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,53 +116,140 @@ public class ReportesComandas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jButtonFiltrar = new javax.swing.JButton();
+        jLabelFechaFin = new javax.swing.JLabel();
+        jLabelFechaInicio = new javax.swing.JLabel();
+        jScrollPaneComandas = new javax.swing.JScrollPane();
+        jPanelComandas = new javax.swing.JPanel();
+        jButtonGenerarReporte = new javax.swing.JButton();
+        pickerFechaFin = new com.github.lgooddatepicker.components.DatePicker();
+        pickerFechaInicio = new com.github.lgooddatepicker.components.DatePicker();
+        jLabelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoReportesComandas.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jButtonFiltrar.setText("jButton1");
+        jButtonFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFiltrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonFiltrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 240, -1, -1));
+
+        jLabelFechaFin.setFont(fontManager.getNotoSerifCondensedRegular(20f)
+        );
+        jLabelFechaFin.setText("Fecha Fin:");
+        getContentPane().add(jLabelFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 240, -1, -1));
+
+        jLabelFechaInicio.setFont(fontManager.getNotoSerifCondensedRegular(20f)
+        );
+        jLabelFechaInicio.setText("Fecha Inicio:");
+        getContentPane().add(jLabelFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, -1, -1));
+
+        jScrollPaneComandas.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        jPanelComandas.setLayout(new javax.swing.BoxLayout(jPanelComandas, javax.swing.BoxLayout.Y_AXIS));
+        jScrollPaneComandas.setViewportView(jPanelComandas);
+
+        getContentPane().add(jScrollPaneComandas, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 350, 860, 310));
+
+        jButtonGenerarReporte.setText("jButton1");
+        jButtonGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGenerarReporteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonGenerarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 680, -1, -1));
+        getContentPane().add(pickerFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 240, 180, -1));
+        getContentPane().add(pickerFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, 180, -1));
+
+        jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoReportesComandas.png"))); // NOI18N
+        getContentPane().add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReportesComandas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReportesComandas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReportesComandas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReportesComandas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ReportesComandas().setVisible(true);
-            }
-        });
+    public static Calendar convertLocalDateToCalendar(LocalDate localDate) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(localDate.getYear(), 
+                     localDate.getMonthValue() - 1,  
+                     localDate.getDayOfMonth());
+        return calendar;
     }
+   
+    private void jButtonGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarReporteActionPerformed
+        Document documento = new Document();
+        String ruta = System.getProperty("user.home");
+        System.out.println(ruta);
+
+        try{
+            LocalDate fechaInicio = pickerFechaInicio.getDate();
+            LocalDate fechaFin = pickerFechaFin.getDate();
+
+            PdfWriter.getInstance(documento, new FileOutputStream(ruta + "/OneDrive/Desktop/Reporte.pdf"));
+
+            documento.open();
+            PdfPTable tabla = new PdfPTable(6);
+            tabla.addCell("Folio");
+            tabla.addCell("Fecha Registro");
+            tabla.addCell("Estado");
+            tabla.addCell("Total Venta");
+            tabla.addCell("Mesa");
+            tabla.addCell("Cliente");
+
+            List<ComandaDTO> comandasDTO;
+            if(fechaInicio == null || fechaFin == null){
+                comandasDTO = this.comandasBO.obtenerComandas();
+            } else {
+                Calendar calendarFechaInicio = convertLocalDateToCalendar(fechaInicio);
+                Calendar calendarFechaFin = convertLocalDateToCalendar(fechaFin);
+
+                comandasDTO = this.comandasBO.obtenerComandasPorFechas(calendarFechaInicio, calendarFechaFin);
+            }
+
+            for (ComandaDTO comanda : comandasDTO) {
+                Calendar calendar = comanda.getFechaHoraCreacion();
+                String fechaHoraStr = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
+                .format(calendar.toInstant().atZone(ZoneId.systemDefault()));
+
+
+                tabla.addCell(comanda.getFolio() != null ? comanda.getFolio() : "");
+                tabla.addCell(fechaHoraStr);
+                //TODO
+                //hacer que si reciba lo que debe 
+                tabla.addCell("xd");
+                tabla.addCell("uwu");
+                tabla.addCell(comanda.getMesa() != null ? String.valueOf(comanda.getMesa().getNumeroMesa()) : "");
+
+                tabla.addCell(comanda.getCliente() != null && comanda.getCliente().getNombreCompleto() != null 
+                    ? comanda.getCliente().getNombreCompleto() 
+                    : "Sin cliente");                           
+            }
+
+            documento.add(tabla);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Error al generar PDF: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }finally {
+            documento.close();
+        }
+    }//GEN-LAST:event_jButtonGenerarReporteActionPerformed
+
+    private void jButtonFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFiltrarActionPerformed
+        aplicarFiltroPorFechas();
+    }//GEN-LAST:event_jButtonFiltrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButtonFiltrar;
+    private javax.swing.JButton jButtonGenerarReporte;
+    private javax.swing.JLabel jLabelFechaFin;
+    private javax.swing.JLabel jLabelFechaInicio;
+    private javax.swing.JLabel jLabelFondo;
+    private javax.swing.JPanel jPanelComandas;
+    private javax.swing.JScrollPane jScrollPaneComandas;
+    private com.github.lgooddatepicker.components.DatePicker pickerFechaFin;
+    private com.github.lgooddatepicker.components.DatePicker pickerFechaInicio;
     // End of variables declaration//GEN-END:variables
 }

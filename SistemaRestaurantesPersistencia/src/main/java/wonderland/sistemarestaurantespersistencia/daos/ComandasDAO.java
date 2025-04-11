@@ -1,9 +1,12 @@
 
 package wonderland.sistemarestaurantespersistencia.daos;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
 import wonderland.sistemarestaurantesdominio.Comanda;
 import wonderland.sistemarestaurantesdominio.EstadoComanda;
@@ -133,8 +136,47 @@ public class ComandasDAO implements IComandasDAO {
         
         return comandaActualizada;
     }
-    
-    
 
+    @Override
+    public List<ComandaDTO> obtenerComandas() {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        String jpqlQuery = "SELECT v FROM Comanda v ORDER BY v.fechaHoraCreacion ASC";
+
+        TypedQuery<Comanda> query = entityManager.createQuery(jpqlQuery, Comanda.class);
+        List<Comanda> comandas = query.getResultList();
+        
+        List<ComandaDTO> comandasDTO = new ArrayList<>();
+        
+        for (Comanda comanda : comandas) {
+            ComandaDTO comandaDTO = new ComandaDTO(comanda);
+            comandasDTO.add(comandaDTO);
+        }
+        
+        return comandasDTO;     
+    }
+
+    @Override
+    public List<ComandaDTO> obtenerComandasPorFechas(Calendar fechaInicio, Calendar fechaFin) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+
+        entityManager.getTransaction().begin();
+        List<Comanda> comandas = entityManager.createQuery(
+                "SELECT c FROM Comanda c WHERE c.fechaHoraCreacion BETWEEN :inicio AND :fin",
+                Comanda.class)
+                .setParameter("inicio", fechaInicio)
+                .setParameter("fin", fechaFin)
+                .getResultList();
+        entityManager.getTransaction().commit();
+
+        List<ComandaDTO> comandasDTO = new ArrayList<>();
+
+        for (Comanda comanda : comandas) {
+            ComandaDTO comandaDTO = new ComandaDTO(comanda);
+            comandasDTO.add(comandaDTO);
+        }
+        
+        return comandasDTO;
+    }
     
+       
 }
