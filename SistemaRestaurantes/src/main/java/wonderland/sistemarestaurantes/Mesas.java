@@ -43,7 +43,7 @@ public class Mesas extends javax.swing.JFrame {
     public void mostrarMesas(){
         try {
             for (Mesa mesa : mesasBO.mostrarMesas()) { 
-                panelMesas.add(new PanelMesas(mesa.getNumeroMesa()));
+                panelMesas.add(new PanelMesas(mesa.getNumeroMesa(), mesa.getEstado()));
             }
         } catch (NegocioException ex) {
             LOG.severe("No se pudo llenar la tabla de mesas: " + ex.getMessage());
@@ -84,14 +84,14 @@ public class Mesas extends javax.swing.JFrame {
         jButtonAgregarMesas.setBackground(new java.awt.Color(255, 255, 255));
         jButtonAgregarMesas.setFont(new java.awt.Font("Century Gothic", 1, 10)); // NOI18N
         jButtonAgregarMesas.setForeground(new java.awt.Color(0, 0, 0));
-        jButtonAgregarMesas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAgregarMesas.png"))); // NOI18N
+        jButtonAgregarMesas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonAgregarMesas.png"))); // NOI18N
         jButtonAgregarMesas.setContentAreaFilled(false);
         jButtonAgregarMesas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAgregarMesasActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAgregarMesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 30, 40, 40));
+        getContentPane().add(jButtonAgregarMesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 30, 40, 40));
 
         jScrollPaneMesas.setBackground(new java.awt.Color(29, 39, 56));
         jScrollPaneMesas.setBorder(null);
@@ -102,7 +102,7 @@ public class Mesas extends javax.swing.JFrame {
         panelMesas.setLayout(new java.awt.GridLayout(0, 5));
         jScrollPaneMesas.setViewportView(panelMesas);
 
-        getContentPane().add(jScrollPaneMesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 150, 600, 380));
+        getContentPane().add(jScrollPaneMesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 200, 790, 500));
 
         jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
         jButtonAnterior.setContentAreaFilled(false);
@@ -111,9 +111,9 @@ public class Mesas extends javax.swing.JFrame {
                 jButtonAnteriorActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, -1, -1));
+        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 610, -1, -1));
 
-        jLabelFondoMesas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/MesasFondo.png"))); // NOI18N
+        jLabelFondoMesas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoMesas.png"))); // NOI18N
         getContentPane().add(jLabelFondoMesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
@@ -136,7 +136,7 @@ public class Mesas extends javax.swing.JFrame {
         mesas = nuevasMesas;
         
         for (Mesa mesa : mesas) {
-            panelMesas.add(new PanelMesas(mesa.getNumeroMesa())); 
+            panelMesas.add(new PanelMesas(mesa.getNumeroMesa(), mesa.getEstado())); 
         }
         
         jScrollPaneMesas.setViewportView(panelMesas);

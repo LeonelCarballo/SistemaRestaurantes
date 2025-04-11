@@ -49,18 +49,18 @@ public class InicioReporte extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButtonReporteComandas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonReporteComanda.png"))); // NOI18N
+        jButtonReporteComandas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonReportesComandas.png"))); // NOI18N
         jButtonReporteComandas.setContentAreaFilled(false);
         jButtonReporteComandas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonReporteComandasActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonReporteComandas, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, 280, 90));
+        getContentPane().add(jButtonReporteComandas, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, 370, 120));
 
-        jButtonReporteClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonReporteCliente.png"))); // NOI18N
+        jButtonReporteClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonReportesClientes.png"))); // NOI18N
         jButtonReporteClientes.setContentAreaFilled(false);
-        getContentPane().add(jButtonReporteClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, 280, 90));
+        getContentPane().add(jButtonReporteClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 490, 370, 120));
 
         jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
         jButtonAnterior.setContentAreaFilled(false);
@@ -69,9 +69,9 @@ public class InicioReporte extends javax.swing.JFrame {
                 jButtonAnteriorActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 80, 80));
+        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 620, 110, 110));
 
-        jLabelFondoInicioRerporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoInicioReportes.png"))); // NOI18N
+        jLabelFondoInicioRerporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoReportes.png"))); // NOI18N
         getContentPane().add(jLabelFondoInicioRerporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();

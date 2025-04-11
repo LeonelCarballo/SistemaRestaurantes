@@ -164,6 +164,10 @@ public class ResumenComanda extends javax.swing.JFrame {
         jButtonEliminarComanda.setVisible(!esComandaNueva);
         jButtonEditarComanda.setVisible(!esComandaNueva);
         jButtonComandaEntregada.setVisible(!esComandaNueva);
+        
+        if(comandaDTO.getCliente() != null){
+            jButtonAsociarCliente.setVisible(false);
+        }
 
 //        jButtonConfirmar.setVisible(esComandaNueva);
     }
@@ -189,6 +193,7 @@ public class ResumenComanda extends javax.swing.JFrame {
         jButtonEliminarComanda = new javax.swing.JButton();
         jButtonEditarComanda = new javax.swing.JButton();
         jButtonComandaEntregada = new javax.swing.JButton();
+        jButtonAsociarCliente = new javax.swing.JButton();
         jPanelTotal = new javax.swing.JPanel();
         jButtonConfirmar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
@@ -214,7 +219,6 @@ public class ResumenComanda extends javax.swing.JFrame {
         getContentPane().add(jButtonEliminarComanda, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 170, -1, -1));
 
         jButtonEditarComanda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonEditarComanda.png"))); // NOI18N
-        jButtonEditarComanda.setActionCommand("");
         jButtonEditarComanda.setContentAreaFilled(false);
         jButtonEditarComanda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -231,6 +235,20 @@ public class ResumenComanda extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonComandaEntregada, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 170, -1, -1));
+
+        jButtonAsociarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonAsociarCliente.png"))); // NOI18N
+        jButtonAsociarCliente.setContentAreaFilled(false);
+        jButtonAsociarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAsociarClienteActionPerformed(evt);
+            }
+        });
+        jButtonAsociarCliente.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jButtonAsociarClientePropertyChange(evt);
+            }
+        });
+        getContentPane().add(jButtonAsociarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 30, 180, 50));
 
         jPanelTotal.setLayout(new java.awt.BorderLayout());
         getContentPane().add(jPanelTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 550, 180, 50));
@@ -318,10 +336,23 @@ public class ResumenComanda extends javax.swing.JFrame {
         control.mostrarVentanaPrincial();
     }//GEN-LAST:event_jButtonComandaEntregadaActionPerformed
 
+    private void jButtonAsociarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAsociarClienteActionPerformed
+        if (comandaDTO != null && comandaDTO.getId() != null) {
+            control.mostrarAsociarCliente(comandaDTO);
+        } else {
+            JOptionPane.showMessageDialog(this, "La comanda aún no está inicializada correctamente.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonAsociarClienteActionPerformed
+
+    private void jButtonAsociarClientePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jButtonAsociarClientePropertyChange
+
+    }//GEN-LAST:event_jButtonAsociarClientePropertyChange
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FondoResumen;
     private javax.swing.JButton jButtonAnterior;
+    private javax.swing.JButton jButtonAsociarCliente;
     private javax.swing.JButton jButtonComandaEntregada;
     private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JButton jButtonEditarComanda;

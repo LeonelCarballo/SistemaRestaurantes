@@ -43,9 +43,6 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
 
     FontManager fontManager = new FontManager();
 
-    /**
-     * Creates new form SeleccionarProductosComanda
-     */
     public SeleccionarProductosComanda() {
         initComponents();
     }
@@ -79,6 +76,10 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         jPanelBuscador.setLayout(new BorderLayout());
         jPanelBuscador.add(buscador, BorderLayout.CENTER);
         buscador.setOpaque(false);
+        
+        if(comandaDTO.getCliente() != null){
+            jButtonAsociarCliente.setVisible(false);
+        }
 
         // TODO
         // MANDA NULL

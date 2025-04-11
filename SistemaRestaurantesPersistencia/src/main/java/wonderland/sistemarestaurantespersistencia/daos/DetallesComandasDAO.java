@@ -126,79 +126,6 @@ public class DetallesComandasDAO implements IDetallesComandasDAO {
 
     }
 
-//    @Override
-//    public List<DetalleComandaDTO> ActualizarDetallesComanda(List<DetalleComandaDTO> listaDto) {
-//        EntityManager em = ManejadorConexiones.getEntityManager();
-//        EntityTransaction tx = em.getTransaction();
-//        DetalleComanda ultimoGuardado = null;
-//
-//        try {
-//            tx.begin();
-//
-//            // Verificar que haya al menos un DTO para obtener la comanda
-//            if (listaDto.isEmpty()) {
-//                throw new IllegalArgumentException("La lista de detalles no puede estar vacía");
-//            }
-//
-//            Long idComanda = listaDto.get(0).getComanda().getId();
-//
-//            // 1. Obtener todos los detalles existentes de esta comanda
-//            List<DetalleComanda> detallesExistentes = em.createQuery(
-//                    "SELECT dc FROM DetalleComanda dc WHERE dc.comanda.id = :idComanda", DetalleComanda.class)
-//                    .setParameter("idComanda", idComanda)
-//                    .getResultList();
-//
-//            // 2. Crear mapa para búsqueda rápida (productoId -> DetalleComanda)
-//            Map<Long, DetalleComanda> mapaExistentes = detallesExistentes.stream()
-//                    .collect(Collectors.toMap(
-//                            dc -> dc.getProducto().getId(),
-//                            dc -> dc
-//                    ));
-//
-//            // 3. Procesar cada DTO
-//            for (DetalleComandaDTO dto : listaDto) {
-//                Long idProducto = dto.getProducto().getId();
-//                Producto producto = em.find(Producto.class, idProducto);
-//                Comanda comanda = em.find(Comanda.class, idComanda);
-//
-//                if (mapaExistentes.containsKey(idProducto)) {
-//                    // Caso 1: El producto ya existe en la comanda
-//                    DetalleComanda detalleExistente = mapaExistentes.get(idProducto);
-//
-//                    if (!detalleExistente.getCantidadProducto().equals(dto.getCantidadProducto())) {
-//                        // Solo actualizar si la cantidad cambió
-//                        detalleExistente.setCantidadProducto(dto.getCantidadProducto());
-//                        detalleExistente.setPrecio(dto.getPrecio());
-//                        detalleExistente.setNota(dto.getNota());
-//                        em.merge(detalleExistente);
-//                        ultimoGuardado = detalleExistente;
-//                    }
-//                    // Si cantidad es igual, no hacer nada
-//                } else {
-//                    // Caso 2: Producto nuevo en la comanda
-//                    DetalleComanda nuevoDetalle = new DetalleComanda();
-//                    nuevoDetalle.setProducto(producto);
-//                    nuevoDetalle.setComanda(comanda);
-//                    nuevoDetalle.setCantidadProducto(dto.getCantidadProducto());
-//                    nuevoDetalle.setPrecio(dto.getPrecio());
-//                    nuevoDetalle.setNota(dto.getNota());
-//
-//                    em.persist(nuevoDetalle);
-//                    ultimoGuardado = nuevoDetalle;
-//                }
-//            }
-//
-//            tx.commit();
-//            return 
-//
-//        } catch (Exception ex) {
-//            if (tx != null && tx.isActive()) {
-//                tx.rollback();
-//            }
-//            throw new RuntimeException("Error al sincronizar detalles de comanda", ex);
-//        }
-//    }
-
     @Override
     public DetalleComanda ActualizarDetallesComanda(DetalleComandaDTO detalleComandaDTO) {
         EntityManager em = ManejadorConexiones.getEntityManager();
@@ -255,10 +182,5 @@ public class DetallesComandasDAO implements IDetallesComandasDAO {
             throw new RuntimeException("Error al actualizar detalle de comanda", ex);
         }
     }
-
-    
-    
-    
-    
 
 }
