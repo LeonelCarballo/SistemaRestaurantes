@@ -6,6 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
 import wonderland.sistemarestaurantesdominio.Comanda;
+import wonderland.sistemarestaurantesdominio.EstadoComanda;
+import wonderland.sistemarestaurantesdominio.EstadoMesa;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.NuevaComandaDTO;
 import wonderland.sistemarestaurantespersistencia.IComandasDAO;
@@ -82,5 +84,55 @@ public class ComandasDAO implements IComandasDAO {
         Comanda comanda = entityManager.find(Comanda.class, idComanda);
         return comanda;   
     }
+
+    @Override
+    public ComandaDTO obtenerComandaActivaPorMesa(Long idMesa) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+
+        String jpql = "SELECT c FROM Comanda c WHERE c.mesa.id = :idMesa AND c.mesa.estado = :estado";
+        Query query = entityManager.createQuery(jpql);
+        query.setParameter("idMesa", idMesa);
+        query.setParameter("estado", EstadoMesa.RESERVADA);
+
+        Comanda comanda = (Comanda) query.getSingleResult();
+        
+        ComandaDTO comandaDTO = new ComandaDTO(comanda);
+        
+        return comandaDTO;
+    }
+
+    @Override
+    public Comanda modificarEstadoComanda(ComandaDTO comandaDTO) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+
+        entityManager.getTransaction().begin();
+        Comanda comanda = entityManager.find(Comanda.class, comandaDTO.getId());
+        comanda.setEstadoComanda(EstadoComanda.ENTREGADA);
+        entityManager.merge(comanda);
+        
+        entityManager.getTransaction().commit();
+        
+        Comanda comandaActualizada = comanda;
+        
+        return comandaActualizada;
+        
+    }
+
+    @Override
+    public Comanda cancelarComanda(ComandaDTO comandaDTO) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+
+        entityManager.getTransaction().begin();
+        Comanda comanda = entityManager.find(Comanda.class, comandaDTO.getId());
+        comanda.setEstadoComanda(EstadoComanda.CANCELADA);
+        entityManager.merge(comanda);
+        
+        entityManager.getTransaction().commit();
+        
+        Comanda comandaActualizada = comanda;
+        
+        return comandaActualizada;
+    }
+
     
 }

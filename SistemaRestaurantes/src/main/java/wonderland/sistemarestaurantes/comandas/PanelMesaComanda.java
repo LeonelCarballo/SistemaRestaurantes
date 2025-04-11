@@ -14,9 +14,12 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.*;
 import java.awt.geom.*;
+import java.util.List;
 import javax.swing.*;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantesdominio.*;
+import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
+import wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO;
 import wonderland.sistemarestaurantesnegocio.IComandasBO;
 
 public class PanelMesaComanda extends JButton {
@@ -25,6 +28,10 @@ public class PanelMesaComanda extends JButton {
     private final Mesa mesa;
     private final VentanaInicioComanda ventana;
     private final ControlPresentacion control;
+    
+    private List<ProductoSeleccionadoDTO> productosSeleccionados;
+    private ComandaDTO comandaDTO;
+    
     private Color colorTexto = Color.BLACK;
     private Color colorFondo;
     FontManager fontManager = new FontManager();
@@ -96,7 +103,12 @@ public class PanelMesaComanda extends JButton {
             case DISPONIBLE ->
                 control.mostrarConfirmacionInicioComanda(mesa, ventana);
             case RESERVADA ->
-                control.mostrarResumenComanda(mesa);
+            {
+                boolean esComandaNueva = false;
+                control.mostrarResumenComandaMesaReservada(mesa, ventana, esComandaNueva);
+            }
+
+
         }
     }
 }

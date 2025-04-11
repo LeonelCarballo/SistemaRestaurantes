@@ -2,24 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package wonderland.sistemarestaurantespersistencia;
+package wonderland.sistemarestaurantesnegocio;
 
 import java.util.List;
 import wonderland.sistemarestaurantesdominio.DetalleComanda;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.DetalleComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO;
+import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
 /**
  *
- * @author payde
+ * @author Dana Chavez
  */
-public interface IDetallesComandasDAO {
+public interface IDetallesComandasBO {
     
-    public abstract DetalleComanda guardarDetalleComanda(DetalleComandaDTO detalleComanda);
+    public DetalleComanda guardarDetalleComanda(DetalleComandaDTO detalleComandaDTO) throws NegocioException;
     
-    public abstract DetalleComanda guardarDetallesComandas(List<DetalleComandaDTO> detalleComanda);
-    
-    public abstract List<ProductoSeleccionadoDTO> obtenerDetalleComandaPorComanda(ComandaDTO comandaDTO);
-    
+    public abstract List<ProductoSeleccionadoDTO> obtenerDetalleComandaPorComanda(ComandaDTO comandaDTO) throws NegocioException;
 }

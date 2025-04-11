@@ -23,5 +23,11 @@ public interface IComandasBO {
     
     public abstract Comanda obtenerComandaPorId(Long idComanda) throws NegocioException;
     
+    public abstract ComandaDTO obtenerComandaActivaPorMesa(Long idMesa) throws NegocioException;
+    
+    public abstract Comanda modificarEstadoComanda(ComandaDTO comandaDTO) throws NegocioException;
+    
+    public abstract Comanda cancelarComanda(ComandaDTO comandaDTO) throws NegocioException;
+    
     
 }

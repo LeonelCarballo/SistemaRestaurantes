@@ -7,6 +7,7 @@ package wonderland.sistemarestaurantesdominio;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -59,7 +60,7 @@ public class Comanda implements Serializable {
     @JoinColumn(name = "id_mesa", nullable = false)
     private Mesa mesa;
     
-    @OneToMany(mappedBy = "comanda")
+    @OneToMany(mappedBy = "comanda", cascade = CascadeType.REMOVE)
     private List<DetalleComanda> detallesComandas;
     
     public Comanda() {
@@ -140,8 +141,6 @@ public class Comanda implements Serializable {
         this.mesa = mesa;
     }
     
-    
-
     @Override
     public int hashCode() {
         int hash = 0;

@@ -151,6 +151,9 @@ public class AgregarIngrediente extends javax.swing.JFrame {
         try {
 
             ingredientesProductosBO.eliminarIngredientesPorProducto(idProducto);
+        } catch (NegocioException ex) {
+            Logger.getLogger(AgregarIngrediente.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
             if (ingredientesDTO == null || ingredientesDTO.isEmpty()) {
                 return;
@@ -281,7 +284,7 @@ public class AgregarIngrediente extends javax.swing.JFrame {
             editar.mostrarIngredientesSeleccionados(ingredientesSeleccionados);
         }
 
-        JOptionPane.showMessageDialog(this, "Ingredientes actualizados correctamente.");
+        JOptionPane.showMessageDialog(this, "Ingredientes agregados correctamente.");
         this.dispose();
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 

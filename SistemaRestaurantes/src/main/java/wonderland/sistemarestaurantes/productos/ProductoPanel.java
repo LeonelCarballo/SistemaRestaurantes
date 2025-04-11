@@ -16,7 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantesdominio.Producto;
-import wonderland.sistemarestaurantesnegocio.implementaciones.ProductosBO;
+import wonderland.sistemarestaurantesnegocio.IProductosBO;
+
 
 /**
  *
@@ -26,10 +27,10 @@ import wonderland.sistemarestaurantesnegocio.implementaciones.ProductosBO;
 public class ProductoPanel extends JPanel {
 
     private ControlPresentacion control;
-    private ProductosBO productosBO;
+    private IProductosBO productosBO;
     private Producto producto;
 
-    public ProductoPanel(ControlPresentacion control, ProductosBO productosBO, Producto producto) {
+    public ProductoPanel(ControlPresentacion control, IProductosBO productosBO, Producto producto) {
         this.control = control;
         this.productosBO = productosBO;
         this.producto = producto;

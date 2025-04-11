@@ -8,6 +8,53 @@ package wonderland.sistemarestaurantesdominio.dtos;
  *
  * @author Dana Chavez
  */
-public class ProductoSeleccionadoDTO {
+public class ProductoSeleccionadoDTO {  
+    private Long idProducto;
+    private String nombreProducto;
+    private Integer cantidad;
+    private Float precioUnitario;
+    private String notas;
+
+    public ProductoSeleccionadoDTO() {
+    }
+
+    public ProductoSeleccionadoDTO(Long idProducto, String nombreProducto, Float precioUnitario, Integer cantidad, String notas) {
+        this.idProducto = idProducto;
+        this.nombreProducto = nombreProducto;
+        this.precioUnitario = precioUnitario;
+        this.cantidad = cantidad;
+        this.notas = notas;
+    }
+
+    public ProductoSeleccionadoDTO(String nombreProducto, Integer cantidad, Float precioUnitario, String notas) {
+        this.nombreProducto = nombreProducto;
+        this.cantidad = cantidad;
+        this.precioUnitario = precioUnitario;
+        this.notas = notas;
+    }  
+ 
+    public float getImporte() {
+        return cantidad * precioUnitario;
+    }
+
+    public Long getIdProducto() {
+        return idProducto;
+    }
+
+    public String getNombreProducto() {
+        return nombreProducto;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public Float getPrecioUnitario() {
+        return precioUnitario;
+    }
+
+    public String getNotas() {
+        return notas;
+    }
     
 }
