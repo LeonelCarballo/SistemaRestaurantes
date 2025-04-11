@@ -23,6 +23,13 @@ public class IngredienteProductoDTO {
         this.id = id;
         this.cantidad = cantidad;
     }
+
+    public IngredienteProductoDTO(Float cantidad, Long idIngrediente, Long idProducto) {
+        this.cantidad = cantidad;
+        this.idIngrediente = idIngrediente;
+        this.idProducto = idProducto;
+    }
+    
  
     public Float getCantidad() {
         return cantidad;

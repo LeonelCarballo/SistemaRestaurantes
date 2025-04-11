@@ -4,7 +4,6 @@
  */
 package wonderland.sistemarestaurantes.productos;
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -14,6 +13,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Consumer;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -22,69 +24,87 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import wonderland.sistemarestaurantesdominio.Ingrediente;
+import wonderland.sistemarestaurantesdominio.UnidadMedida;
 
 /**
  *
  * @author payde
  */
 public class IngredienteSeleccionPanel extends JPanel {
+
     private final Ingrediente ingrediente;
     private final JRadioButton radioSeleccionar;
-    private final JTextField txtCantidad;
     private final JLabel lblUnidad;
+    private ActionListener seleccionListener;
 
-    public IngredienteSeleccionPanel(Ingrediente ingrediente) {
+    public IngredienteSeleccionPanel(Ingrediente ingrediente, Consumer<Ingrediente> onSeleccionarIngrediente) {
         this.ingrediente = ingrediente;
 
         setLayout(new GridBagLayout());
         setOpaque(false);
-        setMaximumSize(new Dimension(400, 35));
-        setPreferredSize(new Dimension(400, 35));
+        setMaximumSize(new Dimension(280, 35));
+        setPreferredSize(new Dimension(280, 35));
 
         Font font = new Font("Century Gothic", Font.PLAIN, 18);
         Color textColor = Color.BLACK;
 
+        // Panel para contener nombre y unidad
+        JPanel nombreUnidadPanel = new JPanel(new GridBagLayout());
+        nombreUnidadPanel.setOpaque(false);
+
+        // RadioButton con el nombre del ingrediente
         radioSeleccionar = new JRadioButton(ingrediente.getNombre());
         radioSeleccionar.setFont(font);
         radioSeleccionar.setForeground(textColor);
         radioSeleccionar.setOpaque(false);
         radioSeleccionar.setHorizontalAlignment(SwingConstants.LEFT);
 
-        txtCantidad = new JTextField(5);
-        txtCantidad.setFont(font);
-        txtCantidad.setVisible(false);
-        txtCantidad.setPreferredSize(new Dimension(60, 30));
-
-        lblUnidad = new JLabel(ingrediente.getUnidadMedida().toString());
+        String abreviatura = "";
+        if(ingrediente.getUnidadMedida() == UnidadMedida.PIEZA){
+            abreviatura = "pz     ";
+        }else if(ingrediente.getUnidadMedida() == UnidadMedida.GR){
+            abreviatura = "gr     ";
+        }else if(ingrediente.getUnidadMedida() == UnidadMedida.ML){
+            abreviatura = "ml     ";
+        }
+        
+        // Label para la unidad de medida (siempre visible)
+        lblUnidad = new JLabel(abreviatura);
         lblUnidad.setFont(font);
         lblUnidad.setForeground(textColor);
-        lblUnidad.setVisible(false);
-        lblUnidad.setPreferredSize(new Dimension(50, 30));
+        lblUnidad.setVisible(true);  // Asegurarse que sea visible
 
+        // Configuración GridBag para nombre y unidad
+        GridBagConstraints gbcNombreUnidad = new GridBagConstraints();
+        gbcNombreUnidad.insets = new Insets(0, 5, 0, 5);
+
+        // Nombre del ingrediente (se expande)
+        gbcNombreUnidad.gridx = 0;
+        gbcNombreUnidad.weightx = 1.0;
+        gbcNombreUnidad.fill = GridBagConstraints.HORIZONTAL;
+        gbcNombreUnidad.anchor = GridBagConstraints.WEST;
+        nombreUnidadPanel.add(radioSeleccionar, gbcNombreUnidad);
+
+        // Unidad de medida (fija)
+        gbcNombreUnidad.gridx = 1;
+        gbcNombreUnidad.weightx = 0;
+        gbcNombreUnidad.fill = GridBagConstraints.NONE;
+        nombreUnidadPanel.add(lblUnidad, gbcNombreUnidad);
+
+        // Configuración GridBag para el panel principal
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(0, 5, 0, 5);
 
-        // Columna 0: radioSeleccionar (ocupa el resto del espacio horizontal, alineado a la izquierda)
+        // Panel de nombre+unidad (ocupa todo el espacio)
         gbc.gridx = 0;
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(radioSeleccionar, gbc);
-
-        // Columna 1: txtCantidad (no se estira, posición fija)
-        gbc.gridx = 1;
-        gbc.weightx = 0;
-        gbc.fill = GridBagConstraints.NONE;
-        add(txtCantidad, gbc);
-
-        // Columna 2: lblUnidad
-        gbc.gridx = 2;
-        add(lblUnidad, gbc);
+        add(nombreUnidadPanel, gbc);
 
         radioSeleccionar.addActionListener(e -> {
             boolean selected = radioSeleccionar.isSelected();
-            txtCantidad.setVisible(selected);
-            lblUnidad.setVisible(selected);
+            onSeleccionarIngrediente.accept(ingrediente);
             revalidate();
             repaint();
         });
@@ -95,15 +115,7 @@ public class IngredienteSeleccionPanel extends JPanel {
     }
 
     public Float getCantidad() {
-        try {
-            return Float.parseFloat(txtCantidad.getText());
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
-
-    public void setCantidad(Float cantidad) {
-        txtCantidad.setText(String.valueOf(cantidad));
+        return ingrediente.getStock();  // Directamente del ingrediente
     }
 
     public Ingrediente getIngrediente() {
@@ -112,13 +124,10 @@ public class IngredienteSeleccionPanel extends JPanel {
 
     public void seleccionar(boolean estado) {
         radioSeleccionar.setSelected(estado);
-        txtCantidad.setVisible(estado);
-        lblUnidad.setVisible(estado);
-        if (!estado) {
-            txtCantidad.setText("");
-        }
+        // Eliminamos la línea que ocultaba la unidad
+    }
+
+    public void setSeleccionListener(ActionListener listener) {
+        this.seleccionListener = listener;
     }
 }
-    
-
-

@@ -80,7 +80,7 @@ public class EditarNombreIngrediente extends javax.swing.JFrame {
                 jButtonConfirmarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, -1, 50));
+        getContentPane().add(jButtonConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, -1, 50));
 
         jButtonAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
         jButtonAtras.setBorderPainted(false);
