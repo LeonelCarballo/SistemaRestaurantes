@@ -280,9 +280,9 @@ public class ControlPresentacion {
         asociarCliente.setVisible(true);
     }
     
-    public void mostrarEditarComanda(Mesa mesa, ComandaDTO comandaDTO){
+    public void mostrarEditarComanda(Mesa mesa, ComandaDTO comandaDTO, boolean esComandaNueva){
         
-        SeleccionarProductosComanda seleccionar = new SeleccionarProductosComanda(this, mesa, comandaDTO, productosBO, detallesComandasBO, detalleComandaDTO, false);
+        SeleccionarProductosComanda seleccionar = new SeleccionarProductosComanda(this, mesa, comandaDTO, productosBO, detallesComandasBO, detalleComandaDTO, esComandaNueva);
         
         List<ProductoSeleccionadoDTO> productosSeleccionados = comandaDTO.getProductosSeleccionados(); 
         
