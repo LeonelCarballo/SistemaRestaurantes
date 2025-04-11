@@ -14,6 +14,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import wonderland.sistemarestaurantesdominio.Cliente;
 import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
+import wonderland.sistemarestaurantesdominio.VistaFidelidadCliente;
 import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteFrecuenteDTO;
 import wonderland.sistemarestaurantespersistencia.conexiones.ManejadorConexiones;
@@ -146,4 +147,32 @@ public class ClientesFrecuentesDAO implements IClientesFrecuentesDAO {
         ClienteFrecuente cliente = entityManager.find(ClienteFrecuente.class, idCliente);
         return cliente;       
     }
+
+    @Override
+    public ClienteFrecuenteDTO obtenerClientesConFidelidad(ClienteFrecuente cliente) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+
+        VistaFidelidadCliente vista = entityManager.find(VistaFidelidadCliente.class, cliente.getId());
+
+        if (vista == null) {
+            return new ClienteFrecuenteDTO(cliente, 0, 0f, 0);
+        }
+
+        return new ClienteFrecuenteDTO(cliente,vista.getVisitas(),vista.getGastoTotal(), vista.getPuntosFidelidad());
+    }
+    
+    @Override
+    public ClienteFrecuenteDTO obtenerDatosFidelidad(Long idCliente) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+
+        VistaFidelidadCliente vista = entityManager.find(VistaFidelidadCliente.class, idCliente);
+
+        if (vista == null) {
+            return new ClienteFrecuenteDTO(null, 0, 0f, 0);
+        }
+
+        ClienteFrecuente cliente = entityManager.find(ClienteFrecuente.class, idCliente);
+        return new ClienteFrecuenteDTO(cliente, vista.getVisitas(), vista.getGastoTotal(), vista.getPuntosFidelidad());
+    }
+
 }

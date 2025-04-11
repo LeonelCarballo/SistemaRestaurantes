@@ -86,6 +86,8 @@ public class ControlPresentacion {
     
     DetalleComandaDTO detalleComandaDTO = new DetalleComandaDTO();
     
+    ClienteFrecuenteDTO clienteFrecuenteDTO = new ClienteFrecuenteDTO();
+    
 
     private VentanaInicioComanda ventanaInicioComanda = new VentanaInicioComanda();
 
@@ -104,7 +106,7 @@ public class ControlPresentacion {
         listaClientes.mostrar();
     }
 
-    public void mostrarPerfilCliente(Cliente cliente) {
+    public void mostrarPerfilCliente(Cliente cliente, ClienteFrecuenteDTO clienteFrecuenteDTO) {
         if (cliente == null) {
             System.out.println("Error: Cliente es null en mostrarPerfilCliente");
             return;
@@ -112,16 +114,35 @@ public class ControlPresentacion {
 
         System.out.println("Mostrando perfil de: " + cliente.getNombre());
 
-        Long clienteId = cliente.getId();
-        String nombreCliente = cliente.getNombre();
-        String apellidoPaternoCliente = cliente.getApellidoPaterno();
-        String apellidoMaternoCliente = cliente.getApellidoMaterno();
-        String correoElectronicoCliente = cliente.getCorreoElectronico();
-        String telefonoCliente = cliente.getTelefono();
-        Calendar fechaRegistroCliente = cliente.getFechaRegistro();
+        if (clienteFrecuenteDTO == null) {
+            clienteFrecuenteDTO = new ClienteFrecuenteDTO();
+        }
 
-        ClienteFrecuenteDTO clienteDTO = new ClienteFrecuenteDTO(clienteId, nombreCliente, apellidoPaternoCliente, apellidoMaternoCliente, correoElectronicoCliente, telefonoCliente, fechaRegistroCliente);
-        PerfilCliente perfilCliente = new PerfilCliente(this, clientesBO, clienteDTO);
+        clienteFrecuenteDTO.setId(cliente.getId());
+        clienteFrecuenteDTO.setNombre(cliente.getNombre());
+        clienteFrecuenteDTO.setApellidoPaterno(cliente.getApellidoPaterno());
+        clienteFrecuenteDTO.setApellidoMaterno(cliente.getApellidoMaterno());
+        clienteFrecuenteDTO.setCorreoElectronico(cliente.getCorreoElectronico());
+        clienteFrecuenteDTO.setTelefono(cliente.getTelefono());
+        clienteFrecuenteDTO.setFechaRegistro(cliente.getFechaRegistro());
+
+        if (clienteFrecuenteDTO.getVisitas() == 0 || 
+            clienteFrecuenteDTO.getGastoTotal() == 0 || 
+            clienteFrecuenteDTO.getPuntosFidelidad() == 0) {
+
+            ClienteFrecuenteDTO datosFidelidad = null;
+            try {
+                datosFidelidad = clientesBO.obtenerDatosFidelidad(cliente.getId());
+            } catch (NegocioException ex) {
+                Logger.getLogger(ControlPresentacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            clienteFrecuenteDTO.setVisitas(datosFidelidad.getVisitas());
+            clienteFrecuenteDTO.setGastoTotal(datosFidelidad.getGastoTotal());
+            clienteFrecuenteDTO.setPuntosFidelidad(datosFidelidad.getPuntosFidelidad());
+        }
+
+        PerfilCliente perfilCliente = new PerfilCliente(this, clientesBO, clienteFrecuenteDTO);
         perfilCliente.mostrar();
     }
 

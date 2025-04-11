@@ -5,14 +5,11 @@
 package wonderland.sistemarestaurantes.clientes;
 
 import java.awt.BorderLayout;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
-import wonderland.sistemarestaurantesdominio.Cliente;
 import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
 import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
 import wonderland.sistemarestaurantesnegocio.IClientesBO;
@@ -49,39 +46,76 @@ public class ListaClientes extends javax.swing.JFrame {
         jPanelBuscador.add(buscadorClientes, BorderLayout.CENTER);
     }
     
+    private ClienteFrecuenteDTO crearClienteDTOConPuntos(ClienteFrecuente cliente) {
+        ClienteFrecuenteDTO dto = new ClienteFrecuenteDTO(
+            cliente.getId(),
+            cliente.getNombre(),
+            cliente.getApellidoPaterno(),
+            cliente.getApellidoMaterno(),
+            cliente.getCorreoElectronico(),
+            cliente.getTelefono(),
+            cliente.getFechaRegistro()
+        );
+
+        try {
+            ClienteFrecuenteDTO datosFidelidad = clientesBO.obtenerDatosFidelidad(cliente.getId());
+            dto.setVisitas(datosFidelidad.getVisitas());
+            dto.setGastoTotal(datosFidelidad.getGastoTotal());
+            dto.setPuntosFidelidad(datosFidelidad.getPuntosFidelidad());
+        } catch (NegocioException ex) {
+            dto.setPuntosFidelidad(0);
+        }
+
+        return dto;
+    }
+
     private void actualizarListaClientes(List<ClienteFrecuente> clientes) {
         panelListaClientes.removeAll();
         for (ClienteFrecuente cliente : clientes) {
+
+            ClienteFrecuenteDTO clienteDTO = crearClienteDTOConPuntos(cliente);
+
             ClientePanel panel = new ClientePanel(
-                cliente,
+                cliente, 
                 "Información",
-                e -> control.mostrarPerfilCliente(cliente)
+                e -> control.mostrarPerfilCliente(cliente, clienteDTO) 
             );
+            panel.actualizarPuntos(clienteDTO.getPuntosFidelidad()); 
             panelListaClientes.add(panel);
         }
         panelListaClientes.revalidate();
         panelListaClientes.repaint();
     }
-    
+
     public void mostrarInformacionClientes() {
         panelListaClientes.removeAll(); 
         try {
             for (ClienteFrecuente cliente : clientesBO.obtenerClientes()) {
+                
+                ClienteFrecuenteDTO clienteDTO = crearClienteDTOConPuntos(cliente);
+
                 ClientePanel panel = new ClientePanel(
-                    cliente,
+                    cliente, 
                     "Información",
-                    e -> control.mostrarPerfilCliente(cliente)
+                    e -> control.mostrarPerfilCliente(cliente, clienteDTO)
                 );
+
+                panel.actualizarPuntos(clienteDTO.getPuntosFidelidad());
+
                 panelListaClientes.add(panel);
             }
         } catch (NegocioException ex) {
             LOG.severe("No se pudo llenar la lista de clientes: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, 
+                "Error al cargar clientes: " + ex.getMessage(),
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
         }
 
         panelListaClientes.revalidate();
         panelListaClientes.repaint();
     }
- 
+
     public void mostrar(){
         setVisible(true);
     }

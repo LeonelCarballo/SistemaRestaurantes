@@ -94,22 +94,21 @@ public class PerfilCliente extends javax.swing.JFrame {
     }
     
     private void cargarDatosCliente(ClienteFrecuenteDTO cliente) {
-        
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 
         String fechaFormateada = dateFormat.format(cliente.getFechaRegistro().getTime());
-        
+
         if (cliente != null) {
+
             jTextFieldNombreCliente.setText(cliente.getNombre());
             jTextFieldApellidoPaterno.setText(cliente.getApellidoPaterno());
             jTextFieldApellidoMaterno.setText(cliente.getApellidoMaterno());
             jTextFieldTelefono.setText(cliente.getTelefono());
             jTextFieldCorreo.setText(cliente.getCorreoElectronico());
             jTextFieldFechaRegistro.setText(fechaFormateada);
-            //jTextFieldPuntos.setText(String.valueOf(cliente.getPuntos()));
 
-            jTextFieldFechaRegistro.setEditable(false);
-            jTextFieldPuntos.setEditable(false);
-            jTextFieldTelefono.setEditable(false);
+            jTextFieldPuntos.setText(String.valueOf(cliente.getPuntosFidelidad()) + " pts");
+            jLabelVisitas.setText(String.valueOf(cliente.getVisitas()));
+            jLabelTotalAcumulado.setText(String.format("$%.2f", cliente.getGastoTotal()));
         }
     }
     
@@ -159,6 +158,8 @@ public class PerfilCliente extends javax.swing.JFrame {
         jLabelTituloNombre = new javax.swing.JLabel();
         jToggleButton1 = new javax.swing.JToggleButton();
         jPanelNumVisitas = new javax.swing.JPanel();
+        jLabelVisitas = new javax.swing.JLabel();
+        jLabelTotalAcumulado = new javax.swing.JLabel();
         jLabelTituloTotal = new javax.swing.JLabel();
         jTextFieldPuntos = new javax.swing.JTextField();
         jTextFieldFechaRegistro = new javax.swing.JTextField();
@@ -235,28 +236,29 @@ public class PerfilCliente extends javax.swing.JFrame {
         getContentPane().add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 230, 40, 40));
 
         jPanelNumVisitas.setBackground(new java.awt.Color(10, 15, 31));
+        jPanelNumVisitas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jPanelNumVisitasLayout = new javax.swing.GroupLayout(jPanelNumVisitas);
-        jPanelNumVisitas.setLayout(jPanelNumVisitasLayout);
-        jPanelNumVisitasLayout.setHorizontalGroup(
-            jPanelNumVisitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 110, Short.MAX_VALUE)
-        );
-        jPanelNumVisitasLayout.setVerticalGroup(
-            jPanelNumVisitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        jLabelVisitas.setFont(fontManager.getNotoSerifCondensedRegular(64f));
+        jLabelVisitas.setForeground(new java.awt.Color(255, 255, 255));
+        jPanelNumVisitas.add(jLabelVisitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 80, 110));
 
         getContentPane().add(jPanelNumVisitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 420, 110, 110));
+
+        jLabelTotalAcumulado.setFont(fontManager.getNotoSerifCondensedRegular(30f));
+        jLabelTotalAcumulado.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(jLabelTotalAcumulado, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 680, 120, 40));
 
         jLabelTituloTotal.setBackground(new java.awt.Color(255, 255, 255));
         jLabelTituloTotal.setFont(fontManager.getNotoSerifCondensedRegular(20f));
         jLabelTituloTotal.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTituloTotal.setText("Total acumulado:");
-        getContentPane().add(jLabelTituloTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 680, -1, -1));
+        getContentPane().add(jLabelTituloTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 690, -1, -1));
 
         jTextFieldPuntos.setBackground(new java.awt.Color(25, 33, 50));
-        jTextFieldPuntos.setBorder(null);
+        jTextFieldPuntos.setFont(fontManager.getNotoSerifCondensedRegular(40f)
+        );
+        jTextFieldPuntos.setForeground(new java.awt.Color(255, 255, 255));
+        jTextFieldPuntos.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 40, 1, 1));
         jTextFieldPuntos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldPuntosActionPerformed(evt);
@@ -463,6 +465,8 @@ public class PerfilCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTituloNombre;
     private javax.swing.JLabel jLabelTituloTelefono;
     private javax.swing.JLabel jLabelTituloTotal;
+    private javax.swing.JLabel jLabelTotalAcumulado;
+    private javax.swing.JLabel jLabelVisitas;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelNombreCliente;
     private javax.swing.JPanel jPanelNumVisitas;

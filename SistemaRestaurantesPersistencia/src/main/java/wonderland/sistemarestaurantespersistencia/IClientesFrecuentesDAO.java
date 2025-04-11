@@ -7,6 +7,7 @@ package wonderland.sistemarestaurantespersistencia;
 import java.util.List;
 import wonderland.sistemarestaurantesdominio.Cliente;
 import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
+import wonderland.sistemarestaurantesdominio.VistaFidelidadCliente;
 import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteFrecuenteDTO;
 import wonderland.sistemarestaurantespersistencia.persistenciaexception.PersistenciaException;
@@ -30,6 +31,10 @@ public interface IClientesFrecuentesDAO {
     public abstract ClienteFrecuente editarCliente(ClienteFrecuenteDTO clienteDTO);
     
     public abstract ClienteFrecuente buscarClientePorId(Long idCliente);
+
+    public abstract ClienteFrecuenteDTO obtenerClientesConFidelidad(ClienteFrecuente cliente);
+    
+    public abstract ClienteFrecuenteDTO obtenerDatosFidelidad(Long idCliente);
     
     
 }

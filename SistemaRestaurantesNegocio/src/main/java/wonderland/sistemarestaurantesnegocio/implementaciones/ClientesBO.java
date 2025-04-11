@@ -7,6 +7,7 @@
     import java.util.List;
     import wonderland.sistemarestaurantesdominio.Cliente;
     import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
+import wonderland.sistemarestaurantesdominio.VistaFidelidadCliente;
     import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
     import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteFrecuenteDTO;
     import wonderland.sistemarestaurantesnegocio.IClientesBO;
@@ -208,4 +209,14 @@
             return this.clientesFrecuentesDAO.buscarClientePorId(id);
         }
 
-    }
+        @Override
+        public ClienteFrecuenteDTO obtenerClientesConFidelidad(ClienteFrecuente cliente) throws NegocioException {
+            return this.clientesFrecuentesDAO.obtenerClientesConFidelidad(cliente);
+        }
+
+        @Override
+        public ClienteFrecuenteDTO obtenerDatosFidelidad(Long idCliente) throws NegocioException {
+            return this.clientesFrecuentesDAO.obtenerDatosFidelidad(idCliente);
+        }
+
+}

@@ -107,6 +107,7 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         jPanelFecha.setOpaque(false);
         jPanelHora.setOpaque(false);
         jPanelMesa.setOpaque(false);
+        jPanelBuscador.setOpaque(false);
 
         jPanelCliente.setOpaque(false);
 

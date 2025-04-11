@@ -45,7 +45,9 @@ public class ResumenComanda extends javax.swing.JFrame {
         initComponents();
     }
 
-    public ResumenComanda(ControlPresentacion control, List<ProductoSeleccionadoDTO> productosSeleccionados, ComandaDTO comandaDTO, IDetallesComandasBO detallesComandasBO, boolean esComandaNueva, IComandasBO comandasBO, Mesa mesa, IMesasBO mesasBO) {
+    public ResumenComanda(ControlPresentacion control, List<ProductoSeleccionadoDTO> productosSeleccionados, ComandaDTO comandaDTO, 
+                            IDetallesComandasBO detallesComandasBO, boolean esComandaNueva, IComandasBO comandasBO, Mesa mesa, IMesasBO mesasBO) {
+        
         this.control = control;
         this.productosSeleccionados = productosSeleccionados;
         this.comandaDTO = comandaDTO;
@@ -58,13 +60,14 @@ public class ResumenComanda extends javax.swing.JFrame {
         setLocationRelativeTo(null);
 
         cargarProductos(productosSeleccionados);
+        configurarVisibilidadBotones();
 
         jPanelResumen.setOpaque(false);
         jScrollPaneResumen.setBorder(null);
         jScrollPaneResumen.getViewport().setOpaque(false);
         jScrollPaneResumen.setOpaque(false);
         jPanelTotal.setOpaque(false);
-
+        
     }
 
     private void cargarProductos(List<ProductoSeleccionadoDTO> productos) {

@@ -25,6 +25,9 @@ public class ClienteFrecuente extends Cliente {
     @Transient
     private Float gastoTotalAcumulado;
     
+    @Transient 
+    private Integer visitas;
+    
     public ClienteFrecuente() {
         
     }
@@ -48,4 +51,14 @@ public class ClienteFrecuente extends Cliente {
     public void setGastoTotalAcumulado(Float gastoTotalAcumulado) {
         this.gastoTotalAcumulado = gastoTotalAcumulado;
     }
+
+    public Integer getVisitas() {
+        return visitas;
+    }
+
+    public void setVisitas(Integer Visitas) {
+        this.visitas = Visitas;
+    }
+    
+    
 }

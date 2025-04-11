@@ -5,6 +5,7 @@
 package wonderland.sistemarestaurantesdominio.dtos;
 
 import java.util.Calendar;
+import wonderland.sistemarestaurantesdominio.Cliente;
 
 /**
  *
@@ -18,6 +19,11 @@ public class ClienteFrecuenteDTO {
     private String correoElectronico;
     private String telefono;
     private Calendar fechaRegistro;
+    
+    private Cliente cliente;
+    private int visitas;
+    private double gastoTotal;
+    private int puntosFidelidad;
 
     public ClienteFrecuenteDTO() {
     }
@@ -42,6 +48,13 @@ public class ClienteFrecuenteDTO {
         this.apellidoMaterno = apellidoMaterno;
         this.correoElectronico = correoElectronico;
         this.telefono = telefono;
+    }
+
+    public ClienteFrecuenteDTO(Cliente cliente, int visitas, double gastoTotal, int puntosFidelidad) {
+        this.cliente = cliente;
+        this.visitas = visitas;
+        this.gastoTotal = gastoTotal;
+        this.puntosFidelidad = puntosFidelidad;
     }
 
     public Long getId() {
@@ -99,6 +112,44 @@ public class ClienteFrecuenteDTO {
     public void setFechaRegistro(Calendar fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public int getVisitas() {
+        return visitas;
+    }
+
+    public void setVisitas(int visitas) {
+        this.visitas = visitas;
+    }
+
+    public double getGastoTotal() {
+        return gastoTotal;
+    }
+
+    public void setGastoTotal(double gastoTotal) {
+        this.gastoTotal = gastoTotal;
+    }
+
+    public int getPuntosFidelidad() {
+        return puntosFidelidad;
+    }
+
+    public void setPuntosFidelidad(int puntosFidelidad) {
+        this.puntosFidelidad = puntosFidelidad;
+    }
+
+
+    
+    
+    
+    
     
     
      

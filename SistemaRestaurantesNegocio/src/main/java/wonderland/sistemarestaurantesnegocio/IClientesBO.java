@@ -6,6 +6,7 @@ package wonderland.sistemarestaurantesnegocio;
 
 import java.util.List;
 import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
+import wonderland.sistemarestaurantesdominio.VistaFidelidadCliente;
 import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteFrecuenteDTO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
@@ -29,5 +30,8 @@ public interface IClientesBO {
     public abstract ClienteFrecuente editarCliente(ClienteFrecuenteDTO clienteDTO) throws NegocioException;
     
     public abstract ClienteFrecuente buscarClientePorId(Long id) throws NegocioException;
+
+    public abstract ClienteFrecuenteDTO obtenerClientesConFidelidad(ClienteFrecuente cliente) throws NegocioException;
     
+    public abstract ClienteFrecuenteDTO obtenerDatosFidelidad(Long idCliente) throws NegocioException;
 }
