@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package wonderland.sistemarestaurantes.productos;
 
 import java.awt.BorderLayout;
@@ -19,6 +15,8 @@ import wonderland.sistemarestaurantes.comandas.SeleccionarProductosComanda;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantes.ingredientes.BuscadorIngredientes;
 import wonderland.sistemarestaurantes.ingredientes.IngredientePanel;
+import wonderland.sistemarestaurantes.productos.IngredienteSeleccionCantidad;
+import wonderland.sistemarestaurantes.productos.IngredienteSeleccionPanel;
 import wonderland.sistemarestaurantesdominio.Ingrediente;
 import wonderland.sistemarestaurantesdominio.Producto;
 import wonderland.sistemarestaurantesdominio.dtos.IngredienteProductoDTO;
@@ -148,27 +146,24 @@ public class AgregarIngrediente extends javax.swing.JFrame {
     }
 
     private void guardarIngredientesSeleccionados(Long idProducto, List<IngredienteProductoDTO> ingredientesDTO) {
-        try {
+    try {
+        ingredientesProductosBO.eliminarIngredientesPorProducto(idProducto);
 
-            ingredientesProductosBO.eliminarIngredientesPorProducto(idProducto);
-        } catch (NegocioException ex) {
-            Logger.getLogger(AgregarIngrediente.class.getName()).log(Level.SEVERE, null, ex);
+        if (ingredientesDTO == null || ingredientesDTO.isEmpty()) {
+            return;
         }
 
-            if (ingredientesDTO == null || ingredientesDTO.isEmpty()) {
-                return;
+        for (IngredienteProductoDTO dto : ingredientesDTO) {
+            if (dto.getCantidad() != null && dto.getCantidad() > 0) {
+                dto.setIdProducto(idProducto);
+                ingredientesProductosBO.registrarIngredienteProducto(dto);
             }
-
-            for (IngredienteProductoDTO dto : ingredientesDTO) {
-                if (dto.getCantidad() != null && dto.getCantidad() > 0) {
-                    dto.setIdProducto(idProducto); // Asegurar el ID del producto
-                    ingredientesProductosBO.registrarIngredienteProducto(dto);
-                }
-            }
-        } catch (NegocioException e) {
-            throw new RuntimeException("Error al guardar ingredientes", e);
         }
+    } catch (NegocioException e) {
+        LOG.log(Level.SEVERE, "Error al guardar ingredientes", e);
+        throw new RuntimeException("Error al guardar ingredientes", e);
     }
+}
 
     private void actualizarListaIngredientes(List<Ingrediente> ingredientes) {
         jPanelListaIngredientes.removeAll();
@@ -257,7 +252,7 @@ public class AgregarIngrediente extends javax.swing.JFrame {
         getContentPane().add(jPanelBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 280, 30));
 
         jLabelFondoAgregarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoAgregarIngrediente.png"))); // NOI18N
-        getContentPane().add(jLabelFondoAgregarIngrediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 0, -1, 416));
+        getContentPane().add(jLabelFondoAgregarIngrediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 416));
 
         jLabelNombreIngrediente1.setBackground(new java.awt.Color(0, 0, 0));
         jLabelNombreIngrediente1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N

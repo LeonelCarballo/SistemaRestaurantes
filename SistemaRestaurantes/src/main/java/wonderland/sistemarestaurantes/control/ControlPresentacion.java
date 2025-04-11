@@ -24,7 +24,7 @@ import wonderland.sistemarestaurantes.ingredientes.AñadirStockIngrediente;
 import wonderland.sistemarestaurantes.ingredientes.EditarNombreIngrediente;
 import wonderland.sistemarestaurantes.ingredientes.ListaIngredientes;
 import wonderland.sistemarestaurantes.ingredientes.NuevoIngrediente;
-import wonderland.sistemarestaurantes.productos.AgregarIngrediente;
+import wonderland.sistemarestaurantes.productos.*;
 import wonderland.sistemarestaurantes.productos.EditarProducto;
 import wonderland.sistemarestaurantes.productos.ListaProductos;
 import wonderland.sistemarestaurantes.productos.NuevoProducto;
@@ -248,8 +248,7 @@ public class ControlPresentacion {
     }
 
     public void mostrarAgregarIngrediente(Long idProducto, NuevoProducto padre, List<IngredienteProductoDTO> seleccionados) {
-    AgregarIngrediente agregar = new AgregarIngrediente(
-        idProducto, ingredientesBO, ingredientesProductosBO, padre, seleccionados);
+        AgregarIngrediente agregar = new AgregarIngrediente(idProducto, ingredientesBO, ingredientesProductosBO, padre, seleccionados);
         agregar.setVisible(true);
     }
     
