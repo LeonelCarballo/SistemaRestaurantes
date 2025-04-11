@@ -77,7 +77,7 @@ public class ConfirmacionInicioComanda extends javax.swing.JPanel {
             comandaDTO.setCliente(comandaCreada.getCliente());
             
 
-            control.mostrarSeleccionarProductosComanda(mesa, comandaDTO);
+            control.mostrarSeleccionarProductosComanda(mesa, comandaDTO, true);
 
         } catch (NegocioException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

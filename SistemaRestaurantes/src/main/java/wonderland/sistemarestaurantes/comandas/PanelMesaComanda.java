@@ -106,6 +106,7 @@ public class PanelMesaComanda extends JButton {
             {
                 boolean esComandaNueva = false;
                 control.mostrarResumenComandaMesaReservada(mesa, ventana, esComandaNueva);
+                ventana.cerrar();
             }
 
 

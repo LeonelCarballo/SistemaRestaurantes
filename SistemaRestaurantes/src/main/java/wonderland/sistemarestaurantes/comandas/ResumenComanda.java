@@ -37,11 +37,10 @@ public class ResumenComanda extends javax.swing.JFrame {
     private IComandasBO comandasBO;
     private IMesasBO mesasBO;
     private Mesa mesa;
-    
     private boolean esComandaNueva;
-    
+
     FontManager fontManager = new FontManager();
-    
+
     public ResumenComanda() {
         initComponents();
     }
@@ -51,124 +50,126 @@ public class ResumenComanda extends javax.swing.JFrame {
         this.productosSeleccionados = productosSeleccionados;
         this.comandaDTO = comandaDTO;
         this.detallesComandasBO = detallesComandasBO;
-        this.comandasBO = comandasBO;     
+        this.comandasBO = comandasBO;
         this.esComandaNueva = esComandaNueva;
         this.mesa = mesa;
         this.mesasBO = mesasBO;
         initComponents();
         setLocationRelativeTo(null);
-        
+
         cargarProductos(productosSeleccionados);
-        
+
         jPanelResumen.setOpaque(false);
         jScrollPaneResumen.setBorder(null);
         jScrollPaneResumen.getViewport().setOpaque(false);
         jScrollPaneResumen.setOpaque(false);
         jPanelTotal.setOpaque(false);
-        
-        
+
     }
-    
+
     private void cargarProductos(List<ProductoSeleccionadoDTO> productos) {
         jPanelResumen.setLayout(new BoxLayout(jPanelResumen, BoxLayout.Y_AXIS));
-        
+
         Float total = 0f;
 
         for (ProductoSeleccionadoDTO producto : productos) {
-                  
+
             jPanelResumen.add(new PanelResumen(producto));
             total += producto.getCantidad() * producto.getPrecioUnitario();
         }
-        
 
         Color colorTexto = new Color(32, 56, 107);
-        
+
         JLabel lblTotal = new JLabel(String.format("$%.2f", total));
         jPanelTotal.add(lblTotal, BorderLayout.WEST);
         lblTotal.setFont(fontManager.getNunitoBold(22f));
         lblTotal.setForeground(colorTexto);
-        
+
         configurarVisibilidadBotones();
-        jPanelResumen.revalidate();      
+        jPanelResumen.revalidate();
     }
-    
-    public void confirmarComanda(){
+
+    public void confirmarComanda() {
         for (ProductoSeleccionadoDTO producto : productosSeleccionados) {
-                DetalleComandaDTO detalleComandaDTO = new DetalleComandaDTO();
-                detalleComandaDTO.setCantidadProducto(producto.getCantidad());
-                detalleComandaDTO.setPrecio(producto.getPrecioUnitario());
-                detalleComandaDTO.setNota(producto.getNotas());
+            DetalleComandaDTO detalleComandaDTO = new DetalleComandaDTO();
+            detalleComandaDTO.setCantidadProducto(producto.getCantidad());
+            detalleComandaDTO.setPrecio(producto.getPrecioUnitario());
+            detalleComandaDTO.setNota(producto.getNotas());
 
-                Producto productoEntidad = new Producto();
-                productoEntidad.setId(producto.getIdProducto());
-                detalleComandaDTO.setProducto(productoEntidad);
+            Producto productoEntidad = new Producto();
+            productoEntidad.setId(producto.getIdProducto());
+            detalleComandaDTO.setProducto(productoEntidad);
 
-                Comanda comandaEntidad = new Comanda();
-                comandaEntidad.setId(comandaDTO.getId());
-                detalleComandaDTO.setComanda(comandaEntidad);
+            Comanda comandaEntidad = new Comanda();
+            comandaEntidad.setId(comandaDTO.getId());
+            detalleComandaDTO.setComanda(comandaEntidad);
 
-                try {
+            try {
+                if (esComandaNueva == true) {
                     this.detallesComandasBO.guardarDetalleComanda(detalleComandaDTO);
-                    JOptionPane.showMessageDialog(this, "Se registro el detalle de la comanda con exito","Informacion", JOptionPane.INFORMATION_MESSAGE);
-                } catch (NegocioException e) {
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(this, "Error al guardar un detalle: " + e.getMessage());
+                } else if (esComandaNueva == false) {
+                    this.detallesComandasBO.ActualizarDetallesComanda(detalleComandaDTO);
                 }
+
+                JOptionPane.showMessageDialog(this, "Se registro el detalle de la comanda con exito", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            } catch (NegocioException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al guardar un detalle: " + e.getMessage());
+            }
         }
     }
-    
+
     private void marcarComandaEntregada(ComandaDTO comandaDTO) {
         try {
             this.comandasBO.modificarEstadoComanda(comandaDTO);
-            
+
             mesasBO.cambiarEstadoMesa(mesa.getId(), EstadoMesa.DISPONIBLE);
-            
+
             JOptionPane.showMessageDialog(this, "Comanda marcada como ENTREGADA");
-            this.dispose(); 
+            this.dispose();
         } catch (NegocioException ex) {
             JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    private void cancelarComanda(ComandaDTO comandaDTO){
+
+    private void cancelarComanda(ComandaDTO comandaDTO) {
         int confirmacion = JOptionPane.showConfirmDialog(
-        this, 
-        "¿Está seguro que desea cancelar esta comanda?",
-        "Confirmar cancelacion",
-        JOptionPane.YES_NO_OPTION
+                this,
+                "¿Está seguro que desea cancelar esta comanda?",
+                "Confirmar cancelacion",
+                JOptionPane.YES_NO_OPTION
         );
 
         if (confirmacion == JOptionPane.YES_OPTION) {
             try {
                 this.comandasBO.cancelarComanda(comandaDTO);
-                
+
                 mesasBO.cambiarEstadoMesa(mesa.getId(), EstadoMesa.DISPONIBLE);
-                
+
                 JOptionPane.showMessageDialog(this, "Comanda cancelada exitosamente");
                 this.dispose();
             } catch (NegocioException ex) {
-                JOptionPane.showMessageDialog(this, 
-                    "Error al cancelar: " + ex.getMessage(),
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,
+                        "Error al cancelar: " + ex.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
     }
-    
+
     private void configurarVisibilidadBotones() {
         jButtonEliminarComanda.setVisible(!esComandaNueva);
         jButtonEditarComanda.setVisible(!esComandaNueva);
         jButtonComandaEntregada.setVisible(!esComandaNueva);
 
-
-        jButtonConfirmar.setVisible(esComandaNueva);
+//        jButtonConfirmar.setVisible(esComandaNueva);
     }
-    
-    public void mostrar(){
+
+    public void mostrar() {
         setVisible(true);
     }
-    
-    public void cerrar(){
+
+    public void cerrar() {
         setVisible(false);
         dispose();
     }
@@ -288,11 +289,15 @@ public class ResumenComanda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
-        // TODO add your handling code here:
+        control.mostrarVentanaInicioComanda();
+        cerrar();
     }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
+
         confirmarComanda();
+        control.mostrarVentanaPrincial();
+        cerrar();
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
     private void jButtonEliminarComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarComandaActionPerformed
@@ -300,13 +305,14 @@ public class ResumenComanda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonEliminarComandaActionPerformed
 
     private void jButtonEditarComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarComandaActionPerformed
-        control.mostrarSeleccionarProductosComanda(mesa, comandaDTO);
-        this.dispose();
+        control.mostrarSeleccionarProductosComanda(mesa, comandaDTO, false);
+        cerrar();
     }//GEN-LAST:event_jButtonEditarComandaActionPerformed
 
     private void jButtonComandaEntregadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComandaEntregadaActionPerformed
 
         marcarComandaEntregada(comandaDTO);
+        control.mostrarVentanaPrincial();
     }//GEN-LAST:event_jButtonComandaEntregadaActionPerformed
 
 

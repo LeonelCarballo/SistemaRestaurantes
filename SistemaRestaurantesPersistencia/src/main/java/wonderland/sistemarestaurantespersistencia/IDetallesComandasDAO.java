@@ -24,4 +24,5 @@ public interface IDetallesComandasDAO {
     
     public abstract void editarDetalleComanda(Long idComanda, ProductoSeleccionadoDTO productoSeleccionado);
     
+    public abstract DetalleComanda ActualizarDetallesComanda(DetalleComandaDTO detalleComandaDTO);
 }

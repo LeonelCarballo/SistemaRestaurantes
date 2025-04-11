@@ -22,4 +22,6 @@ public interface IDetallesComandasBO {
     public abstract List<ProductoSeleccionadoDTO> obtenerDetalleComandaPorComanda(ComandaDTO comandaDTO) throws NegocioException;
     
     public abstract void editarDetalleComanda(Long idComanda, ProductoSeleccionadoDTO productoSeleccionado) throws NegocioException;
+    
+    public DetalleComanda ActualizarDetallesComanda(DetalleComandaDTO detalleComandaDTO) throws NegocioException;
 }

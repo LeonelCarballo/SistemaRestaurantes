@@ -40,5 +40,12 @@ public class DetallesComandasBO implements IDetallesComandasBO {
     public void editarDetalleComanda(Long idComanda, ProductoSeleccionadoDTO productoSeleccionado) throws NegocioException {
        this.detallesComandasDAO.editarDetalleComanda(idComanda, productoSeleccionado);
     }
+
+    @Override
+    public DetalleComanda ActualizarDetallesComanda(DetalleComandaDTO detalleComandaDTO) throws NegocioException {
+        return this.detallesComandasDAO.ActualizarDetallesComanda(detalleComandaDTO);
+    }
+
+   
     
 }

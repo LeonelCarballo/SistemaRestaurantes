@@ -37,11 +37,11 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
     private IProductosBO productosBO;
     private IDetallesComandasBO detallesComandasBO;
     private DetalleComandaDTO detalleComandaDTO;
-    
+    private boolean esComandaNueva;
+
     private static final Logger LOG = Logger.getLogger(SeleccionarProductosComanda.class.getName());
-    
+
     FontManager fontManager = new FontManager();
-    
 
     /**
      * Creates new form SeleccionarProductosComanda
@@ -50,35 +50,36 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         initComponents();
     }
 
-    public SeleccionarProductosComanda(ControlPresentacion control, Mesa mesa, ComandaDTO comandaDTO, IProductosBO productosBO, IDetallesComandasBO detallesComandasBO, DetalleComandaDTO detalleComandaDTO) {
+    public SeleccionarProductosComanda(ControlPresentacion control, Mesa mesa, ComandaDTO comandaDTO, IProductosBO productosBO, IDetallesComandasBO detallesComandasBO, DetalleComandaDTO detalleComandaDTO, boolean EsComandaNueva) {
         this.control = control;
         this.mesa = mesa;
         this.comandaDTO = comandaDTO;
         this.productosBO = productosBO;
         this.detallesComandasBO = detallesComandasBO;
         this.detalleComandaDTO = detalleComandaDTO;
+        this.esComandaNueva = esComandaNueva;
         initComponents();
         setLocationRelativeTo(null);
         mostrarProductos();
-        
-        if(detalleComandaDTO != null) {
+
+        if (esComandaNueva == false) {
             cargarProductosComandaExistente(comandaDTO);
         }
-        
+
         jPanelListaProductos.setOpaque(false);
         jScrollPaneListsProductos.setOpaque(false);
         jScrollPaneListsProductos.getViewport().setOpaque(false);
-        
+
         jPanelProductosSeleccionados.setOpaque(false);
         jScrollPaneProductosSeleccionados.setOpaque(false);
         jScrollPaneProductosSeleccionados.getViewport().setOpaque(false);
         jScrollPaneProductosSeleccionados.setBorder(null);
-        
+
         BuscadorProductosComandas buscador = new BuscadorProductosComandas(productosBO, this);
         jPanelBuscador.setLayout(new BorderLayout());
         jPanelBuscador.add(buscador, BorderLayout.CENTER);
         buscador.setOpaque(false);
-        
+
         // TODO
         // MANDA NULL
 //        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd - MM - yyyy");
@@ -94,7 +95,6 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
 //        JLabel lblHora = new JLabel("Hora : " + formatoHora.format(fecha));
 //        lblHora.setFont(fontManager.getNunitoSemiBold(18f));
 //        lblHora.setForeground(Color.WHITE);
-
         JLabel lblMesa = new JLabel("Mesa : " + (mesa != null ? mesa.getNumeroMesa() : "Desconocida"));
         lblMesa.setFont(fontManager.getNunitoSemiBold(18f));
         lblMesa.setForeground(Color.WHITE);
@@ -102,22 +102,20 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         JLabel lblFolio = new JLabel("Folio : " + (comandaDTO.getFolio() != null ? comandaDTO.getFolio() : "N/A"));
         lblFolio.setFont(fontManager.getNunitoSemiBold(18f));
         lblFolio.setForeground(Color.WHITE);
-        
+
         jPanelFolio.setOpaque(false);
         jPanelFecha.setOpaque(false);
         jPanelHora.setOpaque(false);
         jPanelMesa.setOpaque(false);
-        
+
         jPanelCliente.setOpaque(false);
 
-        
         jPanelFolio.add(lblFolio, BorderLayout.CENTER);
 //        jPanelFecha.add(lblFecha);
 //        jPanelHora.add(lblHora);
         jPanelMesa.add(lblMesa);
 
     }
-    
 
     public void cargarListaDeProductos(List<Producto> productos) {
         jPanelListaProductos.removeAll();
@@ -132,7 +130,7 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         jPanelListaProductos.revalidate();
         jPanelListaProductos.repaint();
     }
-    
+
     private void agregarProductoSeleccionado(Producto producto) {
         PanelProductoSeleccionado panelSeleccionado = new PanelProductoSeleccionado(producto);
         jPanelProductosSeleccionados.setLayout(new BoxLayout(jPanelProductosSeleccionados, BoxLayout.Y_AXIS));
@@ -140,7 +138,7 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         jPanelProductosSeleccionados.revalidate();
         jPanelProductosSeleccionados.repaint();
     }
-    
+
     public void mostrarProductos() {
         try {
             List<Producto> productos = productosBO.obtenerTodos();
@@ -163,41 +161,38 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         jPanelListaProductos.revalidate();
         jPanelListaProductos.repaint();
     }
-    
+
     public void cargarProductosComandaExistente(ComandaDTO comandaDTO) {
-    try {
-        List<ProductoSeleccionadoDTO> productosExistentes = detallesComandasBO.obtenerDetalleComandaPorComanda(comandaDTO);
-        
-        jPanelProductosSeleccionados.removeAll();
-        
-        for(ProductoSeleccionadoDTO productoDTO : productosExistentes) {
-            agregarProductoDesdeDTO(productoDTO);
+        try {
+            List<ProductoSeleccionadoDTO> productosExistentes = detallesComandasBO.obtenerDetalleComandaPorComanda(comandaDTO);
+
+            jPanelProductosSeleccionados.removeAll();
+
+            for (ProductoSeleccionadoDTO productoDTO : productosExistentes) {
+                agregarProductoDesdeDTO(productoDTO);
+            }
+
+            jPanelProductosSeleccionados.revalidate();
+            jPanelProductosSeleccionados.repaint();
+        } catch (NegocioException e) {
+            LOG.log(Level.SEVERE, "Error al cargar productos existentes", e);
+            JOptionPane.showMessageDialog(this, "Error al cargar productos de la comanda", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-        jPanelProductosSeleccionados.revalidate();
-        jPanelProductosSeleccionados.repaint();
-    } catch (NegocioException e) {
-        LOG.log(Level.SEVERE, "Error al cargar productos existentes", e);
-        JOptionPane.showMessageDialog(this, "Error al cargar productos de la comanda", "Error", JOptionPane.ERROR_MESSAGE);
     }
-}
-    
+
     public void agregarProductoDesdeDTO(ProductoSeleccionadoDTO productoSeleccionadoDTO) {
-        Producto producto = productoSeleccionadoDTO.getProducto(); 
+        Producto producto = productoSeleccionadoDTO.getProducto();
         PanelProductoSeleccionado panel = new PanelProductoSeleccionado(producto);
 
         panel.setCantidad(productoSeleccionadoDTO.getCantidad());
         panel.setNotas(productoSeleccionadoDTO.getNotas());
-
 
         jPanelProductosSeleccionados.setLayout(new BoxLayout(jPanelProductosSeleccionados, BoxLayout.Y_AXIS));
         jPanelProductosSeleccionados.add(panel);
         jPanelProductosSeleccionados.revalidate();
         jPanelProductosSeleccionados.repaint();
     }
-    
 
-    
     public void mostrar() {
         setVisible(true);
     }
@@ -207,7 +202,6 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         dispose();
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -311,19 +305,13 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
     private void jButtonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSiguienteActionPerformed
         List<ProductoSeleccionadoDTO> productos = new ArrayList<>();
 
-            for (Component comp : jPanelProductosSeleccionados.getComponents()) {
-                if (comp instanceof PanelProductoSeleccionado) {
-                    PanelProductoSeleccionado panel = (PanelProductoSeleccionado) comp;
-                    productos.add(panel.toDTO());
-                }
+        for (Component comp : jPanelProductosSeleccionados.getComponents()) {
+            if (comp instanceof PanelProductoSeleccionado) {
+                PanelProductoSeleccionado panel = (PanelProductoSeleccionado) comp;
+                productos.add(panel.toDTO());
             }
-            
-            if(detalleComandaDTO != null){
-                control.mostrarEditarComanda(mesa, comandaDTO);
-            } else {
-                control.mostrarResumenComanda(productos, comandaDTO, true);
-            }
-            
+        }
+        control.mostrarResumenComanda(productos, comandaDTO, esComandaNueva);
         
     }//GEN-LAST:event_jButtonSiguienteActionPerformed
 
