@@ -44,5 +44,15 @@ public class ComandasBO implements IComandasBO {
     public ComandaDTO obtenerComandaActivaPorMesa(Long idMesa) throws NegocioException {
         return this.comandasDAO.obtenerComandaActivaPorMesa(idMesa);
     }
+
+    @Override
+    public Comanda modificarEstadoComanda(ComandaDTO comandaDTO) throws NegocioException {
+        return this.comandasDAO.modificarEstadoComanda(comandaDTO);
+    }
+
+    @Override
+    public Comanda cancelarComanda(ComandaDTO comandaDTO) throws NegocioException {
+        return this.comandasDAO.cancelarComanda(comandaDTO);
+    }
     
 }

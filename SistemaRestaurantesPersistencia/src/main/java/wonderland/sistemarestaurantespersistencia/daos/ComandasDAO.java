@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
 import wonderland.sistemarestaurantesdominio.Comanda;
+import wonderland.sistemarestaurantesdominio.EstadoComanda;
 import wonderland.sistemarestaurantesdominio.EstadoMesa;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.NuevaComandaDTO;
@@ -98,6 +99,39 @@ public class ComandasDAO implements IComandasDAO {
         ComandaDTO comandaDTO = new ComandaDTO(comanda);
         
         return comandaDTO;
+    }
+
+    @Override
+    public Comanda modificarEstadoComanda(ComandaDTO comandaDTO) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+
+        entityManager.getTransaction().begin();
+        Comanda comanda = entityManager.find(Comanda.class, comandaDTO.getId());
+        comanda.setEstadoComanda(EstadoComanda.ENTREGADA);
+        entityManager.merge(comanda);
+        
+        entityManager.getTransaction().commit();
+        
+        Comanda comandaActualizada = comanda;
+        
+        return comandaActualizada;
+        
+    }
+
+    @Override
+    public Comanda cancelarComanda(ComandaDTO comandaDTO) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+
+        entityManager.getTransaction().begin();
+        Comanda comanda = entityManager.find(Comanda.class, comandaDTO.getId());
+        comanda.setEstadoComanda(EstadoComanda.CANCELADA);
+        entityManager.merge(comanda);
+        
+        entityManager.getTransaction().commit();
+        
+        Comanda comandaActualizada = comanda;
+        
+        return comandaActualizada;
     }
 
     

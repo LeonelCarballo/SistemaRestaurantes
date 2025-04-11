@@ -160,19 +160,19 @@ public class ControlPresentacion {
         registrarCliente.mostrar();
     }
 
-    public void mostrarResumenComanda(List<ProductoSeleccionadoDTO> productosSeleccionados, ComandaDTO comandaDTO) {
-        ResumenComanda resumenComanda = new ResumenComanda(this, productosSeleccionados, comandaDTO, detallesComandasBO);
+    public void mostrarResumenComanda(List<ProductoSeleccionadoDTO> productosSeleccionados, ComandaDTO comandaDTO, boolean esComandaNueva) {
+        ResumenComanda resumenComanda = new ResumenComanda(this, productosSeleccionados, comandaDTO, detallesComandasBO, esComandaNueva, comandasBO, mesa, mesasBO);
         resumenComanda.mostrar();
     }
     
-    public void mostrarResumenComandaMesaReservada(Mesa mesa, VentanaInicioComanda ventana){
+    public void mostrarResumenComandaMesaReservada(Mesa mesa, VentanaInicioComanda ventana, boolean esComandaNueva){
         try {
             ComandaDTO comandaDTO = comandasBO.obtenerComandaActivaPorMesa(mesa.getId());
 
             if (comandaDTO != null) {
                 List<ProductoSeleccionadoDTO> productosSeleccionados = detallesComandasBO.obtenerDetalleComandaPorComanda(comandaDTO);
 
-                ResumenComanda resumenComanda = new ResumenComanda(this, productosSeleccionados, comandaDTO, detallesComandasBO);
+                ResumenComanda resumenComanda = new ResumenComanda(this, productosSeleccionados, comandaDTO, detallesComandasBO, esComandaNueva, comandasBO, mesa, mesasBO);
                 resumenComanda.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró una comanda activa para esta mesa.");

@@ -275,8 +275,9 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
                     productos.add(panel.toDTO());
                 }
             }
-
-            control.mostrarResumenComanda(productos, comandaDTO);
+            
+            boolean esComandaNueva = true;
+            control.mostrarResumenComanda(productos, comandaDTO, esComandaNueva);
         
     }//GEN-LAST:event_jButtonSiguienteActionPerformed
 

@@ -103,8 +103,11 @@ public class PanelMesaComanda extends JButton {
             case DISPONIBLE ->
                 control.mostrarConfirmacionInicioComanda(mesa, ventana);
             case RESERVADA ->
-                // TODO
-                control.mostrarResumenComandaMesaReservada(mesa, ventana);
+            {
+                boolean esComandaNueva = false;
+                control.mostrarResumenComandaMesaReservada(mesa, ventana, esComandaNueva);
+            }
+
 
         }
     }

@@ -13,11 +13,15 @@ import javax.swing.JOptionPane;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantes.utils.FontManager;
 import wonderland.sistemarestaurantesdominio.Comanda;
+import wonderland.sistemarestaurantesdominio.EstadoMesa;
+import wonderland.sistemarestaurantesdominio.Mesa;
 import wonderland.sistemarestaurantesdominio.Producto;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.DetalleComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO;
+import wonderland.sistemarestaurantesnegocio.IComandasBO;
 import wonderland.sistemarestaurantesnegocio.IDetallesComandasBO;
+import wonderland.sistemarestaurantesnegocio.IMesasBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
 /**
@@ -30,20 +34,27 @@ public class ResumenComanda extends javax.swing.JFrame {
     private ComandaDTO comandaDTO;
     private List<ProductoSeleccionadoDTO> productosSeleccionados;
     private IDetallesComandasBO detallesComandasBO;
+    private IComandasBO comandasBO;
+    private IMesasBO mesasBO;
+    private Mesa mesa;
+    
+    private boolean esComandaNueva;
+    
     FontManager fontManager = new FontManager();
     
-    /**
-     * Creates new form ResumenComanda
-     */
     public ResumenComanda() {
         initComponents();
     }
 
-    public ResumenComanda(ControlPresentacion control, List<ProductoSeleccionadoDTO> productosSeleccionados, ComandaDTO comandaDTO, IDetallesComandasBO detallesComandasBO) {
+    public ResumenComanda(ControlPresentacion control, List<ProductoSeleccionadoDTO> productosSeleccionados, ComandaDTO comandaDTO, IDetallesComandasBO detallesComandasBO, boolean esComandaNueva, IComandasBO comandasBO, Mesa mesa, IMesasBO mesasBO) {
         this.control = control;
         this.productosSeleccionados = productosSeleccionados;
         this.comandaDTO = comandaDTO;
         this.detallesComandasBO = detallesComandasBO;
+        this.comandasBO = comandasBO;     
+        this.esComandaNueva = esComandaNueva;
+        this.mesa = mesa;
+        this.mesasBO = mesasBO;
         initComponents();
         setLocationRelativeTo(null);
         
@@ -54,6 +65,7 @@ public class ResumenComanda extends javax.swing.JFrame {
         jScrollPaneResumen.getViewport().setOpaque(false);
         jScrollPaneResumen.setOpaque(false);
         jPanelTotal.setOpaque(false);
+        
         
     }
     
@@ -76,8 +88,8 @@ public class ResumenComanda extends javax.swing.JFrame {
         lblTotal.setFont(fontManager.getNunitoBold(22f));
         lblTotal.setForeground(colorTexto);
         
-        
-        jPanelResumen.revalidate();
+        configurarVisibilidadBotones();
+        jPanelResumen.revalidate();      
     }
     
     public void confirmarComanda(){
@@ -105,6 +117,53 @@ public class ResumenComanda extends javax.swing.JFrame {
         }
     }
     
+    private void marcarComandaEntregada(ComandaDTO comandaDTO) {
+        try {
+            this.comandasBO.modificarEstadoComanda(comandaDTO);
+            
+            mesasBO.cambiarEstadoMesa(mesa.getId(), EstadoMesa.DISPONIBLE);
+            
+            JOptionPane.showMessageDialog(this, "Comanda marcada como ENTREGADA");
+            this.dispose(); 
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void cancelarComanda(ComandaDTO comandaDTO){
+        int confirmacion = JOptionPane.showConfirmDialog(
+        this, 
+        "¿Está seguro que desea cancelar esta comanda?",
+        "Confirmar cancelacion",
+        JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            try {
+                this.comandasBO.cancelarComanda(comandaDTO);
+                
+                mesasBO.cambiarEstadoMesa(mesa.getId(), EstadoMesa.DISPONIBLE);
+                
+                JOptionPane.showMessageDialog(this, "Comanda cancelada exitosamente");
+                this.dispose();
+            } catch (NegocioException ex) {
+                JOptionPane.showMessageDialog(this, 
+                    "Error al cancelar: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    
+    private void configurarVisibilidadBotones() {
+        jButtonEliminarComanda.setVisible(!esComandaNueva);
+        jButtonEditarComanda.setVisible(!esComandaNueva);
+        jButtonComandaEntregada.setVisible(!esComandaNueva);
+
+
+        jButtonConfirmar.setVisible(esComandaNueva);
+    }
+    
     public void mostrar(){
         setVisible(true);
     }
@@ -123,6 +182,9 @@ public class ResumenComanda extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButtonEliminarComanda = new javax.swing.JButton();
+        jButtonEditarComanda = new javax.swing.JButton();
+        jButtonComandaEntregada = new javax.swing.JButton();
         jPanelTotal = new javax.swing.JPanel();
         jButtonConfirmar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
@@ -137,6 +199,34 @@ public class ResumenComanda extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButtonEliminarComanda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonEliminarComanda.png"))); // NOI18N
+        jButtonEliminarComanda.setContentAreaFilled(false);
+        jButtonEliminarComanda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarComandaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonEliminarComanda, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 170, -1, -1));
+
+        jButtonEditarComanda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonEditarComanda.png"))); // NOI18N
+        jButtonEditarComanda.setActionCommand("");
+        jButtonEditarComanda.setContentAreaFilled(false);
+        jButtonEditarComanda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarComandaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonEditarComanda, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 170, 50, 50));
+
+        jButtonComandaEntregada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonComandaEntregada.png"))); // NOI18N
+        jButtonComandaEntregada.setContentAreaFilled(false);
+        jButtonComandaEntregada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonComandaEntregadaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonComandaEntregada, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 170, -1, -1));
 
         jPanelTotal.setLayout(new java.awt.BorderLayout());
         getContentPane().add(jPanelTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 550, 180, 50));
@@ -205,11 +295,27 @@ public class ResumenComanda extends javax.swing.JFrame {
         confirmarComanda();
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
+    private void jButtonEliminarComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarComandaActionPerformed
+        cancelarComanda(comandaDTO);
+    }//GEN-LAST:event_jButtonEliminarComandaActionPerformed
+
+    private void jButtonEditarComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarComandaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEditarComandaActionPerformed
+
+    private void jButtonComandaEntregadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComandaEntregadaActionPerformed
+
+        marcarComandaEntregada(comandaDTO);
+    }//GEN-LAST:event_jButtonComandaEntregadaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FondoResumen;
     private javax.swing.JButton jButtonAnterior;
+    private javax.swing.JButton jButtonComandaEntregada;
     private javax.swing.JButton jButtonConfirmar;
+    private javax.swing.JButton jButtonEditarComanda;
+    private javax.swing.JButton jButtonEliminarComanda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
