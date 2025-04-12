@@ -18,6 +18,16 @@ import wonderland.sistemarestaurantespersistencia.persistenciaexception.Persiste
  */
 public class EmpleadosDAO implements IEmpleadosDAO {
 
+    /**
+     * Inicia sesión de un empleado verificando las credenciales proporcionadas.
+     *
+     * @param usuario Nombre de usuario del empleado.
+     * @param contrasena Contraseña del empleado.
+     * @return El objeto Empleado si las credenciales son válidas; de lo
+     * contrario, null.
+     * @throws PersistenciaException Si ocurre un error inesperado durante la
+     * consulta.
+     */
     @Override
     public Empleado iniciarSesion(String usuario, String contrasena) throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
@@ -28,9 +38,11 @@ public class EmpleadosDAO implements IEmpleadosDAO {
             query.setParameter("usuario", usuario);
             query.setParameter("contrasena", contrasena);
 
-            return query.getSingleResult(); 
+            return query.getSingleResult();
         } catch (NoResultException e) {
-            return null; 
+            return null; // Usuario o contraseña incorrectos
+        } catch (Exception e) {
+            throw new PersistenciaException("No se pudo realizar el inicio de sesión: " + e.getMessage(), e);
         }
     }
     

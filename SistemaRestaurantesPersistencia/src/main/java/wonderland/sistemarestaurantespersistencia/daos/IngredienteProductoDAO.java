@@ -25,12 +25,20 @@ import wonderland.sistemarestaurantespersistencia.persistenciaexception.Persiste
  */ 
 public class IngredienteProductoDAO implements IIngredienteProductoDAO{
     
+        /**
+     * Registra una nueva relación entre un producto y un ingrediente.
+     *
+     * @param ingredienteProductoDTO DTO con los datos de la relación (producto,
+     * ingrediente, cantidad).
+     * @return La entidad `IngredienteProducto` registrada.
+     * @throws PersistenciaException Si ocurre un error al guardar la relación.
+     */
     @Override
     public IngredienteProducto registrarIngredienteProducto(IngredienteProductoDTO ingredienteProductoDTO) throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        
-        try{
-            entityManager.getTransaction().begin(); 
+
+        try {
+            entityManager.getTransaction().begin();
 
             IngredienteProducto relacion = new IngredienteProducto();
 
@@ -52,38 +60,53 @@ public class IngredienteProductoDAO implements IIngredienteProductoDAO{
             entityManager.getTransaction().commit();
 
             return relacion;
-        } catch (Exception e){
-            entityManager.getTransaction().rollback();           
-            throw new PersistenciaException("No se pudo registrar el cliente" + e);           
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new PersistenciaException("Error al registrar la relación ingrediente-producto: " + e.getMessage(), e);
         } finally {
             entityManager.close();
-        }   
+        }
     }
 
+    /**
+     * Busca todas las relaciones ingrediente-producto asociadas a un producto
+     * específico.
+     *
+     * @param idProducto ID del producto para el cual se desea obtener las
+     * asociaciones.
+     * @return Lista de objetos `IngredienteProducto` vinculados al producto.
+     * @throws PersistenciaException Si ocurre un error durante la consulta.
+     */
     @Override
     public List<IngredienteProducto> buscarPorProducto(Long idProducto) throws PersistenciaException {
-        
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        
-        try{
+
+        try {
             String jpql = "SELECT ip FROM IngredienteProducto ip WHERE ip.producto.id = :idProducto";
             TypedQuery<IngredienteProducto> query = entityManager.createQuery(jpql, IngredienteProducto.class);
             query.setParameter("idProducto", idProducto);
 
             return query.getResultList();
-        } catch (Exception e){
-            entityManager.getTransaction().rollback();           
-            throw new PersistenciaException("No se pudo registrar el cliente" + e);           
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new PersistenciaException("Error al buscar ingredientes por producto: " + e.getMessage(), e);
         } finally {
             entityManager.close();
-        }   
+        }
     }
 
+    /**
+     * Elimina todas las asociaciones ingrediente-producto de un producto
+     * específico.
+     *
+     * @param idProducto ID del producto cuyas asociaciones serán eliminadas.
+     * @throws PersistenciaException Si ocurre un error durante la eliminación.
+     */
     @Override
     public void eliminarIngredientesPorProducto(Long idProducto) throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        
-        try{
+
+        try {
             entityManager.getTransaction().begin();
 
             Query query = entityManager.createQuery("DELETE FROM IngredienteProducto ip WHERE ip.producto.id = :idProducto");
@@ -91,12 +114,12 @@ public class IngredienteProductoDAO implements IIngredienteProductoDAO{
             query.executeUpdate();
 
             entityManager.getTransaction().commit();
-        } catch (Exception e){
-            entityManager.getTransaction().rollback();           
-            throw new PersistenciaException("No se pudo registrar el cliente" + e);           
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new PersistenciaException("Error al eliminar ingredientes asociados al producto: " + e.getMessage(), e);
         } finally {
             entityManager.close();
-        }   
+        }
     }
 }
  

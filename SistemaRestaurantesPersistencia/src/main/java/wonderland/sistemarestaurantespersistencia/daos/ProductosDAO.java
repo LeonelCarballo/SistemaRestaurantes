@@ -23,12 +23,18 @@ import wonderland.sistemarestaurantespersistencia.persistenciaexception.Persiste
  * @author payde
  */
 public class ProductosDAO implements IProductosDAO{
-    
+    /**
+     * Registra un nuevo producto en la base de datos.
+     *
+     * @param nuevoProducto DTO con los datos del nuevo producto
+     * @return El producto registrado
+     * @throws PersistenciaException Si ocurre un error durante el registro
+     */
     @Override
-    public Producto registrarProducto(NuevoProductoDTO nuevoProducto) throws PersistenciaException {    
+    public Producto registrarProducto(NuevoProductoDTO nuevoProducto) throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        
-        try{
+
+        try {
             entityManager.getTransaction().begin();
 
             Producto producto = new Producto();
@@ -39,54 +45,69 @@ public class ProductosDAO implements IProductosDAO{
             entityManager.persist(producto);
             entityManager.getTransaction().commit();
 
-            return producto;    
-        } catch (Exception e){
-            entityManager.getTransaction().rollback();           
-            throw new PersistenciaException("No se pudo registrar el cliente" + e);           
+            return producto;
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new PersistenciaException("Error al registrar el producto: " + e.getMessage(), e);
         } finally {
             entityManager.close();
-        }   
+        }
     }
-    
+
+    /**
+     * Obtiene todos los productos almacenados en la base de datos.
+     *
+     * @return Lista de productos
+     * @throws PersistenciaException Si ocurre un error durante la consulta
+     */
     @Override
     public List<Producto> obtenerTodos() throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
 
         try {
             TypedQuery<Producto> query = entityManager.createQuery("SELECT p FROM Producto p", Producto.class);
-            List<Producto> productos = query.getResultList();
-            return productos;
+            return query.getResultList();
         } finally {
             entityManager.close();
+        }
     }
-}
-    
 
+    /**
+     * Obtiene los productos filtrados por tipo.
+     *
+     * @param tipo Tipo de producto a filtrar
+     * @return Lista de productos que coinciden con el tipo
+     * @throws PersistenciaException Si ocurre un error durante la consulta
+     */
     @Override
     public List<Producto> obtenerProductoPorTipo(TipoProducto tipo) throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-          
-        try{
-            List<Producto> productos  = entityManager
+
+        try {
+            return entityManager
                     .createQuery("SELECT p FROM Producto p WHERE p.tipoProducto = :tipo", Producto.class)
                     .setParameter("tipo", tipo)
                     .getResultList();
-
-
-            return productos; 
-        } catch (Exception e){
-            entityManager.getTransaction().rollback();           
-            throw new PersistenciaException("No se pudo registrar el cliente" + e);           
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new PersistenciaException("Error al obtener productos por tipo: " + e.getMessage(), e);
         } finally {
             entityManager.close();
-        }     
+        }
     }
-    
+
+    /**
+     * Edita los datos de un producto existente.
+     *
+     * @param productoDTO DTO con los nuevos datos del producto
+     * @return Producto actualizado
+     * @throws PersistenciaException Si ocurre un error durante la actualización
+     */
     @Override
-    public Producto editarProducto(NuevoProductoDTO productoDTO) throws PersistenciaException  {
+    public Producto editarProducto(NuevoProductoDTO productoDTO) throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        
-        try{
+
+        try {
             entityManager.getTransaction().begin();
 
             Producto productoEncontrado = entityManager.find(Producto.class, productoDTO.getId());
@@ -99,37 +120,44 @@ public class ProductosDAO implements IProductosDAO{
             entityManager.getTransaction().commit();
 
             return productoEncontrado;
-        } catch (Exception e){
-            entityManager.getTransaction().rollback();           
-            throw new PersistenciaException("No se pudo registrar el cliente" + e);           
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new PersistenciaException("Error al editar el producto: " + e.getMessage(), e);
         } finally {
             entityManager.close();
-        }  
-   }
-    
+        }
+    }
+
+    /**
+     * Busca productos cuyo nombre contenga una cadena específica.
+     *
+     * @param nombre Cadena a buscar en los nombres de productos
+     * @return Lista de productos que coincidan parcialmente con el nombre
+     * @throws PersistenciaException Si ocurre un error durante la búsqueda
+     */
     @Override
     public List<Producto> buscarPorNombre(String nombre) throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        
-        try{
+
+        try {
             CriteriaBuilder builder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Producto> criteria = builder.createQuery(Producto.class);
             Root<Producto> entidadProducto = criteria.from(Producto.class);
 
             Predicate nombreLike = builder.like(
-                builder.lower(entidadProducto.get("nombre")),
-                "%" + nombre.toLowerCase() + "%"
+                    builder.lower(entidadProducto.get("nombre")),
+                    "%" + nombre.toLowerCase() + "%"
             );
 
             criteria.select(entidadProducto).where(nombreLike);
 
             TypedQuery<Producto> query = entityManager.createQuery(criteria);
             return query.getResultList();
-        } catch (Exception e){
-            entityManager.getTransaction().rollback();           
-            throw new PersistenciaException("No se pudo registrar el cliente" + e);           
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new PersistenciaException("Error al buscar productos por nombre: " + e.getMessage(), e);
         } finally {
             entityManager.close();
-        }  
-    }   
+        }
+    }
 }
