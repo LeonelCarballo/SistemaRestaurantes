@@ -144,6 +144,7 @@ public class ReportesClientes extends javax.swing.JFrame {
         jScrollPaneListaClientes = new javax.swing.JScrollPane();
         jPanelListaClientes = new javax.swing.JPanel();
         jPanelBuscador = new javax.swing.JPanel();
+        jButtonVolver = new javax.swing.JButton();
         jLabelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -184,15 +185,29 @@ public class ReportesClientes extends javax.swing.JFrame {
         jPanelBuscador.setLayout(new javax.swing.BoxLayout(jPanelBuscador, javax.swing.BoxLayout.LINE_AXIS));
         getContentPane().add(jPanelBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 230, 360, 40));
 
+        jButtonVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonAnterior.png"))); // NOI18N
+        jButtonVolver.setContentAreaFilled(false);
+        jButtonVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVolverActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 620, -1, -1));
+
         jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoReportesClientes.png"))); // NOI18N
         getContentPane().add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVolverActionPerformed
+        cerrar();
+    }//GEN-LAST:event_jButtonVolverActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonVolver;
     private javax.swing.JLabel jLabelFondo;
     private javax.swing.JLabel jLabelNombreCliente;
     private javax.swing.JLabel jLabelPuntos;

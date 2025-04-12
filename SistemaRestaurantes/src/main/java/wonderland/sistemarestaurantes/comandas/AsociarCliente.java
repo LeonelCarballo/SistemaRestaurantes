@@ -24,32 +24,41 @@ import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
  *
  * @author Dana Chavez
  */
-    public class AsociarCliente extends javax.swing.JFrame {
+public class AsociarCliente extends javax.swing.JFrame {
 
-        private ControlPresentacion control;
-        private IClientesBO clientesBO;
-        private IComandasBO comandasBO;
-        private ComandaDTO comandaDTO;
+    private ControlPresentacion control;
+    private IClientesBO clientesBO;
+    private IComandasBO comandasBO;
+    private ComandaDTO comandaDTO;
 
-        public AsociarCliente(ControlPresentacion control, IClientesBO clientesBO, IComandasBO comandasBO, ComandaDTO comandaDTO) {
-            this.control = control;
-            this.clientesBO = clientesBO;
-            this.comandasBO = comandasBO;
-            this.comandaDTO = comandaDTO;
-            initComponents();
-            setLocationRelativeTo(null);
+    public AsociarCliente(ControlPresentacion control, IClientesBO clientesBO, IComandasBO comandasBO, ComandaDTO comandaDTO) {
+        this.control = control;
+        this.clientesBO = clientesBO;
+        this.comandasBO = comandasBO;
+        this.comandaDTO = comandaDTO;
+        initComponents();
+        setLocationRelativeTo(null);
 
-            agregarBuscador();
-            mostrarInformacionClientes();
+        agregarBuscador();
+        mostrarInformacionClientes();
 
-            jPanelListaClientes.setOpaque(false);
-            jScrollPaneClientes.setOpaque(false);
-            jScrollPaneClientes.getViewport().setOpaque(false);
-            jScrollPaneClientes.setBorder(null);
-            jPanelBuscador.setOpaque(false);
+        jPanelListaClientes.setOpaque(false);
+        jScrollPaneClientes.setOpaque(false);
+        jScrollPaneClientes.getViewport().setOpaque(false);
+        jScrollPaneClientes.setBorder(null);
+        jPanelBuscador.setOpaque(false);
 
-    }   
-    
+    }
+
+    public void mostrar() {
+        setVisible(true);
+    }
+
+    public void cerrar() {
+        setVisible(false);
+        dispose();
+    }
+
     private void agregarBuscador() {
         BuscadorClientes buscadorClientes = new BuscadorClientes(clientesBO, this::actualizarListaClientes);
         jPanelBuscador.add(buscadorClientes, BorderLayout.CENTER);
@@ -57,13 +66,13 @@ import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
     private ClienteFrecuenteDTO crearClienteDTOConPuntos(ClienteFrecuente cliente) {
         ClienteFrecuenteDTO dto = new ClienteFrecuenteDTO(
-            cliente.getId(),
-            cliente.getNombre(),
-            cliente.getApellidoPaterno(),
-            cliente.getApellidoMaterno(),
-            cliente.getCorreoElectronico(),
-            cliente.getTelefono(),
-            cliente.getFechaRegistro()
+                cliente.getId(),
+                cliente.getNombre(),
+                cliente.getApellidoPaterno(),
+                cliente.getApellidoMaterno(),
+                cliente.getCorreoElectronico(),
+                cliente.getTelefono(),
+                cliente.getFechaRegistro()
         );
 
         try {
@@ -75,43 +84,14 @@ import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
         return dto;
     }
-    
+
     private void actualizarListaClientes(List<ClienteFrecuente> clientes) {
         jPanelListaClientes.removeAll();
         for (ClienteFrecuente cliente : clientes) {
-            
+
             ClienteFrecuenteDTO clienteDTO = crearClienteDTOConPuntos(cliente);
 
             ClientePanel panel = new ClientePanel(
-                cliente,
-                "Seleccionar",
-                e -> {
-                    try {
-                        Long idComanda = comandaDTO.getId();
-                        Comanda comanda = comandasBO.obtenerComandaPorId(idComanda);
-                        comandasBO.asociarClienteAComanda(comanda, cliente);
-                        JOptionPane.showMessageDialog(this, "Cliente asociado exitosamente.");
-                        dispose();
-                    } catch (NegocioException ex) {
-                        JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-            );
-            panel.actualizarPuntos(clienteDTO.getPuntosFidelidad()); 
-            jPanelListaClientes.add(panel);
-        }
-        jPanelListaClientes.revalidate();
-        jPanelListaClientes.repaint();
-    }
-
-    private void mostrarInformacionClientes() {
-        jPanelListaClientes.removeAll();
-        try {
-            for (ClienteFrecuente cliente : clientesBO.obtenerClientes()) {
-                
-                ClienteFrecuenteDTO clienteDTO = crearClienteDTOConPuntos(cliente);
-
-                ClientePanel panel = new ClientePanel(
                     cliente,
                     "Seleccionar",
                     e -> {
@@ -125,8 +105,37 @@ import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
                             JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         }
                     }
+            );
+            panel.actualizarPuntos(clienteDTO.getPuntosFidelidad());
+            jPanelListaClientes.add(panel);
+        }
+        jPanelListaClientes.revalidate();
+        jPanelListaClientes.repaint();
+    }
+
+    private void mostrarInformacionClientes() {
+        jPanelListaClientes.removeAll();
+        try {
+            for (ClienteFrecuente cliente : clientesBO.obtenerClientes()) {
+
+                ClienteFrecuenteDTO clienteDTO = crearClienteDTOConPuntos(cliente);
+
+                ClientePanel panel = new ClientePanel(
+                        cliente,
+                        "Seleccionar",
+                        e -> {
+                            try {
+                                Long idComanda = comandaDTO.getId();
+                                Comanda comanda = comandasBO.obtenerComandaPorId(idComanda);
+                                comandasBO.asociarClienteAComanda(comanda, cliente);
+                                JOptionPane.showMessageDialog(this, "Cliente asociado exitosamente.");
+                                dispose();
+                            } catch (NegocioException ex) {
+                                JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
                 );
-                panel.actualizarPuntos(clienteDTO.getPuntosFidelidad()); 
+                panel.actualizarPuntos(clienteDTO.getPuntosFidelidad());
                 jPanelListaClientes.add(panel);
             }
         } catch (NegocioException ex) {
@@ -137,8 +146,6 @@ import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
         jPanelListaClientes.revalidate();
         jPanelListaClientes.repaint();
     }
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -184,9 +191,8 @@ import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
-
+        cerrar();
     }//GEN-LAST:event_jButtonAnteriorActionPerformed
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
