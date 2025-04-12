@@ -134,8 +134,6 @@ public class DetallesComandasDAO implements IDetallesComandasDAO {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("No se pudo obtener el detalle de la comanda: " + e);
-        } finally {
-            entityManager.close();
         }
     }
 
@@ -168,8 +166,6 @@ public class DetallesComandasDAO implements IDetallesComandasDAO {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("No se pudo editar el detalle de la comanda: " + e);
-        } finally {
-            entityManager.close();
         }
     }
 

@@ -52,8 +52,6 @@ public class MesasDAO implements IMesasDAO {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("Error al agregar nuevas mesas: " + e.getMessage(), e);
-        } finally {
-            entityManager.close();
         }
     }
 
@@ -74,8 +72,6 @@ public class MesasDAO implements IMesasDAO {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("Error al consultar las mesas: " + e.getMessage(), e);
-        } finally {
-            entityManager.close();
         }
     }
 
@@ -95,8 +91,6 @@ public class MesasDAO implements IMesasDAO {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("Error al obtener la última mesa registrada: " + e.getMessage(), e);
-        } finally {
-            entityManager.close();
         }
     }
 
@@ -129,8 +123,6 @@ public class MesasDAO implements IMesasDAO {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("Error al cambiar el estado de la mesa: " + e.getMessage(), e);
-        } finally {
-            entityManager.close();
         }
     }
 }

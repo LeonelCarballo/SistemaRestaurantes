@@ -51,8 +51,6 @@ public class ComandasDAO implements IComandasDAO {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("No se pudo crear la comanda: " + e);
-        } finally {
-            entityManager.close();
         }
     }
 
@@ -97,8 +95,6 @@ public class ComandasDAO implements IComandasDAO {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("No se pudo obtener el número consecutivo: " + e);
-        } finally {
-            entityManager.close();
         }
     }
 
@@ -122,8 +118,6 @@ public class ComandasDAO implements IComandasDAO {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("No se pudo asociar el cliente a la comanda: " + e);
-        } finally {
-            entityManager.close();
         }
     }
 
@@ -142,8 +136,6 @@ public class ComandasDAO implements IComandasDAO {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("No se pudo obtener la comanda por ID: " + e);
-        } finally {
-            entityManager.close();
         }
     }
 
@@ -167,8 +159,6 @@ public class ComandasDAO implements IComandasDAO {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("No se pudo obtener la comanda activa por mesa: " + e);
-        } finally {
-            entityManager.close();
         }
     }
 
@@ -192,8 +182,6 @@ public class ComandasDAO implements IComandasDAO {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("No se pudo cambiar el estado de la comanda a ENTREGADA: " + e);
-        } finally {
-            entityManager.close();
         }
     }
 
@@ -217,8 +205,6 @@ public class ComandasDAO implements IComandasDAO {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("No se pudo cancelar la comanda: " + e);
-        } finally {
-            entityManager.close();
         }
     }
 
@@ -244,8 +230,6 @@ public class ComandasDAO implements IComandasDAO {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("No se pudieron obtener todas las comandas: " + e);
-        } finally {
-            entityManager.close();
         }
     }
 
@@ -278,8 +262,6 @@ public class ComandasDAO implements IComandasDAO {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("No se pudieron obtener las comandas por fechas: " + e);
-        } finally {
-            entityManager.close();
         }
     }
 }
