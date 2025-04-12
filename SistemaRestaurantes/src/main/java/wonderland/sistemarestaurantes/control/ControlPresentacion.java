@@ -28,7 +28,9 @@ import wonderland.sistemarestaurantes.productos.*;
 import wonderland.sistemarestaurantes.productos.EditarProducto;
 import wonderland.sistemarestaurantes.productos.ListaProductos;
 import wonderland.sistemarestaurantes.productos.NuevoProducto;
+import wonderland.sistemarestaurantes.reportes.DetalleReporteCliente;
 import wonderland.sistemarestaurantes.reportes.InicioReporte;
+import wonderland.sistemarestaurantes.reportes.ReportesClientes;
 import wonderland.sistemarestaurantes.reportes.ReportesComandas;
 import wonderland.sistemarestaurantesnegocio.implementaciones.IngredientesBO;
 import wonderland.sistemarestaurantespersistencia.daos.IngredientesDAO;
@@ -300,5 +302,15 @@ public class ControlPresentacion {
     public void mostrarReporteComanda(){
         ReportesComandas reportesComandas = new ReportesComandas(this, comandasBO);
         reportesComandas.setVisible(true);
+    }
+    
+    public void mostrarReporteCliente(){
+        ReportesClientes reportesClientes = new ReportesClientes(this, clientesBO);
+        reportesClientes.setVisible(true);
+    }
+    
+    public void mostrarDetalleComandaCliente(){
+        DetalleReporteCliente detalleCliente = new DetalleReporteCliente();
+        detalleCliente.setVisible(true);
     }
 }
