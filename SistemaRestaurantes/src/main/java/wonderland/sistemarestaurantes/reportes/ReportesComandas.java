@@ -9,12 +9,14 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Font;
 import java.awt.Point;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -231,14 +233,21 @@ public class ReportesComandas extends javax.swing.JFrame {
    
     private void jButtonGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarReporteActionPerformed
         Document documento = new Document();
-        String ruta = System.getProperty("user.home");
-        System.out.println(ruta);
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar reporte como...");
+        fileChooser.setSelectedFile(new File("Reporte.pdf"));
+
+        if (fileChooser.showSaveDialog(this) != JFileChooser.APPROVE_OPTION) {
+            return; 
+        }
+        
+        File outputFile = fileChooser.getSelectedFile();
 
         try{
             LocalDate fechaInicio = pickerFechaInicio.getDate();
             LocalDate fechaFin = pickerFechaFin.getDate();
 
-            PdfWriter.getInstance(documento, new FileOutputStream(ruta + "/OneDrive/Desktop/Reporte.pdf"));
+            PdfWriter.getInstance(documento, new FileOutputStream(fileChooser.getSelectedFile()));
 
             documento.open();
             PdfPTable tabla = new PdfPTable(6);
@@ -279,10 +288,19 @@ public class ReportesComandas extends javax.swing.JFrame {
             }
 
             documento.add(tabla);
+            
+            JOptionPane.showMessageDialog(
+                this, 
+                "Reporte generado con éxito en:\n" + outputFile.getAbsolutePath(), 
+                "Éxito", 
+                JOptionPane.INFORMATION_MESSAGE
+            );
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, "Error al generar PDF: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }finally {
-            documento.close();
+            if (documento != null && documento.isOpen()) {
+                documento.close();
+            }
         }
     }//GEN-LAST:event_jButtonGenerarReporteActionPerformed
 
