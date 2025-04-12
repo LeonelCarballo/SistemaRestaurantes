@@ -122,7 +122,7 @@ public class ListaIngredientes extends javax.swing.JFrame {
                 jButtonAnteriorActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 100, 100));
+        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 630, 100, 100));
 
         jButtonAnadirIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnadirProducto.png"))); // NOI18N
         jButtonAnadirIngrediente.setContentAreaFilled(false);
@@ -131,33 +131,33 @@ public class ListaIngredientes extends javax.swing.JFrame {
                 jButtonAnadirIngredienteActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAnadirIngrediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 80, -1, 60));
+        getContentPane().add(jButtonAnadirIngrediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 160, -1, 50));
 
         jLabelNombre.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabelNombre.setForeground(new java.awt.Color(255, 255, 255));
         jLabelNombre.setText("Nombre");
-        getContentPane().add(jLabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 130, -1));
+        getContentPane().add(jLabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, 130, -1));
 
         jLabelStock.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabelStock.setForeground(new java.awt.Color(255, 255, 255));
         jLabelStock.setText("Stock");
-        getContentPane().add(jLabelStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, -1, -1));
+        getContentPane().add(jLabelStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, -1, -1));
 
         Unidad.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         Unidad.setForeground(new java.awt.Color(255, 255, 255));
         Unidad.setText("Unidad");
-        getContentPane().add(Unidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, -1, -1));
+        getContentPane().add(Unidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, -1, -1));
 
         jPanelBuscador.setLayout(new javax.swing.BoxLayout(jPanelBuscador, javax.swing.BoxLayout.LINE_AXIS));
-        getContentPane().add(jPanelBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 170, 280, 30));
+        getContentPane().add(jPanelBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 230, 280, 30));
 
         jPanelListaIngredientes.setOpaque(false);
         jPanelListaIngredientes.setLayout(new javax.swing.BoxLayout(jPanelListaIngredientes, javax.swing.BoxLayout.Y_AXIS));
         jScrollPaneListaIngredientes.setViewportView(jPanelListaIngredientes);
 
-        getContentPane().add(jScrollPaneListaIngredientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 630, 310));
+        getContentPane().add(jScrollPaneListaIngredientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 320, 910, 380));
 
-        jLabelFondoListaIngredientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoIngredientes.png"))); // NOI18N
+        jLabelFondoListaIngredientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoListaIngredientes.png"))); // NOI18N
         getContentPane().add(jLabelFondoListaIngredientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();

@@ -34,7 +34,7 @@ public class IngredientePanel extends JPanel {
     private Long idRol;
 
     public IngredientePanel(Ingrediente ingrediente, Long idRol) {
-        setPreferredSize(new Dimension(400, 50));
+        setPreferredSize(new Dimension(910, 50));
         setLayout(new GridBagLayout());
         setOpaque(false);
         this.idRol = idRol;
@@ -47,16 +47,16 @@ public class IngredientePanel extends JPanel {
         Font font;
 
         try {
-            InputStream is = getClass().getResourceAsStream("/fonts/NotoSerif_Condensed-Regular.ttf"); // Reemplaza con el nombre correcto
+            InputStream is = getClass().getResourceAsStream("/fonts/NotoSerif_Condensed-Regular.ttf"); 
             if (is == null) {
                 throw new IOException("No se encontró la fuente");
             }
 
-            font = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(Font.PLAIN, 16f);
+            font = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(Font.PLAIN, 20f);
 
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
-            font = new Font("SansSerif", Font.PLAIN, 14); // Fallback
+            font = new Font("SansSerif", Font.PLAIN, 18); // Fallback
         }
 
         Color textColor = Color.WHITE;

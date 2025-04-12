@@ -8,11 +8,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
-import wonderland.sistemarestaurantesdominio.Empleado;
+import wonderland.sistemarestaurantes.utils.FontManager;
 import wonderland.sistemarestaurantesdominio.dtos.EmpleadoDTO;
 import wonderland.sistemarestaurantesnegocio.IEmpleadosBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
-import wonderland.sistemarestaurantesnegocio.implementaciones.EmpleadosBO;
 
 /**
  *
@@ -22,6 +21,8 @@ public class IniciarSesion extends javax.swing.JFrame {
 
     ControlPresentacion control;
     IEmpleadosBO empleadosBO;
+    
+    FontManager fontManager = new FontManager();
 
     /**
      * Creates new form IniciarSesion
@@ -35,6 +36,9 @@ public class IniciarSesion extends javax.swing.JFrame {
         this.empleadosBO = empleadosBO;
         initComponents();
         setLocationRelativeTo(null);
+        
+        jTextFieldUsuario.setOpaque(false);
+        jPasswordField.setOpaque(false);
     }
 
 
@@ -64,7 +68,11 @@ public class IniciarSesion extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jTextFieldUsuario.setFont(fontManager.getNunitoBold(14f)
+        );
+        jTextFieldUsuario.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldUsuario.setText("Usuario");
+        jTextFieldUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jTextFieldUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jTextFieldUsuarioMousePressed(evt);
@@ -75,7 +83,7 @@ public class IniciarSesion extends javax.swing.JFrame {
                 jTextFieldUsuarioActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextFieldUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 440, 230, 50));
+        getContentPane().add(jTextFieldUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 440, 230, 40));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setForeground(new java.awt.Color(0, 0, 51));
@@ -85,9 +93,11 @@ public class IniciarSesion extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 550, 230, 50));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 540, 230, 40));
 
+        jPasswordField.setForeground(new java.awt.Color(255, 255, 255));
         jPasswordField.setText("*********");
+        jPasswordField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jPasswordField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPasswordFieldMousePressed(evt);
@@ -98,7 +108,7 @@ public class IniciarSesion extends javax.swing.JFrame {
                 jPasswordFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(jPasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 490, 230, 50));
+        getContentPane().add(jPasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 490, 230, 40));
 
         jLabelFondoIniciarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoIniciarSesion.png"))); // NOI18N
         getContentPane().add(jLabelFondoIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));

@@ -37,9 +37,9 @@ public class ProductoPanel extends JPanel {
         this.producto = producto;
         this.idRol = idRol;
 
-        setPreferredSize(new Dimension(220, 28));
-        setMaximumSize(new Dimension(220, 28));
-        setMinimumSize(new Dimension(220, 28));
+        setPreferredSize(new Dimension(300, 28));
+        setMaximumSize(new Dimension(300, 28));
+        setMinimumSize(new Dimension(300, 28));
         setLayout(new GridBagLayout());
         setOpaque(false);
         setBorder(BorderFactory.createEmptyBorder(1, 5, 1, 5));
