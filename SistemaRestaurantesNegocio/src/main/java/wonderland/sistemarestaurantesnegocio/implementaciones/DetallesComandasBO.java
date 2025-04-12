@@ -29,12 +29,12 @@ public class DetallesComandasBO implements IDetallesComandasBO {
     }
 
 
-    @Override
+   @Override
     public DetalleComanda guardarDetalleComanda(DetalleComandaDTO detalleComandaDTO) throws NegocioException {
         try {
             return this.detallesComandasDAO.guardarDetalleComanda(detalleComandaDTO);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("Error al guardar el detalle de la comanda", ex);
         }
     }
 
@@ -43,7 +43,7 @@ public class DetallesComandasBO implements IDetallesComandasBO {
         try {
             return this.detallesComandasDAO.obtenerDetalleComandaPorComanda(comandaDTO);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("Error al obtener los detalles de la comanda", ex);
         }
     }
 
@@ -52,7 +52,7 @@ public class DetallesComandasBO implements IDetallesComandasBO {
         try {
             this.detallesComandasDAO.editarDetalleComanda(idComanda, productoSeleccionado);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("Error al editar el detalle de la comanda", ex);
         }
     }
 
@@ -61,7 +61,7 @@ public class DetallesComandasBO implements IDetallesComandasBO {
         try {
             return this.detallesComandasDAO.ActualizarDetallesComanda(detalleComandaDTO);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("Error al actualizar el detalle de la comanda", ex);
         }
     }
 

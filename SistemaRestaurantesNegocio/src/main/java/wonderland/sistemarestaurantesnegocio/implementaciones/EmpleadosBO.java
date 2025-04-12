@@ -41,7 +41,7 @@ public class EmpleadosBO implements IEmpleadosBO {
             
             return null;
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("Error al intentar iniciar sesión del empleado");
         }
     }
 }

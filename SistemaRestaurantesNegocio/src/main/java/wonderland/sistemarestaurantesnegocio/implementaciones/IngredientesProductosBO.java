@@ -48,7 +48,7 @@ public class IngredientesProductosBO implements IIngredientesProductosBO{
         try {
             return ingredienteProductoDAO.registrarIngredienteProducto(ingredienteProductoDTO);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudo registrar");
         }
     }
 
@@ -58,29 +58,29 @@ public class IngredientesProductosBO implements IIngredientesProductosBO{
         try {
             entidades = ingredienteProductoDAO.buscarPorProducto(idProducto);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("Error al buscar los ingredientes asociados al producto", ex);
         }
+
         List<IngredienteProductoDTO> ingredientesProductosDTOS = new ArrayList<>();
 
         for (IngredienteProducto entidad : entidades) {
             IngredienteProductoDTO ingredienteProductoDTO = new IngredienteProductoDTO();
             ingredienteProductoDTO.setIdProducto(entidad.getProducto().getId());
             ingredienteProductoDTO.setIdIngrediente(entidad.getIngrediente().getId());
-            ingredienteProductoDTO.setIngrediente(entidad.getIngrediente()); 
+            ingredienteProductoDTO.setIngrediente(entidad.getIngrediente());
             ingredienteProductoDTO.setCantidad(entidad.getCantidad());
             ingredientesProductosDTOS.add(ingredienteProductoDTO);
         }
+
         return ingredientesProductosDTOS;
-    }   
+    }
 
     @Override
     public void eliminarIngredientesPorProducto(Long idProducto) throws NegocioException {
         try {
             this.ingredienteProductoDAO.eliminarIngredientesPorProducto(idProducto);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("Error al eliminar los ingredientes asociados al producto", ex);
         }
     }
-
-    
 }

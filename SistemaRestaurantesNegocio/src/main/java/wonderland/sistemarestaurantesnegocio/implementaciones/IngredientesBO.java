@@ -57,7 +57,7 @@ public class IngredientesBO implements IIngredientesBO {
         try {
             return this.ingredientesDAO.registrarIngrediente(nuevoIngrediente);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudo registrar el ingrediente");
         }
     }
 
@@ -75,7 +75,7 @@ public class IngredientesBO implements IIngredientesBO {
         try {
             return this.ingredientesDAO.obtenerTodos();
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudieron obtener los ingredientes");
         }
     }
 
@@ -93,38 +93,37 @@ public class IngredientesBO implements IIngredientesBO {
         try {
             return this.ingredientesDAO.editarNombre(nuevoIngredienteDTO);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudo editar el nombre del ingrediente");
         }
     }
 
+ 
     public boolean existeIngrediente(String nombre, UnidadMedida unidadMedida, Long idExcluido) throws NegocioException {
         try {
             List<Ingrediente> ingredientes = ingredientesDAO.consultarIngredientes();
             return ingredientes.stream()
                     .anyMatch(i -> i.getNombre().equalsIgnoreCase(nombre)
-                            && i.getUnidadMedida().equals(unidadMedida));
+                    && i.getUnidadMedida().equals(unidadMedida));
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("Error al verificar la existencia del ingrediente", ex);
         }
     }
 
     @Override
     public Ingrediente aumentarStock(NuevoIngredienteDTO nuevoIngredienteDTO) throws NegocioException {
-
         try {
             return this.ingredientesDAO.aumentarStock(nuevoIngredienteDTO);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("Error al aumentar el stock del ingrediente", ex);
         }
     }
 
     @Override
     public List<Ingrediente> consultarIngredientesPorNombre(String filtroNombre) throws NegocioException {
-        
         try {
             return this.ingredientesDAO.consultarIngredientesPorNombre(filtroNombre);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
-        }    
+            throw new NegocioException("Error al consultar ingredientes por nombre", ex);
+        }
     }
 }
