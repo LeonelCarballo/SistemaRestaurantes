@@ -34,7 +34,7 @@ public class ComandasBO implements IComandasBO {
         try {
             return this.comandasDAO.asociarClienteAComanda(comanda, cliente);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudo asociar el cliente");
         }
     }
 
@@ -43,7 +43,7 @@ public class ComandasBO implements IComandasBO {
         try {
             return this.comandasDAO.crearNuevarComanda(nuevaComanda);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudo crear una nueva comanda");
         }
     }
 
@@ -52,7 +52,7 @@ public class ComandasBO implements IComandasBO {
         try {
             return this.comandasDAO.obtenerComandaPorId(idComanda);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudo obtener la comanda");
         }
     }
 
@@ -61,7 +61,7 @@ public class ComandasBO implements IComandasBO {
         try {
             return this.comandasDAO.obtenerComandaActivaPorMesa(idMesa);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudo obtener la comanda");
         }
     }
 
@@ -70,7 +70,7 @@ public class ComandasBO implements IComandasBO {
         try {
             return this.comandasDAO.modificarEstadoComanda(comandaDTO);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudo modificar la comanda");
         }
     }
 
@@ -79,7 +79,7 @@ public class ComandasBO implements IComandasBO {
         try {
             return this.comandasDAO.cancelarComanda(comandaDTO);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudo cancelar la comanda");
         }
     }
 
@@ -88,7 +88,7 @@ public class ComandasBO implements IComandasBO {
         try {
             return this.comandasDAO.obtenerComandas();
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudieron obtener las comandas");
         }
     }
 
@@ -97,7 +97,7 @@ public class ComandasBO implements IComandasBO {
         try {
             return this.comandasDAO.obtenerComandasPorFechas(fechaInicio, fechaFin);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudieron obtener las comandas");
         }
     }
     

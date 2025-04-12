@@ -132,7 +132,7 @@ public class ClientesBO implements IClientesBO {
         try {
             return this.clientesFrecuentesDAO.consultarClientesPorNombre(filtroBusqueda);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudo consultar el cliente");
         }
     }
 
@@ -156,7 +156,7 @@ public class ClientesBO implements IClientesBO {
         try {
             return this.clientesFrecuentesDAO.consultarClientesPorCorreoElectronico(filtroBusqueda);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudieron consultar los clientes");
         }
     }
 
@@ -165,7 +165,7 @@ public class ClientesBO implements IClientesBO {
         try {
             return this.clientesFrecuentesDAO.obtenerClientes();
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudieron consultar los clientes");
         }
     }
 
@@ -240,7 +240,7 @@ public class ClientesBO implements IClientesBO {
         try {
             return this.clientesFrecuentesDAO.editarCliente(clienteFrecuenteDTO);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudo editar el cliente");
         }
     }
 
@@ -249,7 +249,7 @@ public class ClientesBO implements IClientesBO {
         try {
             return this.clientesFrecuentesDAO.buscarClientePorId(id);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudo consultar el cliente");
         }
     }
 
@@ -258,7 +258,7 @@ public class ClientesBO implements IClientesBO {
         try {
             return this.clientesFrecuentesDAO.obtenerClientesConFidelidad(cliente);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudo consultar el cliente");
         }
     }
 
@@ -267,7 +267,7 @@ public class ClientesBO implements IClientesBO {
         try {
             return this.clientesFrecuentesDAO.obtenerDatosFidelidad(idCliente);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudieron obtener los datos");
         }
     }
 
@@ -276,7 +276,7 @@ public class ClientesBO implements IClientesBO {
         try {
             return this.clientesFrecuentesDAO.obtenerUltimaVisita(idCliente);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudo obtener la ultima visita");
         }
     }
 }

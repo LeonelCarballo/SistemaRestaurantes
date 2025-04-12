@@ -34,7 +34,7 @@ public class MesasBO implements IMesasBO {
         try {
             return mesasDAO.agregarMesas(nuevaMesa);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudieron agregar mesas");
         }
     }
 
@@ -44,7 +44,7 @@ public class MesasBO implements IMesasBO {
         try {
             return this.mesasDAO.mostrarMesas();
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudieron mostrar las mesas");
         }
     }
 
@@ -53,7 +53,7 @@ public class MesasBO implements IMesasBO {
         try {
             return this.mesasDAO.cambiarEstadoMesa(idMesa, nuevoEstado);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudo cambiar el estado de la mesa");
         }
     }  
 }

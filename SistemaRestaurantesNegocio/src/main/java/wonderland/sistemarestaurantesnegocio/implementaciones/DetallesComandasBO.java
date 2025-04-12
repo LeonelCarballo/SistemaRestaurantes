@@ -34,7 +34,7 @@ public class DetallesComandasBO implements IDetallesComandasBO {
         try {
             return this.detallesComandasDAO.guardarDetalleComanda(detalleComandaDTO);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudo guardar el detalle de la comanda");
         }
     }
 
@@ -43,7 +43,7 @@ public class DetallesComandasBO implements IDetallesComandasBO {
         try {
             return this.detallesComandasDAO.obtenerDetalleComandaPorComanda(comandaDTO);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudo obtener el detalle de la comanda");
         }
     }
 
@@ -52,7 +52,7 @@ public class DetallesComandasBO implements IDetallesComandasBO {
         try {
             this.detallesComandasDAO.editarDetalleComanda(idComanda, productoSeleccionado);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudo editar el detalle de la comanda");
         }
     }
 
@@ -61,13 +61,17 @@ public class DetallesComandasBO implements IDetallesComandasBO {
         try {
             return this.detallesComandasDAO.ActualizarDetallesComanda(detalleComandaDTO);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("No se pudo registrar el cliente");
+            throw new NegocioException("No se pudo actualizar el detalle de la comanda");
         }
     }
 
     @Override
     public List<DetalleComandaDTO> obtenerDetallesDTOPorComanda(ComandaDTO comandaDTO) throws NegocioException {
-        return this.detallesComandasDAO.obtenerDetallesDTOPorComanda(comandaDTO);
+        try {
+            return this.detallesComandasDAO.obtenerDetallesDTOPorComanda(comandaDTO);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo obtener el detalle de la comanda");
+        }
     }
   
 }
