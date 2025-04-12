@@ -86,7 +86,9 @@ public class MesasDAO implements IMesasDAO {
         try {
             String jpql = "SELECT MAX(m.numeroMesa) FROM Mesa m";
             Query query = entityManager.createQuery(jpql);
+
             Integer ultimaMesa = (Integer) query.getSingleResult();
+
             return (ultimaMesa != null) ? ultimaMesa : 0;
         } catch (Exception e) {
             entityManager.getTransaction().rollback();

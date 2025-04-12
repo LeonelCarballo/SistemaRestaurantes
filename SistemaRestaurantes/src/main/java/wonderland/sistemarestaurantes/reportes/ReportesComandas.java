@@ -138,6 +138,7 @@ public class ReportesComandas extends javax.swing.JFrame {
         jButtonGenerarReporte = new javax.swing.JButton();
         pickerFechaFin = new com.github.lgooddatepicker.components.DatePicker();
         pickerFechaInicio = new com.github.lgooddatepicker.components.DatePicker();
+        jButtonVolver = new javax.swing.JButton();
         jLabelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -221,6 +222,15 @@ public class ReportesComandas extends javax.swing.JFrame {
         getContentPane().add(jButtonGenerarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 680, 180, 40));
         getContentPane().add(pickerFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 234, 190, 30));
         getContentPane().add(pickerFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 234, 190, 30));
+
+        jButtonVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonAnterior.png"))); // NOI18N
+        jButtonVolver.setContentAreaFilled(false);
+        jButtonVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVolverActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 610, -1, -1));
 
         jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoReportesComandas.png"))); // NOI18N
         getContentPane().add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -315,14 +325,28 @@ public class ReportesComandas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonGenerarReporteActionPerformed
 
+    public void mostrar(){
+        setVisible(true);
+    }
+    
+    public void cerrar(){
+        setVisible(false);
+        dispose();
+    }
+    
     private void jButtonFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFiltrarActionPerformed
         aplicarFiltroPorFechas();
     }//GEN-LAST:event_jButtonFiltrarActionPerformed
+
+    private void jButtonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVolverActionPerformed
+        cerrar();
+    }//GEN-LAST:event_jButtonVolverActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonFiltrar;
     private javax.swing.JButton jButtonGenerarReporte;
+    private javax.swing.JButton jButtonVolver;
     private javax.swing.JLabel jLabelEstado;
     private javax.swing.JLabel jLabelFechaFin;
     private javax.swing.JLabel jLabelFechaHora;
