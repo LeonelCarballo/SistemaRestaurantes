@@ -344,32 +344,44 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAsociarClientePropertyChange
 
     private void jButtonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSiguienteActionPerformed
-        List<ProductoSeleccionadoDTO> productos = new ArrayList<>();
+//        List<ProductoSeleccionadoDTO> productos = new ArrayList<>();
+//
+//        for (Component comp : jPanelProductosSeleccionados.getComponents()) {
+//            if (comp instanceof PanelProductoSeleccionado) {
+//                PanelProductoSeleccionado panel = (PanelProductoSeleccionado) comp;
+//                ProductoSeleccionadoDTO productoSeleccionadoDTO = panel.toDTO();
+//                
+//                if (productoSeleccionadoDTO.getCantidad() <= 0) {
+//                    JOptionPane.showMessageDialog(this,
+//                            "La cantidad de todos los productos debe ser mayor a cero.",
+//                            "Cantidad inválida", JOptionPane.WARNING_MESSAGE);
+//                    return;
+//                }
+//                productos.add(productoSeleccionadoDTO);
+//            }
+//        }
+//
+//        if (productos.isEmpty()) {
+//            JOptionPane.showMessageDialog(this,
+//                    "Debes seleccionar al menos un producto para continuar con la comanda.",
+//                    "Aviso", JOptionPane.WARNING_MESSAGE);
+//        } else {
+//            control.mostrarResumenComanda(productos, comandaDTO, true);
+//            cerrar();
+//        }
+//        this.dispose();
 
+ 
+        List<ProductoSeleccionadoDTO> productos = new ArrayList<>();
         for (Component comp : jPanelProductosSeleccionados.getComponents()) {
             if (comp instanceof PanelProductoSeleccionado) {
                 PanelProductoSeleccionado panel = (PanelProductoSeleccionado) comp;
-                ProductoSeleccionadoDTO productoSeleccionadoDTO = panel.toDTO();
-                
-                if (productoSeleccionadoDTO.getCantidad() <= 0) {
-                    JOptionPane.showMessageDialog(this,
-                            "La cantidad de todos los productos debe ser mayor a cero.",
-                            "Cantidad inválida", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-                productos.add(productoSeleccionadoDTO);
+                productos.add(panel.toDTO());
             }
         }
-
-        if (productos.isEmpty()) {
-            JOptionPane.showMessageDialog(this,
-                    "Debes seleccionar al menos un producto para continuar con la comanda.",
-                    "Aviso", JOptionPane.WARNING_MESSAGE);
-        } else {
-            control.mostrarResumenComanda(productos, comandaDTO, true);
-            cerrar();
-        }
-        this.dispose();
+        
+        control.mostrarResumenComanda(productos, comandaDTO, esComandaNueva);
+    
     }//GEN-LAST:event_jButtonSiguienteActionPerformed
 
 
