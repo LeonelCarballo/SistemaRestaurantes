@@ -4,18 +4,120 @@
  */
 package wonderland.sistemarestaurantes.reportes;
 
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
-import java.io.FileNotFoundException;
+import java.awt.BorderLayout;
+import java.util.List;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import wonderland.sistemarestaurantes.clientes.BuscadorClientes;
+import wonderland.sistemarestaurantes.clientes.ClientePanel;
+import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
+import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
+import wonderland.sistemarestaurantesnegocio.IClientesBO;
+import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
 public class ReportesClientes extends javax.swing.JFrame {
-
+    
+    private ControlPresentacion control;
+    private IClientesBO clientesBO;
+    private static final Logger LOG = Logger.getLogger(ReportesClientes.class.getName());
+    
     /**
      * Creates new form ReportesClientes
      */
-    public ReportesClientes() {
+    public ReportesClientes(ControlPresentacion control, IClientesBO clientesBO) {
         initComponents();
+        this.clientesBO = clientesBO;
+        this.control = control;
+        
+        agregarBuscador();
+        mostrarInformacionClientes();
+        
+        jPanelBuscador.setOpaque(false);
+    }
+    
+    private void agregarBuscador() {
+        BuscadorClientes buscadorClientes = new BuscadorClientes(clientesBO, this::actualizarListaClientes);
+        jPanelBuscador.add(buscadorClientes, BorderLayout.CENTER);
+    }
+    
+    private ClienteFrecuenteDTO crearClienteDTOConPuntos(ClienteFrecuente cliente) {
+        ClienteFrecuenteDTO dto = new ClienteFrecuenteDTO(
+            cliente.getId(),
+            cliente.getNombre(),
+            cliente.getApellidoPaterno(),
+            cliente.getApellidoMaterno(),
+            cliente.getCorreoElectronico(),
+            cliente.getTelefono(),
+            cliente.getFechaRegistro()
+        );
+
+        try {
+            ClienteFrecuenteDTO datosFidelidad = clientesBO.obtenerDatosFidelidad(cliente.getId());
+            dto.setVisitas(datosFidelidad.getVisitas());
+            dto.setGastoTotal(datosFidelidad.getGastoTotal());
+            dto.setPuntosFidelidad(datosFidelidad.getPuntosFidelidad());
+        } catch (NegocioException ex) {
+            dto.setPuntosFidelidad(0);
+        }
+
+        return dto;
+    }
+    
+    private void actualizarListaClientes(List<ClienteFrecuente> clientes) {
+        jPanelListaClientes.removeAll();
+        for (ClienteFrecuente cliente : clientes) {
+
+            ClienteFrecuenteDTO clienteDTO = crearClienteDTOConPuntos(cliente);
+
+            ClientePanel panel = new ClientePanel(
+                cliente, 
+                "Ver",
+                e -> control.mostrarPerfilCliente(cliente, clienteDTO) 
+            );
+            panel.actualizarPuntos(clienteDTO.getPuntosFidelidad()); 
+            jPanelListaClientes.add(panel);
+        }
+        jPanelListaClientes.revalidate();
+        jPanelListaClientes.repaint();
+    }
+
+    public void mostrarInformacionClientes() {
+        jPanelListaClientes.removeAll(); 
+        try {
+            for (ClienteFrecuente cliente : clientesBO.obtenerClientes()) {
+                
+                ClienteFrecuenteDTO clienteDTO = crearClienteDTOConPuntos(cliente);
+
+                ClientePanel panel = new ClientePanel(
+                    cliente, 
+                    "Ver",
+                    e -> control.mostrarPerfilCliente(cliente, clienteDTO)
+                );
+
+                panel.actualizarPuntos(clienteDTO.getPuntosFidelidad());
+
+                jPanelListaClientes.add(panel);
+            }
+        } catch (NegocioException ex) {
+            LOG.severe("No se pudo llenar la lista de clientes: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, 
+                "Error al cargar clientes: " + ex.getMessage(),
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+
+        jPanelListaClientes.revalidate();
+        jPanelListaClientes.repaint();
+    }
+
+    public void mostrar(){
+        setVisible(true);
+    }
+    
+    public void cerrar(){
+        setVisible(false);
+        dispose();
     }
 
     /**
@@ -27,53 +129,54 @@ public class ReportesClientes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jScrollPaneListaClientes = new javax.swing.JScrollPane();
+        jPanelListaClientes = new javax.swing.JPanel();
+        jPanelBuscador = new javax.swing.JPanel();
+        jLabelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoReportesClientes.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        javax.swing.GroupLayout jPanelListaClientesLayout = new javax.swing.GroupLayout(jPanelListaClientes);
+        jPanelListaClientes.setLayout(jPanelListaClientesLayout);
+        jPanelListaClientesLayout.setHorizontalGroup(
+            jPanelListaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 854, Short.MAX_VALUE)
+        );
+        jPanelListaClientesLayout.setVerticalGroup(
+            jPanelListaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 324, Short.MAX_VALUE)
+        );
+
+        jScrollPaneListaClientes.setViewportView(jPanelListaClientes);
+
+        getContentPane().add(jScrollPaneListaClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, 860, 330));
+
+        javax.swing.GroupLayout jPanelBuscadorLayout = new javax.swing.GroupLayout(jPanelBuscador);
+        jPanelBuscador.setLayout(jPanelBuscadorLayout);
+        jPanelBuscadorLayout.setHorizontalGroup(
+            jPanelBuscadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 360, Short.MAX_VALUE)
+        );
+        jPanelBuscadorLayout.setVerticalGroup(
+            jPanelBuscadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jPanelBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 230, 360, 40));
+
+        jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoReportesClientes.png"))); // NOI18N
+        getContentPane().add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReportesClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReportesClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReportesClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReportesClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ReportesClientes().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelFondo;
+    private javax.swing.JPanel jPanelBuscador;
+    private javax.swing.JPanel jPanelListaClientes;
+    private javax.swing.JScrollPane jScrollPaneListaClientes;
     // End of variables declaration//GEN-END:variables
 }

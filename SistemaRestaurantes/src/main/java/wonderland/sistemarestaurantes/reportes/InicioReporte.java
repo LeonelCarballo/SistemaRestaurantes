@@ -62,6 +62,11 @@ public class InicioReporte extends javax.swing.JFrame {
 
         jButtonReporteClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonReportesClientes.png"))); // NOI18N
         jButtonReporteClientes.setContentAreaFilled(false);
+        jButtonReporteClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReporteClientesActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonReporteClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 490, 370, 120));
 
         jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnterior.png"))); // NOI18N
@@ -87,6 +92,11 @@ public class InicioReporte extends javax.swing.JFrame {
         cerrar();
         control.mostrarVentanaPrincial();
     }//GEN-LAST:event_jButtonAnteriorActionPerformed
+
+    private void jButtonReporteClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReporteClientesActionPerformed
+        cerrar();
+        control.mostrarReporteCliente();
+    }//GEN-LAST:event_jButtonReporteClientesActionPerformed
 
     /**
      * @param args the command line arguments
