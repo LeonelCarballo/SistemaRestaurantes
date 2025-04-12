@@ -4,10 +4,14 @@
  */
 package wonderland.sistemarestaurantes;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantesdominio.Empleado;
 import wonderland.sistemarestaurantesdominio.dtos.EmpleadoDTO;
 import wonderland.sistemarestaurantesnegocio.IEmpleadosBO;
+import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 import wonderland.sistemarestaurantesnegocio.implementaciones.EmpleadosBO;
 
 /**
@@ -109,8 +113,14 @@ public class IniciarSesion extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String nombreUsuario = this.jTextFieldUsuario.getText();
         String contraseña = this.jPasswordField.getText();
+        EmpleadoDTO empleado = new EmpleadoDTO();
 
-        EmpleadoDTO empleado = empleadosBO.iniciarSesion(nombreUsuario, contraseña);
+        
+        try {
+            empleado = empleadosBO.iniciarSesion(nombreUsuario,contraseña);
+        } catch (NegocioException ex) {
+            Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         if (empleado != null) {
             control.iniciarFlujo(empleado.getIdRol());
