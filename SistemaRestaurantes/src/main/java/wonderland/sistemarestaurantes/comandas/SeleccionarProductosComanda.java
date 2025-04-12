@@ -369,9 +369,15 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
                 productos.add(panel.toDTO());
             }
         }
-        control.mostrarResumenComanda(productos, comandaDTO, true);
-        cerrar();
         
+        if (productos.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debes seleccionar al menos un producto para continuar con la comanda.",
+                    "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }else{
+            control.mostrarResumenComanda(productos, comandaDTO, true);
+            cerrar();
+        }
     }//GEN-LAST:event_jButtonSiguienteActionPerformed
 
 
