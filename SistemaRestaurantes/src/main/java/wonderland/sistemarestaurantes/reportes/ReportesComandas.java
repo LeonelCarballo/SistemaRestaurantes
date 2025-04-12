@@ -24,7 +24,10 @@ import javax.swing.SwingUtilities;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantes.utils.FontManager;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
+import wonderland.sistemarestaurantesdominio.dtos.DetalleComandaDTO;
 import wonderland.sistemarestaurantesnegocio.IComandasBO;
+import wonderland.sistemarestaurantesnegocio.IDetallesComandasBO;
+import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
 
 
@@ -33,12 +36,15 @@ public class ReportesComandas extends javax.swing.JFrame {
     
     FontManager fontManager = new FontManager();
     private IComandasBO comandasBO;
+    private IDetallesComandasBO detallesComandasBO;
+    
 
-    public ReportesComandas(ControlPresentacion controlPresentacion, IComandasBO comandasBO) {
+    public ReportesComandas(ControlPresentacion controlPresentacion, IComandasBO comandasBO, IDetallesComandasBO detallesComandasBO) {
         initComponents();
         setLocationRelativeTo(null);
         
         this.comandasBO = comandasBO;
+        this.detallesComandasBO=detallesComandasBO;
         
         mostrarTodasLasComandas();
         jPanelComandas.setOpaque(false);
@@ -69,7 +75,7 @@ public class ReportesComandas extends javax.swing.JFrame {
             jPanelComandas.add(lblMensaje);
         } else {
             for (ComandaDTO comanda : comandas) {
-                PanelReporteComanda panel = new PanelReporteComanda(comanda);
+                PanelReporteComanda panel = new PanelReporteComanda(comanda, detallesComandasBO);
                 jPanelComandas.add(panel);
             }
         }
@@ -273,13 +279,18 @@ public class ReportesComandas extends javax.swing.JFrame {
                 String fechaHoraStr = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
                 .format(calendar.toInstant().atZone(ZoneId.systemDefault()));
 
-
+            
+                float total = 0f;
+                List <DetalleComandaDTO> detalles = detallesComandasBO.obtenerDetallesDTOPorComanda(comanda);
+                for (DetalleComandaDTO detalle : detalles) {
+                    total += detalle.getPrecio() * detalle.getCantidadProducto();
+               }
+                
                 tabla.addCell(comanda.getFolio() != null ? comanda.getFolio() : "");
                 tabla.addCell(fechaHoraStr);
-                //TODO
-                //hacer que si reciba lo que debe 
-                tabla.addCell("xd");
-                tabla.addCell("uwu");
+                
+                tabla.addCell(comanda.getEstadoComanda() != null ? comanda.getEstadoComanda().toString() : "SIN ESTADO");
+                tabla.addCell(String.format("$%.2f", total)); // Total (uwu)
                 tabla.addCell(comanda.getMesa() != null ? String.valueOf(comanda.getMesa().getNumeroMesa()) : "");
 
                 tabla.addCell(comanda.getCliente() != null && comanda.getCliente().getNombreCompleto() != null 

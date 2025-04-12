@@ -45,6 +45,7 @@ import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.DetalleComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.IngredienteProductoDTO;
 import wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO;
+import wonderland.sistemarestaurantesnegocio.IDetallesComandasBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ClientesBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ComandasBO;
@@ -76,6 +77,8 @@ public class ControlPresentacion {
 
     IngredientesDAO ingredientesDAO = new IngredientesDAO();
     IngredientesBO ingredientesBO = new IngredientesBO(ingredientesDAO);
+    
+    private IDetallesComandasBO detallesComandasBO1;
 
     Mesa mesa = new Mesa();
     MesasDAO mesasDAO = new MesasDAO();
@@ -301,7 +304,7 @@ public class ControlPresentacion {
     }
     
     public void mostrarReporteComanda(){
-        ReportesComandas reportesComandas = new ReportesComandas(this, comandasBO);
+        ReportesComandas reportesComandas = new ReportesComandas(this, comandasBO,detallesComandasBO);
         reportesComandas.setVisible(true);
     }
     
