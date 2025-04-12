@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
+import wonderland.sistemarestaurantes.IniciarSesion;
 import wonderland.sistemarestaurantes.Mesas;
 import wonderland.sistemarestaurantes.VentanaPrincipal;
 import wonderland.sistemarestaurantes.clientes.ListaClientes;
@@ -43,16 +44,19 @@ import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.DetalleComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.IngredienteProductoDTO;
 import wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO;
+import wonderland.sistemarestaurantesnegocio.IEmpleadosBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ClientesBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ComandasBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.DetallesComandasBO;
+import wonderland.sistemarestaurantesnegocio.implementaciones.EmpleadosBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.IngredientesProductosBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.MesasBO;
 import wonderland.sistemarestaurantesnegocio.implementaciones.ProductosBO;
 import wonderland.sistemarestaurantespersistencia.daos.ClientesFrecuentesDAO;
 import wonderland.sistemarestaurantespersistencia.daos.ComandasDAO;
 import wonderland.sistemarestaurantespersistencia.daos.DetallesComandasDAO;
+import wonderland.sistemarestaurantespersistencia.daos.EmpleadosDAO;
 import wonderland.sistemarestaurantespersistencia.daos.IngredienteProductoDAO;
 import wonderland.sistemarestaurantespersistencia.daos.MesasDAO;
 import wonderland.sistemarestaurantespersistencia.daos.ProductosDAO;
@@ -82,6 +86,9 @@ public class ControlPresentacion {
     ProductosDAO productosDAO = new ProductosDAO();
     ProductosBO productosBO = new ProductosBO(productosDAO);
     
+    EmpleadosDAO empleadosDAO = new EmpleadosDAO();
+    EmpleadosBO empleadosBO = new EmpleadosBO(empleadosDAO);
+    
     IngredienteProductoDAO ingredienteProductoDAO = new IngredienteProductoDAO();
     IngredientesProductosBO ingredientesProductosBO = new IngredientesProductosBO(ingredienteProductoDAO);
     
@@ -92,9 +99,17 @@ public class ControlPresentacion {
     private List<ProductoSeleccionadoDTO> productosSeleccionados;
 
     private VentanaInicioComanda ventanaInicioComanda = new VentanaInicioComanda();
+    
+    Long idRolEmpleado;
 
+    public void iniciarFlujo(Long idRolEmpleado){
+        this.idRolEmpleado = idRolEmpleado;
+        VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(this,idRolEmpleado);
+        ventanaPrincipal.mostrar();
+    }
+    
     public void mostrarVentanaPrincial() {
-        VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(this);
+        VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(this,idRolEmpleado);
         ventanaPrincipal.mostrar();
     }
 
@@ -104,7 +119,7 @@ public class ControlPresentacion {
     }
 
     public void mostrarListaClientes() {
-        ListaClientes listaClientes = new ListaClientes(this, clientesBO);
+        ListaClientes listaClientes = new ListaClientes(this, clientesBO, idRolEmpleado);
         listaClientes.mostrar();
     }
 
@@ -197,7 +212,7 @@ public class ControlPresentacion {
             if (comandaDTO != null) {
                 List<ProductoSeleccionadoDTO> productosSeleccionados = detallesComandasBO.obtenerDetalleComandaPorComanda(comandaDTO);
 
-                ResumenComanda resumenComanda = new ResumenComanda(this, productosSeleccionados, comandaDTO, detallesComandasBO, esComandaNueva, comandasBO, mesa, mesasBO);
+                ResumenComanda resumenComanda = new ResumenComanda(this, productosSeleccionados, comandaDTO, detallesComandasBO, true, comandasBO, mesa, mesasBO);
                 resumenComanda.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró una comanda activa para esta mesa.");
@@ -236,7 +251,7 @@ public class ControlPresentacion {
     }
 
     public void mostrarListaIngredientes() {
-        ListaIngredientes listaIngredientes = new ListaIngredientes(this, ingredientesBO);
+        ListaIngredientes listaIngredientes = new ListaIngredientes(this, ingredientesBO, idRolEmpleado);
         listaIngredientes.mostrar();
     }
 
@@ -257,7 +272,7 @@ public class ControlPresentacion {
     }
 
     public void mostrarListaProductos() {
-        ListaProductos listaProductos = new ListaProductos(this, productosBO);
+        ListaProductos listaProductos = new ListaProductos(this, productosBO, idRolEmpleado);
         listaProductos.mostrar();
         listaProductos.mostrarProductos();
     }
@@ -301,5 +316,10 @@ public class ControlPresentacion {
     public void mostrarReporteComanda(){
         ReportesComandas reportesComandas = new ReportesComandas(this, comandasBO);
         reportesComandas.setVisible(true);
+    }
+    
+    public void mostrarInicioSesion(){
+        IniciarSesion iniciarSesion = new IniciarSesion(this, empleadosBO);
+        iniciarSesion.mostrar();
     }
 }

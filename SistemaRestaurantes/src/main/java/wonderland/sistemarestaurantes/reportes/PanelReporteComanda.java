@@ -45,7 +45,7 @@ public class PanelReporteComanda extends JPanel {
 
     String folio = comanda.getFolio() != null ? comanda.getFolio().toString() : "--";
     String nombreCliente = comanda.getCliente() != null ? comanda.getCliente().getNombreCompleto() : "Sin cliente";
-    String mesa = comanda.getMesa() != null ? comanda.getMesa().getNumeroMesa().toString() : "--";
+    String mesa = comanda.getMesa() != null ? comanda.getMesa().getNumeroMesa().toString()+"    " : "--";
 
     Calendar calendar = comanda.getFechaHoraCreacion();
     String fechaStr = calendar != null ? DateTimeFormatter.ofPattern("dd/MM/yy HH:mm")

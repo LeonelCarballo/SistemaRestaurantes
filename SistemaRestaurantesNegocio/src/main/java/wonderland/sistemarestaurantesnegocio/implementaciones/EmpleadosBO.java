@@ -8,6 +8,7 @@ import wonderland.sistemarestaurantesdominio.Empleado;
 import wonderland.sistemarestaurantesdominio.dtos.EmpleadoDTO;
 import wonderland.sistemarestaurantesnegocio.IEmpleadosBO;
 import wonderland.sistemarestaurantespersistencia.IEmpleadosDAO;
+import wonderland.sistemarestaurantespersistencia.daos.EmpleadosDAO;
 
 /**
  *
@@ -16,6 +17,10 @@ import wonderland.sistemarestaurantespersistencia.IEmpleadosDAO;
 public class EmpleadosBO implements IEmpleadosBO {
     
     private IEmpleadosDAO empleadosDAO;
+
+    public EmpleadosBO(IEmpleadosDAO empleadosDAO) {
+        this.empleadosDAO = empleadosDAO;
+    }
 
     @Override
     public EmpleadoDTO iniciarSesion(String usuario, String contrasena) {
@@ -28,8 +33,7 @@ public class EmpleadosBO implements IEmpleadosBO {
                 empleado.getRol().getId()
             );
         }
-        
+
         return null;
     }
-    
 }

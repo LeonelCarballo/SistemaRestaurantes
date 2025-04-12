@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantes.utils.FontManager;
 import wonderland.sistemarestaurantesdominio.Comanda;
@@ -163,6 +164,7 @@ public class ResumenComanda extends javax.swing.JFrame {
         jButtonEliminarComanda.setVisible(!esComandaNueva);
         jButtonEditarComanda.setVisible(!esComandaNueva);
         jButtonComandaEntregada.setVisible(!esComandaNueva);
+        jButtonAnterior.setVisible(!esComandaNueva);
         
         if(comandaDTO.getCliente() != null){
             jButtonAsociarCliente.setVisible(false);
@@ -320,8 +322,11 @@ public class ResumenComanda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
-
-        confirmarComanda();
+        try{
+           confirmarComanda(); 
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Volviendo a la pantalla principal");
+        }
         control.mostrarVentanaPrincial();
         cerrar();
     }//GEN-LAST:event_jButtonConfirmarActionPerformed

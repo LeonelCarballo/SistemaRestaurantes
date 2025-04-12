@@ -22,6 +22,11 @@ public class EmpleadoDTO {
         this.idRol = idRol;
     }
 
+    public EmpleadoDTO(String usuario, Long idRol) {
+        this.usuario = usuario;
+        this.idRol = idRol;
+    }
+
     public Long getId() {
         return id;
     }

@@ -29,11 +29,13 @@ public class ProductoPanel extends JPanel {
     private ControlPresentacion control;
     private IProductosBO productosBO;
     private Producto producto;
+    private Long idRol;
 
-    public ProductoPanel(ControlPresentacion control, IProductosBO productosBO, Producto producto) {
+    public ProductoPanel(ControlPresentacion control, IProductosBO productosBO, Producto producto, Long idRol) {
         this.control = control;
         this.productosBO = productosBO;
         this.producto = producto;
+        this.idRol = idRol;
 
         setPreferredSize(new Dimension(220, 28));
         setMaximumSize(new Dimension(220, 28));
@@ -54,6 +56,7 @@ public class ProductoPanel extends JPanel {
         lblPrecio.setFont(font);
         lblPrecio.setForeground(textColor);
         
+        if(idRol == 1){
         JButton btnEditar = new JButton("✎");
         btnEditar.setIcon(new ImageIcon(getClass().getResource("/images/lapizitoEditar.png")));
         btnEditar.setFont(font);
@@ -67,6 +70,12 @@ public class ProductoPanel extends JPanel {
         btnEditar.addActionListener(e -> {
             control.mostrarEditarProducto(producto);
         });
+        
+        gbc.gridx = 2;
+        gbc.anchor = GridBagConstraints.EAST;
+        gbc.insets = new Insets(0, 0, 0, 0);
+        add(btnEditar, gbc);
+        }
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -81,9 +90,6 @@ public class ProductoPanel extends JPanel {
         gbc.insets = new Insets(0, 0, 0, 5);
         add(lblPrecio, gbc);
 
-        gbc.gridx = 2;
-        gbc.anchor = GridBagConstraints.EAST;
-        gbc.insets = new Insets(0, 0, 0, 0);
-        add(btnEditar, gbc);
+        
     }
 }
