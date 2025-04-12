@@ -114,42 +114,9 @@ public class ControlPresentacion {
     }
 
     public void mostrarPerfilCliente(Cliente cliente, ClienteFrecuenteDTO clienteFrecuenteDTO) {
-        if (cliente == null) {
-            System.out.println("Error: Cliente es null en mostrarPerfilCliente");
-            return;
-        }
+        ClienteFrecuenteDTO datosCompletos = prepararDatosCliente(cliente, clienteFrecuenteDTO);
 
-        System.out.println("Mostrando perfil de: " + cliente.getNombre());
-
-        if (clienteFrecuenteDTO == null) {
-            clienteFrecuenteDTO = new ClienteFrecuenteDTO();
-        }
-
-        clienteFrecuenteDTO.setId(cliente.getId());
-        clienteFrecuenteDTO.setNombre(cliente.getNombre());
-        clienteFrecuenteDTO.setApellidoPaterno(cliente.getApellidoPaterno());
-        clienteFrecuenteDTO.setApellidoMaterno(cliente.getApellidoMaterno());
-        clienteFrecuenteDTO.setCorreoElectronico(cliente.getCorreoElectronico());
-        clienteFrecuenteDTO.setTelefono(cliente.getTelefono());
-        clienteFrecuenteDTO.setFechaRegistro(cliente.getFechaRegistro());
-
-        if (clienteFrecuenteDTO.getVisitas() == 0 || 
-            clienteFrecuenteDTO.getGastoTotal() == 0 || 
-            clienteFrecuenteDTO.getPuntosFidelidad() == 0) {
-
-            ClienteFrecuenteDTO datosFidelidad = null;
-            try {
-                datosFidelidad = clientesBO.obtenerDatosFidelidad(cliente.getId());
-            } catch (NegocioException ex) {
-                Logger.getLogger(ControlPresentacion.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            clienteFrecuenteDTO.setVisitas(datosFidelidad.getVisitas());
-            clienteFrecuenteDTO.setGastoTotal(datosFidelidad.getGastoTotal());
-            clienteFrecuenteDTO.setPuntosFidelidad(datosFidelidad.getPuntosFidelidad());
-        }
-
-        PerfilCliente perfilCliente = new PerfilCliente(this, clientesBO, clienteFrecuenteDTO);
+        PerfilCliente perfilCliente = new PerfilCliente(this, clientesBO, datosCompletos);
         perfilCliente.mostrar();
     }
 
@@ -313,8 +280,60 @@ public class ControlPresentacion {
         reportesClientes.setVisible(true);
     }
     
-    public void mostrarDetalleComandaCliente(){
-        DetalleReporteCliente detalleCliente = new DetalleReporteCliente();
-        detalleCliente.setVisible(true);
+    public void mostrarDetalleReporteCliente(Cliente cliente, ClienteFrecuenteDTO dto) {
+        ClienteFrecuenteDTO datosCompletos = prepararDatosCliente(cliente, dto);
+
+        if (datosCompletos != null) {
+            try {
+                Calendar ultimaVisita = clientesBO.obtenerUltimaVisita(cliente.getId());
+                datosCompletos.setUltimaVisita(ultimaVisita);  
+
+            } catch (NegocioException ex) {
+                Logger.getLogger(ControlPresentacion.class.getName()).log(Level.SEVERE, null, ex);
+                datosCompletos.setUltimaVisita(null);  
+            }
+
+            DetalleReporteCliente reporte = new DetalleReporteCliente(this, clientesBO, datosCompletos);
+            reporte.mostrar();
+        }
     }
+    
+    private ClienteFrecuenteDTO prepararDatosCliente(Cliente cliente, ClienteFrecuenteDTO clienteFrecuenteDTO) {
+        if (cliente == null) {
+            System.out.println("Error: Cliente es null");
+            return null;
+        }
+
+        if (clienteFrecuenteDTO == null) {
+            clienteFrecuenteDTO = new ClienteFrecuenteDTO();
+        }
+
+        clienteFrecuenteDTO.setId(cliente.getId());
+        clienteFrecuenteDTO.setNombre(cliente.getNombre());
+        clienteFrecuenteDTO.setApellidoPaterno(cliente.getApellidoPaterno());
+        clienteFrecuenteDTO.setApellidoMaterno(cliente.getApellidoMaterno());
+        clienteFrecuenteDTO.setCorreoElectronico(cliente.getCorreoElectronico());
+        clienteFrecuenteDTO.setTelefono(cliente.getTelefono());
+        clienteFrecuenteDTO.setFechaRegistro(cliente.getFechaRegistro());
+
+        if (clienteFrecuenteDTO.getVisitas() == 0 || 
+            clienteFrecuenteDTO.getGastoTotal() == 0 || 
+            clienteFrecuenteDTO.getPuntosFidelidad() == 0) {
+
+            ClienteFrecuenteDTO datosFidelidad = null;
+            try {
+                datosFidelidad = clientesBO.obtenerDatosFidelidad(cliente.getId());
+            } catch (NegocioException ex) {
+                Logger.getLogger(ControlPresentacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            clienteFrecuenteDTO.setVisitas(datosFidelidad.getVisitas());
+            clienteFrecuenteDTO.setGastoTotal(datosFidelidad.getGastoTotal());
+            clienteFrecuenteDTO.setPuntosFidelidad(datosFidelidad.getPuntosFidelidad());
+        }
+
+        return clienteFrecuenteDTO;
+    }
+
+
 }

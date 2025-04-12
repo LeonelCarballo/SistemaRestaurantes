@@ -4,6 +4,7 @@
  */
 package wonderland.sistemarestaurantesnegocio;
 
+import java.util.Calendar;
 import java.util.List;
 import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
 import wonderland.sistemarestaurantesdominio.VistaFidelidadCliente;
@@ -34,4 +35,6 @@ public interface IClientesBO {
     public abstract ClienteFrecuenteDTO obtenerClientesConFidelidad(ClienteFrecuente cliente) throws NegocioException;
     
     public abstract ClienteFrecuenteDTO obtenerDatosFidelidad(Long idCliente) throws NegocioException;
+    
+    public abstract Calendar obtenerUltimaVisita(Long idCliente) throws NegocioException;
 }

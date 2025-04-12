@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import wonderland.sistemarestaurantes.clientes.BuscadorClientes;
-import wonderland.sistemarestaurantes.clientes.ClientePanel;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantes.utils.FontManager;
 import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
 import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
 import wonderland.sistemarestaurantesnegocio.IClientesBO;
@@ -20,6 +20,8 @@ public class ReportesClientes extends javax.swing.JFrame {
     
     private ControlPresentacion control;
     private IClientesBO clientesBO;
+    
+    FontManager fontManager = new FontManager();
     private static final Logger LOG = Logger.getLogger(ReportesClientes.class.getName());
     
     /**
@@ -27,6 +29,7 @@ public class ReportesClientes extends javax.swing.JFrame {
      */
     public ReportesClientes(ControlPresentacion control, IClientesBO clientesBO) {
         initComponents();
+        setLocationRelativeTo(null);
         this.clientesBO = clientesBO;
         this.control = control;
         
@@ -34,6 +37,11 @@ public class ReportesClientes extends javax.swing.JFrame {
         mostrarInformacionClientes();
         
         jPanelBuscador.setOpaque(false);
+        jScrollPaneListaClientes.setOpaque(false);
+        jScrollPaneListaClientes.getViewport().setOpaque(false);
+        jScrollPaneListaClientes.setBorder(null);
+
+        
     }
     
     private void agregarBuscador() {
@@ -70,10 +78,10 @@ public class ReportesClientes extends javax.swing.JFrame {
 
             ClienteFrecuenteDTO clienteDTO = crearClienteDTOConPuntos(cliente);
 
-            ClientePanel panel = new ClientePanel(
-                cliente, 
+            PanelReporteCliente panel = new PanelReporteCliente(
+                clienteDTO, 
                 "Ver",
-                e -> control.mostrarPerfilCliente(cliente, clienteDTO) 
+                e -> control.mostrarDetalleReporteCliente(cliente, clienteDTO)
             );
             panel.actualizarPuntos(clienteDTO.getPuntosFidelidad()); 
             jPanelListaClientes.add(panel);
@@ -89,10 +97,10 @@ public class ReportesClientes extends javax.swing.JFrame {
                 
                 ClienteFrecuenteDTO clienteDTO = crearClienteDTOConPuntos(cliente);
 
-                ClientePanel panel = new ClientePanel(
-                    cliente, 
+                PanelReporteCliente panel = new PanelReporteCliente(
+                    clienteDTO, 
                     "Ver",
-                    e -> control.mostrarPerfilCliente(cliente, clienteDTO)
+                    e -> control.mostrarDetalleReporteCliente(cliente, clienteDTO)
                 );
 
                 panel.actualizarPuntos(clienteDTO.getPuntosFidelidad());
@@ -110,7 +118,7 @@ public class ReportesClientes extends javax.swing.JFrame {
         jPanelListaClientes.revalidate();
         jPanelListaClientes.repaint();
     }
-
+    
     public void mostrar(){
         setVisible(true);
     }
@@ -129,6 +137,10 @@ public class ReportesClientes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabelVisualizar = new javax.swing.JLabel();
+        jLabelPuntos = new javax.swing.JLabel();
+        jLabelVisitas = new javax.swing.JLabel();
+        jLabelNombreCliente = new javax.swing.JLabel();
         jScrollPaneListaClientes = new javax.swing.JScrollPane();
         jPanelListaClientes = new javax.swing.JPanel();
         jPanelBuscador = new javax.swing.JPanel();
@@ -137,32 +149,39 @@ public class ReportesClientes extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jPanelListaClientesLayout = new javax.swing.GroupLayout(jPanelListaClientes);
-        jPanelListaClientes.setLayout(jPanelListaClientesLayout);
-        jPanelListaClientesLayout.setHorizontalGroup(
-            jPanelListaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 854, Short.MAX_VALUE)
+        jLabelVisualizar.setFont(fontManager.getNotoSerifCondensedRegular(26f)
         );
-        jPanelListaClientesLayout.setVerticalGroup(
-            jPanelListaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 324, Short.MAX_VALUE)
-        );
+        jLabelVisualizar.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelVisualizar.setText("Ver");
+        getContentPane().add(jLabelVisualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 300, -1, -1));
 
+        jLabelPuntos.setFont(fontManager.getNotoSerifCondensedRegular(26f)
+        );
+        jLabelPuntos.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelPuntos.setText("Puntos");
+        getContentPane().add(jLabelPuntos, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 300, -1, -1));
+
+        jLabelVisitas.setFont(fontManager.getNotoSerifCondensedRegular(26f)
+        );
+        jLabelVisitas.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelVisitas.setText("Visitas");
+        getContentPane().add(jLabelVisitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 300, -1, -1));
+
+        jLabelNombreCliente.setFont(fontManager.getNotoSerifCondensedRegular(26f)
+        );
+        jLabelNombreCliente.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelNombreCliente.setText("Nombre Completo");
+        getContentPane().add(jLabelNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 300, -1, -1));
+
+        jScrollPaneListaClientes.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        jPanelListaClientes.setBackground(new java.awt.Color(33, 32, 33));
+        jPanelListaClientes.setLayout(new javax.swing.BoxLayout(jPanelListaClientes, javax.swing.BoxLayout.Y_AXIS));
         jScrollPaneListaClientes.setViewportView(jPanelListaClientes);
 
-        getContentPane().add(jScrollPaneListaClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, 860, 330));
+        getContentPane().add(jScrollPaneListaClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, 860, 310));
 
-        javax.swing.GroupLayout jPanelBuscadorLayout = new javax.swing.GroupLayout(jPanelBuscador);
-        jPanelBuscador.setLayout(jPanelBuscadorLayout);
-        jPanelBuscadorLayout.setHorizontalGroup(
-            jPanelBuscadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 360, Short.MAX_VALUE)
-        );
-        jPanelBuscadorLayout.setVerticalGroup(
-            jPanelBuscadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
-        );
-
+        jPanelBuscador.setLayout(new javax.swing.BoxLayout(jPanelBuscador, javax.swing.BoxLayout.LINE_AXIS));
         getContentPane().add(jPanelBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 230, 360, 40));
 
         jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoReportesClientes.png"))); // NOI18N
@@ -175,6 +194,10 @@ public class ReportesClientes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelFondo;
+    private javax.swing.JLabel jLabelNombreCliente;
+    private javax.swing.JLabel jLabelPuntos;
+    private javax.swing.JLabel jLabelVisitas;
+    private javax.swing.JLabel jLabelVisualizar;
     private javax.swing.JPanel jPanelBuscador;
     private javax.swing.JPanel jPanelListaClientes;
     private javax.swing.JScrollPane jScrollPaneListaClientes;

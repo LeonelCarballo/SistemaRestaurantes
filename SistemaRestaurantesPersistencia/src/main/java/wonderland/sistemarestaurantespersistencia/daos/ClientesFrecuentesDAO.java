@@ -175,4 +175,17 @@ public class ClientesFrecuentesDAO implements IClientesFrecuentesDAO {
         return new ClienteFrecuenteDTO(cliente, vista.getVisitas(), vista.getGastoTotal(), vista.getPuntosFidelidad());
     }
 
+    @Override
+    public Calendar obtenerUltimaVisita(Long idCliente) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+
+        String jpql = "SELECT c.fechaHoraCreacion FROM Comanda c WHERE c.cliente.id = :idCliente ORDER BY c.fechaHoraCreacion DESC";
+        TypedQuery<Calendar> query = entityManager.createQuery(jpql, Calendar.class);
+        query.setParameter("idCliente", idCliente);
+        query.setMaxResults(1);
+
+        List<Calendar> resultados = query.getResultList();
+        return resultados.isEmpty() ? null : resultados.get(0);
+    }
+
 }
