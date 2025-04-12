@@ -124,13 +124,14 @@ public class DetallesComandasDAO implements IDetallesComandasDAO {
 
         try {
             String jpql = "SELECT new wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO("
-                    + "dc.producto, dc.cantidadProducto, dc.precio, dc.nota) "
-                    + "FROM DetalleComanda dc WHERE dc.comanda.id = :idComanda";
-
+             + "dc.producto, dc.cantidadProducto, dc.precio, dc.nota) "  
+             + "FROM DetalleComanda dc WHERE dc.comanda.id = :idComanda";
+            
             Query query = entityManager.createQuery(jpql);
             query.setParameter("idComanda", comandaDTO.getId());
 
             return query.getResultList();
+
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("No se pudo obtener el detalle de la comanda: " + e);

@@ -372,7 +372,7 @@ public class ResumenComanda extends javax.swing.JFrame {
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, "Volviendo a la pantalla principal");
         }
-        control.mostrarVentanaPrincial();
+        control.mostrarVentanaPrincipal();
         cerrar();
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
@@ -383,13 +383,16 @@ public class ResumenComanda extends javax.swing.JFrame {
 
     private void jButtonEditarComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarComandaActionPerformed
         control.mostrarSeleccionarProductosComanda(mesa, comandaDTO, false, productosSeleccionados);
+        for (ProductoSeleccionadoDTO producto : productosSeleccionados) {
+            System.out.println("Producto ID: " + producto.getIdProducto());
+        }
         cerrar();
     }//GEN-LAST:event_jButtonEditarComandaActionPerformed
 
     private void jButtonComandaEntregadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComandaEntregadaActionPerformed
 
         marcarComandaEntregada(comandaDTO);
-        control.mostrarVentanaPrincial();
+        control.mostrarVentanaPrincipal();
     }//GEN-LAST:event_jButtonComandaEntregadaActionPerformed
 
     private void jButtonAsociarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAsociarClienteActionPerformed

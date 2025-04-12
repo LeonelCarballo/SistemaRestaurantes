@@ -113,7 +113,7 @@ public class ControlPresentacion {
         ventanaPrincipal.mostrar();
     }
     
-    public void mostrarVentanaPrincial() {
+    public void mostrarVentanaPrincipal() {
         VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(this,idRolEmpleado);
         ventanaPrincipal.mostrar();
     }
@@ -183,6 +183,8 @@ public class ControlPresentacion {
 
             if (comandaDTO != null) {
                 List<ProductoSeleccionadoDTO> productosSeleccionados = detallesComandasBO.obtenerDetalleComandaPorComanda(comandaDTO);
+
+                productosSeleccionados.forEach(detalle -> System.out.println("ID Producto: " + detalle.getIdProducto()));
 
                 ResumenComanda resumenComanda = new ResumenComanda(this, productosSeleccionados, comandaDTO, detallesComandasBO, false, comandasBO, mesa, mesasBO);
                 resumenComanda.setVisible(true);

@@ -38,6 +38,8 @@ public class ProductoSeleccionadoDTO {
     
     public ProductoSeleccionadoDTO(Producto producto, Integer cantidad, Float precioUnitario, String notas) {
         this.producto = producto;
+        this.idProducto = producto.getId();         
+        this.nombreProducto = producto.getNombre();
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
         this.notas = notas;

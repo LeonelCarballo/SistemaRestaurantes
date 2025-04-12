@@ -32,6 +32,7 @@ public class ReportesClientes extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.clientesBO = clientesBO;
         this.control = control;
+       
         
         agregarBuscador();
         mostrarInformacionClientes();
@@ -201,6 +202,7 @@ public class ReportesClientes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVolverActionPerformed
+        control.mostrarIniciarReporte();
         cerrar();
     }//GEN-LAST:event_jButtonVolverActionPerformed
 

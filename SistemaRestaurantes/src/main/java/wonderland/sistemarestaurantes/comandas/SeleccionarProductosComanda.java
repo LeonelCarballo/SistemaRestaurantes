@@ -344,44 +344,41 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAsociarClientePropertyChange
 
     private void jButtonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSiguienteActionPerformed
-//        List<ProductoSeleccionadoDTO> productos = new ArrayList<>();
-//
-//        for (Component comp : jPanelProductosSeleccionados.getComponents()) {
-//            if (comp instanceof PanelProductoSeleccionado) {
-//                PanelProductoSeleccionado panel = (PanelProductoSeleccionado) comp;
-//                ProductoSeleccionadoDTO productoSeleccionadoDTO = panel.toDTO();
-//                
-//                if (productoSeleccionadoDTO.getCantidad() <= 0) {
-//                    JOptionPane.showMessageDialog(this,
-//                            "La cantidad de todos los productos debe ser mayor a cero.",
-//                            "Cantidad inválida", JOptionPane.WARNING_MESSAGE);
-//                    return;
-//                }
-//                productos.add(productoSeleccionadoDTO);
-//            }
-//        }
-//
-//        if (productos.isEmpty()) {
-//            JOptionPane.showMessageDialog(this,
-//                    "Debes seleccionar al menos un producto para continuar con la comanda.",
-//                    "Aviso", JOptionPane.WARNING_MESSAGE);
-//        } else {
-//            control.mostrarResumenComanda(productos, comandaDTO, true);
-//            cerrar();
-//        }
-//        this.dispose();
-
- 
         List<ProductoSeleccionadoDTO> productos = new ArrayList<>();
-        for (Component comp : jPanelProductosSeleccionados.getComponents()) {
+    for (Component comp : jPanelProductosSeleccionados.getComponents()) {
             if (comp instanceof PanelProductoSeleccionado) {
                 PanelProductoSeleccionado panel = (PanelProductoSeleccionado) comp;
-                productos.add(panel.toDTO());
+                ProductoSeleccionadoDTO productoSeleccionadoDTO = panel.toDTO();
+
+                if (productoSeleccionadoDTO.getCantidad() <= 0) {
+                    JOptionPane.showMessageDialog(this,
+                            "La cantidad de todos los productos debe ser mayor a cero.",
+                            "Cantidad inválida", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                
+                System.out.println("Producto ID: " + productoSeleccionadoDTO.getIdProducto());
+                // Validación adicional para el ID
+                if (productoSeleccionadoDTO.getIdProducto() == null) {
+                    JOptionPane.showMessageDialog(this,
+                            "Error: Uno o más productos no tienen ID válido.",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                productos.add(productoSeleccionadoDTO);
             }
         }
-        
-        control.mostrarResumenComanda(productos, comandaDTO, esComandaNueva);
-    
+
+        if (productos.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Debes seleccionar al menos un producto para continuar con la comanda.",
+                    "Aviso", JOptionPane.WARNING_MESSAGE);
+        } else {
+            control.mostrarResumenComanda(productos, comandaDTO, true);
+            cerrar();
+        }
+        this.dispose();
     }//GEN-LAST:event_jButtonSiguienteActionPerformed
 
 

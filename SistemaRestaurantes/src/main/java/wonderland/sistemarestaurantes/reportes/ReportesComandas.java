@@ -37,14 +37,16 @@ public class ReportesComandas extends javax.swing.JFrame {
     FontManager fontManager = new FontManager();
     private IComandasBO comandasBO;
     private IDetallesComandasBO detallesComandasBO;
+    private ControlPresentacion control;
     
 
-    public ReportesComandas(ControlPresentacion controlPresentacion, IComandasBO comandasBO, IDetallesComandasBO detallesComandasBO) {
+    public ReportesComandas(ControlPresentacion control, IComandasBO comandasBO, IDetallesComandasBO detallesComandasBO) {
         initComponents();
         setLocationRelativeTo(null);
         
         this.comandasBO = comandasBO;
         this.detallesComandasBO=detallesComandasBO;
+        this.control = control;
         
         mostrarTodasLasComandas();
         jPanelComandas.setOpaque(false);
@@ -144,29 +146,29 @@ public class ReportesComandas extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabelTotalVenta.setText("Total ");
         jLabelTotalVenta.setFont(fontManager.getNotoSerifCondensedRegular(20f)
         );
         jLabelTotalVenta.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelTotalVenta.setText("Total Venta");
-        getContentPane().add(jLabelTotalVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 300, -1, -1));
+        getContentPane().add(jLabelTotalVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 300, -1, -1));
 
+        jLabelEstado.setText("Estado");
         jLabelEstado.setFont(fontManager.getNotoSerifCondensedRegular(20f)
         );
         jLabelEstado.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelEstado.setText("Estado");
-        getContentPane().add(jLabelEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 300, -1, -1));
+        getContentPane().add(jLabelEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 300, -1, -1));
 
+        jLabelFechaHora.setText("Fecha/Hora");
         jLabelFechaHora.setFont(fontManager.getNotoSerifCondensedRegular(20f)
         );
         jLabelFechaHora.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelFechaHora.setText("Fecha/Hora");
-        getContentPane().add(jLabelFechaHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 300, -1, -1));
+        getContentPane().add(jLabelFechaHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 300, -1, -1));
 
+        jLabelMesa.setText("Mesa");
         jLabelMesa.setFont(fontManager.getNotoSerifCondensedRegular(20f)
         );
         jLabelMesa.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelMesa.setText("Mesa");
-        getContentPane().add(jLabelMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 300, -1, -1));
+        getContentPane().add(jLabelMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 300, -1, -1));
 
         jLabelNombre.setFont(fontManager.getNotoSerifCondensedRegular(20f)
         );
@@ -339,6 +341,7 @@ public class ReportesComandas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonFiltrarActionPerformed
 
     private void jButtonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVolverActionPerformed
+        control.mostrarIniciarReporte();
         cerrar();
     }//GEN-LAST:event_jButtonVolverActionPerformed
 

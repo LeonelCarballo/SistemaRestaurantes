@@ -247,6 +247,7 @@ public class DetalleReporteCliente extends javax.swing.JFrame {
         jTextFieldPuntos = new javax.swing.JTextField();
         jTextFieldFechaRegistro = new javax.swing.JTextField();
         jTextFieldUltimaVisita = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jLabelTotal = new javax.swing.JLabel();
         jLabelNumVisitas = new javax.swing.JLabel();
         jLabelPuntos = new javax.swing.JLabel();
@@ -318,6 +319,15 @@ public class DetalleReporteCliente extends javax.swing.JFrame {
         jTextFieldUltimaVisita.setText("jTextField7");
         jTextFieldUltimaVisita.setBorder(null);
         getContentPane().add(jTextFieldUltimaVisita, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 566, 210, 50));
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonAnterior.png"))); // NOI18N
+        jButton1.setContentAreaFilled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 620, 120, 110));
 
         jLabelTotal.setFont(fontManager.getNotoSerifCondensedRegular(22f)
         );
@@ -399,8 +409,14 @@ public class DetalleReporteCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldPuntosActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        control.mostrarReporteCliente();
+        cerrar();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonGenerarReporte;
     private javax.swing.JLabel jLabelApellidoMaterno;
     private javax.swing.JLabel jLabelApellidoPaterno;

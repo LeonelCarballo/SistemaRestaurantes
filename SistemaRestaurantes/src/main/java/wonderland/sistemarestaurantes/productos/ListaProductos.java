@@ -207,13 +207,15 @@ public class ListaProductos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegresarActionPerformed
-        cerrar();       
-        control.mostrarVentanaPrincial();
+              
+        control.mostrarVentanaPrincipal();
+        cerrar(); 
     }//GEN-LAST:event_jButtonRegresarActionPerformed
 
     private void jButtonAnadirProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnadirProductoActionPerformed
-        cerrar();
+     
         control.mostrarNuevoProducto();
+        cerrar();
     }//GEN-LAST:event_jButtonAnadirProductoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
