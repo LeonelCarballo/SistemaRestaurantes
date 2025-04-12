@@ -6,6 +6,7 @@ package wonderland.sistemarestaurantes.comandas;
 
 import wonderland.sistemarestaurantes.utils.FontManager;
 import java.awt.Color;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -72,6 +73,7 @@ public class ConfirmacionInicioComanda extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Se inició la nueva comanda con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);
 
             ComandaDTO comandaDTO = new ComandaDTO();
+            comandaDTO.setFechaHoraCreacion(Calendar.getInstance());
             comandaDTO.setId(comandaCreada.getId());
             comandaDTO.setEstadoComanda(comandaCreada.getEstadoComanda());
             comandaDTO.setFolio(comandaCreada.getFolio());

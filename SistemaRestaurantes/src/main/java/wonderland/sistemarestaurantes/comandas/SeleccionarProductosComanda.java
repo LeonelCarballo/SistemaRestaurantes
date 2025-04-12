@@ -16,6 +16,9 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import Mapper.ProductoMapper;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantes.utils.FontManager;
 import wonderland.sistemarestaurantesdominio.Mesa;
@@ -62,6 +65,34 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
+        if (comandaDTO != null && comandaDTO.getFechaHoraCreacion() != null) {
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd - MM - yyyy");
+            SimpleDateFormat formatoHora = new SimpleDateFormat("HH : mm : ss");
+
+            Calendar fechaCreacion = comandaDTO.getFechaHoraCreacion();
+            Date fecha = fechaCreacion.getTime();
+
+            JLabel lblFecha = new JLabel("Fecha : " + formatoFecha.format(fecha));
+            lblFecha.setFont(fontManager.getNunitoSemiBold(18f));
+            lblFecha.setForeground(Color.WHITE);
+
+            JLabel lblHora = new JLabel("Hora : " + formatoHora.format(fecha));
+            lblHora.setFont(fontManager.getNunitoSemiBold(18f));
+            lblHora.setForeground(Color.WHITE);
+
+            jPanelFecha.removeAll(); 
+            jPanelFecha.setLayout(new BorderLayout());
+            jPanelFecha.add(lblFecha, BorderLayout.CENTER);
+            jPanelFecha.revalidate();
+            jPanelFecha.repaint();
+
+            jPanelHora.removeAll(); 
+            jPanelHora.setLayout(new BorderLayout());
+            jPanelHora.add(lblHora, BorderLayout.CENTER);
+            jPanelHora.revalidate();
+            jPanelHora.repaint();
+        } 
+        
         mostrarProductos();
         cargarProductosSeleccionados();
 
@@ -102,6 +133,7 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
 //        JLabel lblHora = new JLabel("Hora : " + formatoHora.format(fecha));
 //        lblHora.setFont(fontManager.getNunitoSemiBold(18f));
 //        lblHora.setForeground(Color.WHITE);
+
         JLabel lblMesa = new JLabel("Mesa : " + (mesa != null ? mesa.getNumeroMesa() : "Desconocida"));
         lblMesa.setFont(fontManager.getNunitoSemiBold(18f));
         lblMesa.setForeground(Color.WHITE);
@@ -122,7 +154,8 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
 //        jPanelFecha.add(lblFecha);
 //        jPanelHora.add(lblHora);
         jPanelMesa.add(lblMesa);
-
+        
+       
     }
 
     public void cargarListaDeProductos(List<Producto> productos) {
@@ -267,8 +300,8 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         jPanelFolio.setLayout(new java.awt.BorderLayout());
         getContentPane().add(jPanelFolio, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 680, 230, 30));
         getContentPane().add(jPanelMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 640, 130, 30));
-        getContentPane().add(jPanelHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 30, 150, 40));
-        getContentPane().add(jPanelFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 140, 40));
+        getContentPane().add(jPanelHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 30, 200, 40));
+        getContentPane().add(jPanelFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 220, 40));
 
         jButtonAsociarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonAsociarCliente.png"))); // NOI18N
         jButtonAsociarCliente.setContentAreaFilled(false);
@@ -336,9 +369,15 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
                 productos.add(panel.toDTO());
             }
         }
-        control.mostrarResumenComanda(productos, comandaDTO, true);
-        cerrar();
         
+        if (productos.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debes seleccionar al menos un producto para continuar con la comanda.",
+                    "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }else{
+            control.mostrarResumenComanda(productos, comandaDTO, true);
+            cerrar();
+        }
     }//GEN-LAST:event_jButtonSiguienteActionPerformed
 
 
