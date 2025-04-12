@@ -4,6 +4,7 @@
  */
 package wonderland.sistemarestaurantespersistencia;
 
+import java.util.Calendar;
 import java.util.List;
 import wonderland.sistemarestaurantesdominio.Cliente;
 import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
@@ -35,6 +36,9 @@ public interface IClientesFrecuentesDAO {
     public abstract ClienteFrecuenteDTO obtenerClientesConFidelidad(ClienteFrecuente cliente);
     
     public abstract ClienteFrecuenteDTO obtenerDatosFidelidad(Long idCliente);
+    
+    public abstract Calendar obtenerUltimaVisita(Long idCliente);
+    
     
     
 }

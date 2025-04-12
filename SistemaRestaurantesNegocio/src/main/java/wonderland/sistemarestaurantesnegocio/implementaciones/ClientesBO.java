@@ -4,6 +4,7 @@
      */
     package wonderland.sistemarestaurantesnegocio.implementaciones;
 
+import java.util.Calendar;
     import java.util.List;
     import wonderland.sistemarestaurantesdominio.Cliente;
     import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
@@ -219,4 +220,8 @@ import wonderland.sistemarestaurantesdominio.VistaFidelidadCliente;
             return this.clientesFrecuentesDAO.obtenerDatosFidelidad(idCliente);
         }
 
+        @Override
+        public Calendar obtenerUltimaVisita(Long idCliente) throws NegocioException {
+            return this.clientesFrecuentesDAO.obtenerUltimaVisita(idCliente);
+        }
 }

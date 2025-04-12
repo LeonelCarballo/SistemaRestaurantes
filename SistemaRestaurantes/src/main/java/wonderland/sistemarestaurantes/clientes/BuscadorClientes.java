@@ -34,6 +34,8 @@ public class BuscadorClientes extends javax.swing.JPanel {
         setOpaque(false);
         jButtonBuscar.addActionListener(this::buscarClientes);
         
+        jTextFieldBuscador.setOpaque(false);
+        
     }
     
     private void buscarClientes(ActionEvent e) {
