@@ -238,23 +238,29 @@ public class DetallesComandasDAO implements IDetallesComandasDAO {
      * @return Lista de detalles asociados.
      */
     @Override
-    public List<DetalleComandaDTO> obtenerDetallesDTOPorComanda(ComandaDTO comandaDTO) {
+    public List<DetalleComandaDTO> obtenerDetallesDTOPorComanda(ComandaDTO comandaDTO) throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        TypedQuery<DetalleComanda> query = entityManager.createQuery(
-                "SELECT d FROM DetalleComanda d WHERE d.comanda.id = :idComanda", DetalleComanda.class);
-        query.setParameter("idComanda", comandaDTO.getId());
-        List<DetalleComanda> resultados = query.getResultList();
+        
+        try{
+            TypedQuery<DetalleComanda> query = entityManager.createQuery(
+            "SELECT d FROM DetalleComanda d WHERE d.comanda.id = :idComanda", DetalleComanda.class);
+            query.setParameter("idComanda", comandaDTO.getId());
+            List<DetalleComanda> resultados = query.getResultList();
 
-        List<DetalleComandaDTO> detallesDTO = new ArrayList<>();
-        for (DetalleComanda detalle : resultados) {
+            List<DetalleComandaDTO> detallesDTO = new ArrayList<>();
+            for (DetalleComanda detalle : resultados) {
             DetalleComandaDTO detalleComandaDTO = new DetalleComandaDTO();
             detalleComandaDTO.setIdDetalleComanda(detalle.getId());
             detalleComandaDTO.setCantidadProducto(detalle.getCantidadProducto());
             detalleComandaDTO.setPrecio(detalle.getPrecio());
             detalleComandaDTO.setProducto(detalle.getProducto());
             detallesDTO.add(detalleComandaDTO);
+            }
+            
+            return detallesDTO;
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new PersistenciaException("No se pudo editar el detalle de la comanda: " + e);
         }
-
-        return detallesDTO;
     }
 }

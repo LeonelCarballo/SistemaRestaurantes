@@ -28,4 +28,5 @@ public interface IIngredientesDAO {
     public abstract Ingrediente aumentarStock(NuevoIngredienteDTO nuevoIngredienteDTO) throws PersistenciaException;
     
     public abstract List<Ingrediente> consultarIngredientesPorNombre(String nombre) throws PersistenciaException;
+
 }

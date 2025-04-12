@@ -90,7 +90,7 @@ public class EditarNombreIngrediente extends javax.swing.JFrame {
                 jButtonAtrasActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 30, 50));
+        getContentPane().add(jButtonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 40, 50));
 
         jLabelFondoEditarNombre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoEditarNombreIngrediente.png"))); // NOI18N
         getContentPane().add(jLabelFondoEditarNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));

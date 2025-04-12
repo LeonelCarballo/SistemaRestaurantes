@@ -238,6 +238,12 @@ public class ClientesBO implements IClientesBO {
         }
 
         try {
+            // Validar que no exista un cliente con el mismo hash de teléfono
+            String hashTelefono = SeguridadUtil.generarHash(clienteFrecuenteDTO.getTelefono());
+            if (existeClienteConHashTelefono(hashTelefono)) {
+                throw new NegocioException("Ya existe un cliente registrado con este número de teléfono");
+            }
+
             return this.clientesFrecuentesDAO.editarCliente(clienteFrecuenteDTO);
         } catch (PersistenciaException ex) {
             throw new NegocioException("No se pudo editar el cliente");

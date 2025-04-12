@@ -81,7 +81,8 @@ public class ListaClientes extends javax.swing.JFrame {
             ClientePanel panel = new ClientePanel(
                 cliente, 
                 "Información",
-                e -> control.mostrarPerfilCliente(cliente, clienteDTO),
+                e -> {control.mostrarPerfilCliente(cliente, clienteDTO);
+                    cerrar();},
                     idRol
             );
             panel.actualizarPuntos(clienteDTO.getPuntosFidelidad()); 
@@ -101,8 +102,8 @@ public class ListaClientes extends javax.swing.JFrame {
                 ClientePanel panel = new ClientePanel(
                     cliente, 
                     "Información",
-                    e -> control.mostrarPerfilCliente(cliente, clienteDTO),
-                        idRol
+                    e -> {control.mostrarPerfilCliente(cliente, clienteDTO);
+                    cerrar();}, idRol
                 );
 
                 panel.actualizarPuntos(clienteDTO.getPuntosFidelidad());

@@ -96,7 +96,7 @@ public class AñadirStockIngrediente extends javax.swing.JFrame {
                 jButtonAtrasActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 30, 50));
+        getContentPane().add(jButtonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 40, 50));
 
         jLabelFondoAñadirStockIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoAñadirStockIngrediente.png"))); // NOI18N
         jLabelFondoAñadirStockIngrediente.setText("jLabel1");

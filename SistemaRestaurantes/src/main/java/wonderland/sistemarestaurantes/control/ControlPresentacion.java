@@ -197,7 +197,8 @@ public class ControlPresentacion {
     }
 
     public void mostrarSeleccionarProductosComanda(Mesa mesa, ComandaDTO comandaDTO, boolean esComandaNueva, List<ProductoSeleccionadoDTO> productosSeleccionados) {
-        SeleccionarProductosComanda ventana = new SeleccionarProductosComanda(this, mesa, comandaDTO, productosBO, detallesComandasBO, detalleComandaDTO, esComandaNueva, productosSeleccionados);
+        SeleccionarProductosComanda ventana = new SeleccionarProductosComanda(this, mesa, comandaDTO, productosBO, detallesComandasBO, detalleComandaDTO, 
+                esComandaNueva, productosSeleccionados);
         ventana.mostrar(); 
     }
 
