@@ -18,18 +18,19 @@ import wonderland.sistemarestaurantesdominio.dtos.DetalleComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO;
 import wonderland.sistemarestaurantespersistencia.IDetallesComandasDAO;
 import wonderland.sistemarestaurantespersistencia.conexiones.ManejadorConexiones;
+import wonderland.sistemarestaurantespersistencia.persistenciaexception.PersistenciaException;
 
 /**
  *
  * @author payde
  */
-public class DetallesComandasDAO implements IDetallesComandasDAO {
+public class DetallesComandasDAO implements IDetallesComandasDAO {      
 
     @Override
-    public DetalleComanda guardarDetalleComanda(DetalleComandaDTO detalleComandaDTO) {
+    public DetalleComanda guardarDetalleComanda(DetalleComandaDTO detalleComandaDTO) throws PersistenciaException {
         EntityManager em = ManejadorConexiones.getEntityManager();
         EntityTransaction tx = em.getTransaction();
-
+        
         try {
             tx.begin();
 
@@ -57,7 +58,7 @@ public class DetallesComandasDAO implements IDetallesComandasDAO {
     }
 
     @Override
-    public DetalleComanda guardarDetallesComandas(List<DetalleComandaDTO> listaDto) {
+    public DetalleComanda guardarDetallesComandas(List<DetalleComandaDTO> listaDto) throws PersistenciaException {
         EntityManager em = ManejadorConexiones.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         DetalleComanda ultimoGuardado = null;
@@ -92,42 +93,55 @@ public class DetallesComandasDAO implements IDetallesComandasDAO {
     }
 
     @Override
-    public List<ProductoSeleccionadoDTO> obtenerDetalleComandaPorComanda(ComandaDTO comandaDTO) {
+    public List<ProductoSeleccionadoDTO> obtenerDetalleComandaPorComanda(ComandaDTO comandaDTO) throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        
+        try{       
+            String jpql = "SELECT new wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO("
+                    + "dc.producto, dc.cantidadProducto, dc.precio, dc.nota) "
+                    + "FROM DetalleComanda dc WHERE dc.comanda.id = :idComanda";
 
-        String jpql = "SELECT new wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO("
-                + "dc.producto, dc.cantidadProducto, dc.precio, dc.nota) "
-                + // ← Ahora pasa el producto completo
-                "FROM DetalleComanda dc WHERE dc.comanda.id = :idComanda";
+            Query query = entityManager.createQuery(jpql);
+            query.setParameter("idComanda", comandaDTO.getId());
 
-        Query query = entityManager.createQuery(jpql);
-        query.setParameter("idComanda", comandaDTO.getId());
-
-        return query.getResultList();
+            return query.getResultList();
+        } catch (Exception e){
+            entityManager.getTransaction().rollback();           
+            throw new PersistenciaException("No se pudo registrar la comanda" + e);           
+        } finally {
+            entityManager.close();
+        } 
     }
 
     @Override
-    public void editarDetalleComanda(Long idComanda, ProductoSeleccionadoDTO productoSeleccionado) {
+    public void editarDetalleComanda(Long idComanda, ProductoSeleccionadoDTO productoSeleccionado) throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        entityManager.getTransaction().begin();
+        
+        try{
+            entityManager.getTransaction().begin();
 
-        String jpql = "SELECT dc FROM DetalleComanda dc WHERE dc.comanda.id = :idComanda AND dc.producto.nombre = :nombreProducto";
-        DetalleComanda detalle = entityManager.createQuery(jpql, DetalleComanda.class)
-                .setParameter("idComanda", idComanda)
-                .setParameter("nombreProducto", productoSeleccionado.getNombreProducto())
-                .getSingleResult();
+            String jpql = "SELECT dc FROM DetalleComanda dc WHERE dc.comanda.id = :idComanda AND dc.producto.nombre = :nombreProducto";
+            DetalleComanda detalle = entityManager.createQuery(jpql, DetalleComanda.class)
+                    .setParameter("idComanda", idComanda)
+                    .setParameter("nombreProducto", productoSeleccionado.getNombreProducto())
+                    .getSingleResult();
 
-        detalle.setCantidadProducto(productoSeleccionado.getCantidad());
-        detalle.setPrecio(productoSeleccionado.getPrecioUnitario());
-        detalle.setNota(productoSeleccionado.getNotas());
+            detalle.setCantidadProducto(productoSeleccionado.getCantidad());
+            detalle.setPrecio(productoSeleccionado.getPrecioUnitario());
+            detalle.setNota(productoSeleccionado.getNotas());
 
-        entityManager.merge(detalle);
-        entityManager.getTransaction().commit();
-
+            entityManager.merge(detalle);
+            entityManager.getTransaction().commit();
+        } catch (Exception e){
+            entityManager.getTransaction().rollback();           
+            throw new PersistenciaException("No se pudo registrar la comanda" + e);           
+        } finally {
+            entityManager.close();
+        } 
     }
 
     @Override
-    public DetalleComanda ActualizarDetallesComanda(DetalleComandaDTO detalleComandaDTO) {
+    public DetalleComanda ActualizarDetallesComanda(DetalleComandaDTO detalleComandaDTO) throws PersistenciaException {
         EntityManager em = ManejadorConexiones.getEntityManager();
         EntityTransaction tx = em.getTransaction();
 

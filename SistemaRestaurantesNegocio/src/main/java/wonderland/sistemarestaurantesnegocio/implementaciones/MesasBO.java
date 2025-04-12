@@ -5,12 +5,15 @@
 package wonderland.sistemarestaurantesnegocio.implementaciones;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import wonderland.sistemarestaurantesdominio.EstadoMesa;
 import wonderland.sistemarestaurantesdominio.Mesa;
 import wonderland.sistemarestaurantesdominio.dtos.NuevaMesaDTO;
 import wonderland.sistemarestaurantesnegocio.IMesasBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 import wonderland.sistemarestaurantespersistencia.IMesasDAO;
+import wonderland.sistemarestaurantespersistencia.persistenciaexception.PersistenciaException;
 
 /**
  *
@@ -28,20 +31,29 @@ public class MesasBO implements IMesasBO {
 
     @Override
     public List<Mesa> agregarMesas(NuevaMesaDTO nuevaMesa) throws NegocioException {
-        return mesasDAO.agregarMesas(nuevaMesa);
+        try {
+            return mesasDAO.agregarMesas(nuevaMesa);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
     }
 
     @Override
     public List<Mesa> mostrarMesas() throws NegocioException {
         
-        return this.mesasDAO.mostrarMesas();
+        try {
+            return this.mesasDAO.mostrarMesas();
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
     }
 
     @Override
     public Mesa cambiarEstadoMesa(Long idMesa, EstadoMesa nuevoEstado) throws NegocioException {
-        return this.mesasDAO.cambiarEstadoMesa(idMesa, nuevoEstado);
-    }
-    
-    
-    
+        try {
+            return this.mesasDAO.cambiarEstadoMesa(idMesa, nuevoEstado);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
+    }  
 }

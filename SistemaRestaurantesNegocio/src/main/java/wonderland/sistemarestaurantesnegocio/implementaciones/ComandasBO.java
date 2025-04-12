@@ -6,6 +6,8 @@ package wonderland.sistemarestaurantesnegocio.implementaciones;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
 import wonderland.sistemarestaurantesdominio.Comanda;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
@@ -13,6 +15,7 @@ import wonderland.sistemarestaurantesdominio.dtos.NuevaComandaDTO;
 import wonderland.sistemarestaurantesnegocio.IComandasBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 import wonderland.sistemarestaurantespersistencia.IComandasDAO;
+import wonderland.sistemarestaurantespersistencia.persistenciaexception.PersistenciaException;
 
 /**
  *
@@ -28,42 +31,74 @@ public class ComandasBO implements IComandasBO {
     
     @Override
     public Comanda asociarClienteAComanda(Comanda comanda, ClienteFrecuente cliente) throws NegocioException {
-        return this.comandasDAO.asociarClienteAComanda(comanda, cliente);
+        try {
+            return this.comandasDAO.asociarClienteAComanda(comanda, cliente);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
     }
 
     @Override
     public Comanda crearNuevaComanda(NuevaComandaDTO nuevaComanda) throws NegocioException {
-        return this.comandasDAO.crearNuevarComanda(nuevaComanda);
+        try {
+            return this.comandasDAO.crearNuevarComanda(nuevaComanda);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
     }
 
     @Override
     public Comanda obtenerComandaPorId(Long idComanda) throws NegocioException {
-        return this.comandasDAO.obtenerComandaPorId(idComanda);
+        try {
+            return this.comandasDAO.obtenerComandaPorId(idComanda);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
     }
 
     @Override
     public ComandaDTO obtenerComandaActivaPorMesa(Long idMesa) throws NegocioException {
-        return this.comandasDAO.obtenerComandaActivaPorMesa(idMesa);
+        try {
+            return this.comandasDAO.obtenerComandaActivaPorMesa(idMesa);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
     }
 
     @Override
     public Comanda modificarEstadoComanda(ComandaDTO comandaDTO) throws NegocioException {
-        return this.comandasDAO.modificarEstadoComanda(comandaDTO);
+        try {
+            return this.comandasDAO.modificarEstadoComanda(comandaDTO);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
     }
 
     @Override
     public Comanda cancelarComanda(ComandaDTO comandaDTO) throws NegocioException {
-        return this.comandasDAO.cancelarComanda(comandaDTO);
+        try {
+            return this.comandasDAO.cancelarComanda(comandaDTO);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
     }
 
     @Override
     public List<ComandaDTO> obtenerComandas() throws NegocioException {
-        return this.comandasDAO.obtenerComandas();
+        try {
+            return this.comandasDAO.obtenerComandas();
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
     }
 
     @Override
     public List<ComandaDTO> obtenerComandasPorFechas(Calendar fechaInicio, Calendar fechaFin) throws NegocioException {
-        return this.comandasDAO.obtenerComandasPorFechas(fechaInicio, fechaFin);
+        try {
+            return this.comandasDAO.obtenerComandasPorFechas(fechaInicio, fechaFin);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
     }
     
 }

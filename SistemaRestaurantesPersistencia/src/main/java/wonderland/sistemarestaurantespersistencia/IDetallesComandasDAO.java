@@ -9,6 +9,7 @@ import wonderland.sistemarestaurantesdominio.DetalleComanda;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.DetalleComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO;
+import wonderland.sistemarestaurantespersistencia.persistenciaexception.PersistenciaException;
 
 /**
  *
@@ -16,13 +17,13 @@ import wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO;
  */
 public interface IDetallesComandasDAO {
     
-    public abstract DetalleComanda guardarDetalleComanda(DetalleComandaDTO detalleComanda);
+    public abstract DetalleComanda guardarDetalleComanda(DetalleComandaDTO detalleComanda) throws PersistenciaException;
     
-    public abstract DetalleComanda guardarDetallesComandas(List<DetalleComandaDTO> detalleComanda);
+    public abstract DetalleComanda guardarDetallesComandas(List<DetalleComandaDTO> detalleComanda) throws PersistenciaException;
     
-    public abstract List<ProductoSeleccionadoDTO> obtenerDetalleComandaPorComanda(ComandaDTO comandaDTO);
+    public abstract List<ProductoSeleccionadoDTO> obtenerDetalleComandaPorComanda(ComandaDTO comandaDTO) throws PersistenciaException;
     
-    public abstract void editarDetalleComanda(Long idComanda, ProductoSeleccionadoDTO productoSeleccionado);
+    public abstract void editarDetalleComanda(Long idComanda, ProductoSeleccionadoDTO productoSeleccionado) throws PersistenciaException;
     
-    public abstract DetalleComanda ActualizarDetallesComanda(DetalleComandaDTO detalleComandaDTO);
+    public abstract DetalleComanda ActualizarDetallesComanda(DetalleComandaDTO detalleComandaDTO) throws PersistenciaException;
 }

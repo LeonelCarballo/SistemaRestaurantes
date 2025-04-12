@@ -5,6 +5,8 @@
 package wonderland.sistemarestaurantesnegocio.implementaciones;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import wonderland.sistemarestaurantesdominio.DetalleComanda;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.DetalleComandaDTO;
@@ -12,6 +14,7 @@ import wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO;
 import wonderland.sistemarestaurantesnegocio.IDetallesComandasBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 import wonderland.sistemarestaurantespersistencia.IDetallesComandasDAO;
+import wonderland.sistemarestaurantespersistencia.persistenciaexception.PersistenciaException;
 
 /**
  *
@@ -28,22 +31,38 @@ public class DetallesComandasBO implements IDetallesComandasBO {
 
     @Override
     public DetalleComanda guardarDetalleComanda(DetalleComandaDTO detalleComandaDTO) throws NegocioException {
-        return this.detallesComandasDAO.guardarDetalleComanda(detalleComandaDTO);
+        try {
+            return this.detallesComandasDAO.guardarDetalleComanda(detalleComandaDTO);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
     }
 
     @Override
     public List<ProductoSeleccionadoDTO> obtenerDetalleComandaPorComanda(ComandaDTO comandaDTO) throws NegocioException {
-        return this.detallesComandasDAO.obtenerDetalleComandaPorComanda(comandaDTO);
+        try {
+            return this.detallesComandasDAO.obtenerDetalleComandaPorComanda(comandaDTO);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
     }
 
     @Override
     public void editarDetalleComanda(Long idComanda, ProductoSeleccionadoDTO productoSeleccionado) throws NegocioException {
-       this.detallesComandasDAO.editarDetalleComanda(idComanda, productoSeleccionado);
+        try {
+            this.detallesComandasDAO.editarDetalleComanda(idComanda, productoSeleccionado);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
     }
 
     @Override
     public DetalleComanda ActualizarDetallesComanda(DetalleComandaDTO detalleComandaDTO) throws NegocioException {
-        return this.detallesComandasDAO.ActualizarDetallesComanda(detalleComandaDTO);
+        try {
+            return this.detallesComandasDAO.ActualizarDetallesComanda(detalleComandaDTO);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
     }
 
    

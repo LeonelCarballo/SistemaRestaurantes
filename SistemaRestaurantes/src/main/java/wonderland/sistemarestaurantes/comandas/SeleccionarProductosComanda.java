@@ -327,6 +327,7 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 630, 100, 100));
 
+        jPanelProductosSeleccionados.setLayout(new javax.swing.BoxLayout(jPanelProductosSeleccionados, javax.swing.BoxLayout.Y_AXIS));
         jScrollPaneProductosSeleccionados.setViewportView(jPanelProductosSeleccionados);
 
         getContentPane().add(jScrollPaneProductosSeleccionados, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 290, 450, 340));

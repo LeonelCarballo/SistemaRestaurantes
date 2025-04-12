@@ -6,6 +6,8 @@
 
 import java.util.Calendar;
     import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
     import wonderland.sistemarestaurantesdominio.Cliente;
     import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
 import wonderland.sistemarestaurantesdominio.VistaFidelidadCliente;
@@ -14,6 +16,7 @@ import wonderland.sistemarestaurantesdominio.VistaFidelidadCliente;
     import wonderland.sistemarestaurantesnegocio.IClientesBO;
     import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
     import wonderland.sistemarestaurantespersistencia.IClientesFrecuentesDAO;
+import wonderland.sistemarestaurantespersistencia.persistenciaexception.PersistenciaException;
 
     /**
      *
@@ -101,7 +104,11 @@ import wonderland.sistemarestaurantesdominio.VistaFidelidadCliente;
                 }
             }
 
-            return this.clientesFrecuentesDAO.registrarCliente(nuevoClienteFrecuente);
+            try {
+                return this.clientesFrecuentesDAO.registrarCliente(nuevoClienteFrecuente);
+            } catch (PersistenciaException ex) {
+                throw new NegocioException("No se pudo registrar el cliente");
+            }
         }
 
 
@@ -110,7 +117,11 @@ import wonderland.sistemarestaurantesdominio.VistaFidelidadCliente;
             if (filtroBusqueda.length() > LIMITE_CARACTERES) {
                         throw new NegocioException ("El Filtro de busqueda es demasiado largo");
                     }
-                    return this.clientesFrecuentesDAO.consultarClientesPorNombre(filtroBusqueda);
+            try {
+                return this.clientesFrecuentesDAO.consultarClientesPorNombre(filtroBusqueda);
+            } catch (PersistenciaException ex) {
+                throw new NegocioException("No se pudo registrar el cliente");
+            }
         }
 
         @Override
@@ -118,7 +129,11 @@ import wonderland.sistemarestaurantesdominio.VistaFidelidadCliente;
             if (filtroBusqueda.length() > LIMITE_CARACTERES_TELEFONO) {
                         throw new NegocioException ("El Filtro de busqueda es demasiado largo");
                     }
-                    return this.clientesFrecuentesDAO.consultarClientesPorTelefono(filtroBusqueda);
+            try {
+                return this.clientesFrecuentesDAO.consultarClientesPorTelefono(filtroBusqueda);
+            } catch (PersistenciaException ex) {
+                throw new NegocioException("No se pudo registrar el cliente");
+            }
         }
 
         @Override
@@ -126,12 +141,20 @@ import wonderland.sistemarestaurantesdominio.VistaFidelidadCliente;
             if (filtroBusqueda.length() > LIMITE_CARACTERES_CORREO_ELECTRONICO) {
                         throw new NegocioException ("El Filtro de busqueda es demasiado largo");
                     }
-                    return this.clientesFrecuentesDAO.consultarClientesPorCorreoElectronico(filtroBusqueda);
+            try {
+                return this.clientesFrecuentesDAO.consultarClientesPorCorreoElectronico(filtroBusqueda);
+            } catch (PersistenciaException ex) {
+                throw new NegocioException("No se pudo registrar el cliente");
+            }
         }
 
         @Override
         public List<ClienteFrecuente> obtenerClientes() throws NegocioException {
-            return this.clientesFrecuentesDAO.obtenerClientes();
+            try {
+                return this.clientesFrecuentesDAO.obtenerClientes();
+            } catch (PersistenciaException ex) {
+                throw new NegocioException("No se pudo registrar el cliente");
+            }
         }
 
         @Override
@@ -202,26 +225,46 @@ import wonderland.sistemarestaurantesdominio.VistaFidelidadCliente;
                 }
             }
 
-            return this.clientesFrecuentesDAO.editarCliente(clienteFrecuenteDTO);
+            try {
+                return this.clientesFrecuentesDAO.editarCliente(clienteFrecuenteDTO);
+            } catch (PersistenciaException ex) {
+                throw new NegocioException("No se pudo registrar el cliente");
+            }
         }
 
         @Override
         public ClienteFrecuente buscarClientePorId(Long id) throws NegocioException {
-            return this.clientesFrecuentesDAO.buscarClientePorId(id);
+            try {
+                return this.clientesFrecuentesDAO.buscarClientePorId(id);
+            } catch (PersistenciaException ex) {
+                throw new NegocioException("No se pudo registrar el cliente");
+            }
         }
 
         @Override
         public ClienteFrecuenteDTO obtenerClientesConFidelidad(ClienteFrecuente cliente) throws NegocioException {
-            return this.clientesFrecuentesDAO.obtenerClientesConFidelidad(cliente);
+            try {
+                return this.clientesFrecuentesDAO.obtenerClientesConFidelidad(cliente);
+            } catch (PersistenciaException ex) {
+                throw new NegocioException("No se pudo registrar el cliente");
+            }
         }
 
         @Override
         public ClienteFrecuenteDTO obtenerDatosFidelidad(Long idCliente) throws NegocioException {
-            return this.clientesFrecuentesDAO.obtenerDatosFidelidad(idCliente);
+            try {
+                return this.clientesFrecuentesDAO.obtenerDatosFidelidad(idCliente);
+            } catch (PersistenciaException ex) {
+                throw new NegocioException("No se pudo registrar el cliente");
+            }
         }
 
         @Override
         public Calendar obtenerUltimaVisita(Long idCliente) throws NegocioException {
-            return this.clientesFrecuentesDAO.obtenerUltimaVisita(idCliente);
+            try {
+                return this.clientesFrecuentesDAO.obtenerUltimaVisita(idCliente);
+            } catch (PersistenciaException ex) {
+                throw new NegocioException("No se pudo registrar el cliente");
+            }
         }
 }

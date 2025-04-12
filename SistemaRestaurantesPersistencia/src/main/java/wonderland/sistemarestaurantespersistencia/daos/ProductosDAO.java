@@ -16,31 +16,40 @@ import wonderland.sistemarestaurantesdominio.TipoProducto;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoProductoDTO;
 import wonderland.sistemarestaurantespersistencia.IProductosDAO;
 import wonderland.sistemarestaurantespersistencia.conexiones.ManejadorConexiones;
+import wonderland.sistemarestaurantespersistencia.persistenciaexception.PersistenciaException;
 
 /**
  *
  * @author payde
  */
 public class ProductosDAO implements IProductosDAO{
-
+    
     @Override
-    public Producto registrarProducto(NuevoProductoDTO nuevoProducto) {    
+    public Producto registrarProducto(NuevoProductoDTO nuevoProducto) throws PersistenciaException {    
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        entityManager.getTransaction().begin();
         
-        Producto producto = new Producto();
-        producto.setNombre(nuevoProducto.getNombre());
-        producto.setPrecio(nuevoProducto.getPrecio());
-        producto.setTipoProducto(nuevoProducto.getTipoProducto());
-        
-        entityManager.persist(producto);
-        entityManager.getTransaction().commit();
+        try{
+            entityManager.getTransaction().begin();
 
-        return producto;     
+            Producto producto = new Producto();
+            producto.setNombre(nuevoProducto.getNombre());
+            producto.setPrecio(nuevoProducto.getPrecio());
+            producto.setTipoProducto(nuevoProducto.getTipoProducto());
+
+            entityManager.persist(producto);
+            entityManager.getTransaction().commit();
+
+            return producto;    
+        } catch (Exception e){
+            entityManager.getTransaction().rollback();           
+            throw new PersistenciaException("No se pudo registrar el cliente" + e);           
+        } finally {
+            entityManager.close();
+        }   
     }
     
     @Override
-    public List<Producto> obtenerTodos() {
+    public List<Producto> obtenerTodos() throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
 
         try {
@@ -54,54 +63,73 @@ public class ProductosDAO implements IProductosDAO{
     
 
     @Override
-    public List<Producto> obtenerProductoPorTipo(TipoProducto tipo) {
+    public List<Producto> obtenerProductoPorTipo(TipoProducto tipo) throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        
-        List<Producto> productos  = entityManager
-                .createQuery("SELECT p FROM Producto p WHERE p.tipoProducto = :tipo", Producto.class)
-                .setParameter("tipo", tipo)
-                .getResultList();
-        
-        
-        return productos;
-        
+          
+        try{
+            List<Producto> productos  = entityManager
+                    .createQuery("SELECT p FROM Producto p WHERE p.tipoProducto = :tipo", Producto.class)
+                    .setParameter("tipo", tipo)
+                    .getResultList();
+
+
+            return productos; 
+        } catch (Exception e){
+            entityManager.getTransaction().rollback();           
+            throw new PersistenciaException("No se pudo registrar el cliente" + e);           
+        } finally {
+            entityManager.close();
+        }     
     }
     
     @Override
-    public Producto editarProducto(NuevoProductoDTO productoDTO) {
+    public Producto editarProducto(NuevoProductoDTO productoDTO) throws PersistenciaException  {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        
+        try{
+            entityManager.getTransaction().begin();
 
-        entityManager.getTransaction().begin();
+            Producto productoEncontrado = entityManager.find(Producto.class, productoDTO.getId());
 
-        Producto productoEncontrado = entityManager.find(Producto.class, productoDTO.getId());
+            productoEncontrado.setNombre(productoDTO.getNombre());
+            productoEncontrado.setPrecio(productoDTO.getPrecio());
+            productoEncontrado.setTipoProducto(productoDTO.getTipoProducto());
 
-        productoEncontrado.setNombre(productoDTO.getNombre());
-        productoEncontrado.setPrecio(productoDTO.getPrecio());
-        productoEncontrado.setTipoProducto(productoDTO.getTipoProducto());
+            entityManager.merge(productoEncontrado);
+            entityManager.getTransaction().commit();
 
-        entityManager.merge(productoEncontrado);
-        entityManager.getTransaction().commit();
-
-        return productoEncontrado;
+            return productoEncontrado;
+        } catch (Exception e){
+            entityManager.getTransaction().rollback();           
+            throw new PersistenciaException("No se pudo registrar el cliente" + e);           
+        } finally {
+            entityManager.close();
+        }  
    }
     
     @Override
-    public List<Producto> buscarPorNombre(String nombre) {
+    public List<Producto> buscarPorNombre(String nombre) throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        
+        try{
+            CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Producto> criteria = builder.createQuery(Producto.class);
+            Root<Producto> entidadProducto = criteria.from(Producto.class);
 
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Producto> criteria = builder.createQuery(Producto.class);
-        Root<Producto> entidadProducto = criteria.from(Producto.class);
+            Predicate nombreLike = builder.like(
+                builder.lower(entidadProducto.get("nombre")),
+                "%" + nombre.toLowerCase() + "%"
+            );
 
-        Predicate nombreLike = builder.like(
-            builder.lower(entidadProducto.get("nombre")),
-            "%" + nombre.toLowerCase() + "%"
-        );
+            criteria.select(entidadProducto).where(nombreLike);
 
-        criteria.select(entidadProducto).where(nombreLike);
-
-        TypedQuery<Producto> query = entityManager.createQuery(criteria);
-        return query.getResultList();
-    }
-    
+            TypedQuery<Producto> query = entityManager.createQuery(criteria);
+            return query.getResultList();
+        } catch (Exception e){
+            entityManager.getTransaction().rollback();           
+            throw new PersistenciaException("No se pudo registrar el cliente" + e);           
+        } finally {
+            entityManager.close();
+        }  
+    }   
 }

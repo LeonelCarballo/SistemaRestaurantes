@@ -7,6 +7,7 @@ package wonderland.sistemarestaurantespersistencia;
 import java.util.List;
 import wonderland.sistemarestaurantesdominio.Ingrediente;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoIngredienteDTO;
+import wonderland.sistemarestaurantespersistencia.persistenciaexception.PersistenciaException;
 
 /**
  *
@@ -14,17 +15,17 @@ import wonderland.sistemarestaurantesdominio.dtos.NuevoIngredienteDTO;
  */
 public interface IIngredientesDAO {
     
-    public abstract Ingrediente registrarIngrediente(NuevoIngredienteDTO nuevoIngrediente);
+    public abstract Ingrediente registrarIngrediente(NuevoIngredienteDTO nuevoIngrediente) throws PersistenciaException;
     
-    public abstract List<Ingrediente> consultarIngredientes();
+    public abstract List<Ingrediente> consultarIngredientes() throws PersistenciaException;
     
-    public abstract List<Ingrediente> obtenerTodos();
+    public abstract List<Ingrediente> obtenerTodos() throws PersistenciaException;
     
-    public abstract Ingrediente buscarIngredienteId(Long idCliente);   
+    public abstract Ingrediente buscarIngredienteId(Long idCliente) throws PersistenciaException;   
     
-    public abstract Ingrediente editarNombre(NuevoIngredienteDTO nuevoIngredienteDTO);
+    public abstract Ingrediente editarNombre(NuevoIngredienteDTO nuevoIngredienteDTO) throws PersistenciaException;
     
-    public abstract Ingrediente aumentarStock(NuevoIngredienteDTO nuevoIngredienteDTO);
+    public abstract Ingrediente aumentarStock(NuevoIngredienteDTO nuevoIngredienteDTO) throws PersistenciaException;
     
-    public abstract List<Ingrediente> consultarIngredientesPorNombre(String nombre);
+    public abstract List<Ingrediente> consultarIngredientesPorNombre(String nombre) throws PersistenciaException;
 }

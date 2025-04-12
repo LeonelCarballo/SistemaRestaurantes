@@ -8,6 +8,7 @@ import java.util.List;
 import wonderland.sistemarestaurantesdominio.EstadoMesa;
 import wonderland.sistemarestaurantesdominio.Mesa;
 import wonderland.sistemarestaurantesdominio.dtos.NuevaMesaDTO;
+import wonderland.sistemarestaurantespersistencia.persistenciaexception.PersistenciaException;
 
 /**
  *
@@ -15,10 +16,10 @@ import wonderland.sistemarestaurantesdominio.dtos.NuevaMesaDTO;
  */
 public interface IMesasDAO {
     
-    public abstract List<Mesa> agregarMesas(NuevaMesaDTO nuevaMesa);
+    public abstract List<Mesa> agregarMesas(NuevaMesaDTO nuevaMesa) throws PersistenciaException;
     
-    public abstract List<Mesa> mostrarMesas();
+    public abstract List<Mesa> mostrarMesas() throws PersistenciaException;
     
-    public abstract Mesa cambiarEstadoMesa(Long idMesa, EstadoMesa nuevaMesa);
-    
+    public abstract Mesa cambiarEstadoMesa(Long idMesa, EstadoMesa nuevaMesa) throws PersistenciaException;
+     
 }

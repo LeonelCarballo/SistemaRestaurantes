@@ -10,27 +10,27 @@ import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
 import wonderland.sistemarestaurantesdominio.Comanda;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.NuevaComandaDTO;
+import wonderland.sistemarestaurantespersistencia.persistenciaexception.PersistenciaException;
 
 /**
  *
  * @author Dana Chavez
  */
 public interface IComandasDAO {
-    public abstract Comanda crearNuevarComanda(NuevaComandaDTO nuevaComanda);
+    public abstract Comanda crearNuevarComanda(NuevaComandaDTO nuevaComanda) throws PersistenciaException;
     
-    public abstract Comanda asociarClienteAComanda(Comanda comanda, ClienteFrecuente cliente);
+    public abstract Comanda asociarClienteAComanda(Comanda comanda, ClienteFrecuente cliente) throws PersistenciaException;
     
-    public abstract Comanda obtenerComandaPorId(Long idComanda);
+    public abstract Comanda obtenerComandaPorId(Long idComanda) throws PersistenciaException;
     
-    public abstract ComandaDTO obtenerComandaActivaPorMesa(Long idMesa);
+    public abstract ComandaDTO obtenerComandaActivaPorMesa(Long idMesa) throws PersistenciaException;
     
-    public abstract Comanda modificarEstadoComanda(ComandaDTO comandaDTO);
+    public abstract Comanda modificarEstadoComanda(ComandaDTO comandaDTO) throws PersistenciaException;
     
-    public abstract Comanda cancelarComanda(ComandaDTO comandaDTO);
+    public abstract Comanda cancelarComanda(ComandaDTO comandaDTO) throws PersistenciaException;
     
-    public abstract List<ComandaDTO> obtenerComandas();
+    public abstract List<ComandaDTO> obtenerComandas() throws PersistenciaException;
     
-    public abstract List<ComandaDTO> obtenerComandasPorFechas(Calendar fechaInicio, Calendar fechaFin);
-    
-    //public abstract Comanda editarComanda(ComandaDTO comandaDTO);
+    public abstract List<ComandaDTO> obtenerComandasPorFechas(Calendar fechaInicio, Calendar fechaFin) throws PersistenciaException;
+
 }

@@ -5,12 +5,15 @@
 package wonderland.sistemarestaurantesnegocio.implementaciones;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import wonderland.sistemarestaurantesdominio.Ingrediente;
 import wonderland.sistemarestaurantesdominio.UnidadMedida;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoIngredienteDTO;
 import wonderland.sistemarestaurantesnegocio.IIngredientesBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 import wonderland.sistemarestaurantespersistencia.IIngredientesDAO;
+import wonderland.sistemarestaurantespersistencia.persistenciaexception.PersistenciaException;
 
 /**
  *
@@ -51,17 +54,29 @@ public class IngredientesBO implements IIngredientesBO {
             throw new NegocioException("Ya existe un ingrediente con el mismo nombre y unidad de medida");
         }
 
-        return this.ingredientesDAO.registrarIngrediente(nuevoIngrediente);
+        try {
+            return this.ingredientesDAO.registrarIngrediente(nuevoIngrediente);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
     }
 
     @Override
     public List<Ingrediente> consultarIngredientes() throws NegocioException {
-        return this.ingredientesDAO.consultarIngredientes();
+        try {
+            return this.ingredientesDAO.consultarIngredientes();
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
     }
     
     @Override
     public List<Ingrediente> obtenerTodos()throws NegocioException{
-        return this.ingredientesDAO.obtenerTodos();
+        try {
+            return this.ingredientesDAO.obtenerTodos();
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
     }
 
     @Override
@@ -75,26 +90,41 @@ public class IngredientesBO implements IIngredientesBO {
             throw new NegocioException("Debes proporcionar el nombre del ingrediente");
         }
 
-        return this.ingredientesDAO.editarNombre(nuevoIngredienteDTO);
+        try {
+            return this.ingredientesDAO.editarNombre(nuevoIngredienteDTO);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
     }
 
     public boolean existeIngrediente(String nombre, UnidadMedida unidadMedida, Long idExcluido) throws NegocioException {
-        List<Ingrediente> ingredientes = ingredientesDAO.consultarIngredientes();
-        return ingredientes.stream()
-                .anyMatch(i -> i.getNombre().equalsIgnoreCase(nombre)
-                && i.getUnidadMedida().equals(unidadMedida));
+        try {
+            List<Ingrediente> ingredientes = ingredientesDAO.consultarIngredientes();
+            return ingredientes.stream()
+                    .anyMatch(i -> i.getNombre().equalsIgnoreCase(nombre)
+                            && i.getUnidadMedida().equals(unidadMedida));
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
     }
 
     @Override
     public Ingrediente aumentarStock(NuevoIngredienteDTO nuevoIngredienteDTO) throws NegocioException {
 
-        return this.ingredientesDAO.aumentarStock(nuevoIngredienteDTO);
+        try {
+            return this.ingredientesDAO.aumentarStock(nuevoIngredienteDTO);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
     }
 
     @Override
     public List<Ingrediente> consultarIngredientesPorNombre(String filtroNombre) throws NegocioException {
         
-        return this.ingredientesDAO.consultarIngredientesPorNombre(filtroNombre);
-        
+        try {
+            return this.ingredientesDAO.consultarIngredientesPorNombre(filtroNombre);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }    
     }
 }

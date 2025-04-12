@@ -5,6 +5,7 @@
 package wonderland.sistemarestaurantesnegocio;
 
 import wonderland.sistemarestaurantesdominio.dtos.EmpleadoDTO;
+import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
 /**
  *
@@ -12,6 +13,6 @@ import wonderland.sistemarestaurantesdominio.dtos.EmpleadoDTO;
  */
 public interface IEmpleadosBO {
     
-    public abstract EmpleadoDTO iniciarSesion(String usuario, String constrasena);
+    public abstract EmpleadoDTO iniciarSesion(String usuario, String constrasena) throws NegocioException;
     
 }
