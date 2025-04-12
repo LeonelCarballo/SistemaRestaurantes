@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import wonderland.sistemarestaurantesdominio.VistaFidelidadCliente;
     import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
     import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteFrecuenteDTO;
+import wonderland.sistemarestaurantesdominio.utils.SeguridadUtil;
     import wonderland.sistemarestaurantesnegocio.IClientesBO;
     import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
     import wonderland.sistemarestaurantespersistencia.IClientesFrecuentesDAO;
@@ -38,7 +39,6 @@ import wonderland.sistemarestaurantespersistencia.persistenciaexception.Persiste
 
         @Override
         public ClienteFrecuente registrarCliente(NuevoClienteFrecuenteDTO nuevoClienteFrecuente) throws NegocioException {
-
             // Validaciones de campos obligatorios
             if (nuevoClienteFrecuente.getNombre() == null || nuevoClienteFrecuente.getNombre().trim().isEmpty()) {
                 throw new NegocioException("Debes proporcionar el nombre del cliente");
@@ -105,12 +105,23 @@ import wonderland.sistemarestaurantespersistencia.persistenciaexception.Persiste
             }
 
             try {
+                // Validar que no exista un cliente con el mismo hash de teléfono
+                String hashTelefono = SeguridadUtil.generarHash(nuevoClienteFrecuente.getTelefono());
+                if (existeClienteConHashTelefono(hashTelefono)) {
+                    throw new NegocioException("Ya existe un cliente registrado con este número de teléfono");
+                }
+
                 return this.clientesFrecuentesDAO.registrarCliente(nuevoClienteFrecuente);
             } catch (PersistenciaException ex) {
                 throw new NegocioException("No se pudo registrar el cliente");
             }
         }
 
+        private boolean existeClienteConHashTelefono(String hashTelefono) throws PersistenciaException {
+            List<ClienteFrecuente> clientes = clientesFrecuentesDAO.obtenerClientes();
+            return clientes.stream()
+                    .anyMatch(c -> (c).getHashTelefono().equals(hashTelefono));
+        }
 
         @Override
         public List<ClienteFrecuente> consultarClientesPorNombre(String filtroBusqueda) throws NegocioException {
