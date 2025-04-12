@@ -38,7 +38,7 @@ public class ResumenComanda extends javax.swing.JFrame {
     private IMesasBO mesasBO;
     private Mesa mesa;
     private boolean esComandaNueva;
-
+    
     FontManager fontManager = new FontManager();
 
     public ResumenComanda() {
@@ -46,8 +46,7 @@ public class ResumenComanda extends javax.swing.JFrame {
     }
 
     public ResumenComanda(ControlPresentacion control, List<ProductoSeleccionadoDTO> productosSeleccionados, ComandaDTO comandaDTO, 
-                            IDetallesComandasBO detallesComandasBO, boolean esComandaNueva, IComandasBO comandasBO, Mesa mesa, IMesasBO mesasBO) {
-        
+                          IDetallesComandasBO detallesComandasBO, boolean esComandaNueva, IComandasBO comandasBO, Mesa mesa, IMesasBO mesasBO) {        
         this.control = control;
         this.productosSeleccionados = productosSeleccionados;
         this.comandaDTO = comandaDTO;
@@ -172,6 +171,7 @@ public class ResumenComanda extends javax.swing.JFrame {
 //        jButtonConfirmar.setVisible(esComandaNueva);
     }
 
+  
     public void mostrar() {
         setVisible(true);
     }
@@ -310,7 +310,12 @@ public class ResumenComanda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
-        control.mostrarVentanaInicioComanda();
+        control.mostrarSeleccionarProductosComanda(
+                comandaDTO.getMesa(), 
+                comandaDTO, 
+                false, 
+                productosSeleccionados);       
+        
         cerrar();
     }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
@@ -327,7 +332,7 @@ public class ResumenComanda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonEliminarComandaActionPerformed
 
     private void jButtonEditarComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarComandaActionPerformed
-        control.mostrarSeleccionarProductosComanda(mesa, comandaDTO, false);
+        control.mostrarSeleccionarProductosComanda(mesa, comandaDTO, false, productosSeleccionados);
         cerrar();
     }//GEN-LAST:event_jButtonEditarComandaActionPerformed
 

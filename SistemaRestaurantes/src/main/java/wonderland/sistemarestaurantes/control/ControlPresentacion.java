@@ -88,6 +88,7 @@ public class ControlPresentacion {
     
     ClienteFrecuenteDTO clienteFrecuenteDTO = new ClienteFrecuenteDTO();
     
+    private List<ProductoSeleccionadoDTO> productosSeleccionados;
 
     private VentanaInicioComanda ventanaInicioComanda = new VentanaInicioComanda();
 
@@ -207,9 +208,9 @@ public class ControlPresentacion {
         }
     }
 
-    public void mostrarSeleccionarProductosComanda(Mesa mesa, ComandaDTO comandaDTO, boolean esComandaNueva) {
-        SeleccionarProductosComanda ventana = new SeleccionarProductosComanda(this, mesa, comandaDTO, productosBO, detallesComandasBO, detalleComandaDTO, esComandaNueva);
-        ventana.mostrar();
+    public void mostrarSeleccionarProductosComanda(Mesa mesa, ComandaDTO comandaDTO, boolean esComandaNueva, List<ProductoSeleccionadoDTO> productosSeleccionados) {
+        SeleccionarProductosComanda ventana = new SeleccionarProductosComanda(this, mesa, comandaDTO, productosBO, detallesComandasBO, detalleComandaDTO, esComandaNueva, productosSeleccionados);
+        ventana.mostrar(); 
     }
 
 
@@ -282,7 +283,7 @@ public class ControlPresentacion {
     
     public void mostrarEditarComanda(Mesa mesa, ComandaDTO comandaDTO, boolean esComandaNueva){
         
-        SeleccionarProductosComanda seleccionar = new SeleccionarProductosComanda(this, mesa, comandaDTO, productosBO, detallesComandasBO, detalleComandaDTO, esComandaNueva);
+        SeleccionarProductosComanda seleccionar = new SeleccionarProductosComanda(this, mesa, comandaDTO, productosBO, detallesComandasBO, detalleComandaDTO, esComandaNueva, productosSeleccionados);
         
         List<ProductoSeleccionadoDTO> productosSeleccionados = comandaDTO.getProductosSeleccionados(); 
         

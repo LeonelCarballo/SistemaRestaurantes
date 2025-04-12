@@ -4,6 +4,7 @@
  */
 package wonderland.sistemarestaurantes.comandas;
 
+import Mapper.ProductoMapper;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -14,6 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import Mapper.ProductoMapper;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantes.utils.FontManager;
 import wonderland.sistemarestaurantesdominio.Mesa;
@@ -43,11 +45,12 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
 
     FontManager fontManager = new FontManager();
 
+    private List<ProductoSeleccionadoDTO> productosSeleccionados;
     public SeleccionarProductosComanda() {
         initComponents();
     }
 
-    public SeleccionarProductosComanda(ControlPresentacion control, Mesa mesa, ComandaDTO comandaDTO, IProductosBO productosBO, IDetallesComandasBO detallesComandasBO, DetalleComandaDTO detalleComandaDTO, boolean EsComandaNueva) {
+    public SeleccionarProductosComanda(ControlPresentacion control, Mesa mesa, ComandaDTO comandaDTO, IProductosBO productosBO, IDetallesComandasBO detallesComandasBO, DetalleComandaDTO detalleComandaDTO, boolean EsComandaNueva, List<ProductoSeleccionadoDTO> productosSeleccionados) {
         this.control = control;
         this.mesa = mesa;
         this.comandaDTO = comandaDTO;
@@ -55,11 +58,14 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         this.detallesComandasBO = detallesComandasBO;
         this.detalleComandaDTO = detalleComandaDTO;
         this.esComandaNueva = esComandaNueva;
+        this.productosSeleccionados=productosSeleccionados;
         initComponents();
         setLocationRelativeTo(null);
+        
         mostrarProductos();
+        cargarProductosSeleccionados();
 
-        if (esComandaNueva == false) {
+        if (!esComandaNueva && (productosSeleccionados == null || productosSeleccionados.isEmpty())) {
             cargarProductosComandaExistente(comandaDTO);
         }
 
@@ -195,6 +201,23 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         jPanelProductosSeleccionados.repaint();
     }
 
+    private void cargarProductosSeleccionados() {
+        if (productosSeleccionados == null) {
+            return;
+        }
+
+        for (ProductoSeleccionadoDTO productoSeleccionadoDTO : productosSeleccionados) {
+            Producto producto = ProductoMapper.toProducto(productoSeleccionadoDTO);
+            PanelProductoSeleccionado panel = new PanelProductoSeleccionado(producto);
+            panel.cargarDesdeDTO(productoSeleccionadoDTO);
+            jPanelProductosSeleccionados.setLayout(new BoxLayout(jPanelProductosSeleccionados, BoxLayout.Y_AXIS));
+            jPanelProductosSeleccionados.add(panel);
+        }
+
+        jPanelProductosSeleccionados.revalidate();
+        jPanelProductosSeleccionados.repaint();
+    }
+    
     public void mostrar() {
         setVisible(true);
     }
