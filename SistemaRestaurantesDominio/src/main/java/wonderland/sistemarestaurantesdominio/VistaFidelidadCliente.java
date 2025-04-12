@@ -5,10 +5,13 @@
 package wonderland.sistemarestaurantesdominio;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -31,6 +34,10 @@ public class VistaFidelidadCliente implements Serializable {
     @Column(name = "puntos_fidelidad")
     private Integer puntosFidelidad;
 
+    @Column(name = "ultima_visita")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar ultimaVisita;
+
     public Long getIdCliente() {
         return idCliente;
     }
@@ -47,6 +54,10 @@ public class VistaFidelidadCliente implements Serializable {
         return puntosFidelidad;
     }
 
+    public Calendar getUltimaVisita() {
+        return ultimaVisita;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

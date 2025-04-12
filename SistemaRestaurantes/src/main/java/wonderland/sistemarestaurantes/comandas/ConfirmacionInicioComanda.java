@@ -6,6 +6,7 @@ package wonderland.sistemarestaurantes.comandas;
 
 import wonderland.sistemarestaurantes.utils.FontManager;
 import java.awt.Color;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -52,8 +53,9 @@ public class ConfirmacionInicioComanda extends javax.swing.JPanel {
         this.comandasBO = comandasBO; 
         initComponents();
         setOpaque(false);
-        String nuevoTexto = "¿Estás seguro de iniciar una nueva comanda para la mesa " + mesa.getNumeroMesa() + "?";
-        this.jLabel2.setText(nuevoTexto);
+        String nuevoTexto = "<html><div style='text-align: center;'>¿Estás seguro de iniciar<br>una nueva comanda para la <br>mesa " 
+                + mesa.getNumeroMesa() + "?</div></html>";
+        this.jLabelMensaje.setText(nuevoTexto);
     }
       
     public void registrarComanda(){        
@@ -72,6 +74,7 @@ public class ConfirmacionInicioComanda extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Se inició la nueva comanda con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);
 
             ComandaDTO comandaDTO = new ComandaDTO();
+            comandaDTO.setFechaHoraCreacion(Calendar.getInstance());
             comandaDTO.setId(comandaCreada.getId());
             comandaDTO.setEstadoComanda(comandaCreada.getEstadoComanda());
             comandaDTO.setFolio(comandaCreada.getFolio());
@@ -105,66 +108,66 @@ public class ConfirmacionInicioComanda extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jButtonConfirmar = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
+        jLabelTituloNuevaComanda = new javax.swing.JLabel();
+        jLabelMensaje = new javax.swing.JLabel();
         jLabelFondo = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton2.setFont(fontManager.getNunitoSemiBold(28f));
-        jButton2.setForeground(new java.awt.Color(49, 88, 125));
-        jButton2.setText("Confirmar");
-        jButton2.setContentAreaFilled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonConfirmar.setFont(fontManager.getNunitoSemiBold(28f));
+        jButtonConfirmar.setForeground(new java.awt.Color(49, 88, 125));
+        jButtonConfirmar.setText("Confirmar");
+        jButtonConfirmar.setContentAreaFilled(false);
+        jButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonConfirmarActionPerformed(evt);
             }
         });
-        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 450, 230, 60));
+        add(jButtonConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 450, 230, 60));
 
-        jButton1.setFont(fontManager.getNunitoSemiBold(28f));
-        jButton1.setForeground(new java.awt.Color(49, 88, 125));
-        jButton1.setText("Cancelar");
-        jButton1.setContentAreaFilled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCancelar.setFont(fontManager.getNunitoSemiBold(28f));
+        jButtonCancelar.setForeground(new java.awt.Color(49, 88, 125));
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setContentAreaFilled(false);
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonCancelarActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 450, 230, 60));
+        add(jButtonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 450, 230, 60));
 
-        jLabel1.setFont(fontManager.getNotoSerifCondensedRegular(30f));
-        jLabel1.setForeground(new java.awt.Color(25, 47, 67));
-        jLabel1.setText("NUEVA COMANDA");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 270, -1, -1));
+        jLabelTituloNuevaComanda.setFont(fontManager.getNotoSerifCondensedRegular(30f));
+        jLabelTituloNuevaComanda.setForeground(new java.awt.Color(25, 47, 67));
+        jLabelTituloNuevaComanda.setText("NUEVA COMANDA");
+        add(jLabelTituloNuevaComanda, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, -1, -1));
 
-        jLabel2.setFont(fontManager.getNunitoSemiBold(28f));
-        jLabel2.setForeground(new java.awt.Color(49, 88, 125));
-        jLabel2.setText("¿Estás seguro de iniciar una nueva comanda para la mesa 1?");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 310, 330, 40));
+        jLabelMensaje.setFont(fontManager.getNunitoSemiBold(28f));
+        jLabelMensaje.setForeground(new java.awt.Color(49, 88, 125));
+        jLabelMensaje.setText("¿Estás seguro de iniciar una nueva comanda para la mesa 1?");
+        add(jLabelMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 380, 160));
 
         jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoConfirmacionInicioComanda.png"))); // NOI18N
         add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         cerrar();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
         registrarComanda();
         cerrar();
         ventanaInicioComanda.cerrar();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JLabel jLabelFondo;
+    private javax.swing.JLabel jLabelMensaje;
+    private javax.swing.JLabel jLabelTituloNuevaComanda;
     // End of variables declaration//GEN-END:variables
 }

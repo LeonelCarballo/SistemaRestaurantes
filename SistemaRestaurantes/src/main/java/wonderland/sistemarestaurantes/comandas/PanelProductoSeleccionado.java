@@ -10,6 +10,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -33,7 +34,7 @@ public class PanelProductoSeleccionado extends JPanel {
         this.producto = producto;
         FontManager fontManager = new FontManager();
         Font fuente = fontManager.getNunitoRegular(16f);
-
+        setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
         setLayout(new GridBagLayout());
         setOpaque(false);
         setPreferredSize(new Dimension(420, 50));
@@ -49,6 +50,8 @@ public class PanelProductoSeleccionado extends JPanel {
         add(lblNombre, gbc);
 
         txtCantidad = new JTextField("Cantidad", 3);
+        Dimension fieldSize = new Dimension(60, 30); 
+        txtCantidad.setPreferredSize(fieldSize);
         txtCantidad.setFont(fuente);
         gbc.gridx = 1;
         add(txtCantidad, gbc);
@@ -62,6 +65,7 @@ public class PanelProductoSeleccionado extends JPanel {
 
         txtNotas = new JTextField(12);
         txtNotas.setFont(fuente);
+        txtNotas.setPreferredSize(new Dimension(150, 30));
         gbc.gridx = 3;
         add(txtNotas, gbc);
 
@@ -81,6 +85,7 @@ public class PanelProductoSeleccionado extends JPanel {
                 actualizarImporte();
             }
         });
+
     }
 
     private void actualizarImporte() {

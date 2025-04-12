@@ -24,6 +24,7 @@ public class ClienteFrecuenteDTO {
     private int visitas;
     private double gastoTotal;
     private int puntosFidelidad;
+    private Calendar ultimaVisita;
 
     public ClienteFrecuenteDTO() {
     }
@@ -55,6 +56,14 @@ public class ClienteFrecuenteDTO {
         this.visitas = visitas;
         this.gastoTotal = gastoTotal;
         this.puntosFidelidad = puntosFidelidad;
+    }
+
+    public ClienteFrecuenteDTO(Cliente cliente, int visitas, double gastoTotal, int puntosFidelidad, Calendar ultimaVisita) {
+        this.cliente = cliente;
+        this.visitas = visitas;
+        this.gastoTotal = gastoTotal;
+        this.puntosFidelidad = puntosFidelidad;
+        this.ultimaVisita = ultimaVisita;
     }
 
     public Long getId() {
@@ -145,12 +154,12 @@ public class ClienteFrecuenteDTO {
         this.puntosFidelidad = puntosFidelidad;
     }
 
+    public Calendar getUltimaVisita() {
+        return ultimaVisita;
+    }
 
+    public void setUltimaVisita(Calendar ultimaVisita) {
+        this.ultimaVisita = ultimaVisita;
+    }    
     
-    
-    
-    
-    
-    
-     
 }

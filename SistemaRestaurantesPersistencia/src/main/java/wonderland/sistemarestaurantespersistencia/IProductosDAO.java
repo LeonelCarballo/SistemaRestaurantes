@@ -9,6 +9,7 @@ import wonderland.sistemarestaurantesdominio.Mesa;
 import wonderland.sistemarestaurantesdominio.Producto;
 import wonderland.sistemarestaurantesdominio.TipoProducto;
 import wonderland.sistemarestaurantesdominio.dtos.NuevoProductoDTO;
+import wonderland.sistemarestaurantespersistencia.persistenciaexception.PersistenciaException;
 
 /**
  *
@@ -16,13 +17,13 @@ import wonderland.sistemarestaurantesdominio.dtos.NuevoProductoDTO;
  */
 public interface IProductosDAO {
     
-    public Producto registrarProducto(NuevoProductoDTO nuevoProducto);
+    public Producto registrarProducto(NuevoProductoDTO nuevoProducto) throws PersistenciaException;
     
-    public abstract List<Producto> obtenerTodos();
+    public abstract List<Producto> obtenerTodos() throws PersistenciaException;
     
-    public abstract List<Producto> obtenerProductoPorTipo(TipoProducto tipo);
+    public abstract List<Producto> obtenerProductoPorTipo(TipoProducto tipo) throws PersistenciaException;
     
-    public Producto editarProducto(NuevoProductoDTO nuevoProducto);
+    public Producto editarProducto(NuevoProductoDTO nuevoProducto) throws PersistenciaException;
     
-    public abstract List<Producto> buscarPorNombre(String nombre);
+    public abstract List<Producto> buscarPorNombre(String nombre) throws PersistenciaException;
 }

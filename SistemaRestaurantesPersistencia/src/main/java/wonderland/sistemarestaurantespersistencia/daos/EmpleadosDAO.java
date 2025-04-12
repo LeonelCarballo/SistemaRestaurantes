@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 import wonderland.sistemarestaurantesdominio.Empleado;
 import wonderland.sistemarestaurantespersistencia.IEmpleadosDAO;
 import wonderland.sistemarestaurantespersistencia.conexiones.ManejadorConexiones;
+import wonderland.sistemarestaurantespersistencia.persistenciaexception.PersistenciaException;
 
 /**
  *
@@ -18,11 +19,11 @@ import wonderland.sistemarestaurantespersistencia.conexiones.ManejadorConexiones
 public class EmpleadosDAO implements IEmpleadosDAO {
 
     @Override
-    public Empleado iniciarSesion(String usuario, String contrasena) {
+    public Empleado iniciarSesion(String usuario, String contrasena) throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        String jpqlQuery = "SELECT e FROM Empleado e WHERE e.usuario = :usuario AND e.contrasena = :contrasena";
 
         try {
+            String jpqlQuery = "SELECT e FROM Empleado e WHERE e.usuario = :usuario AND e.contrasena = :contrasena";
             TypedQuery<Empleado> query = entityManager.createQuery(jpqlQuery, Empleado.class);
             query.setParameter("usuario", usuario);
             query.setParameter("contrasena", contrasena);

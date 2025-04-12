@@ -4,90 +4,90 @@
  */
 package wonderland.sistemarestaurantes.reportes;
 
-import static java.awt.AWTEventMulticaster.add;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.List;
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import wonderland.sistemarestaurantes.utils.FontManager;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
+import wonderland.sistemarestaurantesdominio.dtos.DetalleComandaDTO;
+import wonderland.sistemarestaurantesnegocio.IDetallesComandasBO;
+import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 
 public class PanelReporteComanda extends JPanel {
     
     private final ComandaDTO comanda;
-    
-    //TODO Falta el estado de la comanda y el importe total
-    
-    public PanelReporteComanda(ComandaDTO comanda) {
-    this.comanda = comanda;
+    private final IDetallesComandasBO detallesComandasBO;
 
-    FontManager fontManager = new FontManager();
+     public PanelReporteComanda(ComandaDTO comanda, IDetallesComandasBO detallesComandasBO) {
+        this.comanda = comanda;
+        this.detallesComandasBO = detallesComandasBO;
 
-    setPreferredSize(new Dimension(854, 50));
-    setLayout(new GridBagLayout());
-    setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.WHITE));
-    setBackground(new Color(19, 28, 54));
+        FontManager fontManager = new FontManager();
 
-    GridBagConstraints gbc = new GridBagConstraints();
-    gbc.gridy = 0;
-    gbc.fill = GridBagConstraints.NONE; 
-    gbc.anchor = GridBagConstraints.WEST;
+        setPreferredSize(new Dimension(854, 50));
+        setLayout(new GridBagLayout());
+        setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.WHITE));
+        setBackground(new Color(19, 28, 54));
+        setOpaque(false);
 
-    String folio = comanda.getFolio() != null ? comanda.getFolio().toString() : "--";
-    String nombreCliente = comanda.getCliente() != null ? comanda.getCliente().getNombreCompleto() : "Sin cliente";
-    String mesa = comanda.getMesa() != null ? comanda.getMesa().getNumeroMesa().toString()+"    " : "--";
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridy = 0;
+        gbc.insets = new Insets(3, 10, 3, 10);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.CENTER;
 
-    Calendar calendar = comanda.getFechaHoraCreacion();
-    String fechaStr = calendar != null ? DateTimeFormatter.ofPattern("dd/MM/yy HH:mm")
-            .format(calendar.toInstant().atZone(ZoneId.systemDefault())) : "--";
+        String folio = comanda.getFolio() != null ? comanda.getFolio() : "--";
+        String nombreCliente = comanda.getCliente() != null ? comanda.getCliente().getNombreCompleto() : "Sin cliente";
+        String estado = comanda.getEstadoComanda() != null ? comanda.getEstadoComanda().toString() : "SIN ESTADO";
+        String mesa = comanda.getMesa() != null ? comanda.getMesa().getNumeroMesa().toString() : "--";
 
-    // Folio
-    JLabel lblFolio = new JLabel(folio);
-    lblFolio.setFont(fontManager.getNotoSerifCondensedRegular(18f)); 
-    lblFolio.setForeground(Color.WHITE);
-    lblFolio.setToolTipText(folio); 
-    gbc.gridx = 0;
-    gbc.weightx = 0;
-    gbc.insets = new Insets(3, 10, 3, 5);
-    add(lblFolio, gbc);
+        Calendar calendar = comanda.getFechaHoraCreacion();
+        String fechaStr = calendar != null
+                ? DateTimeFormatter.ofPattern("dd/MM/yy HH:mm").format(calendar.toInstant().atZone(ZoneId.systemDefault()))
+                : "--";
 
-    // Cliente 
-    JLabel lblCliente = new JLabel(nombreCliente);
-    lblCliente.setFont(fontManager.getNotoSerifCondensedRegular(18f));
-    lblCliente.setForeground(Color.WHITE);
-    lblCliente.setToolTipText(comanda.getCliente() != null ? comanda.getCliente().getNombreCompleto() : "");
-    gbc.gridx = 1;
-    gbc.weightx = 0.5; 
-    gbc.insets = new Insets(3, 5, 3, 5);
-    add(lblCliente, gbc);
+        float totalVenta = calcularTotalVenta(comanda);
+        String totalFormateado = String.format("$%.2f", totalVenta);
 
-    // Mesa
-    JLabel lblMesa = new JLabel(mesa);
-    lblMesa.setFont(fontManager.getNotoSerifCondensedRegular(18f));
-    lblMesa.setForeground(Color.WHITE);
-    gbc.gridx = 2;
-    gbc.weightx = 0;
-    add(lblMesa, gbc);
+        // Aumenta el weightx para que se distribuya mejor visualmente (ajustable)
+        addColumna(gbc, 0, folio, fontManager, 0.15);
+        addColumna(gbc, 1, nombreCliente, fontManager, 0.20);
+        addColumna(gbc, 2, estado, fontManager, 0.15);
+        addColumna(gbc, 3, totalFormateado, fontManager, 0.15);
+        addColumna(gbc, 4, mesa, fontManager, 0.10);
+        addColumna(gbc, 5, fechaStr, fontManager, 0.25);
+    }
 
-    // Fecha
-    JLabel lblFecha = new JLabel(fechaStr);
-    lblFecha.setFont(fontManager.getNotoSerifCondensedRegular(18f));
-    lblFecha.setForeground(Color.WHITE);
-    gbc.gridx = 3;
-    gbc.weightx = 0;
-    gbc.insets = new Insets(3, 5, 3, 10);
-    add(lblFecha, gbc);
+    private void addColumna(GridBagConstraints gbc, int columna, String texto, FontManager fontManager, double weightx) {
+        gbc.gridx = columna;
+        gbc.weightx = weightx;
+        JLabel label = new JLabel(texto);
+        label.setFont(fontManager.getNotoSerifCondensedRegular(18f));
+        label.setForeground(Color.WHITE);
+        label.setHorizontalAlignment(JLabel.CENTER);
+        add(label, gbc);
+    }
 
-    setOpaque(false);
+    private float calcularTotalVenta(ComandaDTO comanda) {
+        float total = 0f;
+        try {
+            List<DetalleComandaDTO> detalles = detallesComandasBO.obtenerDetallesDTOPorComanda(comanda);
+            for (DetalleComandaDTO detalle : detalles) {
+                total += detalle.getPrecio() * detalle.getCantidadProducto();
+            }
+        } catch (NegocioException e) {
+            e.printStackTrace();
+        }
+        return total;
+    }
 }
-}
+

@@ -5,11 +5,12 @@
 package wonderland.sistemarestaurantespersistencia;
 
 import wonderland.sistemarestaurantesdominio.Empleado;
+import wonderland.sistemarestaurantespersistencia.persistenciaexception.PersistenciaException;
 
 /**
  *
  * @author Dana Chavez
  */
 public interface IEmpleadosDAO {
-    public abstract Empleado iniciarSesion(String usuario, String contrasena);
+    public abstract Empleado iniciarSesion(String usuario, String contrasena) throws PersistenciaException;
 }

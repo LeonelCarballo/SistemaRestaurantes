@@ -6,6 +6,8 @@ package wonderland.sistemarestaurantes.comandas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -68,6 +70,34 @@ public class ResumenComanda extends javax.swing.JFrame {
         jScrollPaneResumen.setOpaque(false);
         jPanelTotal.setOpaque(false);
         
+        if (comandaDTO != null && comandaDTO.getFechaHoraCreacion() != null) {
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd - MM - yyyy");
+            SimpleDateFormat formatoHora = new SimpleDateFormat("HH : mm : ss");
+
+            Date fecha = comandaDTO.getFechaHoraCreacion().getTime();
+
+            JLabel lblFecha = new JLabel("Fecha : " + formatoFecha.format(fecha));
+            lblFecha.setFont(fontManager.getNunitoSemiBold(18f));
+            lblFecha.setForeground(Color.WHITE);
+
+            JLabel lblHora = new JLabel("Hora : " + formatoHora.format(fecha));
+            lblHora.setFont(fontManager.getNunitoSemiBold(18f));
+            lblHora.setForeground(Color.WHITE);
+
+            JLabel lblFolio = new JLabel("Folio : " + (comandaDTO.getFolio() != null ? comandaDTO.getFolio() : "N/A"));
+            lblFolio.setFont(fontManager.getNunitoSemiBold(18f));
+            lblFolio.setForeground(Color.WHITE);
+
+            Mesa mesaComanda = comandaDTO.getMesa();
+            JLabel lblMesa = new JLabel("Mesa : " + (mesaComanda != null ? mesaComanda.getNumeroMesa() : "Desconocida"));
+            lblMesa.setFont(fontManager.getNunitoSemiBold(18f));
+            lblMesa.setForeground(Color.WHITE);
+
+            jPanelFolio.add(lblFolio);
+            jPanelMesa.add(lblMesa);
+            jPanelFecha.add(lblFecha);
+            jPanelHora.add(lblHora);
+        }
     }
 
     private void cargarProductos(List<ProductoSeleccionadoDTO> productos) {
@@ -203,6 +233,10 @@ public class ResumenComanda extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jPanelHora = new javax.swing.JPanel();
+        jPanelFecha = new javax.swing.JPanel();
+        jPanelMesa = new javax.swing.JPanel();
+        jPanelFolio = new javax.swing.JPanel();
         jScrollPaneResumen = new javax.swing.JScrollPane();
         jPanelResumen = new javax.swing.JPanel();
         jButtonAnterior = new javax.swing.JButton();
@@ -289,6 +323,18 @@ public class ResumenComanda extends javax.swing.JFrame {
         jLabel1.setText("Producto");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 310, -1, -1));
 
+        jPanelHora.setOpaque(false);
+        getContentPane().add(jPanelHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, 210, 30));
+
+        jPanelFecha.setOpaque(false);
+        getContentPane().add(jPanelFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 40, 200, 30));
+
+        jPanelMesa.setOpaque(false);
+        getContentPane().add(jPanelMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 620, 150, 30));
+
+        jPanelFolio.setOpaque(false);
+        getContentPane().add(jPanelFolio, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 660, 240, 30));
+
         jScrollPaneResumen.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         jPanelResumen.setLayout(new javax.swing.BoxLayout(jPanelResumen, javax.swing.BoxLayout.Y_AXIS));
@@ -316,8 +362,7 @@ public class ResumenComanda extends javax.swing.JFrame {
                 comandaDTO.getMesa(), 
                 comandaDTO, 
                 false, 
-                productosSeleccionados);       
-        
+                productosSeleccionados);            
         cerrar();
     }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
@@ -373,6 +418,10 @@ public class ResumenComanda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanelFecha;
+    private javax.swing.JPanel jPanelFolio;
+    private javax.swing.JPanel jPanelHora;
+    private javax.swing.JPanel jPanelMesa;
     private javax.swing.JPanel jPanelResumen;
     private javax.swing.JPanel jPanelTotal;
     private javax.swing.JScrollPane jScrollPaneResumen;

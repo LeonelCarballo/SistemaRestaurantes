@@ -6,12 +6,15 @@ package wonderland.sistemarestaurantesnegocio.implementaciones;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import wonderland.sistemarestaurantesdominio.IngredienteProducto;
 import wonderland.sistemarestaurantesdominio.dtos.IngredienteProductoDTO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 import wonderland.sistemarestaurantespersistencia.daos.IngredienteProductoDAO;
 
 import wonderland.sistemarestaurantesnegocio.IIngredientesProductosBO;
+import wonderland.sistemarestaurantespersistencia.persistenciaexception.PersistenciaException;
 
 
 
@@ -42,12 +45,21 @@ public class IngredientesProductosBO implements IIngredientesProductosBO{
         throw new NegocioException("La cantidad debe ser mayor a cero.");
     }
     
-        return ingredienteProductoDAO.registrarIngredienteProducto(ingredienteProductoDTO);
+        try {
+            return ingredienteProductoDAO.registrarIngredienteProducto(ingredienteProductoDTO);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
     }
 
     @Override
     public List<IngredienteProductoDTO> buscarPorProducto(Long idProducto) throws NegocioException {
-        List<IngredienteProducto> entidades = ingredienteProductoDAO.buscarPorProducto(idProducto);
+        List<IngredienteProducto> entidades;
+        try {
+            entidades = ingredienteProductoDAO.buscarPorProducto(idProducto);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
         List<IngredienteProductoDTO> ingredientesProductosDTOS = new ArrayList<>();
 
         for (IngredienteProducto entidad : entidades) {
@@ -63,7 +75,11 @@ public class IngredientesProductosBO implements IIngredientesProductosBO{
 
     @Override
     public void eliminarIngredientesPorProducto(Long idProducto) throws NegocioException {
-        this.ingredienteProductoDAO.eliminarIngredientesPorProducto(idProducto);
+        try {
+            this.ingredienteProductoDAO.eliminarIngredientesPorProducto(idProducto);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("No se pudo registrar el cliente");
+        }
     }
 
     
