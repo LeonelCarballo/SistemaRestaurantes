@@ -17,79 +17,102 @@ import wonderland.sistemarestaurantespersistencia.conexiones.ManejadorConexiones
 import wonderland.sistemarestaurantespersistencia.persistenciaexception.PersistenciaException;
 
 public class MesasDAO implements IMesasDAO {    
+    /**
+     * Agrega un conjunto de nuevas mesas al sistema, comenzando desde el número
+     * especificado.
+     *
+     * @param nuevaMesa DTO con el número inicial de mesa a registrar
+     * @return Lista de mesas registradas
+     * @throws PersistenciaException Si ocurre un error durante la operación
+     */
     @Override
     public List<Mesa> agregarMesas(NuevaMesaDTO nuevaMesa) throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        
-        try{
-            List<Mesa> mesas = new ArrayList<>();
 
+        try {
+            List<Mesa> mesas = new ArrayList<>();
             entityManager.getTransaction().begin();
+
             Integer ultimaMesa = obtenerUltimaMesa(entityManager);
             if (nuevaMesa.getNumeroMesa() == null) {
                 nuevaMesa.setNumeroMesa(ultimaMesa + 1);
             }
+
             for (int i = 0; i < 20; i++) {
                 Mesa mesa = new Mesa();
-                mesa.setNumeroMesa(nuevaMesa.getNumeroMesa() + i);  
+                mesa.setNumeroMesa(nuevaMesa.getNumeroMesa() + i);
                 mesa.setEstado(EstadoMesa.DISPONIBLE);
-                entityManager.persist(mesa); 
-                mesas.add(mesa); 
+                entityManager.persist(mesa);
+                mesas.add(mesa);
             }
-            entityManager.getTransaction().commit();
 
+            entityManager.getTransaction().commit();
             return mesas;
-        } catch (Exception e){
-            entityManager.getTransaction().rollback();           
-            throw new PersistenciaException("No se pudo registrar el cliente" + e);           
+
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new PersistenciaException("Error al agregar nuevas mesas: " + e.getMessage(), e);
         } finally {
             entityManager.close();
-        }  
+        }
     }
 
+    /**
+     * Consulta y devuelve todas las mesas registradas en el sistema.
+     *
+     * @return Lista de mesas ordenadas por número
+     * @throws PersistenciaException Si ocurre un error durante la consulta
+     */
     @Override
     public List<Mesa> mostrarMesas() throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        
-        try{
+
+        try {
             String jpqlQuery = "SELECT v FROM Mesa v ORDER BY v.numeroMesa ASC";
-
             TypedQuery<Mesa> query = entityManager.createQuery(jpqlQuery, Mesa.class);
-            List<Mesa> mesas = query.getResultList();
-
-            return mesas;
-        } catch (Exception e){
-            entityManager.getTransaction().rollback();           
-            throw new PersistenciaException("No se pudo registrar el cliente" + e);           
+            return query.getResultList();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new PersistenciaException("Error al consultar las mesas: " + e.getMessage(), e);
         } finally {
             entityManager.close();
-        }  
+        }
     }
 
+    /**
+     * Obtiene el número de la última mesa registrada en el sistema.
+     *
+     * @param entityManager EntityManager activo
+     * @return El número de la mesa más alta o 0 si no hay mesas registradas
+     * @throws PersistenciaException Si ocurre un error durante la consulta
+     */
     public Integer obtenerUltimaMesa(EntityManager entityManager) throws PersistenciaException {
-        try{
+        try {
             String jpql = "SELECT MAX(m.numeroMesa) FROM Mesa m";
             Query query = entityManager.createQuery(jpql);
-
             Integer ultimaMesa = (Integer) query.getSingleResult();
-
-            if (ultimaMesa == null) {
-                return 0; 
-            }
-            return ultimaMesa;
-        } catch (Exception e){
-            entityManager.getTransaction().rollback();           
-            throw new PersistenciaException("No se pudo registrar el cliente" + e);           
+            return (ultimaMesa != null) ? ultimaMesa : 0;
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new PersistenciaException("Error al obtener la última mesa registrada: " + e.getMessage(), e);
         } finally {
             entityManager.close();
-        }  
+        }
     }
 
+    /**
+     * Cambia el estado de una mesa según su identificador.
+     *
+     * @param idMesa ID de la mesa a actualizar
+     * @param nuevoEstado Nuevo estado a asignar (e.g. DISPONIBLE, OCUPADA)
+     * @return La mesa actualizada
+     * @throws PersistenciaException Si ocurre un error durante la actualización
+     */
     @Override
     public Mesa cambiarEstadoMesa(Long idMesa, EstadoMesa nuevoEstado) throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        
-        try{
+
+        try {
             entityManager.getTransaction().begin();
 
             String jpql = "SELECT m FROM Mesa m WHERE m.id = :id";
@@ -97,19 +120,17 @@ public class MesasDAO implements IMesasDAO {
             query.setParameter("id", idMesa);
 
             Mesa mesa = query.getSingleResult();
-
             mesa.setEstado(nuevoEstado);
 
             Mesa mesaActualizada = entityManager.merge(mesa);
-
             entityManager.getTransaction().commit();
 
             return mesaActualizada;
-        } catch (Exception e){
-            entityManager.getTransaction().rollback();           
-            throw new PersistenciaException("No se pudo registrar el cliente" + e);           
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new PersistenciaException("Error al cambiar el estado de la mesa: " + e.getMessage(), e);
         } finally {
             entityManager.close();
-        }  
-    }     
+        }
+    }
 }

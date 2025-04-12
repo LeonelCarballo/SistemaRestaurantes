@@ -4,8 +4,13 @@
  */
 package Main;
 
+import wonderland.sistemarestaurantes.IniciarSesion;
 import wonderland.sistemarestaurantes.VentanaPrincipal;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantesnegocio.IEmpleadosBO;
+import wonderland.sistemarestaurantesnegocio.implementaciones.EmpleadosBO;
+import wonderland.sistemarestaurantespersistencia.IEmpleadosDAO;
+import wonderland.sistemarestaurantespersistencia.daos.EmpleadosDAO;
 
 /**
  *
@@ -18,8 +23,10 @@ public class Main {
      */
     public static void main(String[] args) {
         ControlPresentacion control = new ControlPresentacion();
-        VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(control);
-        ventanaPrincipal.setVisible(true);
+        IEmpleadosDAO empleadosDAO = new EmpleadosDAO();
+        IEmpleadosBO empleadosBO = new EmpleadosBO(empleadosDAO);
+        IniciarSesion iniciarSesion = new IniciarSesion(control,empleadosBO);
+        iniciarSesion.setVisible(true);
         
     }
     

@@ -7,6 +7,7 @@ package wonderland.sistemarestaurantes;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
 import wonderland.sistemarestaurantesdominio.Mesa;
 import wonderland.sistemarestaurantesdominio.dtos.NuevaMesaDTO;
@@ -129,6 +130,7 @@ public class Mesas extends javax.swing.JFrame {
         List<Mesa> nuevasMesas = null;
         try {
             nuevasMesas = mesasBO.agregarMesas(new NuevaMesaDTO()); 
+            JOptionPane.showMessageDialog(this, "Se agregaron las mesas correctamente.");
         } catch (NegocioException ex) {
             LOG.severe("No se pudo llenar la tabla de mesas: " + ex.getMessage());
         }

@@ -23,6 +23,7 @@ public class ListaClientes extends javax.swing.JFrame {
     
     private IClientesBO clientesBO;
     private ControlPresentacion control;
+    private Long idRol;
     private static final Logger LOG = Logger.getLogger(ListaClientes.class.getName());
 
 
@@ -31,14 +32,16 @@ public class ListaClientes extends javax.swing.JFrame {
      * Creates new form ListaClientes
      */
 
-    public ListaClientes(ControlPresentacion control, IClientesBO clientesBO) {
+    public ListaClientes(ControlPresentacion control, IClientesBO clientesBO, Long idRol) {
         this.control = control;
+        this.idRol = idRol;
         initComponents();
         this.clientesBO = clientesBO;
         setLocationRelativeTo(null);
         
         agregarBuscador();
         mostrarInformacionClientes();
+        configurarVisibilidadBotones();
     }
     
     private void agregarBuscador() {
@@ -78,7 +81,8 @@ public class ListaClientes extends javax.swing.JFrame {
             ClientePanel panel = new ClientePanel(
                 cliente, 
                 "Información",
-                e -> control.mostrarPerfilCliente(cliente, clienteDTO) 
+                e -> control.mostrarPerfilCliente(cliente, clienteDTO),
+                    idRol
             );
             panel.actualizarPuntos(clienteDTO.getPuntosFidelidad()); 
             panelListaClientes.add(panel);
@@ -97,7 +101,8 @@ public class ListaClientes extends javax.swing.JFrame {
                 ClientePanel panel = new ClientePanel(
                     cliente, 
                     "Información",
-                    e -> control.mostrarPerfilCliente(cliente, clienteDTO)
+                    e -> control.mostrarPerfilCliente(cliente, clienteDTO),
+                        idRol
                 );
 
                 panel.actualizarPuntos(clienteDTO.getPuntosFidelidad());
@@ -123,6 +128,12 @@ public class ListaClientes extends javax.swing.JFrame {
     public void cerrar(){
         setVisible(false);
         dispose();
+    }
+    
+    private void configurarVisibilidadBotones() {
+        if(idRol == 2 || idRol == 3){
+            jButtonRegistrarCliente.setVisible(false);
+        }
     }
 
     /**
