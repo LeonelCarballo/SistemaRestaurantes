@@ -367,15 +367,23 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         for (Component comp : jPanelProductosSeleccionados.getComponents()) {
             if (comp instanceof PanelProductoSeleccionado) {
                 PanelProductoSeleccionado panel = (PanelProductoSeleccionado) comp;
-                productos.add(panel.toDTO());
+                ProductoSeleccionadoDTO productoSeleccionadoDTO = panel.toDTO();
+                
+                if (productoSeleccionadoDTO.getCantidad() <= 0) {
+                    JOptionPane.showMessageDialog(this,
+                            "La cantidad de todos los productos debe ser mayor a cero.",
+                            "Cantidad inválida", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                productos.add(productoSeleccionadoDTO);
             }
         }
-        
+
         if (productos.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debes seleccionar al menos un producto para continuar con la comanda.",
+            JOptionPane.showMessageDialog(this,
+                    "Debes seleccionar al menos un producto para continuar con la comanda.",
                     "Aviso", JOptionPane.WARNING_MESSAGE);
-            return;
-        }else{
+        } else {
             control.mostrarResumenComanda(productos, comandaDTO, true);
             cerrar();
         }
