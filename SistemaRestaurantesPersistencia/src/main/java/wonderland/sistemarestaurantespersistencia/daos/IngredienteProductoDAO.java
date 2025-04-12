@@ -63,8 +63,6 @@ public class IngredienteProductoDAO implements IIngredienteProductoDAO{
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("Error al registrar la relación ingrediente-producto: " + e.getMessage(), e);
-        } finally {
-            entityManager.close();
         }
     }
 
@@ -90,8 +88,6 @@ public class IngredienteProductoDAO implements IIngredienteProductoDAO{
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("Error al buscar ingredientes por producto: " + e.getMessage(), e);
-        } finally {
-            entityManager.close();
         }
     }
 
@@ -117,8 +113,6 @@ public class IngredienteProductoDAO implements IIngredienteProductoDAO{
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("Error al eliminar ingredientes asociados al producto: " + e.getMessage(), e);
-        } finally {
-            entityManager.close();
         }
     }
 }

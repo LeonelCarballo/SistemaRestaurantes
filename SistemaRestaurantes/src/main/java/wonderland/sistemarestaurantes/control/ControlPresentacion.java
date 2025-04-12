@@ -184,7 +184,7 @@ public class ControlPresentacion {
             if (comandaDTO != null) {
                 List<ProductoSeleccionadoDTO> productosSeleccionados = detallesComandasBO.obtenerDetalleComandaPorComanda(comandaDTO);
 
-                ResumenComanda resumenComanda = new ResumenComanda(this, productosSeleccionados, comandaDTO, detallesComandasBO, true, comandasBO, mesa, mesasBO);
+                ResumenComanda resumenComanda = new ResumenComanda(this, productosSeleccionados, comandaDTO, detallesComandasBO, false, comandasBO, mesa, mesasBO);
                 resumenComanda.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró una comanda activa para esta mesa.");

@@ -44,6 +44,5 @@ public class EmpleadosDAO implements IEmpleadosDAO {
         } catch (Exception e) {
             throw new PersistenciaException("No se pudo realizar el inicio de sesión: " + e.getMessage(), e);
         }
-    }
-    
+    }   
 }

@@ -46,8 +46,6 @@ public class IngredientesDAO implements IIngredientesDAO {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("Error al registrar el ingrediente: " + e.getMessage(), e);
-        } finally {
-            entityManager.close();
         }
     }
 
@@ -69,8 +67,6 @@ public class IngredientesDAO implements IIngredientesDAO {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("Error al consultar los ingredientes: " + e.getMessage(), e);
-        } finally {
-            entityManager.close();
         }
     }
 
@@ -91,8 +87,6 @@ public class IngredientesDAO implements IIngredientesDAO {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("Error al obtener todos los ingredientes: " + e.getMessage(), e);
-        } finally {
-            entityManager.close();
         }
     }
 
@@ -123,8 +117,6 @@ public class IngredientesDAO implements IIngredientesDAO {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("Error al editar el ingrediente: " + e.getMessage(), e);
-        } finally {
-            entityManager.close();
         }
     }
 
@@ -154,8 +146,6 @@ public class IngredientesDAO implements IIngredientesDAO {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("Error al aumentar el stock del ingrediente: " + e.getMessage(), e);
-        } finally {
-            entityManager.close();
         }
     }
 
@@ -175,8 +165,6 @@ public class IngredientesDAO implements IIngredientesDAO {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("Error al buscar ingrediente por ID: " + e.getMessage(), e);
-        } finally {
-            entityManager.close();
         }
     }
 
@@ -201,8 +189,6 @@ public class IngredientesDAO implements IIngredientesDAO {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw new PersistenciaException("Error al buscar ingredientes por nombre: " + e.getMessage(), e);
-        } finally {
-            entityManager.close();
         }
     }
 }

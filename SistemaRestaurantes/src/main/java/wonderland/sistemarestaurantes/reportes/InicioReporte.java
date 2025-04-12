@@ -94,7 +94,7 @@ public class InicioReporte extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
     private void jButtonReporteClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReporteClientesActionPerformed
-        cerrar();
+
         control.mostrarReporteCliente();
     }//GEN-LAST:event_jButtonReporteClientesActionPerformed
 

@@ -57,9 +57,7 @@ public class ClientesFrecuentesDAO implements IClientesFrecuentesDAO {
         } catch (Exception e){
             entityManager.getTransaction().rollback();           
             throw new PersistenciaException("No se pudo registrar el cliente" + e);           
-        } finally {
-            entityManager.close();
-        }           
+        }        
     }
     
     /**
@@ -104,10 +102,7 @@ public class ClientesFrecuentesDAO implements IClientesFrecuentesDAO {
             
             throw new PersistenciaException("No se pudieron obtener los clientes" + e);
             
-        } finally {
-            entityManager.close();
-        }    
-            
+        }            
     }
     
     /**
@@ -136,9 +131,7 @@ public class ClientesFrecuentesDAO implements IClientesFrecuentesDAO {
             entityManager.getTransaction().rollback();
             
             throw new PersistenciaException("No se pudieron obtener los clientes" + e);           
-        } finally {
-            entityManager.close();
-        }                  
+        }                
     }
     
     /**
@@ -168,9 +161,7 @@ public class ClientesFrecuentesDAO implements IClientesFrecuentesDAO {
         } catch (Exception e){
             entityManager.getTransaction().rollback();           
             throw new PersistenciaException("No se pudieron obtener los clientes" + e);            
-        } finally {
-            entityManager.close();
-        }          
+        }       
     }
     
     /**
@@ -194,8 +185,6 @@ public class ClientesFrecuentesDAO implements IClientesFrecuentesDAO {
         } catch (Exception e){
             entityManager.getTransaction().rollback();           
             throw new PersistenciaException("No se pudieron obtener los clientes" + e);            
-        } finally {
-            entityManager.close();
         }     
     }
     
@@ -227,9 +216,7 @@ public class ClientesFrecuentesDAO implements IClientesFrecuentesDAO {
         } catch (Exception e){
             entityManager.getTransaction().rollback();            
             throw new PersistenciaException("No se pudo editar el cliente" + e);            
-        } finally {
-            entityManager.close();
-        }     
+        }    
     }
     
     /**
@@ -249,9 +236,7 @@ public class ClientesFrecuentesDAO implements IClientesFrecuentesDAO {
         } catch (Exception e){
             entityManager.getTransaction().rollback();           
             throw new PersistenciaException("No se pudo obtener el cliente" + e);            
-        } finally {
-            entityManager.close();
-        }             
+        }           
     }
     
     /**
@@ -275,9 +260,7 @@ public class ClientesFrecuentesDAO implements IClientesFrecuentesDAO {
         } catch (Exception e){
             entityManager.getTransaction().rollback();           
             throw new PersistenciaException("No se pudo obtener el cliente" + e);          
-        } finally {
-            entityManager.close();
-        }   
+        } 
     }
     
     /**
@@ -302,9 +285,7 @@ public class ClientesFrecuentesDAO implements IClientesFrecuentesDAO {
         } catch (Exception e){
             entityManager.getTransaction().rollback();            
             throw new PersistenciaException("No se pudieron obtener los datos de fidelidad" + e);            
-        } finally {
-            entityManager.close();
-        }   
+        }
     }
     
     /**
@@ -329,9 +310,6 @@ public class ClientesFrecuentesDAO implements IClientesFrecuentesDAO {
         } catch (Exception e){
             entityManager.getTransaction().rollback();            
             throw new PersistenciaException("No se pudo obtener la ultima visita" + e);            
-        } finally {
-            entityManager.close();
-        }   
+        }  
     }
-
 }

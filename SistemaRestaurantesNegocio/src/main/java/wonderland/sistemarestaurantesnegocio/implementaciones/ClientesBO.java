@@ -11,11 +11,12 @@ import java.util.logging.Logger;
 import wonderland.sistemarestaurantesdominio.Cliente;
 import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
 import wonderland.sistemarestaurantesdominio.VistaFidelidadCliente;
-import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
-import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteFrecuenteDTO;
-import wonderland.sistemarestaurantesnegocio.IClientesBO;
-import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
-import wonderland.sistemarestaurantespersistencia.IClientesFrecuentesDAO;
+    import wonderland.sistemarestaurantesdominio.dtos.ClienteFrecuenteDTO;
+    import wonderland.sistemarestaurantesdominio.dtos.NuevoClienteFrecuenteDTO;
+import wonderland.sistemarestaurantesdominio.utils.SeguridadUtil;
+    import wonderland.sistemarestaurantesnegocio.IClientesBO;
+    import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
+    import wonderland.sistemarestaurantespersistencia.IClientesFrecuentesDAO;
 import wonderland.sistemarestaurantespersistencia.persistenciaexception.PersistenciaException;
 
 /**
@@ -86,14 +87,14 @@ public class ClientesBO implements IClientesBO {
             throw new NegocioException("El correo electrónico excede el límite de " + LIMITE_CARACTERES_CORREO_ELECTRONICO + " caracteres.");
         }
 
-        if (nuevoClienteFrecuente.getTelefono().length() > LIMITE_CARACTERES_TELEFONO) {
-            throw new NegocioException("El teléfono excede el límite de " + LIMITE_CARACTERES_TELEFONO + " caracteres.");
-        }
-
         // Validación de formato de teléfono
         String telefono = nuevoClienteFrecuente.getTelefono();
         if (!telefono.matches("^\\+?\\d+$")) {
             throw new NegocioException("El teléfono solo puede contener números y puede comenzar con un +.");
+        }
+
+        if (nuevoClienteFrecuente.getTelefono().length() > LIMITE_CARACTERES_TELEFONO) {
+            throw new NegocioException("El teléfono excede el límite de " + LIMITE_CARACTERES_TELEFONO + " caracteres.");
         }
 
         // Validación de formato de correo electrónico
@@ -105,10 +106,22 @@ public class ClientesBO implements IClientesBO {
         }
 
         try {
+            // Validar que no exista un cliente con el mismo hash de teléfono
+            String hashTelefono = SeguridadUtil.generarHash(nuevoClienteFrecuente.getTelefono());
+            if (existeClienteConHashTelefono(hashTelefono)) {
+                throw new NegocioException("Ya existe un cliente registrado con este número de teléfono");
+            }
+
             return this.clientesFrecuentesDAO.registrarCliente(nuevoClienteFrecuente);
         } catch (PersistenciaException ex) {
             throw new NegocioException("No se pudo registrar el cliente");
         }
+    }
+
+    private boolean existeClienteConHashTelefono(String hashTelefono) throws PersistenciaException {
+        List<ClienteFrecuente> clientes = clientesFrecuentesDAO.obtenerClientes();
+        return clientes.stream()
+                .anyMatch(c -> (c).getHashTelefono().equals(hashTelefono));
     }
 
     @Override

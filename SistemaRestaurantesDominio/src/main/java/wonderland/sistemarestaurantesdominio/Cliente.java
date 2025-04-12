@@ -151,7 +151,15 @@ public class Cliente implements Serializable {
     public void setComandas(List<Comanda> comandas) {
         this.comandas = comandas;
     }
-    
+
+    public String getHashTelefono() {
+        return hashTelefono;
+    }
+
+    public void setHashTelefono(String hashTelefono) {
+        this.hashTelefono = hashTelefono;
+    }
+      
     /**
      * No se persiste en la base de datos
      * getter que devuelve el nombre completo para mostrar en interfaces 
