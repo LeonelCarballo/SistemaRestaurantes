@@ -248,7 +248,7 @@ public class ResumenComanda extends javax.swing.JFrame {
                 jButtonAsociarClientePropertyChange(evt);
             }
         });
-        getContentPane().add(jButtonAsociarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 30, 180, 50));
+        getContentPane().add(jButtonAsociarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 30, 180, 50));
 
         jPanelTotal.setLayout(new java.awt.BorderLayout());
         getContentPane().add(jPanelTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 550, 180, 50));
@@ -265,22 +265,22 @@ public class ResumenComanda extends javax.swing.JFrame {
         jLabel5.setFont(fontManager.getNotoSerifCondensedRegular(20f));
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Notas");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 310, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 310, -1, -1));
 
         jLabel4.setFont(fontManager.getNotoSerifCondensedRegular(20f));
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Importe");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 310, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 310, -1, -1));
 
         jLabel3.setFont(fontManager.getNotoSerifCondensedRegular(20f));
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Precio");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 310, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 310, -1, -1));
 
         jLabel2.setFont(fontManager.getNotoSerifCondensedRegular(20f));
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Q");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 310, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 310, -1, -1));
 
         jLabel1.setFont(fontManager.getNotoSerifCondensedRegular(20f));
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));

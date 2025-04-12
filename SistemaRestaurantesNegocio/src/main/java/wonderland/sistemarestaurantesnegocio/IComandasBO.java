@@ -4,7 +4,8 @@
  */
 package wonderland.sistemarestaurantesnegocio;
 
-import wonderland.sistemarestaurantesdominio.Cliente;
+import java.util.Calendar;
+import java.util.List;
 import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
 import wonderland.sistemarestaurantesdominio.Comanda;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
@@ -28,6 +29,10 @@ public interface IComandasBO {
     public abstract Comanda modificarEstadoComanda(ComandaDTO comandaDTO) throws NegocioException;
     
     public abstract Comanda cancelarComanda(ComandaDTO comandaDTO) throws NegocioException;
+    
+    public abstract List<ComandaDTO> obtenerComandas() throws NegocioException;
+    
+    public abstract List<ComandaDTO> obtenerComandasPorFechas(Calendar fechaInicio, Calendar fechaFin) throws NegocioException;
     
     
 }

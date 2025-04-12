@@ -5,6 +5,7 @@
 package wonderland.sistemarestaurantes.reportes;
 
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
+import wonderland.sistemarestaurantesnegocio.implementaciones.ComandasBO;
 
 /**
  *
@@ -12,6 +13,7 @@ import wonderland.sistemarestaurantes.control.ControlPresentacion;
  */
 public class InicioReporte extends javax.swing.JFrame {
     ControlPresentacion control;
+    ComandasBO comandasBO;
 
     public InicioReporte() {
         initComponents();
@@ -78,7 +80,7 @@ public class InicioReporte extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonReporteComandasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReporteComandasActionPerformed
-        // TODO add your handling code here:
+        control.mostrarReporteComanda();
     }//GEN-LAST:event_jButtonReporteComandasActionPerformed
 
     private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed

@@ -4,6 +4,8 @@
  */
 package wonderland.sistemarestaurantespersistencia;
 
+import java.util.Calendar;
+import java.util.List;
 import wonderland.sistemarestaurantesdominio.ClienteFrecuente;
 import wonderland.sistemarestaurantesdominio.Comanda;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
@@ -25,6 +27,10 @@ public interface IComandasDAO {
     public abstract Comanda modificarEstadoComanda(ComandaDTO comandaDTO);
     
     public abstract Comanda cancelarComanda(ComandaDTO comandaDTO);
+    
+    public abstract List<ComandaDTO> obtenerComandas();
+    
+    public abstract List<ComandaDTO> obtenerComandasPorFechas(Calendar fechaInicio, Calendar fechaFin);
     
     //public abstract Comanda editarComanda(ComandaDTO comandaDTO);
 }
