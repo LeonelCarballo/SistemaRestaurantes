@@ -118,22 +118,6 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
             jButtonAsociarCliente.setVisible(false);
         }
 
-        // TODO
-        // MANDA NULL
-//        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd - MM - yyyy");
-//        SimpleDateFormat formatoHora = new SimpleDateFormat("HH : mm : ss");
-//        
-//        Calendar fechaCreacion = comandaDTO.getFechaHoraCreacion();
-//        Date fecha = fechaCreacion.getTime();
-//
-//        JLabel lblFecha = new JLabel("Fecha : " + formatoFecha.format(fecha));
-//        lblFecha.setFont(fontManager.getNunitoSemiBold(18f));
-//        lblFecha.setForeground(Color.WHITE);
-//
-//        JLabel lblHora = new JLabel("Hora : " + formatoHora.format(fecha));
-//        lblHora.setFont(fontManager.getNunitoSemiBold(18f));
-//        lblHora.setForeground(Color.WHITE);
-
         JLabel lblMesa = new JLabel("Mesa : " + (mesa != null ? mesa.getNumeroMesa() : "Desconocida"));
         lblMesa.setFont(fontManager.getNunitoSemiBold(18f));
         lblMesa.setForeground(Color.WHITE);
@@ -151,8 +135,6 @@ public class SeleccionarProductosComanda extends javax.swing.JFrame {
         jPanelCliente.setOpaque(false);
 
         jPanelFolio.add(lblFolio, BorderLayout.CENTER);
-//        jPanelFecha.add(lblFecha);
-//        jPanelHora.add(lblHora);
         jPanelMesa.add(lblMesa);
         
        

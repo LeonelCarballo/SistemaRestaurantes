@@ -77,6 +77,9 @@ public class ListaProductos extends javax.swing.JFrame {
         getLayeredPane().add(buscador, javax.swing.JLayeredPane.PALETTE_LAYER);
         buscador.setBounds(510, 130, 280, 30);
         buscador.setOpaque(false);
+        
+        jPanelBuscador.setOpaque(false);
+        jPanelBuscador.add(buscador);
     }
     
     public void mostrar(){
@@ -159,6 +162,7 @@ public class ListaProductos extends javax.swing.JFrame {
     private void initComponents() {
 
         jButtonAnadirProducto = new javax.swing.JButton();
+        jPanelBuscador = new javax.swing.JPanel();
         jScrollPaneBebidas = new javax.swing.JScrollPane();
         jScrollPanePostres = new javax.swing.JScrollPane();
         jScrollPanePlatillos = new javax.swing.JScrollPane();
@@ -175,16 +179,17 @@ public class ListaProductos extends javax.swing.JFrame {
                 jButtonAnadirProductoActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAnadirProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
+        getContentPane().add(jButtonAnadirProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, -1));
+        getContentPane().add(jPanelBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 170, 270, 40));
 
         jScrollPaneBebidas.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        getContentPane().add(jScrollPaneBebidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 210, 220, 270));
+        getContentPane().add(jScrollPaneBebidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 270, 300, 370));
 
         jScrollPanePostres.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        getContentPane().add(jScrollPanePostres, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 210, 220, 270));
+        getContentPane().add(jScrollPanePostres, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 270, 300, 370));
 
         jScrollPanePlatillos.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        getContentPane().add(jScrollPanePlatillos, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 220, 270));
+        getContentPane().add(jScrollPanePlatillos, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, 300, 370));
 
         jButtonRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonregresar.png"))); // NOI18N
         jButtonRegresar.setContentAreaFilled(false);
@@ -193,10 +198,10 @@ public class ListaProductos extends javax.swing.JFrame {
                 jButtonRegresarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(291, 500, 280, 50));
+        getContentPane().add(jButtonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 680, 280, 50));
 
-        jLabelFondoMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/MenuFondo.png"))); // NOI18N
-        getContentPane().add(jLabelFondoMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, -1));
+        jLabelFondoMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoMenu.png"))); // NOI18N
+        getContentPane().add(jLabelFondoMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1150, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -215,6 +220,7 @@ public class ListaProductos extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAnadirProducto;
     private javax.swing.JButton jButtonRegresar;
     private javax.swing.JLabel jLabelFondoMenu;
+    private javax.swing.JPanel jPanelBuscador;
     private javax.swing.JScrollPane jScrollPaneBebidas;
     private javax.swing.JScrollPane jScrollPanePlatillos;
     private javax.swing.JScrollPane jScrollPanePostres;

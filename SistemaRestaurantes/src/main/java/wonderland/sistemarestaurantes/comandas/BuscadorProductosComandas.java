@@ -42,8 +42,8 @@ public class BuscadorProductosComandas extends javax.swing.JPanel {
         jButtonBuscarProducto = new javax.swing.JButton();
         jTextFieldIngresarProducto = new javax.swing.JTextField();
 
-        setMinimumSize(new java.awt.Dimension(10, 10));
         setPreferredSize(new java.awt.Dimension(260, 30));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButtonBuscarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonBuscar.png"))); // NOI18N
         jButtonBuscarProducto.setBorderPainted(false);
@@ -53,6 +53,7 @@ public class BuscadorProductosComandas extends javax.swing.JPanel {
                 jButtonBuscarProductoActionPerformed(evt);
             }
         });
+        add(jButtonBuscarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 30, 40));
 
         jTextFieldIngresarProducto.setText("Productos...");
         jTextFieldIngresarProducto.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -65,22 +66,7 @@ public class BuscadorProductosComandas extends javax.swing.JPanel {
                 jTextFieldIngresarProductoActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jTextFieldIngresarProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jButtonBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jTextFieldIngresarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        add(jTextFieldIngresarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -4, 240, 40));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarProductoActionPerformed

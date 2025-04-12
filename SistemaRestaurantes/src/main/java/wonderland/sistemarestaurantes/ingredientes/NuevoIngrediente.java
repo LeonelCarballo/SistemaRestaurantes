@@ -113,7 +113,7 @@ public class NuevoIngrediente extends javax.swing.JFrame {
                 jButtonAnteriorActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 100, 100));
+        getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 630, 100, 100));
 
         jTextFieldNombre.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jTextFieldNombre.setText("Nombre");
@@ -128,7 +128,7 @@ public class NuevoIngrediente extends javax.swing.JFrame {
                 jTextFieldNombreActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextFieldNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 220, 280, 40));
+        getContentPane().add(jTextFieldNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 300, 300, 40));
 
         jTextFieldCantidad.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jTextFieldCantidad.setText("0");
@@ -143,7 +143,7 @@ public class NuevoIngrediente extends javax.swing.JFrame {
                 jTextFieldCantidadActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextFieldCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 370, 280, 40));
+        getContentPane().add(jTextFieldCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 510, 300, 40));
 
         jComboBoxUnidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Piezas", "gr", "ml" }));
         jComboBoxUnidad.addItemListener(new java.awt.event.ItemListener() {
@@ -156,22 +156,22 @@ public class NuevoIngrediente extends javax.swing.JFrame {
                 jComboBoxUnidadActionPerformed(evt);
             }
         });
-        getContentPane().add(jComboBoxUnidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 290, 280, 40));
+        getContentPane().add(jComboBoxUnidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 410, 300, 40));
 
         jLabelNombre.setFont(new java.awt.Font("Serif", 3, 30)); // NOI18N
         jLabelNombre.setForeground(new java.awt.Color(230, 230, 230));
-        jLabelNombre.setText("Nombre");
-        getContentPane().add(jLabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 130, 40));
+        jLabelNombre.setText("Nombre Ingrediente:");
+        getContentPane().add(jLabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 300, 270, 40));
 
         jLabelUnidad.setFont(new java.awt.Font("Serif", 3, 30)); // NOI18N
         jLabelUnidad.setForeground(new java.awt.Color(230, 230, 230));
-        jLabelUnidad.setText("Unidad");
-        getContentPane().add(jLabelUnidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 130, 40));
+        jLabelUnidad.setText("Unidad:");
+        getContentPane().add(jLabelUnidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 410, 130, 40));
 
         jLabelCantidad.setFont(new java.awt.Font("Serif", 3, 30)); // NOI18N
         jLabelCantidad.setForeground(new java.awt.Color(230, 230, 230));
-        jLabelCantidad.setText("Cantidad");
-        getContentPane().add(jLabelCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, 130, 40));
+        jLabelCantidad.setText("Cantidad:");
+        getContentPane().add(jLabelCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 510, 130, 40));
 
         jButtonConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonConfirmar.png"))); // NOI18N
         jButtonConfirmar.setContentAreaFilled(false);
@@ -180,9 +180,9 @@ public class NuevoIngrediente extends javax.swing.JFrame {
                 jButtonConfirmarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 470, -1, 80));
+        getContentPane().add(jButtonConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 630, -1, 80));
 
-        jLabelFondoAnadirIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoAnadirIngrediente.png"))); // NOI18N
+        jLabelFondoAnadirIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoNuevoIngrediente.png"))); // NOI18N
         getContentPane().add(jLabelFondoAnadirIngrediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();

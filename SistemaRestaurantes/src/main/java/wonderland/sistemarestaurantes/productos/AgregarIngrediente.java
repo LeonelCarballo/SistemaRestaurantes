@@ -47,6 +47,7 @@ public class AgregarIngrediente extends javax.swing.JFrame {
         this.padre = padre;
 
         initComponents();
+        setLocationRelativeTo(null);
         mostrarIngredientes();
         agregarBuscador();
         panelesIngredientesDisponibles = new ArrayList<>();
@@ -252,7 +253,7 @@ public class AgregarIngrediente extends javax.swing.JFrame {
         getContentPane().add(jPanelBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 280, 30));
 
         jLabelFondoAgregarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoAgregarIngrediente.png"))); // NOI18N
-        getContentPane().add(jLabelFondoAgregarIngrediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 416));
+        getContentPane().add(jLabelFondoAgregarIngrediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -14, -1, 430));
 
         jLabelNombreIngrediente1.setBackground(new java.awt.Color(0, 0, 0));
         jLabelNombreIngrediente1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
