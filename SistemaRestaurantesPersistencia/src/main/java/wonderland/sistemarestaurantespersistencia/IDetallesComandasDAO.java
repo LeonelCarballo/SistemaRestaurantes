@@ -26,4 +26,6 @@ public interface IDetallesComandasDAO {
     public abstract void editarDetalleComanda(Long idComanda, ProductoSeleccionadoDTO productoSeleccionado) throws PersistenciaException;
     
     public abstract DetalleComanda ActualizarDetallesComanda(DetalleComandaDTO detalleComandaDTO) throws PersistenciaException;
+    
+    public abstract List<DetalleComandaDTO> obtenerDetallesDTOPorComanda(ComandaDTO comandaDTO);
 }

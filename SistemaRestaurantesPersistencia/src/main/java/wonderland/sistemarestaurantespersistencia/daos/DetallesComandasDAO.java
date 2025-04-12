@@ -4,12 +4,14 @@
  */
 package wonderland.sistemarestaurantespersistencia.daos;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import wonderland.sistemarestaurantesdominio.Comanda;
 import wonderland.sistemarestaurantesdominio.DetalleComanda;
 import wonderland.sistemarestaurantesdominio.Producto;
@@ -197,4 +199,25 @@ public class DetallesComandasDAO implements IDetallesComandasDAO {
         }
     }
 
+    @Override
+    public List<DetalleComandaDTO> obtenerDetallesDTOPorComanda(ComandaDTO comandaDTO) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+            TypedQuery<DetalleComanda> query = entityManager.createQuery(
+                    "SELECT d FROM DetalleComanda d WHERE d.comanda.id = :idComanda", DetalleComanda.class);
+            query.setParameter("idComanda", comandaDTO.getId());
+            List<DetalleComanda> resultados = query.getResultList();
+
+            List<DetalleComandaDTO> detallesDTO = new ArrayList<>();
+            for (DetalleComanda detalle : resultados) {
+                DetalleComandaDTO detalleComandaDTO = new DetalleComandaDTO();
+                detalleComandaDTO.setIdDetalleComanda(detalle.getId());
+                detalleComandaDTO.setCantidadProducto(detalle.getCantidadProducto());
+                detalleComandaDTO.setPrecio(detalle.getPrecio());
+                detalleComandaDTO.setProducto(detalle.getProducto());
+                detallesDTO.add(detalleComandaDTO);
+            }
+
+            return detallesDTO;
+        }
+    
 }

@@ -65,6 +65,9 @@ public class DetallesComandasBO implements IDetallesComandasBO {
         }
     }
 
-   
-    
+    @Override
+    public List<DetalleComandaDTO> obtenerDetallesDTOPorComanda(ComandaDTO comandaDTO) throws NegocioException {
+        return this.detallesComandasDAO.obtenerDetallesDTOPorComanda(comandaDTO);
+    }
+  
 }
