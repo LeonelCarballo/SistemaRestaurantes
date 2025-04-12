@@ -79,7 +79,7 @@ public class PanelReporteComanda extends JPanel {
     gbc.weightx = 0;
     add(lblMesa, gbc);
 
-    // Fecha - Reducimos espacio
+    // Fecha
     JLabel lblFecha = new JLabel(fechaStr);
     lblFecha.setFont(fontManager.getNotoSerifCondensedRegular(18f));
     lblFecha.setForeground(Color.WHITE);

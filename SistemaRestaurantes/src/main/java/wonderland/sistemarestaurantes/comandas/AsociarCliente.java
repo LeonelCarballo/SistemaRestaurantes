@@ -48,9 +48,7 @@ import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
             jScrollPaneClientes.setBorder(null);
             jPanelBuscador.setOpaque(false);
 
-    }
-
-    
+    }   
     
     private void agregarBuscador() {
         BuscadorClientes buscadorClientes = new BuscadorClientes(clientesBO, this::actualizarListaClientes);
