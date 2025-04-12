@@ -13,6 +13,7 @@ import wonderland.sistemarestaurantes.control.ControlPresentacion;
 public class VentanaPrincipal extends javax.swing.JFrame {
 
     private ControlPresentacion control;
+    private Long idRol;
     
     /**
      * Creates new form VentanaPrincipal
@@ -21,10 +22,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         initComponents();
     }
 
-    public VentanaPrincipal(ControlPresentacion control) {
+    public VentanaPrincipal(ControlPresentacion control,Long idRol) {
         this.control = control;
+        this.idRol = idRol;
         initComponents();
         setLocationRelativeTo(null);
+        configurarVisibilidadBotones();
     }
     
     public void mostrar(){
@@ -34,6 +37,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public void cerrar(){
         setVisible(false);
         dispose();
+    }
+    
+    private void configurarVisibilidadBotones() {
+        if(idRol == 2){
+            jButtonReportes.setVisible(false);
+            jLabelReportes.setVisible(false);
+        }
     }
 
     /**
@@ -52,6 +62,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jButtonReportes = new javax.swing.JButton();
         jButtonInventario = new javax.swing.JButton();
         jButtonComandas = new javax.swing.JButton();
+        jButtonCerrarSesion = new javax.swing.JButton();
         jLabelFondoVentanaPrincipal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -117,6 +128,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonComandas, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 400, -1, -1));
 
+        jButtonCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BotonCerrarSesion.png"))); // NOI18N
+        jButtonCerrarSesion.setContentAreaFilled(false);
+        jButtonCerrarSesion.setFocusPainted(false);
+        jButtonCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButtonCerrarSesionMousePressed(evt);
+            }
+        });
+        jButtonCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCerrarSesionActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 40, -1, -1));
+
         jLabelFondoVentanaPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoVentanaPrincipal.png"))); // NOI18N
         getContentPane().add(jLabelFondoVentanaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -154,6 +180,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         control.mostrarIniciarReporte();
     }//GEN-LAST:event_jButtonReportesActionPerformed
 
+    private void jButtonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarSesionActionPerformed
+        control.mostrarInicioSesion();
+        cerrar();
+    }//GEN-LAST:event_jButtonCerrarSesionActionPerformed
+
+    private void jButtonCerrarSesionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCerrarSesionMousePressed
+
+    }//GEN-LAST:event_jButtonCerrarSesionMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -190,6 +225,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCerrarSesion;
     private javax.swing.JButton jButtonClientes;
     private javax.swing.JButton jButtonComandas;
     private javax.swing.JButton jButtonInventario;

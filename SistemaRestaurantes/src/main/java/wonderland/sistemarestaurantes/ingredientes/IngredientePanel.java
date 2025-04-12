@@ -31,10 +31,13 @@ import wonderland.sistemarestaurantesdominio.Ingrediente;
  */
 public class IngredientePanel extends JPanel {
 
-    public IngredientePanel(Ingrediente ingrediente) {
+    private Long idRol;
+
+    public IngredientePanel(Ingrediente ingrediente, Long idRol) {
         setPreferredSize(new Dimension(400, 50));
         setLayout(new GridBagLayout());
         setOpaque(false);
+        this.idRol = idRol;
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(8, 5, 8, 5);
@@ -74,45 +77,59 @@ public class IngredientePanel extends JPanel {
         lblUnidad.setForeground(textColor);
         lblUnidad.setPreferredSize(new Dimension(100, 25));
 
-        JButton btnEdit = new JButton();
-        btnEdit.setPreferredSize(new Dimension(32, 32));
-        btnEdit.setContentAreaFilled(false);
-        btnEdit.setBorderPainted(false);
-        btnEdit.setFocusPainted(false);
+        if (idRol == 1) {
+            JButton btnEdit = new JButton();
+            btnEdit.setPreferredSize(new Dimension(32, 32));
+            btnEdit.setContentAreaFilled(false);
+            btnEdit.setBorderPainted(false);
+            btnEdit.setFocusPainted(false);
 
-        try {
-            ImageIcon iconEditar = new ImageIcon(getClass().getResource("/images/botonEditar.png"));
-            // Establecer el tamaño del icono para que coincida con el tamaño del botón
-            iconEditar = new ImageIcon(iconEditar.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
-            btnEdit.setIcon(iconEditar);
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                ImageIcon iconEditar = new ImageIcon(getClass().getResource("/images/botonEditar.png"));
+                // Establecer el tamaño del icono para que coincida con el tamaño del botón
+                iconEditar = new ImageIcon(iconEditar.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
+                btnEdit.setIcon(iconEditar);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            btnEdit.addActionListener(e -> {
+                ControlPresentacion control = new ControlPresentacion();
+                control.mostrarEditarNombreIngrediente(ingrediente);
+            });
+
+            JButton btnAdd = new JButton();
+            btnAdd.setPreferredSize(new Dimension(32, 32));
+            btnAdd.setContentAreaFilled(false);
+            btnAdd.setBorderPainted(false);
+            btnAdd.setFocusPainted(false);
+
+            try {
+                ImageIcon iconAgregar = new ImageIcon(getClass().getResource("/images/botonAgregarMesas.png"));
+                // Establecer el tamaño del icono para que coincida con el tamaño del botón
+                iconAgregar = new ImageIcon(iconAgregar.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
+                btnAdd.setIcon(iconAgregar);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            btnAdd.addActionListener(e -> {
+                ControlPresentacion control = new ControlPresentacion();
+                control.mostrarAñadirStockIngrediente(ingrediente);
+            });
+
+            gbc.gridx = 5;
+            gbc.anchor = GridBagConstraints.EAST;
+            gbc.insets = new Insets(8, 0, 8, 2);
+            btnEdit.setPreferredSize(new Dimension(32, 32));
+            add(btnEdit, gbc);
+
+            gbc.gridx = 6;
+            gbc.insets = new Insets(8, 0, 8, 0);
+            btnAdd.setPreferredSize(new Dimension(32, 32));
+            add(btnAdd, gbc);
+
         }
-
-        btnEdit.addActionListener(e -> {
-            ControlPresentacion control = new ControlPresentacion();
-            control.mostrarEditarNombreIngrediente(ingrediente);
-        });
-
-        JButton btnAdd = new JButton();
-        btnAdd.setPreferredSize(new Dimension(32, 32));
-        btnAdd.setContentAreaFilled(false);
-        btnAdd.setBorderPainted(false);
-        btnAdd.setFocusPainted(false);
-
-        try {
-            ImageIcon iconAgregar = new ImageIcon(getClass().getResource("/images/botonAgregarMesas.png"));
-            // Establecer el tamaño del icono para que coincida con el tamaño del botón
-            iconAgregar = new ImageIcon(iconAgregar.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
-            btnAdd.setIcon(iconAgregar);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        btnAdd.addActionListener(e -> {
-            ControlPresentacion control = new ControlPresentacion();
-            control.mostrarAñadirStockIngrediente(ingrediente);
-        });
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -132,16 +149,6 @@ public class IngredientePanel extends JPanel {
         gbc.weightx = 1;
         add(Box.createHorizontalGlue(), gbc);
 
-        gbc.gridx = 5;
-        gbc.anchor = GridBagConstraints.EAST;
-        gbc.insets = new Insets(8, 0, 8, 2); // Reducido margen derecho para que estén más cerca
-        btnEdit.setPreferredSize(new Dimension(32, 32)); // Tamaño fijo
-        add(btnEdit, gbc);
-
-        gbc.gridx = 6;
-        gbc.insets = new Insets(8, 0, 8, 0); // Margen sin espacio adicional
-        btnAdd.setPreferredSize(new Dimension(32, 32)); // Tamaño fijo
-        add(btnAdd, gbc);
     }
 
     @Override

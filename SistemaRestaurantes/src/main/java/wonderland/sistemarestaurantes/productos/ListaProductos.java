@@ -25,6 +25,7 @@ public class ListaProductos extends javax.swing.JFrame {
     private JPanel panelBebidas;
     private ControlPresentacion control;
     private IProductosBO productosBO;
+    private Long idRol;
  
     /**
      * Creates new form Productos
@@ -33,8 +34,9 @@ public class ListaProductos extends javax.swing.JFrame {
         initComponents();
     }
 
-    public ListaProductos(ControlPresentacion control, IProductosBO productosBO) {
+    public ListaProductos(ControlPresentacion control, IProductosBO productosBO, Long idRol) {
         this.control = control;
+        this.idRol = idRol;
        
         initComponents();
        
@@ -49,6 +51,7 @@ public class ListaProductos extends javax.swing.JFrame {
         panelPostres.setLayout(new javax.swing.BoxLayout(panelPostres, javax.swing.BoxLayout.Y_AXIS));
         panelBebidas.setLayout(new javax.swing.BoxLayout(panelBebidas, javax.swing.BoxLayout.Y_AXIS));
         
+        configurarVisibilidadBotones();
         
         panelPlatillos.setOpaque(false);
 
@@ -85,6 +88,12 @@ public class ListaProductos extends javax.swing.JFrame {
         dispose();
     }
 
+    private void configurarVisibilidadBotones() {
+        if(idRol == 2 || idRol == 3){
+            jButtonAnadirProducto.setVisible(false);
+        }
+    }
+    
     public void mostrarProductos(){
         try {
             panelPlatillos.removeAll();
@@ -97,15 +106,15 @@ public class ListaProductos extends javax.swing.JFrame {
             
             
             for (Producto producto : platillos) {
-                panelPlatillos.add(new ProductoPanel(control, productosBO, producto));
+                panelPlatillos.add(new ProductoPanel(control, productosBO, producto,idRol));
             }
             
             for (Producto producto : postres) {
-                panelPostres.add(new ProductoPanel(control, productosBO, producto));
+                panelPostres.add(new ProductoPanel(control, productosBO, producto,idRol));
             }
             
             for (Producto producto : bebidas) {
-                panelBebidas.add(new ProductoPanel(control, productosBO, producto));
+                panelBebidas.add(new ProductoPanel(control, productosBO, producto,idRol));
             }
             
             panelPlatillos.revalidate();
@@ -126,7 +135,7 @@ public class ListaProductos extends javax.swing.JFrame {
         panelBebidas.removeAll();
 
         for (Producto producto : resultados) {
-            ProductoPanel panel = new ProductoPanel(control, productosBO, producto);
+            ProductoPanel panel = new ProductoPanel(control, productosBO, producto,idRol);
             switch (producto.getTipoProducto()) {
                 case PLATILLO -> panelPlatillos.add(panel);
                 case POSTRE -> panelPostres.add(panel);

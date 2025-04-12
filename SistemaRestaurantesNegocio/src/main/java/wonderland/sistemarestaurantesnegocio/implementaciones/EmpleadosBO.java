@@ -11,6 +11,7 @@ import wonderland.sistemarestaurantesdominio.dtos.EmpleadoDTO;
 import wonderland.sistemarestaurantesnegocio.IEmpleadosBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
 import wonderland.sistemarestaurantespersistencia.IEmpleadosDAO;
+import wonderland.sistemarestaurantespersistencia.daos.EmpleadosDAO;
 import wonderland.sistemarestaurantespersistencia.persistenciaexception.PersistenciaException;
 
 /**
@@ -20,6 +21,10 @@ import wonderland.sistemarestaurantespersistencia.persistenciaexception.Persiste
 public class EmpleadosBO implements IEmpleadosBO {
     
     private IEmpleadosDAO empleadosDAO;
+
+    public EmpleadosBO(IEmpleadosDAO empleadosDAO) {
+        this.empleadosDAO = empleadosDAO;
+    }
 
     @Override
     public EmpleadoDTO iniciarSesion(String usuario, String contrasena) throws NegocioException {
@@ -39,5 +44,4 @@ public class EmpleadosBO implements IEmpleadosBO {
             throw new NegocioException("No se pudo registrar el cliente");
         }
     }
-    
 }

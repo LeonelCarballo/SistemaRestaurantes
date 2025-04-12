@@ -21,8 +21,9 @@ public class ListaIngredientes extends javax.swing.JFrame {
 
     private ControlPresentacion control;
     private IIngredientesBO ingredientesBO;
+    private Long idRol;
     private static final Logger LOG = Logger.getLogger(ListaClientes.class.getName());
-    
+
     /**
      * Creates new form ListaIngredientes
      */
@@ -30,58 +31,66 @@ public class ListaIngredientes extends javax.swing.JFrame {
         initComponents();
     }
 
-    public ListaIngredientes(ControlPresentacion control, IIngredientesBO ingredientesBO) {
+    public ListaIngredientes(ControlPresentacion control, IIngredientesBO ingredientesBO, Long idRol) {
         this.control = control;
         this.ingredientesBO = ingredientesBO;
+        this.idRol = idRol;
         initComponents();
         setLocationRelativeTo(null);
         agregarBuscador();
         mostrarListaIngredientes();
-        
+        configurarVisibilidadBotones();
+
         jScrollPaneListaIngredientes.setOpaque(false);
         jScrollPaneListaIngredientes.getViewport().setOpaque(false);
-        
+
         revalidate();
         repaint();
     }
-    
-    public void mostrar(){
+
+    public void mostrar() {
         setVisible(true);
     }
-    
-    public void cerrar(){
+
+    public void cerrar() {
         setVisible(false);
         dispose();
     }
+    
+    private void configurarVisibilidadBotones() {
+        if(idRol == 2 || idRol == 3){
+            jButtonAnadirIngrediente.setVisible(false);
+        }
+    }
 
     public void mostrarListaIngredientes() {
-        jPanelListaIngredientes.removeAll(); 
+        jPanelListaIngredientes.removeAll();
         try {
-            for (Ingrediente ingrediente : ingredientesBO.consultarIngredientes()) { 
-                jPanelListaIngredientes.add(new IngredientePanel(ingrediente));
+            for (Ingrediente ingrediente : ingredientesBO.consultarIngredientes()) {
+                jPanelListaIngredientes.add(new IngredientePanel(ingrediente, idRol));
             }
         } catch (NegocioException ex) {
-             LOG.severe("No se pudo llenar la lista de ingredientes: " + ex.getMessage());
+            LOG.severe("No se pudo llenar la lista de ingredientes: " + ex.getMessage());
         }
 
         jPanelListaIngredientes.revalidate();
         jPanelListaIngredientes.repaint();
     }
-    
+
     private void actualizarListaIngredientes(List<Ingrediente> ingredientes) {
         jPanelListaIngredientes.removeAll();
         for (Ingrediente ingrediente : ingredientes) {
-            jPanelListaIngredientes.add(new IngredientePanel(ingrediente));
+            jPanelListaIngredientes.add(new IngredientePanel(ingrediente,idRol));
         }
         jPanelListaIngredientes.revalidate();
         jPanelListaIngredientes.repaint();
     }
-    
+
     private void agregarBuscador() {
         BuscadorIngredientes buscadorIngredientes = new BuscadorIngredientes(ingredientesBO, this::actualizarListaIngredientes);
         jPanelBuscador.add(buscadorIngredientes, BorderLayout.CENTER);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,7 +101,7 @@ public class ListaIngredientes extends javax.swing.JFrame {
     private void initComponents() {
 
         jButtonAnterior = new javax.swing.JButton();
-        jButtonAnadirProducto = new javax.swing.JButton();
+        jButtonAnadirIngrediente = new javax.swing.JButton();
         jLabelNombre = new javax.swing.JLabel();
         jLabelStock = new javax.swing.JLabel();
         Unidad = new javax.swing.JLabel();
@@ -115,14 +124,14 @@ public class ListaIngredientes extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 100, 100));
 
-        jButtonAnadirProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnadirProducto.png"))); // NOI18N
-        jButtonAnadirProducto.setContentAreaFilled(false);
-        jButtonAnadirProducto.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAnadirIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botonAnadirProducto.png"))); // NOI18N
+        jButtonAnadirIngrediente.setContentAreaFilled(false);
+        jButtonAnadirIngrediente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAnadirProductoActionPerformed(evt);
+                jButtonAnadirIngredienteActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAnadirProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 80, -1, 60));
+        getContentPane().add(jButtonAnadirIngrediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 80, -1, 60));
 
         jLabelNombre.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabelNombre.setForeground(new java.awt.Color(255, 255, 255));
@@ -159,14 +168,14 @@ public class ListaIngredientes extends javax.swing.JFrame {
         control.mostrarVentanaPrincial();
     }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
-    private void jButtonAnadirProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnadirProductoActionPerformed
+    private void jButtonAnadirIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnadirIngredienteActionPerformed
         cerrar();
         control.mostrarNuevoIngrediente();
-    }//GEN-LAST:event_jButtonAnadirProductoActionPerformed
+    }//GEN-LAST:event_jButtonAnadirIngredienteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Unidad;
-    private javax.swing.JButton jButtonAnadirProducto;
+    private javax.swing.JButton jButtonAnadirIngrediente;
     private javax.swing.JButton jButtonAnterior;
     private javax.swing.JLabel jLabelFondoListaIngredientes;
     private javax.swing.JLabel jLabelNombre;
