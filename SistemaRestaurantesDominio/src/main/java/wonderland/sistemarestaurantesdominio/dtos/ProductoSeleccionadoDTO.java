@@ -74,5 +74,26 @@ public class ProductoSeleccionadoDTO {
     public void setProducto(Producto producto) {
         this.producto = producto;
     }
-        
+
+    public void setIdProducto(Long idProducto) {
+        this.idProducto = idProducto;
+    }
+
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public void setPrecioUnitario(Float precioUnitario) {
+        this.precioUnitario = precioUnitario;
+    }
+
+    public void setNotas(String notas) {
+        this.notas = notas;
+    }
+       
+    
 }

@@ -122,4 +122,10 @@ public class PanelProductoSeleccionado extends JPanel {
     public ProductoSeleccionadoDTO toDTO() {
         return new ProductoSeleccionadoDTO(producto.getId(), producto.getNombre(), producto.getPrecio(), getCantidad(), getNotas());
     }   
+    
+    public void cargarDesdeDTO(ProductoSeleccionadoDTO productoSeleccionadoDTO) {
+        txtCantidad.setText(String.valueOf(productoSeleccionadoDTO.getCantidad()));
+        txtNotas.setText(productoSeleccionadoDTO.getNotas());
+        actualizarImporte();
+    }
 }

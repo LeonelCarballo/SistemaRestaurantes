@@ -6,6 +6,7 @@ package wonderland.sistemarestaurantes.comandas;
 
 import wonderland.sistemarestaurantes.utils.FontManager;
 import java.awt.Color;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import wonderland.sistemarestaurantes.control.ControlPresentacion;
@@ -15,6 +16,7 @@ import wonderland.sistemarestaurantesdominio.EstadoMesa;
 import wonderland.sistemarestaurantesdominio.Mesa;
 import wonderland.sistemarestaurantesdominio.dtos.ComandaDTO;
 import wonderland.sistemarestaurantesdominio.dtos.NuevaComandaDTO;
+import wonderland.sistemarestaurantesdominio.dtos.ProductoSeleccionadoDTO;
 import wonderland.sistemarestaurantesnegocio.IComandasBO;
 import wonderland.sistemarestaurantesnegocio.IMesasBO;
 import wonderland.sistemarestaurantesnegocio.exceptions.NegocioException;
@@ -28,7 +30,7 @@ public class ConfirmacionInicioComanda extends javax.swing.JPanel {
     private IComandasBO comandasBO;
     private IMesasBO mesasBO;
     private static final Logger LOG = Logger.getLogger(ConfirmacionInicioComanda.class.getName());
-    
+    private List<ProductoSeleccionadoDTO> productosSeleccionados;
     FontManager fontManager = new FontManager();
     ControlPresentacion control;
     VentanaInicioComanda ventanaInicioComanda;
@@ -78,7 +80,7 @@ public class ConfirmacionInicioComanda extends javax.swing.JPanel {
             
             boolean esComandaNueva = true;
 
-            control.mostrarSeleccionarProductosComanda(mesa, comandaDTO, esComandaNueva);
+            control.mostrarSeleccionarProductosComanda(mesa, comandaDTO, esComandaNueva, productosSeleccionados);
 
         } catch (NegocioException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
